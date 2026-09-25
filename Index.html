@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>M·A·N — Marketers & Advertisers Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,300..900;1,75..125,300..900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ob:#1C1C1C;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--go:#C9A24A;--ink:#0D0D0D;--cedar:#8B6040;--bronze:#B8721D;--silver:#6E8492;--f:'Archivo',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:var(--ob);color:var(--cr);-webkit-font-smoothing:antialiased}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* KENTE */
+.kente{height:14px;background:repeating-linear-gradient(90deg,var(--go) 0,var(--go) 18px,var(--ob) 18px,var(--ob) 20px,var(--te) 20px,var(--te) 38px,var(--ob) 38px,var(--ob) 40px,var(--co) 40px,var(--co) 58px,var(--ob) 58px,var(--ob) 60px,var(--cr) 60px,var(--cr) 78px,var(--ob) 78px,var(--ob) 80px)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:300;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07);height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:border-color .4s}
+.nav-logo{font-weight:900;font-size:17px;font-variation-settings:'wdth' 125;letter-spacing:.1em;color:var(--cr);text-decoration:none;flex-shrink:0;cursor:pointer}
+.nav-logo .d{color:var(--go)}
+.nav-back{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.35);text-decoration:none;transition:color .2s;flex-shrink:0;cursor:pointer}
+.nav-back:hover{color:var(--go)}
+.nav-brand{font-size:14px;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:.08em;color:var(--cr);flex-shrink:0}
+.nav-brand .d{color:var(--go)}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-item{position:relative}
+.nav-item>a,.nav-item>button{display:flex;align-items:center;gap:5px;padding:8px 13px;font-family:var(--f);font-size:11px;font-weight:600;font-variation-settings:'wdth' 110;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.45);text-decoration:none;background:none;border:none;cursor:pointer;transition:color .2s;white-space:nowrap}
+.nav-item>a:hover,.nav-item>button:hover{color:var(--cr)}
+.nav-item>button svg{width:10px;height:10px;transition:transform .2s;flex-shrink:0}
+.nav-item.open>button svg{transform:rotate(180deg)}
+.drop{display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(13,13,13,.98);border:1px solid rgba(255,255,255,.08);min-width:230px;padding:8px 0;z-index:200}
+.nav-item.open .drop{display:block}
+.drop a{display:block;padding:10px 18px;font-size:12px;font-weight:600;font-variation-settings:'wdth' 105;letter-spacing:.08em;color:rgba(244,239,230,.52);text-decoration:none;transition:all .15s;border-left:2px solid transparent;cursor:pointer}
+.drop a:hover{color:var(--cr);background:rgba(255,255,255,.04);border-left-color:var(--go)}
+.drop-div{height:1px;background:rgba(255,255,255,.06);margin:5px 0}
+.drop-label{padding:7px 18px 3px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.25)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--cr)}
+.mm{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,13,13,.98);backdrop-filter:blur(12px);z-index:290;padding:16px 24px 24px;flex-direction:column;max-height:calc(100vh - 68px);overflow-y:auto}
+.mm.open{display:flex}
+.mm a{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.52);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);display:block;transition:color .2s;cursor:pointer}
+.mm a:last-child{border-bottom:none}
+.mm a:hover{color:var(--go)}
+.mm-lbl{font-size:9px;font-weight:700;letter-spacing:.24em;color:rgba(244,239,230,.22);padding:12px 0 4px;text-transform:uppercase}
+.mm-cta{color:var(--go)!important;margin-top:10px;border-bottom:none!important}
+
+/* BUTTONS */
+.btn{display:inline-block;padding:11px 24px;font-family:var(--f);font-size:11px;font-weight:700;font-variation-settings:'wdth' 110;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--go);color:var(--go);background:transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{background:var(--go);color:var(--ob)}
+.btn-f{background:var(--go);color:var(--ob)}
+.btn-f:hover{background:transparent;color:var(--go)}
+.btn-cr{border-color:var(--cr);color:var(--cr)}
+.btn-cr:hover{background:var(--cr);color:var(--ob)}
+.btn-dk{border-color:var(--ob);color:var(--ob)}
+.btn-dk:hover{background:var(--ob);color:var(--go)}
+.btn-te{border-color:var(--te);color:var(--te)}
+.btn-te:hover{background:var(--te);color:var(--cr)}
+.btn-txt{background:none;border:none;font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.55);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:10px 0}
+.btn-txt:hover{color:var(--cr)}
+.c{max-width:1120px;margin:0 auto}
+.sl{display:block;font-size:10px;font-weight:700;font-variation-settings:'wdth' 115;letter-spacing:.28em;text-transform:uppercase;color:var(--go);margin-bottom:20px}
+.ph{background:#1d1d1d;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.015) 22px,rgba(255,255,255,.015) 23px)}
+.ph::after{content:attr(data-label);font-family:var(--f);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.16);text-align:center;padding:0 16px;position:relative;z-index:1}
+.ph-cr{background:#e4dfd6;border-color:rgba(28,28,28,.08)}
+.ph-cr::before{background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(28,28,28,.03) 22px,rgba(28,28,28,.03) 23px)}
+.ph-cr::after{color:rgba(28,28,28,.22)}
+
+/* ══ MOTION SYSTEM ══ */
+.cursor-aurora{position:fixed;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,74,.08) 0%,rgba(42,123,116,.025) 40%,transparent 65%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;will-change:transform;top:-999px;left:-999px}
+@keyframes g1b{0%,100%{clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}50%{clip-path:polygon(27% 0%,100% 0%,100% 64%,4% 0%);opacity:.70}}
+@keyframes g2b{0%,100%{clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.80}40%{clip-path:polygon(13% 0%,100% 34%,100% 82%,0% 100%);opacity:.90}70%{clip-path:polygon(26% 0%,100% 47%,100% 68%,0% 88%);opacity:.72}}
+@keyframes g3b{0%,100%{clip-path:polygon(0% 70%,100% 68%,100% 100%,0% 100%);opacity:.75}50%{clip-path:polygon(0% 61%,100% 75%,100% 100%,0% 100%);opacity:.58}}
+@keyframes g4b{0%,100%{clip-path:polygon(0% 85%,60% 75%,100% 100%,0% 100%);opacity:.50}50%{clip-path:polygon(0% 80%,55% 70%,100% 100%,0% 100%);opacity:.38}}
+.g1{animation:g1b 22s ease-in-out infinite}.g2{animation:g2b 30s ease-in-out infinite}.g3{animation:g3b 17s ease-in-out infinite}.g4{animation:g4b 24s ease-in-out infinite}
+@keyframes shimmer{0%{background-position:250% center}100%{background-position:-250% center}}
+.shimmer{background:linear-gradient(90deg,var(--go) 0%,#f5d87a 30%,var(--go) 55%,#9e7520 78%,var(--go) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3.5s linear infinite}
+.js-on .kente{clip-path:inset(0 100% 0 0)}
+.js-on .kente.k-in{clip-path:inset(0 0% 0 0);transition:clip-path .95s cubic-bezier(.16,1,.3,1)}
+.js-on .hr{opacity:0;transform:translateY(24px)}
+.js-on .hr.hrin{opacity:1;transform:translateY(0);transition:opacity .85s ease,transform .85s cubic-bezier(.16,1,.3,1)}
+.js-on .sr{opacity:0;transform:translateY(28px)}
+.js-on .sr.rin{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s cubic-bezier(.16,1,.3,1)}
+.js-on .sr.d1.rin{transition-delay:.08s}.js-on .sr.d2.rin{transition-delay:.16s}.js-on .sr.d3.rin{transition-delay:.24s}.js-on .sr.d4.rin{transition-delay:.32s}
+.ticker-wrap{-webkit-mask:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%);mask:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%)}
+
+/* ══ HOME PAGE ══ */
+#page-home .hero{position:relative;min-height:100vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
+.hero-geo{position:absolute;right:0;top:0;width:50%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.hero-geo-fade{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.6) 50%,transparent 100%);z-index:1}
+.hero-content{position:relative;z-index:2;padding:0 48px;width:100%;max-width:760px}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border:1px solid rgba(255,255,255,.12);margin-bottom:36px}
+.hero-pill .dot{width:8px;height:8px;background:var(--go);border-radius:50%;flex-shrink:0}
+.hero-pill span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.65)}
+.hero-ey{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(244,239,230,.4);margin-bottom:16px}
+.hero-h1{font-size:clamp(60px,9vw,130px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr);margin-bottom:0}
+.hero-h2{font-size:clamp(18px,3vw,40px);font-weight:700;letter-spacing:.04em;color:rgba(244,239,230,.45);margin-bottom:8px;margin-top:6px}
+.hero-conf{font-size:clamp(11px,1.2vw,14px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:44px}
+.hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hero-scroll{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.25);display:flex;align-items:center;gap:10px}
+.hero-scroll::before{content:'';display:block;width:24px;height:1px;background:rgba(244,239,230,.2)}
+.stats-bar{background:var(--go);padding:28px 48px}
+.stats-bar-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.si{padding:0 28px;border-right:1px solid rgba(28,28,28,.15);text-align:center}
+.si:first-child{padding-left:0;text-align:left}.si:last-child{border-right:none;text-align:right}
+.si .n{font-size:clamp(28px,4vw,48px);font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:-.02em;color:var(--ob);line-height:1}
+.si .d{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(28,28,28,.5);margin-top:5px}
+.about-strip{background:var(--ob);padding:72px 48px}
+.about-strip-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-strip h2{font-size:clamp(24px,3.5vw,40px);font-weight:800;font-variation-settings:'wdth' 120;line-height:1.1;letter-spacing:-.025em;color:var(--cr)}
+.about-strip p{font-size:16px;font-variation-settings:'wdth' 88;line-height:1.78;color:rgba(244,239,230,.55);margin-bottom:22px}
+.ticker-wrap{background:var(--ob);padding:20px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.ticker-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.2);text-align:center;margin-bottom:14px}
+.ticker-track{display:flex;overflow:hidden}
+.ticker-inner{display:flex;animation:tick 30s linear infinite;width:max-content}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-inner:hover{animation-play-state:paused}
+.t-i{display:flex;align-items:center;padding:0 36px;border-right:1px solid rgba(255,255,255,.06);white-space:nowrap}
+.t-i span{font-size:13px;font-weight:700;letter-spacing:.04em;color:rgba(244,239,230,.3)}
+.t-i.hl span{color:var(--go)}
+.events{background:var(--cr);padding:96px 48px}
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:56px}
+.section-head h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);line-height:1.08}
+.section-head p{font-size:15px;font-variation-settings:'wdth' 88;line-height:1.75;color:rgba(28,28,28,.58)}
+.dmc-feat{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:2px;overflow:hidden}
+.dfc-l{background:var(--go);padding:52px 48px;display:flex;flex-direction:column;justify-content:space-between}
+.dfc-tag{font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(28,28,28,.45);margin-bottom:16px}
+.dfc-title{font-size:clamp(44px,6vw,80px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--ob);margin-bottom:6px}
+.dfc-year{font-size:clamp(18px,2.5vw,28px);font-weight:700;letter-spacing:.06em;color:rgba(28,28,28,.45);margin-bottom:16px}
+.dfc-tagline{font-size:14px;font-style:italic;color:rgba(28,28,28,.6);margin-bottom:28px;line-height:1.5}
+.dfc-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:36px}
+.dfc-meta .mi{background:rgba(28,28,28,.08);padding:12px 14px}
+.dfc-meta .mi .l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,28,28,.4);margin-bottom:3px}
+.dfc-meta .mi .v{font-size:13px;font-weight:800;color:var(--ob)}
+.dfc-r{position:relative;min-height:440px}.dfc-r .ph{width:100%;height:100%;border:none;background:#211c12}
+.events-row{display:grid;grid-template-columns:2fr 1fr;gap:2px}
+.man-sessions{background:rgba(28,28,28,.06);padding:36px 36px;display:flex;flex-direction:column}
+.ms-head{margin-bottom:20px}
+.ms-head .ms-lbl{display:block;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(28,28,28,.4);margin-bottom:8px}
+.ms-head h3{font-size:22px;font-weight:800;font-variation-settings:'wdth' 118;letter-spacing:-.01em;color:var(--ob)}
+.ms-head p{font-size:13px;color:rgba(28,28,28,.52);line-height:1.65;margin-top:6px}
+.sess-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;flex:1}
+.sc{background:rgba(28,28,28,.07);padding:18px 16px;border-top:2px solid rgba(28,28,28,.12);display:flex;flex-direction:column;gap:7px}
+.sc.done{border-top-color:var(--te)}.sc.upcoming{border-top-color:rgba(28,28,28,.2)}
+.sc-q{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,28,28,.4)}
+.sc-badge{display:inline-block;padding:2px 8px;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.sc-badge.done{background:rgba(42,123,116,.1);color:var(--te);border:1px solid rgba(42,123,116,.2)}
+.sc-badge.upcoming{background:rgba(28,28,28,.08);color:rgba(28,28,28,.4);border:1px solid rgba(28,28,28,.1)}
+.sc-topic{font-size:12px;color:rgba(28,28,28,.6);line-height:1.5}
+.sc-fmt{font-size:11px;font-weight:600;color:rgba(28,28,28,.5);margin-top:auto}
+.dmc-arch{background:rgba(28,28,28,.05);padding:36px;display:flex;flex-direction:column;justify-content:space-between;border-left:1px solid rgba(28,28,28,.08)}
+.da-badge{display:inline-block;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(28,28,28,.2);color:rgba(28,28,28,.4);margin-bottom:16px}
+.da-title{font-size:clamp(36px,5vw,60px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--ob)}
+.da-year{font-size:clamp(16px,2.5vw,24px);font-weight:700;letter-spacing:.06em;color:rgba(28,28,28,.35);margin-bottom:14px}
+.da-sp{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:12px 14px;background:rgba(28,28,28,.06)}
+.da-sp .slbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,28,28,.35)}
+.gt{font-size:18px;font-weight:900;font-variation-settings:'wdth' 120;letter-spacing:.02em}
+.gt .g1{color:#4285F4}.gt .o1{color:#EA4335}.gt .o2{color:#FBBC05}.gt .g2{color:#4285F4}.gt .l{color:#34A853}.gt .e{color:#EA4335}
+.team-sec{background:var(--ob);padding:96px 48px}
+.team-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);margin-bottom:48px}
+.team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.tc{background:rgba(244,239,230,.04);overflow:hidden}
+.tc .tc-img{aspect-ratio:3/4}.tc .tc-img .ph-cr{width:100%;height:100%;border:none;background:#d0cab9}
+.tc-body{padding:20px 16px}
+.tc-name{font-size:16px;font-weight:800;font-variation-settings:'wdth' 112;color:var(--cr);margin-bottom:5px}
+.tc-role{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--go);margin-bottom:10px}
+.tc-owns span{display:block;font-size:11px;color:rgba(244,239,230,.42);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.tc-owns span:last-child{border-bottom:none}
+.partners-sec{background:var(--cr);padding:96px 48px}
+.partners-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:44px}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:40px}
+.pc{background:rgba(28,28,28,.04);padding:32px 26px;border-top:2px solid rgba(28,28,28,.1)}
+.pc.title{border-top-color:var(--go)}
+.pc .pt{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.35);margin-bottom:10px}
+.pc.title .pt{color:var(--go)}
+.pc .pn{font-size:24px;font-weight:900;font-variation-settings:'wdth' 120;color:var(--ob);margin-bottom:6px}
+.pc.title .pn{color:var(--go)}
+.pc .ps{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.35);margin-bottom:10px}
+.pc .pd{font-size:13px;color:rgba(28,28,28,.5);line-height:1.65}
+.pc .pceo{margin-top:14px;padding-top:14px;border-top:1px solid rgba(28,28,28,.07)}
+.pc .pceo .cl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(28,28,28,.3);margin-bottom:2px}
+.pc .pceo .cn{font-size:13px;font-weight:700;color:rgba(28,28,28,.65)}
+.p-cta{padding-top:32px;border-top:1px solid rgba(28,28,28,.1);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.p-cta p{font-size:15px;color:rgba(28,28,28,.52);max-width:500px}
+.connect-sec{background:var(--ink);padding:96px 48px;position:relative;overflow:hidden}
+.connect-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(42,123,116,.06) 0%,transparent 70%)}
+.connect-head{text-align:center;margin-bottom:52px;position:relative;z-index:1}
+.connect-head .sl-s{display:block;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,162,74,.6);margin-bottom:14px}
+.connect-head h2{font-size:clamp(36px,6vw,72px);font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:-.025em;color:var(--cr);line-height:.9}
+.connect-head p{font-size:16px;line-height:1.7;color:rgba(244,239,230,.45);margin-top:14px;max-width:440px;margin-left:auto;margin-right:auto}
+.cc-cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:880px;margin:0 auto;position:relative;z-index:1}
+.cc{background:rgba(255,255,255,.04);padding:40px 36px;border:1px solid rgba(255,255,255,.06)}
+.cc-icon{width:48px;height:48px;background:var(--go);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:20px}
+.cc h3{font-size:18px;font-weight:800;font-variation-settings:'wdth' 115;color:var(--cr);margin-bottom:20px}
+.cc-det{display:flex;flex-direction:column;gap:12px}
+.cc-line{display:flex;flex-direction:column;gap:3px}
+.cc-line .lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.28)}
+.cc-line .val{font-size:15px;font-weight:700;color:var(--cr)}
+.cc-line .val a{color:var(--cr);text-decoration:none}
+.cc-line .val a:hover{color:var(--go)}
+.cc-div{height:1px;background:rgba(255,255,255,.06);margin:2px 0}
+.soc-icons{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.soc-icon{width:44px;height:44px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .2s;font-size:13px;color:rgba(244,239,230,.6);font-weight:700;cursor:pointer}
+.soc-icon:hover{background:var(--go);border-color:var(--go);color:var(--ob)}
+
+/* ══ DMC 2026 PAGE ══ */
+.sticky-reg{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--go);display:flex;align-items:center;justify-content:space-between;padding:14px 48px;transform:translateY(100%);transition:transform .4s;border-top:2px solid rgba(28,28,28,.12)}
+.sticky-reg.show{transform:translateY(0)}
+.sticky-reg p{font-size:13px;font-weight:700;color:var(--ob)}
+.sticky-reg p span{opacity:.55;font-weight:600;margin-left:14px}
+body.sr-on{padding-bottom:56px}
+#page-dmc26 .hero{background:var(--ink);min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+#page-dmc26 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 28% 52%,rgba(201,162,74,.08) 0%,transparent 65%);z-index:1;pointer-events:none}
+.hero-l{display:flex;flex-direction:column;justify-content:center;padding:100px 56px 100px 48px;position:relative;z-index:2}
+.h26-pill{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border:1px solid rgba(255,255,255,.1);margin-bottom:28px}
+.h26-pill .dot{width:7px;height:7px;background:var(--go);border-radius:50%}
+.h26-pill span{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+.h26-ey{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(244,239,230,.35);margin-bottom:14px}
+.h26-t1{font-size:clamp(52px,8vw,116px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr)}
+.h26-t2{font-size:clamp(52px,8vw,116px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--go);font-style:italic;margin-bottom:26px}
+.h26-tag{font-size:clamp(13px,1.3vw,15px);font-style:italic;color:rgba(244,239,230,.38);margin-bottom:32px;line-height:1.6}
+.h26-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:36px;max-width:400px}
+.hm{background:rgba(255,255,255,.05);padding:12px 14px;border-top:1px solid rgba(201,162,74,.18)}
+.hm .l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.32);margin-bottom:3px}
+.hm .v{font-size:13px;font-weight:800;color:var(--cr)}
+.hero-r{position:relative}.hero-r .ph{width:100%;height:100%;border:none;background:#171310}
+.hero-r-ov{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.4) 30%,transparent 55%),linear-gradient(to top,var(--ink) 0%,transparent 20%);z-index:1;pointer-events:none}
+.sbi{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.sbi .si{padding:0 18px}
+.sponsor-sec{background:var(--ink);padding:88px 48px}
+.sp-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start}
+.sp-left .tier-tag{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:18px}
+.sp-name{font-size:clamp(44px,6vw,80px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.82;letter-spacing:-.02em;color:var(--go);margin-bottom:14px}
+.sp-cred{display:inline-block;padding:5px 14px;border:1px solid rgba(201,162,74,.25);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,162,74,.6);margin-bottom:24px}
+.ceo-row{display:flex;align-items:center;gap:14px;padding-top:22px;border-top:1px solid rgba(255,255,255,.06)}
+.ceo-init{width:40px;height:40px;background:rgba(201,162,74,.15);border:1px solid rgba(201,162,74,.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--go);flex-shrink:0}
+.ceo-info .l{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.25);margin-bottom:2px}
+.ceo-info .n{font-size:14px;font-weight:700;color:rgba(244,239,230,.75)}
+.ceo-info .t{font-size:11px;color:rgba(244,239,230,.35)}
+.sp-ics{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.sp-ic{background:rgba(244,239,230,.04);padding:22px 18px;border-top:1px solid rgba(255,255,255,.06)}
+.sp-ic .ic-l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.25);margin-bottom:5px}
+.sp-ic .ic-v{font-size:14px;font-weight:700;color:rgba(244,239,230,.65);line-height:1.4}
+.prog-sec{background:var(--cr);padding:88px 48px}
+.prog-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:10px}
+.prog-intro{font-size:15px;color:rgba(28,28,28,.55);line-height:1.78;max-width:620px;margin-bottom:44px}
+.sched{display:flex;flex-direction:column;gap:2px}
+.badge{display:inline-block;padding:3px 10px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+.b-key{background:rgba(201,162,74,.1);color:#8a6b2a;border:1px solid rgba(201,162,74,.22)}
+.b-wsh{background:rgba(213,95,69,.08);color:var(--co);border:1px solid rgba(213,95,69,.18)}
+.b-act{background:rgba(42,123,116,.08);color:var(--te);border:1px solid rgba(42,123,116,.18)}
+.b-brk{background:rgba(28,28,28,.05);color:rgba(28,28,28,.38);border:1px solid rgba(28,28,28,.08)}
+.b-cls{background:rgba(201,162,74,.14);color:#7a5d22;border:1px solid rgba(201,162,74,.25)}
+.b-drs{background:rgba(28,28,28,.04);color:rgba(28,28,28,.32);border:1px solid rgba(28,28,28,.07)}
+.srow{display:grid;grid-template-columns:92px 1fr;gap:2px}
+.st{background:rgba(28,28,28,.05);padding:20px 16px;border-top:1px solid rgba(28,28,28,.08)}
+.st .ti{font-size:14px;font-weight:800;color:var(--ob)}.st .ap{font-size:9px;color:rgba(28,28,28,.38);margin-top:2px}
+.sb{padding:20px 28px;background:rgba(28,28,28,.03);border-top:1px solid rgba(28,28,28,.07)}
+.sb.mov{border-top-color:var(--go);background:rgba(201,162,74,.03)}.sb.spec{border-top-color:var(--te);background:rgba(42,123,116,.03)}.sb.par{border-top-color:var(--co)}.sb.cls{border-top-color:var(--go);background:rgba(201,162,74,.06)}
+.sb h3{font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--ob);margin-bottom:6px}
+.sb p{font-size:13px;line-height:1.68;color:rgba(28,28,28,.52)}
+.sb .sd{font-size:10px;font-weight:600;color:rgba(28,28,28,.35);margin-top:8px;letter-spacing:.04em}
+.prog-note{margin-top:16px;font-size:12px;color:rgba(28,28,28,.36);font-style:italic}
+.speakers-sec{background:var(--ob);padding:88px 48px}
+.speakers-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);margin-bottom:10px}
+.sp-intro-p{font-size:15px;color:rgba(244,239,230,.45);line-height:1.78;max-width:580px;margin-bottom:40px}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.spc{background:rgba(244,239,230,.04);overflow:hidden;border-top:2px solid rgba(244,239,230,.07)}
+.spc.anchor{border-top-color:var(--go)}
+.spc .sp-photo{aspect-ratio:3/4}.spc .sp-photo .ph{width:100%;height:100%;border:none;background:#1e1a10}
+.spc.tbc .sp-photo .ph{background:#181818}
+.spc .sp-info{padding:18px 16px}
+.spc .spn{font-size:15px;font-weight:800;color:var(--cr);margin-bottom:4px;letter-spacing:-.01em}
+.spc.tbc .spn{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.22)}
+.spc .spc-cat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--go);margin-bottom:7px}
+.spc.tbc .spc-cat{color:rgba(244,239,230,.18)}
+.spc .sp-bio{font-size:12px;line-height:1.6;color:rgba(244,239,230,.35)}
+.sp-note{margin-top:22px;font-size:12px;color:rgba(244,239,230,.28);font-style:italic}
+.venue-sec{background:var(--cr);padding:88px 48px}
+.venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.venue-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:6px}
+.venue-sub{font-size:15px;font-weight:700;color:var(--go);margin-bottom:24px}
+.venue-photos{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:18px}
+.venue-photos .ph-cr{aspect-ratio:4/3;width:100%;border:none;background:#d0cbc2}
+.vi{background:rgba(28,28,28,.04);padding:14px 18px;border-left:3px solid rgba(28,28,28,.08);display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;margin-bottom:2px}
+.vi.conf{border-left-color:var(--te)}.vi .vl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(28,28,28,.36)}.vi .vv{font-size:13px;font-weight:600;color:var(--ob);line-height:1.4}
+.venue-r p{font-size:15px;line-height:1.78;color:rgba(28,28,28,.58);margin-bottom:16px}
+.travel-sec{background:var(--ob);padding:72px 48px}
+.travel-sec h2{font-size:clamp(24px,3.5vw,40px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);margin-bottom:40px}
+.travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.tr-card{background:rgba(244,239,230,.04);padding:28px 24px;border-top:1px solid rgba(255,255,255,.06)}
+.tr-card .ico{font-size:20px;margin-bottom:12px}
+.tr-card h3{font-size:14px;font-weight:800;color:var(--cr);margin-bottom:12px}
+.tr-card p,.tr-card li{font-size:13px;line-height:1.68;color:rgba(244,239,230,.4)}
+.tr-card ul{list-style:none}
+.tr-card li{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.tr-card li:last-child{border-bottom:none}
+.tiers26-sec{background:var(--cr);padding:88px 48px}
+.tiers26-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:40px}
+.p26-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:32px}
+.p26c{background:rgba(28,28,28,.04);padding:32px 26px;border-top:2px solid rgba(28,28,28,.08)}
+.p26c.title{border-top-color:var(--go)}.p26c .tier{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.32);margin-bottom:10px}
+.p26c.title .tier{color:var(--go)}.p26c .pn{font-size:24px;font-weight:900;color:var(--ob);margin-bottom:6px}.p26c.title .pn{color:var(--go)}
+.p26c .ps{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.32);margin-bottom:10px}.p26c p{font-size:13px;line-height:1.65;color:rgba(28,28,28,.5)}
+.tiers-sub{padding-top:28px;border-top:1px solid rgba(28,28,28,.1)}
+.tiers-sub h3{font-size:15px;font-weight:800;color:var(--ob);margin-bottom:16px}
+.tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.tbox{background:rgba(28,28,28,.04);padding:20px 16px;border-top:2px solid rgba(28,28,28,.07)}
+.tbox.tl{border-top-color:var(--go)}.tbox h4{font-size:13px;font-weight:800;color:var(--ob);margin-bottom:6px}.tbox p{font-size:12px;line-height:1.6;color:rgba(28,28,28,.48);margin-bottom:10px}.tbox a{font-size:11px;color:var(--go);text-decoration:none;font-weight:700;cursor:pointer}
+.reg-sec{background:var(--go);padding:80px 48px;text-align:center}
+.reg-sec h2{font-size:clamp(40px,7vw,88px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--ob);margin-bottom:14px}
+.reg-sec p{font-size:clamp(14px,1.8vw,17px);line-height:1.7;color:rgba(28,28,28,.58);max-width:480px;margin:0 auto 32px}
+.reg-meta{display:inline-flex;margin-bottom:32px;flex-wrap:wrap}
+.rm{padding:12px 22px;border:1px solid rgba(28,28,28,.14);margin:-1px;text-align:left}
+.rm .l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,28,28,.38);margin-bottom:3px}
+.rm .v{font-size:13px;font-weight:800;color:var(--ob)}
+.cal-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(28,28,28,.45);text-decoration:none;padding:8px 14px;border:1px solid rgba(28,28,28,.18);cursor:pointer}
+
+/* ══ SESSIONS PAGE ══ */
+#page-sessions .hero{background:var(--ink);min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
+#page-sessions .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 60%,rgba(42,123,116,.1) 0%,transparent 65%);pointer-events:none}
+.sess-geo{position:absolute;right:0;top:0;width:45%;height:100%;pointer-events:none;overflow:hidden;z-index:0}
+.hg1{position:absolute;inset:0;background:var(--te);clip-path:polygon(40% 0%,100% 0%,100% 50%,15% 0%);opacity:.7}
+.hg2{position:absolute;inset:0;background:var(--ob);clip-path:polygon(25% 0%,100% 45%,100% 100%,0% 100%);opacity:.85}
+.hg3{position:absolute;inset:0;background:var(--te);clip-path:polygon(0% 75%,100% 60%,100% 100%,0% 100%);opacity:.3}
+.sess-geo-fade{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.7) 55%,transparent 100%);z-index:1}
+.sess-hero-inner{position:relative;z-index:2;max-width:700px}
+.sess-pill{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border:1px solid rgba(42,123,116,.3);margin-bottom:24px}
+.sess-pill .dot{width:7px;height:7px;background:var(--te);border-radius:50%}
+.sess-pill span{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(42,123,116,.8)}
+.sess-h1{font-size:clamp(52px,8vw,104px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;color:var(--cr);margin-bottom:12px}
+.sess-sub{font-size:clamp(16px,2vw,22px);font-weight:600;letter-spacing:.04em;color:rgba(244,239,230,.45);margin-bottom:32px;line-height:1.4}
+.sess-meta-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+.sess-mi{font-size:12px;font-weight:600;color:rgba(244,239,230,.4);letter-spacing:.1em}
+.sess-mi::before{content:'·';color:var(--te);margin-right:8px}
+.sess-mi:first-child::before{display:none}
+.what-sec{background:var(--ob);padding:80px 48px}
+.what-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.what-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);line-height:1.08}
+.what-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:36px}
+.wstat{background:rgba(42,123,116,.08);padding:22px 18px;border-top:2px solid rgba(42,123,116,.3)}
+.wstat .n{font-size:30px;font-weight:900;font-variation-settings:'wdth' 125;color:var(--cr);line-height:1;margin-bottom:5px}
+.wstat .n .a{color:var(--te)}
+.wstat .d{font-size:11px;color:rgba(244,239,230,.4);line-height:1.5}
+.what-copy p{font-size:16px;line-height:1.78;color:rgba(244,239,230,.55);margin-bottom:20px}
+.what-copy p:last-child{margin-bottom:0}
+.sessions-list{background:var(--cr);padding:88px 48px}
+.sessions-list h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:48px}
+.sess-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.sess-info{background:rgba(28,28,28,.05);padding:36px 36px;border-top:3px solid rgba(28,28,28,.12)}
+.sess-info.sdone{border-top-color:var(--te)}.sess-info.supcoming{border-top-color:var(--go);background:rgba(201,162,74,.05)}
+.si-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+.si-qtr{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(28,28,28,.45)}
+.si-stat{display:inline-block;padding:3px 10px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.si-stat.done{background:rgba(42,123,116,.1);color:var(--te);border:1px solid rgba(42,123,116,.2)}
+.si-stat.recent{background:rgba(42,123,116,.15);color:var(--te);border:1px solid rgba(42,123,116,.3)}
+.si-stat.upcoming{background:rgba(201,162,74,.1);color:#8a6b2a;border:1px solid rgba(201,162,74,.25)}
+.si-num{font-size:clamp(52px,7vw,80px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;color:rgba(28,28,28,.1);margin-bottom:14px}
+.sess-info.sdone .si-num{color:rgba(42,123,116,.12)}.sess-info.supcoming .si-num{color:rgba(201,162,74,.15)}
+.si-title{font-size:clamp(18px,2.5vw,26px);font-weight:800;letter-spacing:-.01em;color:var(--ob);margin-bottom:10px}
+.si-desc{font-size:14px;line-height:1.7;color:rgba(28,28,28,.55);margin-bottom:18px}
+.si-fmt-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.si-tag{display:inline-block;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(28,28,28,.07);color:rgba(28,28,28,.5);border:1px solid rgba(28,28,28,.1)}
+.si-tag.virtual{background:rgba(42,123,116,.08);color:var(--te);border-color:rgba(42,123,116,.18)}
+.si-tag.inperson{background:rgba(213,95,69,.07);color:var(--co);border-color:rgba(213,95,69,.15)}
+.si-tag.tbc{background:rgba(201,162,74,.08);color:#8a6b2a;border-color:rgba(201,162,74,.18)}
+.si-guest{padding-top:14px;border-top:1px solid rgba(28,28,28,.08)}
+.si-guest .gl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,28,28,.35);margin-bottom:3px}
+.si-guest .gn{font-size:14px;font-weight:700;color:rgba(28,28,28,.65)}
+.si-guest .gt{font-size:12px;color:rgba(28,28,28,.42)}
+.sess-media{background:rgba(28,28,28,.06);position:relative;display:flex;flex-direction:column;gap:2px;min-height:280px}
+.sess-media .sm-main{flex:1;min-height:200px}.sess-media .sm-main .ph-cr{width:100%;height:100%;border:none;background:#d4cfc7}
+.sm-spk{height:90px;display:grid;grid-template-columns:90px 1fr;gap:2px}
+.sm-spk-photo .ph-cr{width:100%;height:100%;border:none;background:#c8c4bc}
+.sm-spk-info{background:rgba(28,28,28,.06);padding:10px 14px;display:flex;flex-direction:column;justify-content:center}
+.sm-spk-info .sl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(28,28,28,.35);margin-bottom:2px}
+.sm-spk-info .sn{font-size:13px;font-weight:700;color:rgba(28,28,28,.65)}
+.sm-spk-info .st{font-size:11px;color:rgba(28,28,28,.42)}
+.attend-sec{background:var(--ob);padding:80px 48px}
+.attend-sec h2{font-size:clamp(28px,4vw,40px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);margin-bottom:44px}
+.attend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.att-card{background:rgba(244,239,230,.04);padding:32px 24px;border-top:2px solid rgba(255,255,255,.06)}
+.att-card .att-num{font-size:30px;font-weight:900;font-variation-settings:'wdth' 125;color:rgba(42,123,116,.22);line-height:1;margin-bottom:14px}
+.att-card h3{font-size:17px;font-weight:800;color:var(--cr);margin-bottom:10px;letter-spacing:-.01em}
+.att-card p{font-size:14px;line-height:1.7;color:rgba(244,239,230,.45)}
+.sess-reg{background:var(--te);padding:80px 48px;text-align:center}
+.sess-reg .stag{display:inline-block;padding:4px 14px;border:1px solid rgba(244,239,230,.3);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.7);margin-bottom:18px}
+.sess-reg h2{font-size:clamp(36px,6vw,80px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr);margin-bottom:12px}
+.sess-reg p{font-size:clamp(14px,1.8vw,17px);line-height:1.7;color:rgba(244,239,230,.65);max-width:480px;margin:0 auto 32px}
+.sreg-meta{display:inline-flex;margin-bottom:32px;flex-wrap:wrap;border:1px solid rgba(244,239,230,.2)}
+.srm{padding:12px 22px;border-right:1px solid rgba(244,239,230,.15);text-align:left}
+.srm:last-child{border-right:none}
+.srm .l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.45);margin-bottom:3px}
+.srm .v{font-size:13px;font-weight:800;color:var(--cr)}
+.sess-arch{background:var(--ink);padding:72px 48px}
+.sess-arch h2{font-size:clamp(24px,3.5vw,40px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);margin-bottom:36px}
+.arch-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.arc-card{background:rgba(244,239,230,.03);padding:26px 22px;border-top:1px solid rgba(255,255,255,.06)}
+.arc-card .arc-yr{font-size:24px;font-weight:900;color:rgba(244,239,230,.25);margin-bottom:7px}
+.arc-card p{font-size:13px;color:rgba(244,239,230,.28);line-height:1.65}
+.sess-bridge{background:var(--ob);padding:72px 48px}
+.bridge-inner{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.bc{padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
+.bc.dmc{background:var(--go)}.bc.man{background:rgba(244,239,230,.04);border:1px solid rgba(255,255,255,.06)}
+.bc-tag{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px}
+.bc.dmc .bc-tag{color:rgba(28,28,28,.45)}.bc.man .bc-tag{color:rgba(244,239,230,.3)}
+.bc-title{font-size:clamp(24px,3.5vw,40px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:8px}
+.bc.dmc .bc-title{color:var(--ob)}.bc.man .bc-title{color:var(--cr)}
+.bc-sub{font-size:14px;line-height:1.5;margin-bottom:24px}
+.bc.dmc .bc-sub{color:rgba(28,28,28,.55)}.bc.man .bc-sub{color:rgba(244,239,230,.45)}
+
+/* ══ PARTNERS PAGE ══ */
+#page-partners .hero{background:var(--ink);padding:88px 48px 80px;position:relative;overflow:hidden}
+#page-partners .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 50%,rgba(201,162,74,.07) 0%,transparent 65%);pointer-events:none}
+.p-hero-inner{max-width:720px;position:relative;z-index:1}
+.p-hero-ey{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--go);margin-bottom:18px}
+.p-hero-h1{font-size:clamp(44px,7vw,96px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;color:var(--cr);margin-bottom:8px;text-transform:uppercase}
+.p-hero-h1 span{color:var(--go);font-style:italic}
+.p-hero-h2{font-size:clamp(20px,3vw,36px);font-weight:700;letter-spacing:.04em;color:rgba(244,239,230,.4);margin-bottom:22px}
+.p-hero-sub{font-size:clamp(15px,1.8vw,18px);line-height:1.78;color:rgba(244,239,230,.55);max-width:560px;margin-bottom:36px}
+.cs-strip{background:var(--go);padding:22px 48px}
+.cs-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cs-l{display:flex;align-items:center;gap:18px}
+.cs-tier{padding:4px 14px;border:1px solid rgba(28,28,28,.3);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.55)}
+.cs-nm{font-size:22px;font-weight:900;font-variation-settings:'wdth' 125;color:var(--ob);letter-spacing:.03em}
+.cs-sub{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.45)}
+.cs-status{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.5)}
+.why-sec{background:var(--ob);padding:88px 48px}
+.why-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.why-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);line-height:1.08}
+.why-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:36px}
+.wst{background:rgba(244,239,230,.04);padding:22px 18px;border-top:2px solid rgba(201,162,74,.3)}
+.wst .n{font-size:30px;font-weight:900;font-variation-settings:'wdth' 125;color:var(--go);line-height:1;margin-bottom:5px;letter-spacing:-.02em}
+.wst .d{font-size:11px;color:rgba(244,239,230,.4);line-height:1.5}
+.why-copy p{font-size:16px;line-height:1.78;color:rgba(244,239,230,.55);margin-bottom:18px}
+.why-copy p:last-child{margin-bottom:0}
+.quotes-sec{background:#080808;padding:0 0 88px;position:relative;overflow:hidden}
+.quotes-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(201,162,74,.05) 0%,transparent 65%);pointer-events:none}
+.fq{max-width:820px;margin:0 auto;text-align:center;padding:88px 48px 72px;position:relative;z-index:1;border-bottom:1px solid rgba(255,255,255,.06)}
+.fq-conf{display:inline-block;padding:4px 14px;border:1px solid rgba(201,162,74,.25);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,162,74,.65);margin-bottom:24px}
+.fq-mark{font-size:80px;line-height:.8;color:var(--go);font-weight:900;margin-bottom:8px}
+.fq-text{font-size:clamp(17px,2.4vw,24px);font-style:italic;line-height:1.6;color:var(--cr);margin-bottom:32px}
+.fq-attr{display:flex;flex-direction:column;align-items:center;gap:4px}
+.fq-name{font-size:16px;font-weight:800;color:var(--go)}.fq-role{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.4)}
+.fq-flag{display:inline-block;margin-top:10px;padding:3px 12px;border:1px dashed rgba(201,162,74,.25);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,162,74,.4)}
+.sq-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:1120px;margin:0 auto;padding:0 48px}
+.sq{background:rgba(255,255,255,.03);padding:44px 40px;border-top:2px solid rgba(255,255,255,.06);position:relative;z-index:1}
+.sq.sqe{border-top-color:rgba(255,255,255,.03);background:rgba(255,255,255,.015)}
+.sq-conf{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,162,74,.5);margin-bottom:14px}
+.sq-mark{font-size:48px;line-height:.85;color:rgba(201,162,74,.45);font-weight:900;margin-bottom:8px}
+.sq-mark-dim{color:rgba(255,255,255,.1)}
+.sq-text{font-size:15px;font-style:italic;line-height:1.68;color:rgba(244,239,230,.7);margin-bottom:20px}
+.sq-text-dim{color:rgba(244,239,230,.22)}
+.sq-attr{border-top:1px solid rgba(255,255,255,.06);padding-top:16px}
+.sq-name{font-size:15px;font-weight:800;color:var(--cr);margin-bottom:4px}
+.sq-name-dim{color:rgba(244,239,230,.25)}
+.sq-role{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.35)}
+.sq-flag{display:inline-block;margin-top:8px;padding:3px 10px;border:1px dashed rgba(255,255,255,.12);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.25)}
+.tiers-tbl-sec{background:var(--cr);padding:88px 48px}
+.tiers-tbl-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--ob);margin-bottom:40px}
+.tiers-tbl{display:flex;flex-direction:column;gap:2px}
+.trow{display:grid;grid-template-columns:180px 1fr 1fr;gap:2px}
+.thd{background:rgba(28,28,28,.12);padding:12px 18px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.45)}
+.tn{padding:28px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px}
+.tn-go{background:var(--go)}.tn-si{background:var(--silver)}.tn-br{background:var(--bronze)}.tn-cd{background:var(--cedar)}
+.tn .tname{font-size:clamp(20px,3vw,32px);font-weight:900;font-variation-settings:'wdth' 125;color:rgba(255,255,255,.95);line-height:1}
+.tn .tlvl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.tn .tbadge{display:inline-block;padding:3px 10px;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(0,0,0,.2);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);align-self:flex-start;margin-top:4px}
+.tb-cell{background:rgba(28,28,28,.04);padding:24px 20px;border-top:2px solid rgba(28,28,28,.08)}
+.tb-cell .avail{display:inline-block;padding:2px 10px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(42,123,116,.08);color:var(--te);border:1px solid rgba(42,123,116,.18);margin-bottom:10px}
+.tb-cell .takn{display:inline-block;padding:2px 10px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(201,162,74,.1);color:#8a6b2a;border:1px solid rgba(201,162,74,.22);margin-bottom:10px}
+.tb-cell ul{list-style:none}.tb-cell ul li{font-size:12px;line-height:1.5;color:rgba(28,28,28,.6);padding:4px 0 4px 14px;position:relative;border-bottom:1px solid rgba(28,28,28,.05)}
+.tb-cell ul li:last-child{border-bottom:none}
+.tb-cell ul li::before{content:'—';position:absolute;left:0;color:rgba(28,28,28,.3);font-size:10px}
+.tc-cell2{background:rgba(28,28,28,.04);padding:24px 20px;border-top:2px solid rgba(28,28,28,.08);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.tc-cell2 .pnote{font-size:12px;color:rgba(28,28,28,.45);line-height:1.5}
+.tiers-note-p{margin-top:18px;font-size:12px;color:rgba(28,28,28,.4);font-style:italic}
+.form-sec{background:var(--ink);padding:88px 48px;position:relative;overflow:hidden}
+.form-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 10% 50%,rgba(201,162,74,.05) 0%,transparent 65%);pointer-events:none}
+.form-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:56px;align-items:start;position:relative;z-index:1}
+.form-l h2{font-size:clamp(28px,4vw,44px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:var(--cr);line-height:1.08;margin-bottom:8px}
+.form-l h2 span{color:var(--go);font-style:italic}
+.form-l p{font-size:15px;line-height:1.75;color:rgba(244,239,230,.48);margin-bottom:32px}
+.contact-cards{display:flex;flex-direction:column;gap:2px}
+.ccard{background:rgba(255,255,255,.05);padding:14px 18px;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:12px}
+.ccard .ci{width:34px;height:34px;background:var(--go);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;color:var(--ob)}
+.ccard .cl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.3);margin-bottom:2px}
+.ccard .cv{font-size:14px;font-weight:700;color:var(--cr)}
+.ccard .cv a{color:var(--cr);text-decoration:none}
+.form-r{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:36px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.frow.s1{grid-template-columns:1fr}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.4)}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:12px 14px;font-family:var(--f);font-size:14px;color:var(--cr);outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;width:100%;resize:vertical}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(244,239,230,.28)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,162,74,.4)}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='rgba(244,239,230,0.4)' stroke-width='1.5'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.fg select option{background:#1a1a1a;color:var(--cr)}
+.fg textarea{min-height:90px}
+.phone-row{display:grid;grid-template-columns:100px 1fr;gap:4px}
+.ph-pfx{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:12px 14px;font-family:var(--f);font-size:13px;color:rgba(244,239,230,.6);text-align:center;border-right:none}
+.form-submit{width:100%;padding:15px;background:var(--go);border:none;font-family:var(--f);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ob);cursor:pointer;transition:opacity .2s;margin-top:6px}
+.form-submit:hover{opacity:.88}
+.form-note{font-size:11px;color:rgba(244,239,230,.28);margin-top:10px;text-align:center}
+
+/* ══ DMC 2025 PAGE ══ */
+.arch-banner{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);padding:12px 48px;display:flex;align-items:center;justify-content:center;gap:20px}
+.arch-banner p{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,239,230,.28)}
+.arch-banner a{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.6);text-decoration:none;padding:5px 12px;border:1px solid rgba(201,162,74,.25);cursor:pointer}
+.arch-banner a:hover{color:var(--go);border-color:var(--go)}
+#page-dmc25{background:#141414}
+#page-dmc25 .hero{background:#141414;min-height:80vh;display:flex;align-items:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
+#page-dmc25 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 25% 50%,rgba(201,162,74,.04) 0%,transparent 65%);pointer-events:none}
+.h25-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;width:100%}
+.h25-l .arch-tag{display:inline-block;padding:5px 14px;border:1px solid rgba(255,255,255,.07);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:24px}
+.h25-l .conf-lbl{font-size:clamp(12px,1.4vw,15px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.25);margin-bottom:12px}
+.h25-l .h25-title{font-size:clamp(64px,10vw,130px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.82;letter-spacing:-.02em;text-transform:uppercase;color:rgba(244,239,230,.65);margin-bottom:8px}
+.h25-l .h25-year{font-size:clamp(28px,5vw,64px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.01em;color:rgba(201,162,74,.45);margin-bottom:28px}
+.h25-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:360px}
+.h25-mi{background:rgba(255,255,255,.04);padding:12px 14px;border-top:1px solid rgba(255,255,255,.06)}
+.h25-mi .l{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:3px}
+.h25-mi .v{font-size:13px;font-weight:700;color:rgba(244,239,230,.6)}
+.h25-r{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;height:420px}
+.h25-r .ph:first-child{grid-column:span 2;background:#1e1c18}
+.h25-r .ph:not(:first-child){background:#1a1a1a}
+.g-sec{background:var(--ink);padding:80px 48px}
+.g-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.g-left .g-tier{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:22px}
+.gmark{font-size:clamp(52px,8vw,100px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.82;letter-spacing:-.01em;margin-bottom:28px}
+.gmark .g1{color:#4285F4}.gmark .o1{color:#EA4335}.gmark .o2{color:#FBBC05}.gmark .g2{color:#4285F4}.gmark .l{color:#34A853}.gmark .e{color:#EA4335}
+.g-note{font-size:12px;color:rgba(244,239,230,.28);font-style:italic}
+.g-right p{font-size:15px;line-height:1.78;color:rgba(244,239,230,.45);margin-bottom:18px}
+.g-right p:last-child{margin-bottom:0}
+.g-right .pq{font-size:18px;font-weight:700;font-style:italic;color:rgba(244,239,230,.7);border-left:3px solid rgba(201,162,74,.4);padding-left:20px;margin:24px 0;line-height:1.5}
+.recap-sec{background:rgba(244,239,230,.03);padding:88px 48px;border-top:1px solid rgba(255,255,255,.04)}
+.recap-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.recap-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.72);line-height:1.08}
+.recap-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px}
+.rstat{background:rgba(255,255,255,.04);padding:22px 18px;border-top:1px solid rgba(255,255,255,.07)}
+.rstat .n{font-size:28px;font-weight:900;font-variation-settings:'wdth' 125;color:rgba(244,239,230,.55);line-height:1;margin-bottom:5px}
+.rstat .d{font-size:11px;color:rgba(244,239,230,.28);line-height:1.5}
+.recap-copy p{font-size:15px;line-height:1.78;color:rgba(244,239,230,.42);margin-bottom:18px}
+.recap-copy .pq{font-size:17px;font-weight:700;font-style:italic;color:rgba(244,239,230,.65);border-left:3px solid rgba(201,162,74,.3);padding-left:18px;margin:22px 0;line-height:1.5}
+.prog25{background:#141414;padding:80px 48px}
+.prog25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
+.sess25-list{display:flex;flex-direction:column;gap:2px}
+.sess25{display:grid;grid-template-columns:70px 1fr;gap:2px}
+.sess25-num{background:rgba(255,255,255,.03);padding:20px 16px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start}
+.sess25-num span{font-size:11px;font-weight:700;letter-spacing:.12em;color:rgba(244,239,230,.22)}
+.sess25-body{background:rgba(255,255,255,.03);padding:20px 28px;border-top:1px solid rgba(255,255,255,.05)}
+.sess25-body .sb25{display:inline-block;padding:3px 10px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(201,162,74,.1);color:rgba(201,162,74,.55);border:1px solid rgba(201,162,74,.15);margin-bottom:8px}
+.sess25-body h3{font-size:17px;font-weight:800;color:rgba(244,239,230,.68);margin-bottom:6px;letter-spacing:-.01em}
+.sess25-body p{font-size:13px;line-height:1.65;color:rgba(244,239,230,.32)}
+.spk25{background:rgba(244,239,230,.03);padding:80px 48px;border-top:1px solid rgba(255,255,255,.04)}
+.spk25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
+.spk25-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.spk25-card{background:rgba(255,255,255,.04);overflow:hidden;border-top:1px solid rgba(255,255,255,.07)}
+.spk25-card .sp-ph{aspect-ratio:3/4}.spk25-card .sp-ph .ph{width:100%;height:100%;border:none;background:#1c1c1c}
+.spk25-card .sp-inf{padding:16px 14px}
+.spk25-card .spn{font-size:15px;font-weight:800;color:rgba(244,239,230,.6);margin-bottom:4px}
+.spk25-card .spc{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.4);margin-bottom:7px}
+.spk25-card .spb{font-size:12px;line-height:1.6;color:rgba(244,239,230,.28)}
+.gall25{background:var(--ink);padding:80px 48px}
+.gall25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
+.gall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.gall-slot{aspect-ratio:4/3;background:#1a1a1a;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden}
+.gall-slot::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,.01) 20px,rgba(255,255,255,.01) 21px)}
+.gall-slot span{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.12);z-index:1;text-align:center;padding:0 10px}
+.gall-note{margin-top:18px;font-size:12px;color:rgba(244,239,230,.25);font-style:italic}
+.bridge25{background:var(--ob);padding:80px 48px;text-align:center}
+.bridge25 h2{font-size:clamp(36px,7vw,88px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.85;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr);margin-bottom:14px}
+.bridge25 h2 .d{color:var(--go)}
+.bridge25 p{font-size:clamp(15px,1.8vw,18px);line-height:1.7;color:rgba(244,239,230,.52);max-width:500px;margin:0 auto 36px}
+
+/* ══ SHARED FOOTER ══ */
+footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(255,255,255,.05)}
+.fi{max-width:1120px;margin:0 auto;display:grid;gap:44px}
+#page-home .fi,#page-partners .fi{grid-template-columns:1.6fr 1fr 1fr 1fr 1.2fr}
+#page-dmc26 .fi,#page-sessions .fi,#page-dmc25 .fi{grid-template-columns:1.8fr 1fr 1fr}
+.fb .mark{font-size:22px;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:.08em;color:var(--cr);margin-bottom:12px}
+.fb .mark .d,.fb .brand .d{color:var(--go)}
+.fb .brand{font-size:20px;font-weight:900;font-variation-settings:'wdth' 125;color:var(--cr);margin-bottom:12px}
+.fb .bm{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:6px}
+.fb p{font-size:13px;line-height:1.7;color:rgba(244,239,230,.28);max-width:240px;margin-bottom:18px}
+.fb .soc-row{display:flex;gap:8px;flex-wrap:wrap}
+.fb .soc-row a{width:32px;height:32px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:11px;color:rgba(244,239,230,.5);font-weight:700;cursor:pointer;transition:all .2s}
+.fb .soc-row a:hover{background:var(--go);border-color:var(--go);color:var(--ob)}
+.fc h4{font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--go);margin-bottom:16px}
+.fc ul{list-style:none}.fc li{margin-bottom:10px}
+.fc a{font-size:12px;color:rgba(244,239,230,.35);text-decoration:none;transition:color .2s;cursor:pointer}.fc a:hover{color:var(--cr)}
+.fc-c .cl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.25);margin-bottom:2px;margin-top:10px}.fc-c .cl:first-child{margin-top:0}
+.fc-c .cv{font-size:12px;color:rgba(244,239,230,.42)}.fc-c .cv a{color:rgba(244,239,230,.42);text-decoration:none;cursor:pointer}.fc-c .cv a:hover{color:var(--cr)}
+.fb-bot{max-width:1120px;margin:40px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fb-bot p{font-size:11px;color:rgba(244,239,230,.18)}
+.fb-lnks{display:flex;gap:18px}
+.fb-lnks a{font-size:11px;color:rgba(244,239,230,.25);text-decoration:none;cursor:pointer}.fb-lnks a:hover{color:var(--cr)}
+.soc-pills{display:flex;gap:8px}
+.soc-pills a{font-size:11px;font-weight:600;letter-spacing:.1em;padding:5px 12px;border:1px solid rgba(244,239,230,.08);color:rgba(244,239,230,.28);text-decoration:none;transition:all .2s;cursor:pointer}
+.soc-pills a:hover{border-color:var(--go);color:var(--go)}
+
+
+/* ── DMC 2025 VIDEO SECTION ── */
+.vid-sec{background:#0d0d0d;padding:0}
+.vid-outer{position:relative;width:100%;max-width:1120px;margin:0 auto}
+.vid-hero{position:relative;width:100%;padding-bottom:56.25%;background:#000;overflow:hidden}
+.vid-hero iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.vid-caption{background:var(--ink);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:2px solid rgba(201,162,74,.2)}
+.vid-caption .vc-l{display:flex;align-items:center;gap:14px}
+.vid-caption .vc-icon{width:36px;height:36px;background:#FF0000;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vid-caption .vc-icon svg{width:16px;height:16px;fill:white}
+.vid-caption .vc-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.3);margin-bottom:2px}
+.vid-caption .vc-title{font-size:14px;font-weight:700;color:rgba(244,239,230,.65)}
+.vid-caption .vc-r{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.28)}
+/* ══ RESPONSIVE ══ */
+@media(max-width:1024px){
+  nav{padding:0 24px}footer,section,.stats-bar,.sbi{padding-left:24px!important;padding-right:24px!important}
+  #page-home .fi,#page-partners .fi{grid-template-columns:1fr 1fr 1fr;gap:32px}
+  .fq{padding-left:24px;padding-right:24px}.sq-row{padding:0 24px}
+}
+@media(max-width:900px){
+  .nav-menu{display:none}.hamburger{display:flex}
+  #page-home .hero{min-height:88vh}
+  .hero-geo{width:100%;opacity:.3}
+  .about-strip-inner,.why-grid,.what-grid,.g-inner,.recap-grid{grid-template-columns:1fr;gap:32px}
+  .dmc-feat,.events-row,.venue-grid,.form-inner{grid-template-columns:1fr}
+  .dfc-r{min-height:240px}
+  .sess-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .p-grid{grid-template-columns:1fr}
+  .cc-cards{grid-template-columns:1fr}
+  #page-dmc26 .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-l{padding:88px 24px 56px}
+  .hero-r{min-height:260px}
+  .hero-r-ov{background:linear-gradient(to bottom,var(--ink) 0%,transparent 30%)}
+  .sbi{grid-template-columns:repeat(3,1fr)}
+  .sp-inner{grid-template-columns:1fr;gap:36px}
+  .sp-ics{grid-template-columns:1fr 1fr}
+  .sp-grid{grid-template-columns:repeat(2,1fr)}
+  .travel-grid{grid-template-columns:1fr 1fr}
+  .p26-grid,.tier-grid,.tiers26-sec .tier-grid{grid-template-columns:1fr 1fr}
+  #page-sessions .hero{min-height:auto;padding:72px 24px 56px}
+  .sess-row{grid-template-columns:1fr}
+  .attend-grid{grid-template-columns:1fr 1fr}
+  .arch-grid{grid-template-columns:1fr 1fr}
+  .bridge-inner{grid-template-columns:1fr}
+  .trow{grid-template-columns:120px 1fr 1fr}
+  .sq-row{grid-template-columns:1fr;padding:0 24px}
+  .h25-inner{grid-template-columns:1fr;gap:36px}
+  .h25-r{height:240px}
+  .spk25-grid{grid-template-columns:repeat(2,1fr)}
+  .gall-grid{grid-template-columns:repeat(2,1fr)}
+  #page-home .fi,#page-partners .fi,#page-dmc26 .fi,#page-sessions .fi,#page-dmc25 .fi{grid-template-columns:1fr}
+  .fb-bot{flex-direction:column;align-items:flex-start}
+  .sticky-reg{padding:12px 24px}
+  .stats-bar-inner{grid-template-columns:1fr 1fr;gap:0}
+  .si{padding:14px 0;border-right:none;border-bottom:1px solid rgba(28,28,28,.1);text-align:left!important}
+  .si:nth-child(even){text-align:right!important}
+  .si:nth-last-child(-n+2){border-bottom:none}
+}
+@media(max-width:580px){
+  .hero-h1{font-size:clamp(52px,14vw,100px)}
+  .hero-ctas,.h26-cta{flex-direction:column;align-items:flex-start}
+  .team-grid,.spk25-grid{grid-template-columns:1fr}
+  .sp-grid{grid-template-columns:1fr}
+  .trow{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .gall-grid,.arch-grid{grid-template-columns:1fr}
+  .attend-grid,.travel-grid,.tier-grid,.tiers26-sec .tier-grid,.sess-grid{grid-template-columns:1fr}
+  .sbi{grid-template-columns:1fr 1fr}
+  .stats-bar-inner{grid-template-columns:1fr}
+  .si{text-align:left!important;border-right:none;border-bottom:1px solid rgba(28,28,28,.1)}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     PAGE: HOME — mangh.com
+     ════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+<nav>
+  <a class="nav-logo" data-page="home">M<span class="d">·</span>A<span class="d">·</span>N</a>
+  <ul class="nav-menu">
+    <li class="nav-item" id="ni-ev">
+      <button onclick="toggleDrop('ni-ev')">Events <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
+      <div class="drop">
+        <div class="drop-label">Conference</div>
+        <a data-page="dmc26">DMC 2026 — Built To Scale</a>
+        <a data-page="dmc25">DMC 2025 — Archive</a>
+        <div class="drop-div"></div>
+        <div class="drop-label">Community</div>
+        <a data-page="sessions">MAN Sessions</a>
+      </div>
+    </li>
+    <li class="nav-item"><a data-page="home" data-anchor="about">About MAN</a></li>
+    <li class="nav-item"><a data-page="home" data-anchor="team">Team</a></li>
+    <li class="nav-item" id="ni-par">
+      <button onclick="toggleDrop('ni-par')">Partners <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
+      <div class="drop">
+        <a data-page="partners">Partner With DMC 2026</a>
+        <a data-page="home" data-anchor="partners">Current Partners</a>
+      </div>
+    </li>
+    <li class="nav-item"><a data-page="home" data-anchor="connect">Connect</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn btn-f" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register →</a>
+    <button class="hamburger" onclick="toggleMM('mm-home')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-home">
+  <a data-page="dmc26" onclick="closeMM('mm-home')">DMC 2026</a>
+  <a data-page="sessions" onclick="closeMM('mm-home')">MAN Sessions</a>
+  <a data-page="dmc25" onclick="closeMM('mm-home')">DMC 2025</a>
+  <a data-page="home" data-anchor="about" onclick="closeMM('mm-home')">About MAN</a>
+  <a data-page="home" data-anchor="team" onclick="closeMM('mm-home')">Team</a>
+  <a data-page="home" data-anchor="partners" onclick="closeMM('mm-home')">Partners</a>
+  <a data-page="home" data-anchor="connect" onclick="closeMM('mm-home')">Connect</a>
+  <a class="mm-cta" data-page="partners" onclick="closeMM('mm-home')">Partner With DMC 2026 →</a>
+</div>
+
+<section class="hero" id="home-hero">
+  <div class="hero-geo">
+    <div class="g1" style="position:absolute;inset:0;background:var(--te);clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85"></div>
+    <div class="g2" style="position:absolute;inset:0;background:var(--co);clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.80"></div>
+    <div class="g3" style="position:absolute;inset:0;background:var(--go);clip-path:polygon(0% 70%,100% 68%,100% 100%,0% 100%);opacity:.75"></div>
+    <div class="g4" style="position:absolute;inset:0;background:var(--ob);clip-path:polygon(0% 85%,60% 75%,100% 100%,0% 100%);opacity:.8"></div>
+  </div>
+  <div class="hero-geo-fade"></div>
+  <div class="hero-content">
+    <div class="hero-pill hr"><div class="dot"></div><span>DMC 2026 — Built To Scale · Now Open</span></div>
+    <p class="hero-ey hr">Marketers & Advertisers Network · Ghana</p>
+    <h1 class="hero-h1 hr">Built To<br><span class="accent">Scale</span></h1>
+    <p class="hero-h2 hr">DMC 2026</p>
+    <p class="hero-conf hr">A M·A·N Event · British Council, Accra · November 2026</p>
+    <div class="hero-ctas hr">
+      <a class="btn btn-f" data-page="dmc26">Explore DMC 2026 →</a>
+      <a class="btn btn-cr" data-page="partners">Partner With Us</a>
+      <a class="btn-txt" data-page="sessions">MAN Sessions ↗</a>
+    </div>
+    <div class="hero-scroll hr"><span>Scroll to explore</span></div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner c">
+    <div class="si"><div class="n" data-count="2" data-suffix="nd">2nd</div><div class="d">Flagship — DMC 2026</div></div>
+    <div class="si"><div class="n" data-count="200" data-suffix="+">200+</div><div class="d">Curated seats</div></div>
+    <div class="si"><div class="n" data-count="4" data-suffix="">4</div><div class="d">MAN Sessions in 2026</div></div>
+    <div class="si"><div class="n" data-count="2" data-suffix="×">2×</div><div class="d">Title sponsors</div></div>
+  </div>
+</div>
+
+<div class="kente"></div>
+
+<section class="about-strip" id="about">
+  <div class="about-strip-inner c">
+    <div class="sr">
+      <span class="sl">About MAN</span>
+      <h2>Ghana's peer-driven community for marketing and advertising professionals.</h2>
+    </div>
+    <div class="sr d1">
+      <p>Marketers & Advertisers Network exists to close the knowledge gap between practitioners. Not workshops. Not webinars. Curated spaces where Ghana's best marketing and advertising minds build with each other.</p>
+      <p>We run the Digital Marketing Conference annually and MAN Sessions quarterly — both designed to be worth the room, not just worth attending.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
+        <a class="btn btn-dk" data-page="home" data-anchor="team">Meet the Team →</a>
+        <a class="btn-txt" data-page="sessions" style="color:rgba(244,239,230,.5)">MAN Sessions ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker-lbl">Partners & Community</div>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <div class="t-i hl"><span>MojoPay</span></div>
+      <div class="t-i"><span>Google</span></div>
+      <div class="t-i"><span>British Council</span></div>
+      <div class="t-i"><span>Generation Ghana</span></div>
+      <div class="t-i"><span>Go Mobile Advertising</span></div>
+      <div class="t-i"><span>Ego Tickets</span></div>
+      <div class="t-i"><span>Colours of Social Media</span></div>
+      <div class="t-i"><span>Sydcrest Launchpad</span></div>
+      <div class="t-i"><span>My Ghana Daily News</span></div>
+      <div class="t-i"><span>Trustur AI</span></div>
+      <div class="t-i hl"><span>MojoPay</span></div>
+      <div class="t-i"><span>Google</span></div>
+      <div class="t-i"><span>British Council</span></div>
+      <div class="t-i"><span>Generation Ghana</span></div>
+      <div class="t-i"><span>Go Mobile Advertising</span></div>
+      <div class="t-i"><span>Ego Tickets</span></div>
+      <div class="t-i"><span>Colours of Social Media</span></div>
+      <div class="t-i"><span>Sydcrest Launchpad</span></div>
+      <div class="t-i"><span>My Ghana Daily News</span></div>
+      <div class="t-i"><span>Trustur AI</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="kente"></div>
+
+<section class="events">
+  <div class="c">
+    <div class="section-head sr">
+      <div><span class="sl" style="color:var(--te)">MAN Events</span><h2>One conference. Four sessions. All year.</h2></div>
+      <p>DMC is the annual flagship. MAN Sessions are quarterly firesides. Together, they're how Ghana's best practitioners build with each other throughout the year.</p>
+    </div>
+    <div class="dmc-feat sr">
+      <div class="dfc-l">
+        <div>
+          <div class="dfc-tag">Featured · Annual Flagship</div>
+          <div class="dfc-title">DMC</div>
+          <div class="dfc-year">2026</div>
+          <div class="dfc-tagline">"Built To Scale" — Ghana's Digital Marketing Conference</div>
+          <div class="dfc-meta">
+            <div class="mi"><div class="l">Date</div><div class="v">November 2026</div></div>
+            <div class="mi"><div class="l">Venue</div><div class="v">British Council</div></div>
+            <div class="mi"><div class="l">City</div><div class="v">Accra, Ghana</div></div>
+            <div class="mi"><div class="l">Seats</div><div class="v">~200 Curated</div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-dk" data-page="dmc26">Explore DMC 2026 →</a>
+          <a class="btn-txt" data-page="partners" style="color:rgba(28,28,28,.45)">Partner With Us</a>
+        </div>
+      </div>
+      <div class="dfc-r"><div class="ph" data-label="DMC 2026 · Hero Image" style="width:100%;height:100%;min-height:440px;border:none;background:#211c12"></div></div>
+    </div>
+    <div class="events-row sr">
+      <div class="man-sessions">
+        <div class="ms-head">
+          <span class="ms-lbl">Quarterly · All Year</span>
+          <h3>MAN Sessions</h3>
+          <p>Intimate fireside conversations. One leader per session. Community members only.</p>
+        </div>
+        <div class="sess-grid">
+          <div class="sc done"><div class="sc-q">Q1 · Jan–Mar</div><span class="sc-badge done">Complete</span><div class="sc-topic">Community kickoff session</div><div class="sc-fmt">Virtual</div></div>
+          <div class="sc done"><div class="sc-q">Q2 · Apr–Jun</div><span class="sc-badge done">Complete</span><div class="sc-topic">In-person fireside</div><div class="sc-fmt">In-Person</div></div>
+          <div class="sc done"><div class="sc-q">Q3 · Jul–Sep</div><span class="sc-badge done">Complete</span><div class="sc-topic">Digital marketing Q3</div><div class="sc-fmt">Virtual</div></div>
+          <div class="sc upcoming"><div class="sc-q">Q4 · Oct–Dec</div><span class="sc-badge upcoming">Upcoming</span><div class="sc-topic">TBC — Register interest</div><div class="sc-fmt">TBC</div></div>
+        </div>
+        <div style="margin-top:16px"><a class="btn btn-dk" style="font-size:10px;padding:9px 18px" data-page="sessions">View All Sessions →</a></div>
+      </div>
+      <div class="dmc-arch">
+        <div>
+          <span class="da-badge">Archive</span>
+          <div class="da-title">DMC</div>
+          <div class="da-year">2025</div>
+          <div class="da-sp">
+            <div class="slbl">Title Sponsor</div>
+            <div class="gt"><span class="g1">G</span><span class="o1">o</span><span class="o2">o</span><span class="g2">g</span><span class="l">l</span><span class="e">e</span></div>
+          </div>
+        </div>
+        <a class="btn btn-dk" style="font-size:10px;padding:9px 18px;align-self:flex-start" data-page="dmc25">View DMC 2025 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="team-sec" id="team">
+  <div class="c">
+    <span class="sl sr">The Team</span>
+    <h2 class="sr">The people who make MAN and DMC happen.</h2>
+    <div class="team-grid" style="margin-top:40px">
+      <div class="tc sr"><div class="tc-img"><div class="ph-cr" data-label="Michael"></div></div><div class="tc-body"><div class="tc-name">Michael</div><div class="tc-role">Creative · Business Development</div><div class="tc-owns"><span>Creative Direction</span><span>Productions</span><span>Business Dev</span></div></div></div>
+      <div class="tc sr d1"><div class="tc-img"><div class="ph-cr" data-label="Maame"></div></div><div class="tc-body"><div class="tc-name">Maame</div><div class="tc-role">Marketing Lead</div><div class="tc-owns"><span>Marketing</span><span>Comms</span><span>Community</span></div></div></div>
+      <div class="tc sr d2"><div class="tc-img"><div class="ph-cr" data-label="Alice"></div></div><div class="tc-body"><div class="tc-name">Alice</div><div class="tc-role">Sponsorships & Partnerships</div><div class="tc-owns"><span>Sponsor Relations</span><span>Partnerships</span></div></div></div>
+      <div class="tc sr d3"><div class="tc-img"><div class="ph-cr" data-label="Enock"></div></div><div class="tc-body"><div class="tc-name">Enock</div><div class="tc-role">Events & Programming</div><div class="tc-owns"><span>Programming</span><span>Production</span><span>Crew</span></div></div></div>
+      <div class="tc sr d4"><div class="tc-img"><div class="ph-cr" data-label="Justice"></div></div><div class="tc-body"><div class="tc-name">Justice</div><div class="tc-role">Production</div><div class="tc-owns"><span>AV & Technical</span><span>Production Crew</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="partners-sec" id="partners">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">Partners</span>
+    <h2 class="sr">Organisations building with MAN.</h2>
+    <div class="p-grid" style="margin-top:36px">
+      <div class="pc title sr"><div class="pt">Gold / Headline · DMC 2026</div><div class="pn">MojoPay</div><div class="ps">Enhanced PSP · Bank of Ghana Licensed</div><p>Title sponsor of DMC 2026 — Built To Scale. Exclusive event payments partner.</p><div class="pceo"><div class="cl">CEO</div><div class="cn">Saqib Nazir</div></div></div>
+      <div class="pc sr d1"><div class="pt">Title Sponsor · DMC 2025</div><div class="pn" style="margin-bottom:6px"><span style="font-size:20px;font-weight:900;letter-spacing:.01em"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span></div><div class="ps">Google AI Community Center, Accra</div><p>Provided the venue for DMC 2025 and platform support for the AI in Marketing panel.</p></div>
+      <div class="pc sr d2" style="background:rgba(28,28,28,.02);border:1px dashed rgba(28,28,28,.08)"><div class="pt" style="color:rgba(28,28,28,.28)">Open Slot — DMC 2026</div><div class="pn" style="color:rgba(28,28,28,.28)">Your Brand</div><div class="ps" style="color:rgba(28,28,28,.22)">Silver, Bronze, or Cedar Tier</div><p style="color:rgba(28,28,28,.35)">Three partnership tiers available for DMC 2026. Contact Alice to discuss which is the right fit.</p><div style="margin-top:16px"><a class="btn btn-dk" style="font-size:10px;padding:9px 18px" data-page="partners">See Packages →</a></div></div>
+    </div>
+    <div class="p-cta sr">
+      <p>Three sponsorship tiers available for DMC 2026 — Silver, Bronze, and Cedar. Each one puts your organisation in a room of Ghana's most serious marketing practitioners.</p>
+      <a class="btn btn-dk" data-page="partners">Partner With DMC 2026 →</a>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="connect-sec" id="connect">
+  <div class="connect-head sr"><span class="sl-s">Connect With Us</span><h2>Find MAN.<br>Join the Room.</h2><p>Follow the community, reach the team, or enquire about DMC 2026.</p></div>
+  <div class="cc-cards c">
+    <div class="cc sr"><div class="cc-icon">✉</div><h3>Get In Touch</h3><div class="cc-det"><div class="cc-line"><div class="lbl">Email</div><div class="val"><a href="mailto:hello@mangh.com">hello@mangh.com</a></div></div><div class="cc-div"></div><div class="cc-line"><div class="lbl">WhatsApp</div><div class="val"><a href="https://wa.me/233500000000" target="_blank">+233 50 000 0000</a></div></div><div class="cc-div"></div><div class="cc-line"><div class="lbl">Sponsorship</div><div class="val"><a data-page="partners">Partner With DMC 2026 →</a></div></div></div></div>
+    <div class="cc sr d1"><div class="cc-icon" style="background:var(--te)">↗</div><h3>Follow MAN</h3><div class="cc-det"><div class="cc-line"><div class="lbl">Instagram · MAN</div><div class="val"><a href="https://instagram.com/admarknet" target="_blank">@admarknet</a></div></div><div class="cc-line"><div class="lbl">Instagram · AdMark</div><div class="val"><a href="https://instagram.com/admarknet" target="_blank">@admarknet</a></div></div><div class="cc-line"><div class="lbl">Facebook</div><div class="val"><a href="https://www.facebook.com/admarknet" target="_blank">Marketers & Advertisers Network</a></div></div><div class="cc-line"><div class="lbl">TikTok</div><div class="val"><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank">@admarknet</a></div></div><div class="cc-div"></div><div class="cc-line"><div class="lbl">Socials</div><div class="val"><div class="soc-icons"><a class="soc-icon" href="https://instagram.com/admarknet" target="_blank">in</a><a class="soc-icon" href="https://twitter.com/mangh" target="_blank">𝕏</a><a class="soc-icon" href="https://www.facebook.com/admarknet" target="_blank">fb</a><a class="soc-icon" href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok" style="font-size:11px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a><a class="soc-icon" data-page="sessions">S↗</a></div></div></div></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="mark">M<span class="d">·</span>A<span class="d">·</span>N</div><p>Ghana's peer-driven community for marketing and advertising professionals. Home of the Digital Marketing Conference.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank">in</a><a href="https://twitter.com/mangh" target="_blank">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a></div></div>
+    <div class="fc"><h4>DMC 2026</h4><ul><li><a data-page="dmc26">Overview</a></li><li><a data-page="dmc26" data-anchor="programme">Programme</a></li><li><a data-page="dmc26" data-anchor="speakers">Speakers</a></li><li><a data-page="dmc26" data-anchor="venue">Venue</a></li><li><a data-page="dmc26" data-anchor="register">Register</a></li></ul></div>
+    <div class="fc"><h4>Be Part of DMC</h4><ul><li><a data-page="partners">Sponsorship Packages</a></li><li><a data-page="partners" data-anchor="tiers">Package Tiers</a></li><li><a data-page="partners" data-anchor="form">Enquire</a></li></ul></div>
+    <div class="fc"><h4>MAN</h4><ul><li><a data-page="home" data-anchor="about">About MAN</a></li><li><a data-page="sessions">MAN Sessions</a></li><li><a data-page="home" data-anchor="team">The Team</a></li><li><a data-page="dmc25">DMC 2025</a></li></ul></div>
+    <div class="fc fc-c"><h4>Contact</h4><div class="cl">Email</div><div class="cv"><a href="mailto:hello@mangh.com">hello@mangh.com</a></div><div class="cl">WhatsApp</div><div class="cv"><a href="https://wa.me/233500000000" target="_blank">+233 50 000 0000</a></div><div class="cl">Instagram</div><div class="cv"><a href="https://instagram.com/admarknet" target="_blank">@admarknet</a> · <a href="https://instagram.com/admarknet" target="_blank">@admarknet</a></div><div class="cl">Event</div><div class="cv">Nov 2026 · Accra, Ghana</div></div>
+  </div>
+  <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network. All rights reserved.</p><div class="fb-lnks"><a href="#">Privacy</a><a href="#">Terms</a><a data-page="home" data-anchor="connect">Connect</a></div></div>
+</footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: DMC 2026
+     ════════════════════════════════════════ -->
+<div id="page-dmc26" class="page">
+<div class="sticky-reg" id="sticky-reg"><p>DMC 2026 — Built To Scale <span>British Council, Accra · November 2026</span></p><a class="btn btn-dk" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a></div>
+<nav>
+  <a class="nav-back" data-page="home">← mangh.com</a>
+  <div class="nav-brand">DMC <span class="d">2026</span></div>
+  <ul class="nav-menu">
+    <li class="nav-item" id="ni-prog"><button onclick="toggleDrop('ni-prog')">Programme <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a data-page="dmc26" data-anchor="programme">Full Schedule</a><a data-page="dmc26" data-anchor="speakers">Speakers</a><a data-page="dmc26" data-anchor="venue">Venue</a><a data-page="dmc26" data-anchor="travel">Travel Guide</a></div></li>
+    <li class="nav-item" id="ni-bep"><button onclick="toggleDrop('ni-bep')">Be Part of DMC <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a data-page="partners">Sponsorship Packages</a><a data-page="partners" data-anchor="tiers">Package Tiers</a><a data-page="partners" data-anchor="form">Enquire</a><div class="drop-div"></div><a data-page="dmc26" data-anchor="partners26">Current Sponsors</a></div></li>
+    <li class="nav-item" id="ni-gi"><button onclick="toggleDrop('ni-gi')">Get Involved <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a data-page="dmc26" data-anchor="venue">Venue</a><a data-page="dmc26" data-anchor="travel">Travel Guide</a><a data-page="sessions">MAN Sessions</a></div></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn btn-f" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register →</a>
+    <button class="hamburger" onclick="toggleMM('mm-dmc26')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-dmc26">
+  <a data-page="dmc26" data-anchor="programme" onclick="closeMM('mm-dmc26')">Programme</a>
+  <a data-page="dmc26" data-anchor="speakers" onclick="closeMM('mm-dmc26')">Speakers</a>
+  <a data-page="dmc26" data-anchor="venue" onclick="closeMM('mm-dmc26')">Venue</a>
+  <a data-page="dmc26" data-anchor="travel" onclick="closeMM('mm-dmc26')">Travel Guide</a>
+  <a data-page="partners" onclick="closeMM('mm-dmc26')">Partner With Us</a>
+  <a data-page="home" onclick="closeMM('mm-dmc26')">← mangh.com</a>
+  <a class="mm-cta" data-page="dmc26" data-anchor="register" onclick="closeMM('mm-dmc26')" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a>
+</div>
+
+<section class="hero">
+  <div class="hero-l">
+    <div class="h26-pill hr"><div class="dot"></div><span>DMC 2026 · British Council, Accra</span></div>
+    <p class="h26-ey hr">Digital Marketing Conference</p>
+    <div class="h26-t1 hr">Built To</div>
+    <div class="h26-t2 hr shimmer">Scale</div>
+    <p class="h26-tag hr">"The organisations scaling in Ghana aren't waiting. They're building."</p>
+    <div class="h26-meta hr">
+      <div class="hm"><div class="l">Date</div><div class="v">November 2026</div></div>
+      <div class="hm"><div class="l">Time</div><div class="v">8AM – 5PM</div></div>
+      <div class="hm"><div class="l">Venue</div><div class="v">British Council</div></div>
+      <div class="hm"><div class="l">Seats</div><div class="v">~200 Curated</div></div>
+    </div>
+    <div class="h26-cta hr" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-f" data-page="dmc26" data-anchor="register" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a>
+      <a class="btn btn-cr" data-page="dmc26" data-anchor="programme">View Programme</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="ph" data-label="DMC 2026 · Conference Photo" style="width:100%;height:100%;min-height:100vh;border:none;background:#171310">
+      <div class="g1" style="position:absolute;inset:0;background:var(--te);clip-path:polygon(35% 0%,100% 0%,100% 45%,10% 0%);opacity:.5"></div>
+      <div class="g2" style="position:absolute;inset:0;background:var(--co);clip-path:polygon(0% 60%,100% 50%,100% 100%,0% 100%);opacity:.35"></div>
+    </div>
+    <div class="hero-r-ov"></div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="sbi c">
+    <div class="si"><div class="n">1</div><div class="d">Full Day</div></div>
+    <div class="si"><div class="n" data-count="200" data-suffix="+">200+</div><div class="d">Curated Attendees</div></div>
+    <div class="si"><div class="n">3</div><div class="d">Movements</div></div>
+    <div class="si"><div class="n">8AM</div><div class="d">Doors Open</div></div>
+    <div class="si"><div class="n">Nov</div><div class="d">'26 · Accra</div></div>
+  </div>
+</div>
+
+<div class="kente"></div>
+
+<section class="sponsor-sec">
+  <div class="sp-inner c">
+    <div class="sp-left sr">
+      <div class="tier-tag">Gold / Headline · DMC 2026</div>
+      <div class="sp-name">MojoPay</div>
+      <span class="sp-cred">Enhanced PSP · Bank of Ghana Licensed</span>
+      <div class="ceo-row">
+        <div class="ceo-init">SN</div>
+        <div class="ceo-info"><div class="l">CEO</div><div class="n">Saqib Nazir</div><div class="t">Chief Executive Officer, MojoPay</div></div>
+      </div>
+    </div>
+    <div class="sp-ics sr d1">
+      <div class="sp-ic"><div class="ic-l">Partnership</div><div class="ic-v">Gold / Headline Sponsor — Title rights for DMC 2026</div></div>
+      <div class="sp-ic"><div class="ic-l">Activation</div><div class="ic-v">Session 04 — MojoPay Innovation Hub (14:45)</div></div>
+      <div class="sp-ic"><div class="ic-l">Platform</div><div class="ic-v">MojoLife — Official DMC 2026 event ticketing</div></div>
+      <div class="sp-ic"><div class="ic-l">Presence</div><div class="ic-v">Stage, backdrop, comms, and dedicated booth</div></div>
+      <div class="sp-ic"><div class="ic-l">Status</div><div class="ic-v">Agreement signed · MojoPay, May 2026</div></div>
+      <div class="sp-ic"><div class="ic-l">Partner Tier</div><div class="ic-v">Gold / Headline — This tier is filled for DMC 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="prog-sec" id="programme">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">The Programme</span>
+    <h2 class="sr">Built To Scale — One Day, Three Movements</h2>
+    <p class="prog-intro sr">DMC 2026 is structured around three movements — Build Yourself, Build Your Team, Build Your Work To Scale — with an anchor keynote, breakout workshop, and dedicated partner activation.</p>
+    <div class="sched">
+      <div class="srow sr"><div class="st"><div class="ti">8:00</div><div class="ap">AM</div></div><div class="sb"><span class="badge b-drs">Doors</span><h3>Registration & Arrival</h3><p>MojoLife check-in, networking, refreshments. Google AI Community Center opens.</p></div></div>
+      <div class="srow sr d1"><div class="st"><div class="ti">9:30</div><div class="ap">AM</div></div><div class="sb mov"><span class="badge b-key">Movement 01</span><h3>Build Yourself</h3><p>Opening keynote + panel. Setting the frame for the day. Who you are becoming as a marketer.</p><div class="sd">Keynote speaker · Panel: AI in Marketing · Moderator TBC</div></div></div>
+      <div class="srow sr d2"><div class="st"><div class="ti">11:30</div><div class="ap">AM</div></div><div class="sb spec"><span class="badge b-wsh">Workshop</span><h3>Executive Suite — Deep Dive</h3><p>Parallel breakout in the British Council Executive Suite. Smaller room, richer conversation.</p><div class="sd">Limited seats · Invite basis</div></div></div>
+      <div class="srow sr d1"><div class="st"><div class="ti">12:30</div><div class="ap">PM</div></div><div class="sb"><span class="badge b-brk">Break</span><h3>Lunch & Networking</h3><p>Catered lunch. Hallway, frontage, and outdoor space open for networking.</p></div></div>
+      <div class="srow sr d2"><div class="st"><div class="ti">13:30</div><div class="ap">PM</div></div><div class="sb mov"><span class="badge b-key">Movement 02</span><h3>Build Your Team</h3><p>Panel and case study sessions. People, culture, and the teams behind the best marketing work in Ghana.</p><div class="sd">3 speakers · Moderator TBC · Case study presentation</div></div></div>
+      <div class="srow sr d1"><div class="st"><div class="ti">14:45</div><div class="ap">PM</div></div><div class="sb par"><span class="badge b-act">Activation</span><h3>Session 04 — MojoPay Innovation Hub</h3><p>MojoPay's dedicated session. Financial infrastructure, digital commerce, and the payments layer powering Ghana's scaling brands.</p><div class="sd">Presented by MojoPay · Saqib Nazir + guests</div></div></div>
+      <div class="srow sr d2"><div class="st"><div class="ti">15:45</div><div class="ap">PM</div></div><div class="sb mov"><span class="badge b-key">Movement 03</span><h3>Build Your Work To Scale</h3><p>The main stage culmination. Distribution, systems, and how the best marketing organisations build for growth — not just output.</p><div class="sd">Keynote · Panel: Data-Driven Marketing · Q&A</div></div></div>
+      <div class="srow sr d1"><div class="st"><div class="ti">16:30</div><div class="ap">PM</div></div><div class="sb cls"><span class="badge b-cls">Closing</span><h3>The Gold Moment — ~90 Seconds of Silence</h3><p>A deliberate pause before the close. No agenda. Just the room, together, with what they've built over the course of the day.</p></div></div>
+      <div class="srow sr d2"><div class="st"><div class="ti">17:00</div><div class="ap">PM</div></div><div class="sb"><span class="badge b-brk">Close</span><h3>Networking & Close</h3><p>Final networking. Photography by Koin. End of DMC 2026.</p></div></div>
+    </div>
+    <p class="prog-note sr">Programme subject to revision. Final schedule confirmed closer to event date.</p>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="speakers-sec" id="speakers">
+  <div class="c">
+    <span class="sl sr">Speakers & Panelists</span>
+    <h2 class="sr">The room that builds the room.</h2>
+    <p class="sp-intro-p sr">Speaker announcements rolling from September 2026. Anchor slot confirmed. Seven further positions open.</p>
+    <div class="sp-grid">
+      <div class="spc anchor sr"><div class="sp-photo"><div class="ph" data-label="Anchor Keynote" style="width:100%;height:100%;border:none;background:#1e1a10"></div></div><div class="sp-info"><div class="spc-cat">Anchor Keynote</div><div class="spn">Anchor Speaker</div><div class="sp-bio">To be announced. The anchor slot keynote that opens Movement 01.</div></div></div>
+      <div class="spc tbc sr d1"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Panel · Movement 01</div><div class="spn">Speaker TBC</div></div></div>
+      <div class="spc tbc sr d2"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Panel · Movement 01</div><div class="spn">Speaker TBC</div></div></div>
+      <div class="spc tbc sr d3"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Workshop · Executive Suite</div><div class="spn">Speaker TBC</div></div></div>
+      <div class="spc tbc sr"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Panel · Movement 02</div><div class="spn">Speaker TBC</div></div></div>
+      <div class="spc tbc sr d1"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">MojoPay Session 04</div><div class="spn">Saqib Nazir</div><div class="sp-bio">CEO, MojoPay</div></div></div>
+      <div class="spc tbc sr d2"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Panel · Movement 03</div><div class="spn">Speaker TBC</div></div></div>
+      <div class="spc tbc sr d3"><div class="sp-photo"><div class="ph" data-label="TBC" style="width:100%;height:100%;border:none;background:#181818"></div></div><div class="sp-info"><div class="spc-cat">Closing · Movement 03</div><div class="spn">Speaker TBC</div></div></div>
+    </div>
+    <p class="sp-note sr">Speaker confirmations rolling from September 2026. Follow @mangh for announcements.</p>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="venue-sec" id="venue">
+  <div class="venue-grid c">
+    <div class="sr">
+      <span class="sl" style="color:var(--te)">Venue</span>
+      <h2>British Council Accra</h2>
+      <div class="venue-sub">Main Auditorium, Executive Suite & Frontage</div>
+      <div class="venue-photos">
+        <div class="ph-cr" data-label="Main Auditorium" style="aspect-ratio:4/3;width:100%;border:none;background:#ccc9c2"></div>
+        <div class="ph-cr" data-label="Frontage" style="aspect-ratio:4/3;width:100%;border:none;background:#d0ccc5"></div>
+        <div class="ph-cr" data-label="Hallway" style="aspect-ratio:4/3;width:100%;border:none;background:#c8c5bd"></div>
+        <div class="ph-cr" data-label="Executive Suite" style="aspect-ratio:4/3;width:100%;border:none;background:#cec9c1"></div>
+      </div>
+      <div class="vi conf"><div class="vl">Status</div><div class="vv">Confirmed — British Council Accra</div></div>
+      <div class="vi"><div class="vl">Capacity</div><div class="vv">~200 seated (main auditorium)</div></div>
+      <div class="vi"><div class="vl">Executive Suite</div><div class="vv">Workshop breakout — limited invite</div></div>
+      <div class="vi"><div class="vl">Hallway</div><div class="vv">Networking + sponsor activation space</div></div>
+      <div class="vi"><div class="vl">MojoPay Booth</div><div class="vv">Dedicated kiosk in hallway/frontage</div></div>
+    </div>
+    <div class="venue-r sr d1">
+      <span class="sl" style="color:var(--te)">About the Venue</span>
+      <p>The British Council Accra is the flagship cultural venue for UK-Ghana partnership — centrally located, professionally equipped, and appropriate for an event of DMC 2026's calibre.</p>
+      <p>The main auditorium holds approximately 200 guests in a theatre configuration. The Executive Suite is a separate, smaller room used for the Workshop breakout. The hallway and frontage provide dedicated space for MojoPay's activation booth and networking during breaks.</p>
+      <p>All rooms are confirmed for DMC 2026. AV, lighting, and internet infrastructure managed by the production crew under Enock and Justice.</p>
+      <div style="margin-top:24px"><a class="btn btn-dk" href="https://maps.google.com" target="_blank">View on Map ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="travel-sec" id="travel">
+  <div class="c">
+    <span class="sl sr">Travel Guide</span>
+    <h2 class="sr">Getting to DMC 2026</h2>
+    <div class="travel-grid">
+      <div class="tr-card sr"><div class="ico">📍</div><h3>Address</h3><p>British Council Accra<br>Liberation Road, Accra<br>Greater Accra Region, Ghana</p></div>
+      <div class="tr-card sr d1"><div class="ico">🚗</div><h3>Getting There</h3><ul><li>Uber and Bolt available throughout Accra</li><li>Taxi from Airport: 30–45 mins</li><li>Parking available nearby</li><li>Drop-off point at main entrance</li></ul></div>
+      <div class="tr-card sr d2"><div class="ico">✈️</div><h3>Arriving in Ghana</h3><p>Kotoka International Airport (ACC) — 30–45 mins from venue. ECOWAS citizens: no visa required. Others: Ghana e-Visa available at myghanavisa.com.</p></div>
+      <div class="tr-card sr"><div class="ico">🏨</div><h3>Hotels Nearby</h3><ul><li>Labadi Beach Hotel (~15 min)</li><li>Movenpick Ambassador (~10 min)</li><li>Holiday Inn Accra Airport (~20 min)</li><li>Various Airbnb options in Airport Residential</li></ul></div>
+      <div class="tr-card sr d1"><div class="ico">💱</div><h3>Money & Payments</h3><p>Ghana Cedi (GHS). ATMs widely available. Mobile money (MoMo) accepted everywhere. USD accepted at hotels. MojoPay — official DMC payments partner.</p></div>
+      <div class="tr-card sr d2"><div class="ico">🌤</div><h3>Weather in November</h3><p>Accra in November: warm and dry. Expect 28–32°C. Harmattan season may bring slight haze. Light clothing recommended. No rain expected.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="tiers26-sec" id="partners26">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">Sponsorship</span>
+    <h2 class="sr">Partners of DMC 2026</h2>
+    <div class="p26-grid">
+      <div class="p26c title sr"><div class="tier">Gold / Headline · Filled</div><div class="pn">MojoPay</div><div class="ps">Enhanced PSP · Bank of Ghana Licensed</div><p>Title sponsor of DMC 2026. Session 04 activation, naming rights, and MojoLife as official ticketing platform.</p></div>
+      <div class="p26c sr d1"><div class="tier">Silver — Available</div><div class="pn" style="color:var(--silver)">Your Brand</div><div class="ps">Session Association + Presence</div><p>Named association with a DMC 2026 session. Logo, 3 seats, social recognition. Enquire with Alice.</p><div style="margin-top:16px"><a class="btn btn-dk" style="font-size:10px;padding:9px 18px" data-page="partners">Enquire →</a></div></div>
+      <div class="p26c sr d2"><div class="tier">Bronze — Available</div><div class="pn" style="color:var(--bronze)">Your Brand</div><div class="ps">Logo + Brand Presence</div><p>Logo on materials, 2 reserved seats, brand mention in pre-event comms. Straightforward and meaningful.</p><div style="margin-top:16px"><a class="btn btn-dk" style="font-size:10px;padding:9px 18px" data-page="partners">Enquire →</a></div></div>
+    </div>
+    <div class="tiers-sub sr">
+      <h3>All Sponsorship Tiers</h3>
+      <div class="tier-grid">
+        <div class="tbox tl"><h4>Gold / Headline</h4><p>Full naming rights, Session 04 activation, stage presence. One per conference. Filled — MojoPay.</p><a data-page="partners">Future Editions →</a></div>
+        <div class="tbox" style="border-top-color:var(--silver)"><h4>Silver</h4><p>Session association, logo, hallway/frontage, 3 seats, social recognition.</p><a data-page="partners" data-anchor="form">Enquire →</a></div>
+        <div class="tbox" style="border-top-color:var(--bronze)"><h4>Bronze</h4><p>Logo on materials, 2 reserved seats, brand mention, post-event recognition.</p><a data-page="partners" data-anchor="form">Enquire →</a></div>
+        <div class="tbox" style="border-top-color:var(--cedar)"><h4>Cedar</h4><p>Logo on collateral, 1 seat, recognition in opening remarks. Entry-level presence.</p><a data-page="partners" data-anchor="form">Enquire →</a></div>
+      </div>
+    </div>
+    <div style="margin-top:28px"><a class="btn btn-dk" data-page="partners">Full Package Details →</a></div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="reg-sec" id="register">
+  <div class="c" style="text-align:center">
+    <span class="sl sr" style="color:rgba(28,28,28,.4)">Register</span>
+    <h2 class="sr">Built To<br>Scale</h2>
+    <p class="sr">DMC 2026 is free to attend — 200 curated seats. Register your interest and the team will confirm your place.</p>
+    <div class="reg-meta sr">
+      <div class="rm"><div class="l">Date</div><div class="v">November 2026</div></div>
+      <div class="rm"><div class="l">Time</div><div class="v">8AM – 5PM</div></div>
+      <div class="rm"><div class="l">Venue</div><div class="v">British Council, Accra</div></div>
+      <div class="rm"><div class="l">Admission</div><div class="v">Free — Curated</div></div>
+    </div>
+    <div class="sr"><a class="btn btn-dk" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank" style="padding:15px 36px;font-size:13px" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a></div>
+    <a class="cal-link sr" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank" style="margin-top:14px;display:inline-flex">📅 Add to Calendar</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="bm">A M·A·N Event</div><div class="brand">DMC <span class="d">2026</span></div><p>Digital Marketing Conference 2026. Built To Scale. British Council, Accra.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank">in</a><a href="https://twitter.com/mangh" target="_blank">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a></div></div>
+    <div class="fc"><h4>The Programme</h4><ul><li><a data-page="dmc26" data-anchor="programme">Full Schedule</a></li><li><a data-page="dmc26" data-anchor="speakers">Speakers</a></li><li><a data-page="dmc26" data-anchor="venue">Venue</a></li><li><a data-page="dmc26" data-anchor="travel">Travel Guide</a></li></ul></div>
+    <div class="fc"><h4>Be Part of DMC</h4><ul><li><a data-page="partners">Sponsorship Packages</a></li><li><a data-page="partners" data-anchor="form">Enquire</a></li><li><a data-page="dmc26" data-anchor="register">Register</a></li><li><a data-page="home">mangh.com</a></li></ul></div>
+  </div>
+  <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network. DMC 2026 — Built To Scale.</p><div class="fb-lnks"><a href="#">Privacy</a><a href="#">Terms</a><a data-page="home" data-anchor="connect">Connect</a></div></div>
+</footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: SESSIONS
+     ════════════════════════════════════════ -->
+<div id="page-sessions" class="page">
+<nav>
+  <a class="nav-back" data-page="home">← mangh.com</a>
+  <div class="nav-brand" style="color:var(--cr)">MAN <span class="d">Sessions</span></div>
+  <ul class="nav-menu">
+    <li class="nav-item"><a data-page="sessions" data-anchor="sessions-list">2026 Sessions</a></li>
+    <li class="nav-item"><a data-page="sessions" data-anchor="attend">How to Attend</a></li>
+    <li class="nav-item"><a data-page="sessions" data-anchor="sess-reg">Register Q4</a></li>
+    <li class="nav-item"><a data-page="dmc26">DMC 2026 ↗</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn btn-te" data-page="sessions" data-anchor="sess-reg">Register Q4 →</a>
+    <button class="hamburger" onclick="toggleMM('mm-sessions')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-sessions">
+  <a data-page="sessions" data-anchor="sessions-list" onclick="closeMM('mm-sessions')">2026 Sessions</a>
+  <a data-page="sessions" data-anchor="attend" onclick="closeMM('mm-sessions')">How to Attend</a>
+  <a data-page="dmc26" onclick="closeMM('mm-sessions')">DMC 2026 ↗</a>
+  <a data-page="home" onclick="closeMM('mm-sessions')">← mangh.com</a>
+  <a class="mm-cta" data-page="sessions" data-anchor="sess-reg" onclick="closeMM('mm-sessions')">Register Q4 →</a>
+</div>
+
+<section class="hero" style="position:relative">
+  <div class="sess-geo">
+    <div class="hg1"></div><div class="hg2"></div><div class="hg3"></div>
+    <div class="sess-geo-fade"></div>
+  </div>
+  <div class="sess-hero-inner">
+    <div class="sess-pill hr"><div class="dot"></div><span>MAN · Quarterly Firesides</span></div>
+    <h1 class="sess-h1 hr">MAN<br>Sessions</h1>
+    <p class="sess-sub hr">One leader. One room. Four times a year.</p>
+    <div class="sess-meta-row hr">
+      <span class="sess-mi">4× Per Year</span>
+      <span class="sess-mi">Virtual & In-Person</span>
+      <span class="sess-mi">MAN Community</span>
+      <span class="sess-mi">Free to Attend</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap" class="hr">
+      <a class="btn btn-te" data-page="sessions" data-anchor="sess-reg">Register for Q4 →</a>
+      <a class="btn btn-cr" data-page="sessions" data-anchor="sessions-list">View 2026 Sessions</a>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="what-sec">
+  <div class="what-grid c">
+    <div class="sr">
+      <span class="sl" style="color:var(--te)">What Is It</span>
+      <h2>Intimate. Curated. Community-only.</h2>
+      <div class="what-stats">
+        <div class="wstat"><div class="n">4<span class="a">×</span></div><div class="d">Per year — one per quarter</div></div>
+        <div class="wstat"><div class="n">2</div><div class="d">Formats — virtual and in-person</div></div>
+        <div class="wstat"><div class="n">1</div><div class="d">Guest leader per session</div></div>
+        <div class="wstat"><div class="n">MAN</div><div class="d">Community members only</div></div>
+      </div>
+    </div>
+    <div class="what-copy sr d1">
+      <p>MAN Sessions are the quarterly heartbeat of the MAN community. Where DMC is the annual gathering, Sessions are the ongoing conversation — smaller, more intimate, and built for the kind of depth you can't get in a conference room with 200 people.</p>
+      <p>Each session features one practitioner in a fireside format. No slides. No polished talks. Just real conversation about what's working, what failed, and what they're building next.</p>
+      <p>Sessions are open to MAN community members. Join the network to access registration for upcoming sessions.</p>
+      <div style="margin-top:24px"><a class="btn btn-te" data-page="sessions" data-anchor="sess-reg">Register for Q4 →</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="sessions-list" id="sessions-list">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">2026 Sessions</span>
+    <h2 class="sr">Four conversations. All year.</h2>
+
+    <div class="sess-row sr">
+      <div class="sess-info sdone">
+        <div class="si-top"><span class="si-qtr">Q1 · January – March 2026</span><span class="si-stat done">Complete</span></div>
+        <div class="si-num">01</div>
+        <h2 class="si-title">Starting With Clarity</h2>
+        <p class="si-desc">The first MAN Session of 2026. A conversation about beginning the year with intention — how practitioners set direction for their work and their teams.</p>
+        <div class="si-fmt-row"><span class="si-tag virtual">Virtual</span><span class="si-tag">January 2026</span></div>
+        <div class="si-guest"><div class="gl">Guest Leader</div><div class="gn">To be named</div><div class="gt">MAN Community · Session 01</div></div>
+      </div>
+      <div class="sess-media"><div class="sm-main"><div class="ph-cr" data-label="Session 01 · Photo" style="width:100%;height:100%;border:none;background:#d4cfc7"></div></div><div class="sm-spk"><div class="sm-spk-photo"><div class="ph-cr" style="width:100%;height:100%;border:none;background:#c8c4bc"></div></div><div class="sm-spk-info"><div class="sl">Guest Leader</div><div class="sn">Name Placeholder</div><div class="st">Title · Organisation</div></div></div></div>
+    </div>
+
+    <div class="sess-row sr">
+      <div class="sess-info sdone">
+        <div class="si-top"><span class="si-qtr">Q2 · April – June 2026</span><span class="si-stat done">Complete</span></div>
+        <div class="si-num">02</div>
+        <h2 class="si-title">Building in Public</h2>
+        <p class="si-desc">An in-person fireside on the practice of building transparently — sharing the work before it's ready, finding your audience, and the risks and rewards of visible progress.</p>
+        <div class="si-fmt-row"><span class="si-tag inperson">In-Person</span><span class="si-tag">April 2026</span></div>
+        <div class="si-guest"><div class="gl">Guest Leader</div><div class="gn">To be named</div><div class="gt">MAN Community · Session 02</div></div>
+      </div>
+      <div class="sess-media"><div class="sm-main"><div class="ph-cr" data-label="Session 02 · Photo" style="width:100%;height:100%;border:none;background:#cdc9c0"></div></div><div class="sm-spk"><div class="sm-spk-photo"><div class="ph-cr" style="width:100%;height:100%;border:none;background:#c4c0b8"></div></div><div class="sm-spk-info"><div class="sl">Guest Leader</div><div class="sn">Name Placeholder</div><div class="st">Title · Organisation</div></div></div></div>
+    </div>
+
+    <div class="sess-row sr">
+      <div class="sess-info sdone">
+        <div class="si-top"><span class="si-qtr">Q3 · July – September 2026</span><span class="si-stat recent">Recent</span></div>
+        <div class="si-num">03</div>
+        <h2 class="si-title">The Distribution Problem</h2>
+        <p class="si-desc">How Ghana's most effective marketing teams are solving distribution — getting the right work in front of the right people, consistently, at scale.</p>
+        <div class="si-fmt-row"><span class="si-tag virtual">Virtual</span><span class="si-tag">September 2026</span></div>
+        <div class="si-guest"><div class="gl">Guest Leader</div><div class="gn">To be named</div><div class="gt">MAN Community · Session 03</div></div>
+      </div>
+      <div class="sess-media"><div class="sm-main"><div class="ph-cr" data-label="Session 03 · Photo" style="width:100%;height:100%;border:none;background:#cbc7be"></div></div><div class="sm-spk"><div class="sm-spk-photo"><div class="ph-cr" style="width:100%;height:100%;border:none;background:#c2beb6"></div></div><div class="sm-spk-info"><div class="sl">Guest Leader</div><div class="sn">Name Placeholder</div><div class="st">Title · Organisation</div></div></div></div>
+    </div>
+
+    <div class="sess-row sr">
+      <div class="sess-info supcoming">
+        <div class="si-top"><span class="si-qtr">Q4 · October – December 2026</span><span class="si-stat upcoming">Upcoming</span></div>
+        <div class="si-num">04</div>
+        <h2 class="si-title">To Be Confirmed</h2>
+        <p class="si-desc">The final MAN Session of 2026. Topic and guest leader to be announced. Register your interest now — space is limited to community members.</p>
+        <div class="si-fmt-row"><span class="si-tag tbc">Format TBC</span><span class="si-tag tbc">Q4 2026</span></div>
+        <div style="margin-top:16px"><a class="btn btn-dk" data-page="sessions" data-anchor="sess-reg" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a></div>
+      </div>
+      <div class="sess-media" style="background:rgba(201,162,74,.05)"><div class="sm-main" style="display:flex;align-items:center;justify-content:center;flex:1"><span style="font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.25);text-align:center;padding:0 20px">Q4 2026 · Details to be confirmed</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="attend-sec" id="attend">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">How to Attend</span>
+    <h2 class="sr">Three steps to the room.</h2>
+    <div class="attend-grid" style="margin-top:40px">
+      <div class="att-card sr"><div class="att-num">01</div><h3>Join the MAN Network</h3><p>MAN Sessions are open to MAN community members. Follow @mangh and @admarknet on Instagram, or reach out at hello@mangh.com to join the community.</p></div>
+      <div class="att-card sr d1"><div class="att-num">02</div><h3>Register for Each Session</h3><p>Each quarter, registration opens to community members. Spaces are limited — register early. Virtual sessions use a link shared to registered attendees; in-person sessions are at a confirmed Accra venue.</p></div>
+      <div class="att-card sr d2"><div class="att-num">03</div><h3>Show Up and Participate</h3><p>Sessions run 90 minutes to 2 hours. Come with questions. The format is fireside — conversational, not lecture. Your participation is the point of the room.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="sess-reg" id="sess-reg">
+  <div class="c" style="text-align:center">
+    <span class="stag">Q4 2026</span>
+    <h2>Register for<br>MAN Session 04</h2>
+    <p>Join the waitlist for the final MAN Session of 2026. Topic and guest leader to be confirmed. Limited to MAN community members.</p>
+    <div class="sreg-meta">
+      <div class="srm"><div class="l">Quarter</div><div class="v">Q4 · Oct–Dec 2026</div></div>
+      <div class="srm"><div class="l">Format</div><div class="v">TBC</div></div>
+      <div class="srm"><div class="l">Access</div><div class="v">Community Members</div></div>
+    </div>
+    <div><a class="btn btn-cr" href="mailto:hello@mangh.com?subject=MAN Sessions Q4 2026 Registration" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank">Register Now →</a></div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="sess-arch">
+  <div class="c">
+    <span class="sl">Archive</span>
+    <h2>Past Sessions</h2>
+    <div class="arch-grid" style="margin-top:32px">
+      <div class="arc-card"><div class="arc-yr">2025</div><p>MAN Sessions 2025. Four sessions across the year. Archive details to be added.</p></div>
+      <div class="arc-card" style="opacity:.4"><div class="arc-yr">2024</div><p>Earlier sessions. Archive coming soon.</p></div>
+      <div class="arc-card" style="opacity:.25"><div class="arc-yr">Earlier</div><p>Session history from MAN's founding years.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sess-bridge">
+  <div class="bridge-inner c">
+    <div class="bc dmc"><div class="bc-tag">Annual Flagship</div><div class="bc-title">DMC<br>2026</div><div class="bc-sub">The conference. 200 people. One day. British Council, Accra. November 2026.</div><a class="btn btn-dk" data-page="dmc26">Explore DMC 2026 →</a></div>
+    <div class="bc man"><div class="bc-tag">Community Home</div><div class="bc-title">MAN<br>GH</div><div class="bc-sub">Marketers & Advertisers Network — the community behind DMC and MAN Sessions.</div><a class="btn btn-cr" data-page="home">Visit mangh.com →</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="bm">M·A·N Community</div><div class="brand">Sessions</div><p>Quarterly fireside conversations for Ghana's marketing and advertising community.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank">in</a><a href="https://twitter.com/mangh" target="_blank">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a></div></div>
+    <div class="fc"><h4>Sessions</h4><ul><li><a data-page="sessions" data-anchor="sessions-list">2026 Sessions</a></li><li><a data-page="sessions" data-anchor="attend">How to Attend</a></li><li><a data-page="sessions" data-anchor="sess-reg">Register Q4</a></li></ul></div>
+    <div class="fc"><h4>MAN</h4><ul><li><a data-page="home">mangh.com</a></li><li><a data-page="dmc26">DMC 2026</a></li><li><a data-page="dmc25">DMC 2025</a></li><li><a href="mailto:hello@mangh.com">hello@mangh.com</a></li></ul></div>
+  </div>
+  <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network.</p><div class="fb-lnks"><a href="#">Privacy</a><a data-page="home" data-anchor="connect">Connect</a></div></div>
+</footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: PARTNERS / SPONSORSHIP
+     ════════════════════════════════════════ -->
+<div id="page-partners" class="page">
+<nav>
+  <a class="nav-back" data-page="dmc26">← DMC 2026</a>
+  <div class="nav-brand">DMC <span class="d">2026</span></div>
+  <ul class="nav-menu">
+    <li class="nav-item"><a data-page="dmc26" data-anchor="programme">Programme</a></li>
+    <li class="nav-item"><a data-page="dmc26" data-anchor="speakers">Speakers</a></li>
+    <li class="nav-item"><a data-page="partners" style="color:var(--cr)">Partner With Us</a></li>
+    <li class="nav-item"><a data-page="dmc26" data-anchor="venue">Venue</a></li>
+    <li class="nav-item"><a data-page="home" data-anchor="connect">Connect</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn btn-f" data-page="partners" data-anchor="form">Enquire →</a>
+    <button class="hamburger" onclick="toggleMM('mm-partners')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-partners">
+  <a data-page="dmc26" data-anchor="programme" onclick="closeMM('mm-partners')">Programme</a>
+  <a data-page="dmc26" data-anchor="speakers" onclick="closeMM('mm-partners')">Speakers</a>
+  <a data-page="partners" data-anchor="tiers" onclick="closeMM('mm-partners')">Sponsorship Tiers</a>
+  <a data-page="partners" data-anchor="form" onclick="closeMM('mm-partners')">Enquire</a>
+  <a data-page="dmc26" onclick="closeMM('mm-partners')">← DMC 2026</a>
+  <a class="mm-cta" data-page="partners" data-anchor="form" onclick="closeMM('mm-partners')">Partner With DMC 2026 →</a>
+</div>
+
+<section class="hero">
+  <div class="p-hero-inner">
+    <p class="p-hero-ey hr">Be Part of DMC 2026</p>
+    <h1 class="p-hero-h1 hr">Partner<br>With <span>Us</span></h1>
+    <p class="p-hero-h2 hr">Sponsorship & Partnerships</p>
+    <p class="p-hero-sub hr">DMC 2026 brings 200 of Ghana's most serious marketing and advertising professionals into one room for one day. Your brand in that room means something different than your brand anywhere else.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap" class="hr">
+      <a class="btn btn-f" data-page="partners" data-anchor="tiers">View Packages →</a>
+      <a class="btn btn-cr" data-page="partners" data-anchor="form">Enquire Now</a>
+    </div>
+  </div>
+</section>
+
+<div class="cs-strip">
+  <div class="cs-inner">
+    <div class="cs-l"><div class="cs-tier">Gold / Headline</div><div><div class="cs-nm">MojoPay</div><div class="cs-sub">Enhanced PSP · Bank of Ghana Licensed · CEO: Saqib Nazir</div></div></div>
+    <div class="cs-status">Title Sponsor — DMC 2026 · This tier is filled</div>
+  </div>
+</div>
+
+<div class="kente"></div>
+
+<section class="why-sec">
+  <div class="why-grid c">
+    <div class="sr">
+      <span class="sl">The Opportunity</span>
+      <h2>200 practitioners. One room. One day. Your brand in the middle of it.</h2>
+      <div class="why-stats">
+        <div class="wst sr"><div class="n">200+</div><div class="d">Curated attendees — not ticketed, invited</div></div>
+        <div class="wst sr d1"><div class="n">2nd</div><div class="d">MAN flagship — the model is proven</div></div>
+        <div class="wst sr d2"><div class="n">1</div><div class="d">Title sponsor per conference</div></div>
+        <div class="wst sr d3"><div class="n">8–5</div><div class="d">Full day, full engagement</div></div>
+      </div>
+    </div>
+    <div class="why-copy sr d1">
+      <p>DMC 2026 is not a mass-market event. It is a deliberately limited gathering of Ghana's most serious marketing and advertising practitioners — people who are actively building brands, campaigns, and careers. They are not easy to reach. They are in this room.</p>
+      <p>A sponsorship of the Digital Marketing Conference is a presence decision, not a coverage decision. Every package puts your organisation in front of a curated audience with a high signal-to-noise ratio — not a stadium of people scrolling past your logo.</p>
+      <p>Four tiers. One already taken. Three available. Contact Alice to discuss which is right for your organisation.</p>
+      <div style="margin-top:24px"><a class="btn btn-cr" data-page="partners" data-anchor="form">Enquire with Alice →</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="quotes-sec">
+  <div class="fq">
+    <span class="fq-conf">DMC 2026 · Gold / Headline Sponsor</span>
+    <div class="fq-mark">"</div>
+    <p class="fq-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <div class="fq-attr">
+      <div class="fq-name">Saqib Nazir</div>
+      <div class="fq-role">CEO, MojoPay · DMC 2026 Title Sponsor</div>
+      <div class="fq-flag">Quote to be confirmed with Saqib Nazir</div>
+    </div>
+  </div>
+  <div class="sq-row">
+    <div class="sq">
+      <div class="sq-conf">DMC 2025 · Title Sponsor</div>
+      <div class="sq-mark">"</div>
+      <p class="sq-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+      <div class="sq-attr"><div class="sq-name">Name Placeholder</div><div class="sq-role">Title, Google · DMC 2025</div><div class="sq-flag">Quote to be confirmed with Google</div></div>
+    </div>
+    <div class="sq sqe">
+      <div class="sq-conf">DMC 2025 · Supporting Sponsor</div>
+      <div class="sq-mark sq-mark-dim">"</div>
+      <p class="sq-text sq-text-dim">This slot is reserved for an additional DMC 2025 sponsor quote. Add the name and quote once confirmed.</p>
+      <div class="sq-attr"><div class="sq-name sq-name-dim">Sponsor Name</div><div class="sq-role">Title, Organisation · DMC 2025</div><div class="sq-flag">Placeholder — to be filled</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="tiers-tbl-sec" id="tiers">
+  <div class="c">
+    <span class="sl sr" style="color:var(--te)">Sponsorship Packages</span>
+    <h2 class="sr">Four tiers. Built for different kinds of presence.</h2>
+    <div class="tiers-tbl">
+      <div class="trow" style="margin-bottom:2px"><div class="thd">Package</div><div class="thd">Key Benefits</div><div class="thd">Next Step</div></div>
+      <div class="trow sr">
+        <div class="tn tn-go"><div class="tlvl">Tier 01</div><div class="tname">Gold /<br>Headline</div><span class="tbadge">Taken — MojoPay</span></div>
+        <div class="tb-cell"><span class="takn">Filled for DMC 2026</span><ul><li>Full conference naming rights and title association</li><li>Session 04 activation (MojoPay Innovation Hub)</li><li>Stage presence and branded MC mentions throughout the day</li><li>Premium logo placement across all event materials</li><li>4 reserved seats with front-row placement</li><li>Social recognition across all MAN/DMC channels</li><li>Post-event photography package from Koin</li></ul></div>
+        <div class="tc-cell2"><p class="pnote">This tier is filled for DMC 2026. Enquire about future editions or the Silver tier.</p><a class="btn" style="font-size:10px;padding:9px 18px;align-self:flex-start;display:inline-block" data-page="partners" data-anchor="form">Future Editions →</a></div>
+      </div>
+      <div class="trow sr" style="margin-top:2px">
+        <div class="tn tn-si"><div class="tlvl">Tier 02</div><div class="tname">Silver</div></div>
+        <div class="tb-cell"><span class="avail">Available</span><ul><li>Named association with a specific DMC 2026 session</li><li>Logo on event backdrop, signage, and printed materials</li><li>Brand presence in the British Council hallway and frontage</li><li>3 reserved seats at the conference</li><li>Social recognition across MAN/DMC channels pre and post event</li><li>Recognition in opening and closing remarks</li></ul></div>
+        <div class="tc-cell2"><p class="pnote">Best for organisations wanting meaningful brand presence and session association.</p><a class="btn btn-f" style="font-size:10px;padding:9px 18px;align-self:flex-start;display:inline-block" data-page="partners" data-anchor="form">Enquire →</a></div>
+      </div>
+      <div class="trow sr" style="margin-top:2px">
+        <div class="tn tn-br"><div class="tlvl">Tier 03</div><div class="tname">Bronze</div></div>
+        <div class="tb-cell"><span class="avail">Available</span><ul><li>Logo on event backdrop and key printed materials</li><li>Brand mention in pre-event communications to MAN community</li><li>2 reserved seats at the conference</li><li>Social recognition across MAN/DMC channels</li><li>Post-event recognition in MAN network recap</li></ul></div>
+        <div class="tc-cell2"><p class="pnote">Solid brand presence. Straightforward and meaningful.</p><a class="btn" style="font-size:10px;padding:9px 18px;align-self:flex-start;display:inline-block;border-color:var(--bronze);color:var(--bronze)" data-page="partners" data-anchor="form">Enquire →</a></div>
+      </div>
+      <div class="trow sr" style="margin-top:2px">
+        <div class="tn tn-cd"><div class="tlvl">Tier 04</div><div class="tname">Cedar</div></div>
+        <div class="tb-cell"><span class="avail">Available</span><ul><li>Logo on event collateral and digital materials</li><li>Recognition in opening remarks</li><li>1 reserved seat at the conference</li><li>Entry-level brand association with DMC 2026</li><li>Inclusion in post-event sponsor recognition</li></ul></div>
+        <div class="tc-cell2"><p class="pnote">Entry-level association for organisations wanting to support DMC and be part of the room.</p><a class="btn" style="font-size:10px;padding:9px 18px;align-self:flex-start;display:inline-block;border-color:var(--cedar);color:var(--cedar)" data-page="partners" data-anchor="form">Enquire →</a></div>
+      </div>
+    </div>
+    <p class="tiers-note-p sr">All packages subject to availability and final confirmation by MAN. Pricing on enquiry. Contact Alice at hello@mangh.com.</p>
+  </div>
+</section>
+
+<div class="kente"></div>
+
+<section class="form-sec" id="form">
+  <div class="form-inner c">
+    <div class="form-l sr">
+      <span class="sl">Get Started</span>
+      <h2>Sponsorship<br>Interest <span>Form</span></h2>
+      <p>Share your sponsorship interest and Alice will follow up with alignment options for the right tier and how your organisation can be part of DMC 2026.</p>
+      <div class="contact-cards">
+        <div class="ccard"><div class="ci">✉</div><div><div class="cl">Email — Sponsorship</div><div class="cv"><a href="mailto:hello@mangh.com">hello@mangh.com</a></div></div></div>
+        <div class="ccard"><div class="ci">↗</div><div><div class="cl">Purpose</div><div class="cv">Sponsorship & support partnerships</div></div></div>
+        <div class="ccard"><div class="ci">📅</div><div><div class="cl">Conference Date</div><div class="cv">November 2026 · British Council, Accra</div></div></div>
+      </div>
+    </div>
+    <div class="form-r sr d1">
+      <form action="mailto:hello@mangh.com" method="post" enctype="text/plain">
+        <div class="frow"><div class="fg"><label>Name of Organisation</label><input type="text" name="org" placeholder="Organisation name" required></div><div class="fg"><label>Industry</label><input type="text" name="industry" placeholder="e.g. Financial Services, FMCG"></div></div>
+        <div class="frow"><div class="fg"><label>Contact Person</label><input type="text" name="contact" placeholder="Full name" required></div><div class="fg"><label>Email</label><input type="email" name="email" placeholder="name@organisation.com" required></div></div>
+        <div class="frow s1"><div class="fg"><label>Phone Number</label><div class="phone-row"><div class="ph-pfx">🇬🇭 +233</div><input type="tel" name="phone" placeholder="24 000 0000"></div></div></div>
+        <div class="frow s1"><div class="fg"><label>Tier of Interest</label><select name="tier"><option value="" disabled selected>Select a tier</option><option value="silver">Silver — Tier 02</option><option value="bronze">Bronze — Tier 03</option><option value="cedar">Cedar — Tier 04</option><option value="future-gold">Gold / Headline — Future Editions</option><option value="unsure">Not sure — help me choose</option></select></div></div>
+        <div class="frow s1"><div class="fg"><label>How you'd like to support DMC 2026</label><textarea name="message" placeholder="Describe your organisation's interest in sponsoring DMC 2026..."></textarea></div></div>
+        <button type="submit" class="form-submit">Submit Sponsorship Interest →</button>
+        <p class="form-note">Alice will respond within 2 business days with alignment options.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="bm">A M·A·N Event</div><div class="brand">DMC <span class="d">2026</span></div><p>Digital Marketing Conference 2026. Built To Scale. British Council, Accra.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank">in</a><a href="https://twitter.com/mangh" target="_blank">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a></div></div>
+    <div class="fc"><h4>The Programme</h4><ul><li><a data-page="dmc26" data-anchor="programme">Overview</a></li><li><a data-page="dmc26" data-anchor="speakers">Speakers</a></li><li><a data-page="dmc26" data-anchor="venue">Venue</a></li><li><a data-page="dmc26" data-anchor="travel">Travel Guide</a></li></ul></div>
+    <div class="fc"><h4>Be Part of DMC</h4><ul><li><a data-page="partners" data-anchor="tiers">Sponsorship Tiers</a></li><li><a data-page="partners" data-anchor="form">Enquire</a></li><li><a data-page="dmc26" data-anchor="register">Register</a></li><li><a data-page="home">mangh.com</a></li></ul></div>
+    <div class="fc"><h4>MAN</h4><ul><li><a data-page="home">mangh.com</a></li><li><a data-page="sessions">MAN Sessions</a></li><li><a data-page="dmc25">DMC 2025</a></li><li><a data-page="home" data-anchor="team">The Team</a></li></ul></div>
+    <div class="fc fc-c"><h4>Contact</h4><div class="cl">Sponsorship</div><div class="cv"><a href="mailto:hello@mangh.com">hello@mangh.com</a></div><div class="cl">WhatsApp</div><div class="cv"><a href="https://wa.me/233500000000" target="_blank">+233 50 000 0000</a></div><div class="cl">Event</div><div class="cv">November 2026 · Accra</div></div>
+  </div>
+  <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network.</p><div class="fb-lnks"><a href="#">Privacy</a><a href="#">Terms</a><a data-page="home" data-anchor="connect">Connect</a></div></div>
+</footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE: DMC 2025 ARCHIVE
+     ════════════════════════════════════════ -->
+<div id="page-dmc25" class="page">
+<div class="arch-banner"><p>You're viewing the DMC 2025 archive.</p><a data-page="dmc26">View DMC 2026 — Built To Scale →</a></div>
+<nav style="background:rgba(10,10,10,.95)">
+  <a class="nav-back" data-page="home" style="color:rgba(244,239,230,.25)">← mangh.com</a>
+  <div class="nav-brand" style="color:rgba(244,239,230,.5)">DMC <span style="color:rgba(201,162,74,.45)">2025</span></div>
+  <ul class="nav-menu">
+    <li class="nav-item"><a data-page="dmc25" data-anchor="recap-video" style="color:rgba(244,239,230,.3)">Watch Recap</a></li><li class="nav-item"><a data-page="dmc25" data-anchor="prog25" style="color:rgba(244,239,230,.3)">Programme</a></li>
+    <li class="nav-item"><a data-page="dmc25" data-anchor="spk25" style="color:rgba(244,239,230,.3)">Speakers</a></li>
+    <li class="nav-item"><a data-page="dmc25" data-anchor="gall25" style="color:rgba(244,239,230,.3)">Gallery</a></li>
+    <li class="nav-item"><a data-page="dmc26" style="color:rgba(201,162,74,.5)">DMC 2026 →</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn" style="border-color:rgba(201,162,74,.35);color:rgba(201,162,74,.5);font-size:10px;padding:9px 18px" data-page="dmc26">DMC 2026 →</a>
+    <button class="hamburger" onclick="toggleMM('mm-dmc25')" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-dmc25" style="background:rgba(10,10,10,.98)">
+  <a data-page="dmc25" data-anchor="recap-video" onclick="closeMM('mm-dmc25')">Watch Recap</a>
+  <a data-page="dmc25" data-anchor="prog25" onclick="closeMM('mm-dmc25')">Programme</a>
+  <a data-page="dmc25" data-anchor="spk25" onclick="closeMM('mm-dmc25')">Speakers</a>
+  <a data-page="dmc25" data-anchor="gall25" onclick="closeMM('mm-dmc25')">Gallery</a>
+  <a data-page="home" onclick="closeMM('mm-dmc25')">← mangh.com</a>
+  <a class="mm-cta" data-page="dmc26" onclick="closeMM('mm-dmc25')">DMC 2026 →</a>
+</div>
+
+<section class="hero" style="background:#141414">
+  <div class="h25-inner">
+    <div class="h25-l">
+      <span class="arch-tag">Archive · 2025</span>
+      <div class="conf-lbl">Digital Marketing Conference</div>
+      <div class="h25-title">DMC</div>
+      <div class="h25-year">2025</div>
+      <div class="h25-meta">
+        <div class="h25-mi"><div class="l">Date</div><div class="v">28 Nov 2025</div></div>
+        <div class="h25-mi"><div class="l">Venue</div><div class="v">Google AI Center</div></div>
+        <div class="h25-mi"><div class="l">Attendance</div><div class="v">100+ Physical</div></div>
+        <div class="h25-mi"><div class="l">Online</div><div class="v">30–38 Virtual</div></div>
+      </div>
+      <a class="btn" style="border-color:rgba(201,162,74,.35);color:rgba(201,162,74,.5);font-size:10px;padding:9px 18px;margin-top:8px;display:inline-block" data-page="dmc26">See DMC 2026 →</a>
+    </div>
+    <div class="h25-r">
+      <div class="ph" data-label="DMC 2025 · Main Stage" style="grid-column:span 2;background:#1e1c18;border:none"></div>
+      <div class="ph" data-label="DMC 2025 · Panel" style="background:#1a1a1a;border:none"></div>
+      <div class="ph" data-label="DMC 2025 · Audience" style="background:#1a1a1a;border:none"></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="g-sec">
+  <div class="g-inner c">
+    <div class="g-left sr">
+      <div class="g-tier">Title Sponsor · DMC 2025</div>
+      <div class="gmark"><span class="g1">G</span><span class="o1">o</span><span class="o2">o</span><span class="g2">g</span><span class="l">l</span><span class="e">e</span></div>
+      <div style="margin-bottom:10px"><span style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.28)">Google AI Community Center, Accra</span></div>
+      <div style="margin-bottom:10px"><span style="font-size:12px;color:rgba(244,239,230,.25)">Provided the venue for DMC 2025 and hosted the AI in Marketing panel.</span></div>
+      <p class="g-note">DMC 2025 · Google as Title Sponsor & Venue Partner</p>
+    </div>
+    <div class="g-right sr d1">
+      <p>DMC 2025 was held at the Google AI Community Center in Accra on 28 November 2025. Google served as title sponsor and venue partner, providing the space and platform support for the AI in Marketing panel discussion.</p>
+      <p>The day brought together 100+ physical attendees and 30–38 online participants, with 289 total registrations — a significant oversubscription that validated the format and set a new baseline for DMC 2026.</p>
+      <div class="pq">"The interest in DMC 2025 exceeded our expectations. 289 registrations for a room with 100 seats tells us the community needs more than one day a year."</div>
+      <p>Three panels, four parallel breakout sessions, and a keynote from Stephen Boadi. The first DMC — and the proof of concept that led directly to DMC 2026: Built To Scale at the British Council.</p>
+    </div>
+  </div>
+</section>
+
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="vid-sec" id="recap-video">
+  <div class="vid-outer">
+    <div class="vid-hero">
+      <iframe
+        src="https://www.youtube.com/embed/N13_-PF50IU?rel=0&modestbranding=1&color=white"
+        title="DMC 2025 — Digital Marketers Conference Recap"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="vid-caption">
+      <div class="vc-l">
+        <div class="vc-icon">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        </div>
+        <div>
+          <div class="vc-label">DMC 2025 Recap</div>
+          <div class="vc-title">Digital Marketers' Conference 2025 — Google AI Community Center, Accra</div>
+        </div>
+      </div>
+      <div class="vc-r">28 November 2025 · Accra, Ghana</div>
+    </div>
+  </div>
+</section>
+
+<section class="recap-sec">
+  <div class="recap-grid c">
+    <div class="sr">
+      <span class="sl" style="color:rgba(201,162,74,.5)">By The Numbers</span>
+      <h2>The first DMC set the bar.</h2>
+      <div class="recap-stats">
+        <div class="rstat sr"><div class="n">289</div><div class="d">Total registrations</div></div>
+        <div class="rstat sr d1"><div class="n">100+</div><div class="d">Physical attendees</div></div>
+        <div class="rstat sr d2"><div class="n">30–38</div><div class="d">Online participants</div></div>
+        <div class="rstat sr d3"><div class="n">11</div><div class="d">Confirmed speakers</div></div>
+      </div>
+    </div>
+    <div class="recap-copy sr d1">
+      <p>DMC 2025 was the first DMC — and first proofs of concept rarely go perfectly. The community showed up in numbers far beyond the room's capacity. The wifi failed. Generation Ghana's $1,000 sponsorship didn't arrive by event day, forcing emergency founder contributions.</p>
+      <div class="pq">"No website existed. We relied entirely on social media, WhatsApp, and email."</div>
+      <p>The lessons from 2025 are now built into DMC 2026. A proper venue with professional AV. A dedicated website. MojoPay as title sponsor with a formal agreement. And the British Council — a room that can hold the room DMC 2025 proved exists.</p>
+      <p>DMC 2025 wasn't perfect. That's what made DMC 2026 possible.</p>
+    </div>
+  </div>
+</section>
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="prog25" id="prog25">
+  <div class="c">
+    <span class="sl sr" style="color:rgba(201,162,74,.5)">Programme</span>
+    <h2 class="sr">DMC 2025 — 28 November</h2>
+    <div class="sess25-list">
+      <div class="sess25 sr"><div class="sess25-num"><span>9:40</span></div><div class="sess25-body"><span class="sb25">Keynote</span><h3>Theme Address — "Digital Renaissance: Igniting Growth & Innovation in the African Market"</h3><p>Stephen N. Boadi</p></div></div>
+      <div class="sess25 sr d1"><div class="sess25-num"><span>10:00</span></div><div class="sess25-body"><span class="sb25">Panel 01</span><h3>AI in Marketing</h3><p>Guest from Google AI · Moderator TBC</p></div></div>
+      <div class="sess25 sr d2"><div class="sess25-num"><span>10:55</span></div><div class="sess25-body"><span class="sb25">Panel 02</span><h3>Data-Driven Marketing</h3><p>Muyiwa Aleshinloye, Miguel De Diego Brako, Jessica Sedem Tisanjoh · Moderator: Alice Mensah</p></div></div>
+      <div class="sess25 sr d1"><div class="sess25-num"><span>12:10</span></div><div class="sess25-body"><span class="sb25">Panel 03</span><h3>SME & Startup Marketing Growth</h3><p>Josiah Eyison, Bernard Kelvin Clive, Venus Tawiah · Moderator: Nadia Owusu</p></div></div>
+      <div class="sess25 sr d2"><div class="sess25-num"><span>1:00</span></div><div class="sess25-body"><span class="sb25">Breakouts</span><h3>4 Parallel Sessions</h3><p>Product Marketing (Nhyira Butah) · Budget Management (Priscilla Korshie-Sherrie) · Influencer Marketing (Jessica Naa Adjeley) · Case Study (Cecil Ato Kwamena Dadzie)</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="spk25" id="spk25">
+  <div class="c">
+    <span class="sl sr" style="color:rgba(201,162,74,.5)">Speakers</span>
+    <h2 class="sr">DMC 2025 — Confirmed Speakers</h2>
+    <div class="spk25-grid">
+      <div class="spk25-card sr"><div class="sp-ph"><div class="ph" data-label="Stephen N. Boadi" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Keynote</div><div class="spn">Stephen N. Boadi</div><div class="spb">Theme keynote — "Digital Renaissance"</div></div></div>
+      <div class="spk25-card sr d1"><div class="sp-ph"><div class="ph" data-label="Muyiwa Aleshinloye" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Panel 02</div><div class="spn">Muyiwa Aleshinloye</div><div class="spb">Data-Driven Marketing panel</div></div></div>
+      <div class="spk25-card sr d2"><div class="sp-ph"><div class="ph" data-label="Bernard Kelvin Clive" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Panel 03</div><div class="spn">Bernard Kelvin Clive</div><div class="spb">SME & Startup Marketing Growth</div></div></div>
+      <div class="spk25-card sr d3"><div class="sp-ph"><div class="ph" data-label="Josiah Eyison" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Panel 03</div><div class="spn">Josiah Eyison</div><div class="spb">SME & Startup Marketing Growth</div></div></div>
+      <div class="spk25-card sr"><div class="sp-ph"><div class="ph" data-label="Alice Mensah" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Moderator</div><div class="spn">Alice Mensah</div><div class="spb">Panel 02 Moderator</div></div></div>
+      <div class="spk25-card sr d1"><div class="sp-ph"><div class="ph" data-label="Nadia Owusu" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Moderator</div><div class="spn">Nadia Owusu</div><div class="spb">Panel 03 Moderator</div></div></div>
+      <div class="spk25-card sr d2"><div class="sp-ph"><div class="ph" data-label="Jessica Sedem Tisanjoh" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Panel 02</div><div class="spn">Jessica S. Tisanjoh</div><div class="spb">Data-Driven Marketing panel</div></div></div>
+      <div class="spk25-card sr d3"><div class="sp-ph"><div class="ph" data-label="Venus Tawiah" style="width:100%;height:100%;border:none;background:#1c1c1c"></div></div><div class="sp-inf"><div class="spc" style="color:rgba(201,162,74,.4)">Panel 03</div><div class="spn">Venus Tawiah</div><div class="spb">SME & Startup Marketing Growth</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="gall25" id="gall25">
+  <div class="c">
+    <span class="sl sr" style="color:rgba(201,162,74,.5)">Gallery</span>
+    <h2 class="sr">DMC 2025 — In Photos</h2>
+    <div class="gall-grid">
+      <div class="gall-slot"><span>Photo 01 · Main Stage</span></div>
+      <div class="gall-slot"><span>Photo 02 · Panel Discussion</span></div>
+      <div class="gall-slot"><span>Photo 03 · Audience</span></div>
+      <div class="gall-slot"><span>Photo 04 · Breakout Sessions</span></div>
+      <div class="gall-slot"><span>Photo 05 · Networking</span></div>
+      <div class="gall-slot"><span>Photo 06 · Closing</span></div>
+    </div>
+    <p class="gall-note sr">Photography by Koin. Full gallery to be linked once assets are compiled.</p>
+  </div>
+</section>
+
+<div class="kente" style="opacity:.5"></div>
+
+<section class="bridge25">
+  <div class="c">
+    <span class="sl" style="color:rgba(201,162,74,.5)">What Came Next</span>
+    <h2>Built To <span class="d">Scale</span></h2>
+    <p>DMC 2025 proved the model. DMC 2026 is the next chapter — bigger venue, stronger production, and the kind of programme the community has been asking for.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn" style="border-color:rgba(201,162,74,.4);color:rgba(201,162,74,.6);padding:14px 32px;font-size:12px" data-page="dmc26">Explore DMC 2026 →</a>
+      <a class="btn" style="border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.35);padding:14px 32px;font-size:12px" data-page="partners">Partner With DMC 2026</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="bm" style="color:rgba(244,239,230,.5)">Archive</div><div class="brand" style="color:rgba(244,239,230,.5)">DMC <span style="color:rgba(201,162,74,.4)">2025</span></div><p style="color:rgba(244,239,230,.2)">Digital Marketing Conference 2025. The first DMC. Google AI Community Center, Accra.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank">in</a><a href="https://twitter.com/mangh" target="_blank">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a></div></div>
+    <div class="fc"><h4 style="color:rgba(201,162,74,.4)">DMC 2025</h4><ul><li><a data-page="dmc25" data-anchor="prog25" style="color:rgba(244,239,230,.2)">Programme</a></li><li><a data-page="dmc25" data-anchor="spk25" style="color:rgba(244,239,230,.2)">Speakers</a></li><li><a data-page="dmc25" data-anchor="gall25" style="color:rgba(244,239,230,.2)">Gallery</a></li></ul></div>
+    <div class="fc"><h4 style="color:rgba(201,162,74,.5)">What's Next</h4><ul><li><a data-page="dmc26">DMC 2026 →</a></li><li><a data-page="partners">Partner With DMC 2026</a></li><li><a data-page="sessions">MAN Sessions</a></li><li><a data-page="home">mangh.com</a></li></ul></div>
+  </div>
+  <div class="fb-bot"><p style="color:rgba(244,239,230,.15)">© 2026 Marketers & Advertisers Network. DMC 2025 Archive.</p><div class="fb-lnks"><a data-page="home">mangh.com</a><a data-page="dmc26">DMC 2026</a></div></div>
+</footer>
+</div>
+
+<!-- ════════════════════════════════════════
+     ROUTER + MOTION JAVASCRIPT
+     ════════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── PAGE MAP ── */
+var PAGE_IDS = ['home','dmc26','sessions','partners','dmc25'];
+
+/* ── ROUTER ── */
+var currentPage = 'home';
+var motionInited = {};
+
+function navigate(pageId, anchor){
+  if(!pageId || PAGE_IDS.indexOf(pageId) === -1) pageId = 'home';
+  /* hide all */
+  PAGE_IDS.forEach(function(id){
+    var el = document.getElementById('page-' + id);
+    if(el) el.style.display = 'none';
+    el && el.classList.remove('active');
+  });
+  /* show target */
+  var target = document.getElementById('page-' + pageId);
+  if(!target) return;
+  target.style.display = 'block';
+  target.classList.add('active');
+  currentPage = pageId;
+
+  /* scroll */
+  if(anchor){
+    /* try anchor within page first, fallback to document */
+    var ancEl = target.querySelector('#' + anchor) || document.getElementById(anchor);
+    if(ancEl){
+      setTimeout(function(){ ancEl.scrollIntoView({behavior:'smooth', block:'start'}); }, 80);
+    } else {
+      window.scrollTo(0,0);
+    }
+  } else {
+    window.scrollTo(0,0);
+  }
+
+  /* init motion for this page */
+  initPageMotion(pageId);
+
+  /* sticky reg on dmc26 */
+  var sr = document.getElementById('sticky-reg');
+  if(sr) sr.style.display = pageId === 'dmc26' ? '' : 'none';
+}
+
+/* ── LINK INTERCEPTION ── */
+document.addEventListener('click', function(e){
+  var el = e.target;
+  /* walk up to find a[data-page] or any clickable with data-page */
+  while(el && el !== document.body){
+    if(el.hasAttribute && el.hasAttribute('data-page')){
+      e.preventDefault();
+      e.stopPropagation();
+      var pg = el.getAttribute('data-page');
+      var anc = el.getAttribute('data-anchor') || '';
+      navigate(pg, anc);
+      return;
+    }
+    el = el.parentElement;
+  }
+});
+
+/* ── NAV UTILS ── */
+window.toggleDrop = function(id){
+  document.querySelectorAll('.nav-item.open').forEach(function(ni){
+    if(ni.id !== id) ni.classList.remove('open');
+  });
+  var el = document.getElementById(id);
+  if(el) el.classList.toggle('open');
+};
+window.toggleMM = function(id){
+  document.querySelectorAll('.mm.open').forEach(function(mm){ mm.classList.remove('open'); });
+  var el = document.getElementById(id);
+  if(el) el.classList.toggle('open');
+};
+window.closeMM = function(id){
+  var el = document.getElementById(id);
+  if(el) el.classList.remove('open');
+};
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.nav-item') && !e.target.closest('.hamburger')){
+    document.querySelectorAll('.nav-item.open').forEach(function(ni){ ni.classList.remove('open'); });
+  }
+  if(!e.target.closest('.mm') && !e.target.closest('.hamburger')){
+    document.querySelectorAll('.mm.open').forEach(function(mm){ mm.classList.remove('open'); });
+  }
+});
+
+/* ── MOTION SYSTEM ── */
+document.body.classList.add('js-on');
+
+/* Cursor aurora */
+if(!('ontouchstart' in window)){
+  var aur = document.createElement('div');
+  aur.className = 'cursor-aurora';
+  document.body.appendChild(aur);
+  var ax = -999, ay = -999, tx = -999, ty = -999;
+  document.addEventListener('mousemove', function(e){ tx = e.clientX; ty = e.clientY; }, {passive:true});
+  (function loop(){ ax += (tx-ax)*.09; ay += (ty-ay)*.09; aur.style.left = ax+'px'; aur.style.top = ay+'px'; requestAnimationFrame(loop); })();
+}
+
+/* Countup helper */
+function countUp(el, target, suffix, dur){
+  var t0 = performance.now();
+  (function tick(now){
+    var p = Math.min((now-t0)/dur, 1);
+    var ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if(p < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+/* Per-page init */
+function initPageMotion(pageId){
+  if(motionInited[pageId]) return;
+  motionInited[pageId] = true;
+
+  var page = document.getElementById('page-' + pageId);
+  if(!page) return;
+
+  /* Hero text reveal */
+  var heroRevEls = page.querySelectorAll('.hr');
+  heroRevEls.forEach(function(el, i){
+    setTimeout(function(){ el.classList.add('hrin'); }, 200 + i * 110);
+  });
+
+  /* Shimmer on accent */
+  var accents = page.querySelectorAll('.accent, .h26-t2');
+  accents.forEach(function(el){ el.classList.add('shimmer'); });
+
+  /* Kente wipe */
+  var kentes = page.querySelectorAll('.kente');
+  var ko = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('k-in'); ko.unobserve(e.target); } });
+  }, {threshold:0.3});
+  kentes.forEach(function(k){ ko.observe(k); });
+
+  /* Stats countup */
+  var sBars = page.querySelectorAll('.stats-bar');
+  sBars.forEach(function(sBar){
+    var sNums = sBar.querySelectorAll('.n[data-count]');
+    var done = false;
+    if(!sNums.length) return;
+    new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting || done) return;
+      done = true;
+      sNums.forEach(function(el){
+        var tgt = parseInt(el.getAttribute('data-count'));
+        var sfx = el.getAttribute('data-suffix') || '';
+        if(!isNaN(tgt)) countUp(el, tgt, sfx, 1100);
+      });
+    }, {threshold:0.6}).observe(sBar);
+  });
+
+  /* Scroll reveals */
+  var srEls = page.querySelectorAll('.sr');
+  var ro = new IntersectionObserver(function(en){
+    en.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('rin'); ro.unobserve(e.target); }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -20px 0px'});
+  srEls.forEach(function(el){ ro.observe(el); });
+
+  /* Nav border on scroll */
+  var navEl = page.querySelector('nav');
+  if(navEl){
+    var scrollH = function(){
+      if(currentPage !== pageId) return;
+      navEl.style.borderBottomColor = window.scrollY > 80 ? 'rgba(201,162,74,.28)' : 'rgba(255,255,255,.07)';
+    };
+    window.addEventListener('scroll', scrollH, {passive:true});
+  }
+
+  /* Sticky register bar (dmc26 only) */
+  if(pageId === 'dmc26'){
+    var sr2 = document.getElementById('sticky-reg');
+    window.addEventListener('scroll', function(){
+      if(currentPage !== 'dmc26') return;
+      if(sr2) sr2.classList.toggle('show', window.scrollY > 600);
+    }, {passive:true});
+  }
+}
+
+/* ── INIT ── */
+navigate('home');
+
+})();
+</script>
+</body>
+</html>
