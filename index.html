@@ -995,11 +995,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
         </div>
       </form>
 
-      <div class="join-success" id="joinSuccess">
-        <div class="js-check">✓</div>
-        <h3>Application received.</h3>
-        <p>We review every application manually. If it's a fit, you'll hear from us on WhatsApp within 3 business days.</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -2057,7 +2053,6 @@ function initPageMotion(pageId){
 
     const joinForm = document.getElementById('joinForm');
     const joinBtn  = document.getElementById('joinBtn');
-    const joinSucc = document.getElementById('joinSuccess');
 
     if (joinForm) {
       joinForm.addEventListener('submit', function(e) {
@@ -2072,26 +2067,25 @@ function initPageMotion(pageId){
           .map(([k, entry]) => `${encodeURIComponent(entry)}=${encodeURIComponent(v[k] || '')}`)
           .join('&');
 
-        // no-cors: Google Forms doesn't allow CORS — submission works but
-        // we can't read the response. Show success immediately after send.
+        // Send to Google Forms (no-cors — can't read response, that's fine)
         fetch(GF_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: body
-        }).catch(function(){
-          // Even on network error, keep success state shown —
-          // the mailto below fires as a redundant backup
-        });
+        }).catch(function(){});
 
-        // Redundant mailto backup — catches the rare case where Google Forms
-        // is down. Remove once you've confirmed GF submissions are landing.
-        // (comment out the three lines below once tested)
-        // const mb = encodeURIComponent(`Name: ${v.name}\nEmail: ${v.email}\nWhatsApp: ${v.whatsapp}\nRole: ${v.role}\nCompany: ${v.company}\nExperience: ${v.experience}\n\nWhy MAN:\n${v.reason}`);
-        // window.open(`mailto:hello@mangh.com?subject=MAN Application — ${encodeURIComponent(v.name)}&body=${mb}`);
-
-        joinForm.style.display = 'none';
-        joinSucc.style.display = 'block';
+        // Replace the entire form container with the success message
+        var wrap = document.getElementById('join-form-wrap');
+        wrap.innerHTML =
+          '<div style="text-align:center;padding:56px 32px;background:#fff;border:1px solid rgba(28,28,28,.08)">' +
+            '<div style="font-size:48px;margin-bottom:16px">✅</div>' +
+            '<h3 style="font-size:24px;font-weight:800;color:#1C1C1C;margin:0 0 10px">Application received.</h3>' +
+            '<p style="font-size:15px;color:rgba(28,28,28,.55);line-height:1.7;max-width:380px;margin:0 auto">' +
+              'Thank you, ' + (v.name.split(' ')[0] || 'there') + '. We review every application manually and will reach out on WhatsApp within 3 business days if it\'s a fit.' +
+            '</p>' +
+          '</div>';
+        wrap.scrollIntoView({behavior: 'smooth', block: 'center'});
       });
     }
 
