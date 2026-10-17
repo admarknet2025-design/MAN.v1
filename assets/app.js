@@ -186,7 +186,7 @@ function formError(form, msg){
     }).catch(function(){
       btn.disabled = false;
       btn.textContent = label;
-      formError(form, 'We couldn’t send your application. Check your connection and try again, or email hello@mangh.org.');
+      formError(form, 'We couldn’t send your application. Check your connection and try again, or email admarknet2025@gmail.com.');
     });
   });
 })();
@@ -198,7 +198,7 @@ function formError(form, msg){
     url: '',
     fields: {company:'', website:'', name:'', role:'', email:'', phone:'', tier:'', interests:''}
   };
-  var SPONSOR_EMAIL = 'hello@mangh.org';
+  var SPONSOR_EMAIL = 'admarknet2025@gmail.com';
   var form = document.getElementById('sponsorForm');
   if(!form) return;
   var statusEl = document.getElementById('sponsorStatus');
