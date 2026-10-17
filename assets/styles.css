@@ -767,7 +767,7 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 /* teal text on dark backgrounds */
 .btn-txt[style*="color:var(--te)"],nav [style*="color:var(--te)"],.mm [style*="color:var(--te)"],.btn-te,.what-sec .sl,.sess-reg .sl{color:#4fb3a9!important}
 /* tier tiles */
-.tn-go .tlvl,.tn-si .tlvl,.tn-br .tlvl,.tn-go .tbadge{color:#0d0d0d!important}
+.tn-go .tlvl,.tn-si .tlvl,.tn-br .tlvl,.tn-go .tbadge,.tn-si .tbadge{color:#0d0d0d!important}
 .tn-cd .tlvl,.tn-cd .tbadge{color:#fff!important}
 /* dim text on teal panels */
 .srm .l,.stag,.srm .v,.c > p[style*="--"]{color:#fff!important}
