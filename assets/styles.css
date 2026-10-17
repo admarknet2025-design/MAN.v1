@@ -581,6 +581,12 @@ body.sr-on{padding-bottom:56px}
 .spk25-card .spn{font-size:15px;font-weight:800;color:rgba(244,239,230,.62);margin-bottom:4px}
 .spk25-card .spc{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.80);margin-bottom:7px}
 .spk25-card .spb{font-size:12px;line-height:1.6;color:rgba(244,239,230,.62)}
+.p25-sec{background:#141414;padding:80px 48px;border-top:1px solid rgba(255,255,255,.04)}
+.p25-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:14px}
+.p25-intro{font-size:15px;line-height:1.7;color:rgba(244,239,230,.62);margin-bottom:40px;max-width:560px}
+.p25-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.p25-tile{background:#fff;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;padding:22px 26px}
+.p25-tile img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .gall25{background:var(--ink);padding:80px 48px}
 .gall25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
 .gall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -669,6 +675,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
   .h25-inner{grid-template-columns:1fr;gap:36px}
   #page-dmc25 .hero{background:linear-gradient(180deg,rgba(20,20,20,.7) 0%,rgba(20,20,20,.92) 100%),url('dmc25-cover.jpg') center/cover no-repeat #141414}
   .spk25-grid{grid-template-columns:repeat(2,1fr)}
+  .p25-grid{grid-template-columns:repeat(2,1fr)}
   .gall-grid{grid-template-columns:repeat(2,1fr)}
   #page-home .fi,#page-partners .fi,#page-dmc26 .fi,#page-sessions .fi,#page-dmc25 .fi{grid-template-columns:1fr}
   .fb-bot{flex-direction:column;align-items:flex-start}
