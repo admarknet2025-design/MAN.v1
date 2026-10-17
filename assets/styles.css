@@ -169,6 +169,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(13,13,13,.95);backdrop-fil
 .pc.title .pt{color:var(--go)}
 .pc .pn{font-size:24px;font-weight:900;font-variation-settings:'wdth' 120;color:var(--ob);margin-bottom:6px}
 .pc.title .pn{color:var(--go)}
+.pc .pn .pn-logo{display:block;height:34px;width:auto;max-width:100%;object-fit:contain;object-position:left center}
+.pc .pn .pn-logo.tall{height:50px}
 .pc .ps{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.72);margin-bottom:10px}
 .pc .pd,.pc p{font-size:13px;color:rgba(28,28,28,.72);line-height:1.65;margin:8px 0 0}
 .pc .pceo{margin-top:14px;padding-top:14px;border-top:1px solid rgba(28,28,28,.07)}
@@ -250,6 +252,7 @@ body.sr-on{padding-bottom:56px}
 .sp-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:start}
 .sp-left .tier-tag{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,239,230,.62);margin-bottom:18px}
 .sp-name{font-size:clamp(44px,5vw,62px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.82;letter-spacing:-.02em;color:var(--go);margin-bottom:14px}
+.sp-name img{display:block;width:100%;max-width:300px;height:auto}
 .sp-cred{display:inline-block;padding:5px 14px;border:1px solid rgba(201,162,74,.25);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,162,74,.80);margin-bottom:24px}
 .ceo-row{display:flex;align-items:center;gap:14px;padding-top:22px;border-top:1px solid rgba(255,255,255,.06)}
 .ceo-init{width:40px;height:40px;background:rgba(201,162,74,.15);border:1px solid rgba(201,162,74,.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--go);flex-shrink:0}
