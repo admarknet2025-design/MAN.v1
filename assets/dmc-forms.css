@@ -126,3 +126,6 @@ body.nogold{--go:#4fb3a9}
 .nogold .cursor-aurora{display:none;background:none}
 .nogold .btn-f{background:var(--te);border-color:var(--te);color:var(--cr)}
 .nogold .btn-f:hover{background:transparent;color:#4fb3a9}
+/* light theme: Build Teal (#2A7B74) on cream is 4.38:1, just under AA; use a slightly deeper teal for text and buttons */
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--accent:#236963;--on-accent:#fff}}
+:root[data-theme="light"]{--accent:#236963;--on-accent:#fff}
