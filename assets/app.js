@@ -110,7 +110,7 @@ function initPageMotion(pageId){
   if(navEl){
     var scrollH = function(){
       if(currentPage !== pageId) return;
-      navEl.style.borderBottomColor = window.scrollY > 80 ? 'rgba(201,162,74,.28)' : 'rgba(255,255,255,.07)';
+      navEl.style.borderBottomColor = window.scrollY > 80 ? (document.body.classList.contains('nogold') ? 'rgba(79,179,169,.28)' : 'rgba(201,162,74,.28)') : 'rgba(255,255,255,.07)';
     };
     window.addEventListener('scroll', scrollH, {passive:true});
   }
