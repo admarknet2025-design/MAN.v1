@@ -540,7 +540,7 @@ body.sr-on{padding-bottom:56px}
 .arch-banner a{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.6);text-decoration:none;padding:5px 12px;border:1px solid rgba(201,162,74,.25);cursor:pointer}
 .arch-banner a:hover{color:var(--go);border-color:var(--go)}
 #page-dmc25{background:#141414}
-#page-dmc25 .hero{background:#141414;min-height:80vh;display:flex;align-items:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
+#page-dmc25 .hero{background:linear-gradient(90deg,rgba(20,20,20,.95) 0%,rgba(20,20,20,.8) 42%,rgba(20,20,20,.3) 100%),url('assets/dmc25-cover.jpg') center/cover no-repeat #141414;min-height:80vh;display:flex;align-items:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
 #page-dmc25 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 25% 50%,rgba(201,162,74,.04) 0%,transparent 65%);pointer-events:none}
 .h25-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;width:100%}
 .h25-l .arch-tag{display:inline-block;padding:5px 14px;border:1px solid rgba(255,255,255,.07);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:24px}
@@ -677,7 +677,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
   .trow{grid-template-columns:120px 1fr 1fr}
   .sq-row{grid-template-columns:1fr;padding:0 24px}
   .h25-inner{grid-template-columns:1fr;gap:36px}
-  .h25-r{height:240px}
+  #page-dmc25 .hero{background:linear-gradient(180deg,rgba(20,20,20,.7) 0%,rgba(20,20,20,.92) 100%),url('assets/dmc25-cover.jpg') center/cover no-repeat #141414}
   .spk25-grid{grid-template-columns:repeat(2,1fr)}
   .gall-grid{grid-template-columns:repeat(2,1fr)}
   #page-home .fi,#page-partners .fi,#page-dmc26 .fi,#page-sessions .fi,#page-dmc25 .fi{grid-template-columns:1fr}
@@ -1684,7 +1684,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
   <a class="mm-cta" data-page="dmc26" onclick="closeMM('mm-dmc25')">DMC 2026 →</a>
 </div>
 
-<section class="hero" style="background:#141414">
+<section class="hero">
   <div class="h25-inner">
     <div class="h25-l">
       <span class="arch-tag">Archive · 2025</span>
@@ -1698,11 +1698,6 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
         <div class="h25-mi"><div class="l">Online</div><div class="v">30–38 Virtual</div></div>
       </div>
       <a class="btn" style="border-color:rgba(201,162,74,.35);color:rgba(201,162,74,.5);font-size:10px;padding:9px 18px;margin-top:8px;display:inline-block" data-page="dmc26">See DMC 2026 →</a>
-    </div>
-    <div class="h25-r">
-      <div class="ph" data-label="DMC 2025 · Main Stage" style="grid-column:span 2;background:#1e1c18;border:none"></div>
-      <div class="ph" data-label="DMC 2025 · Panel" style="background:#1a1a1a;border:none"></div>
-      <div class="ph" data-label="DMC 2025 · Audience" style="background:#1a1a1a;border:none"></div>
     </div>
   </div>
 </section>
