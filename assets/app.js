@@ -186,56 +186,95 @@ function formError(form, msg){
     }).catch(function(){
       btn.disabled = false;
       btn.textContent = label;
-      formError(form, 'We couldn’t send your application. Check your connection and try again, or email hello@mangh.com.');
+      formError(form, 'We couldn’t send your application. Check your connection and try again, or email hello@mangh.org.');
     });
   });
 })();
 
-/* Sponsorship enquiry form. Add a Google Form URL + entry IDs to send it there;
-   until then it opens a pre-filled email to hello@mangh.com. */
+/* Sponsorship form. Until SPONSOR_GF.url is set (Google Form formResponse URL + entry IDs),
+   submissions are not stored: the visitor gets their details to email or copy. */
 (function(){
   var SPONSOR_GF = {
     url: '',
-    fields: {org:'', industry:'', contact:'', email:'', phone:'', tier:'', message:''}
+    fields: {company:'', website:'', name:'', role:'', email:'', phone:'', tier:'', interests:''}
   };
+  var SPONSOR_EMAIL = 'hello@mangh.org';
   var form = document.getElementById('sponsorForm');
   if(!form) return;
-  var status = document.getElementById('sponsorStatus');
+  var statusEl = document.getElementById('sponsorStatus');
+  var done = document.getElementById('sponsorDone');
   var btn = form.querySelector('button[type=submit]');
   var label = btn.textContent;
+  function val(id){ return document.getElementById(id).value.trim(); }
+  function setErr(id, msg){
+    var f = document.getElementById(id), e = document.getElementById('e-' + id);
+    if(e) e.textContent = msg || '';
+    if(f) f.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  }
+  function validate(){
+    var ok = true, first = null;
+    function need(id, msg){ var bad = !val(id); setErr(id, bad ? msg : ''); if(bad){ ok = false; if(!first) first = id; } }
+    need('sf-company', 'Enter your company or organisation.');
+    need('sf-name', 'Enter the contact person’s name.');
+    need('sf-phone', 'Enter a phone or WhatsApp number.');
+    var badEm = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('sf-email'));
+    setErr('sf-email', badEm ? 'Enter a valid email address, like name@company.com.' : '');
+    if(badEm){ ok = false; if(!first) first = 'sf-email'; }
+    if(first) document.getElementById(first).focus();
+    return ok;
+  }
+  function payload(){
+    var t = form.querySelector('input[name=tier]:checked');
+    var ints = Array.prototype.map.call(form.querySelectorAll('input[name=interest]:checked'), function(c){ return c.value; });
+    return {company: val('sf-company'), website: val('sf-website'), name: val('sf-name'), role: val('sf-role'),
+            email: val('sf-email'), phone: val('sf-phone'), tier: t ? t.value : 'Not sure yet', interests: ints.join(', ')};
+  }
+  function summary(p){
+    return ['DMC 2026 sponsorship interest',
+      'Company: ' + p.company,
+      'Website: ' + (p.website || '-'),
+      'Contact: ' + p.name + (p.role ? ' (' + p.role + ')' : ''),
+      'Email: ' + p.email,
+      'Phone/WhatsApp: ' + p.phone,
+      'Tier: ' + p.tier,
+      'Interested in: ' + (p.interests || '-')].join('\n');
+  }
+  function showDone(saved, p){
+    form.hidden = true;
+    done.hidden = false;
+    var title = document.getElementById('sdTitle'), body = document.getElementById('sdBody');
+    if(saved){
+      title.textContent = 'Thank you, ' + (p.name.split(' ')[0] || 'there');
+      body.textContent = 'We received the details for ' + p.company + '. Our partnerships team will reply to ' + p.email + ' with the sponsor pack.';
+    } else {
+      var text = summary(p);
+      title.textContent = 'One more step';
+      body.textContent = 'Send your details to the DMC 2026 partnerships team so your interest reaches us. Use the button below, or copy them and email ' + SPONSOR_EMAIL + '.';
+      document.getElementById('sdFallback').hidden = false;
+      document.getElementById('sdSummary').textContent = text;
+      document.getElementById('sdMail').href = 'mailto:' + SPONSOR_EMAIL + '?subject=' +
+        encodeURIComponent('DMC 2026 sponsorship interest — ' + p.company) + '&body=' + encodeURIComponent(text);
+    }
+    done.scrollIntoView({block: 'start'});
+  }
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var v = {};
-    new FormData(form).forEach(function(val, k){ v[k] = val; });
-    if(SPONSOR_GF.url){
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-      gfSubmit(SPONSOR_GF.url, SPONSOR_GF.fields, v).then(function(){
-        form.reset();
-        btn.disabled = false;
-        btn.textContent = label;
-        status.textContent = 'Thank you. Your enquiry has been received and we will respond within 2 business days.';
-      }).catch(function(){
-        btn.disabled = false;
-        btn.textContent = label;
-        formError(form, 'We couldn’t send your enquiry. Check your connection and try again, or email hello@mangh.com.');
-      });
-      return;
-    }
-    var body = [
-      'Organisation: ' + (v.org || ''),
-      'Industry: ' + (v.industry || ''),
-      'Contact person: ' + (v.contact || ''),
-      'Email: ' + (v.email || ''),
-      'Phone: ' + (v.phone || ''),
-      'Tier of interest: ' + (v.tier || ''),
-      '',
-      v.message || ''
-    ].join('\n');
-    window.location.href = 'mailto:hello@mangh.com?subject=' +
-      encodeURIComponent('DMC 2026 sponsorship enquiry — ' + (v.org || '')) +
-      '&body=' + encodeURIComponent(body);
-    status.textContent = 'Your email app should open with the enquiry filled in. If nothing happens, email hello@mangh.com directly.';
+    if(document.getElementById('sf-fax').value) return;
+    if(!validate()) return;
+    var p = payload();
+    if(!SPONSOR_GF.url){ showDone(false, p); return; }
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    gfSubmit(SPONSOR_GF.url, SPONSOR_GF.fields, p).then(function(){ showDone(true, p); }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = label;
+      formError(form, 'We couldn’t send your enquiry. Check your connection and try again, or email ' + SPONSOR_EMAIL + '.');
+    });
+  });
+  document.getElementById('sdCopy').addEventListener('click', function(){
+    var t = document.getElementById('sdSummary').textContent, b = this;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('sdSummary')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected, press copy'; }
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function(){ b.textContent = 'Copied'; }, sel); else sel();
   });
 })();
 
