@@ -576,7 +576,7 @@ body.sr-on{padding-bottom:56px}
 .spk25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
 .spk25-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
 .spk25-card{background:rgba(255,255,255,.04);overflow:hidden;border-top:1px solid rgba(255,255,255,.07)}
-.spk25-card .sp-ph{aspect-ratio:3/4}.spk25-card .sp-ph .ph{width:100%;height:100%;border:none;background:#1c1c1c}
+.spk25-card .sp-ph{aspect-ratio:3/4}.spk25-card .sp-ph img{display:block;width:100%;height:100%;object-fit:cover}.spk25-card .sp-ph .ph{width:100%;height:100%;border:none;background:#1c1c1c}
 .spk25-card .sp-inf{padding:16px 14px}
 .spk25-card .spn{font-size:15px;font-weight:800;color:rgba(244,239,230,.62);margin-bottom:4px}
 .spk25-card .spc{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.80);margin-bottom:7px}
