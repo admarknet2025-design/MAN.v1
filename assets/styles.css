@@ -171,6 +171,8 @@ nav{position:sticky;top:0;z-index:300;background:rgba(13,13,13,.95);backdrop-fil
 .pc.title .pn{color:var(--go)}
 .pc .pn .pn-logo{display:block;height:34px;width:auto;max-width:100%;object-fit:contain;object-position:left center}
 .pc .pn .pn-logo.tall{height:50px}
+.pc .pn .pn-logo.md{height:40px}
+.pc .pn .pn-logo.sm{height:26px}
 .pc .ps{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.72);margin-bottom:10px}
 .pc .pd,.pc p{font-size:13px;color:rgba(28,28,28,.72);line-height:1.65;margin:8px 0 0}
 .pc .pceo{margin-top:14px;padding-top:14px;border-top:1px solid rgba(28,28,28,.07)}
