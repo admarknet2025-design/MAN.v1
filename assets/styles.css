@@ -561,15 +561,6 @@ body.sr-on{padding-bottom:56px}
 .g-right p{font-size:15px;line-height:1.78;color:rgba(244,239,230,.62);margin-bottom:18px}
 .g-right p:last-child{margin-bottom:0}
 .g-right .pq{font-size:18px;font-weight:700;font-style:italic;color:rgba(244,239,230,.7);border-left:3px solid rgba(201,162,74,.4);padding-left:20px;margin:24px 0;line-height:1.5}
-.recap-sec{background:rgba(244,239,230,.03);padding:88px 48px;border-top:1px solid rgba(255,255,255,.04)}
-.recap-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.recap-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.72);line-height:1.08}
-.recap-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:32px}
-.rstat{background:rgba(255,255,255,.04);padding:22px 18px;border-top:1px solid rgba(255,255,255,.07)}
-.rstat .n{font-size:28px;font-weight:900;font-variation-settings:'wdth' 125;color:rgba(244,239,230,.62);line-height:1;margin-bottom:5px}
-.rstat .d{font-size:11px;color:rgba(244,239,230,.62);line-height:1.5}
-.recap-copy p{font-size:15px;line-height:1.78;color:rgba(244,239,230,.62);margin-bottom:18px}
-.recap-copy .pq{font-size:17px;font-weight:700;font-style:italic;color:rgba(244,239,230,.65);border-left:3px solid rgba(201,162,74,.3);padding-left:18px;margin:22px 0;line-height:1.5}
 .prog25{background:#141414;padding:80px 48px}
 .prog25 h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;color:rgba(244,239,230,.7);margin-bottom:44px}
 .sess25-list{display:flex;flex-direction:column;gap:2px}
@@ -656,7 +647,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
   .nav-menu{display:none}.hamburger{display:flex}
   #page-home .hero{min-height:88vh}
   .hero-geo{width:100%;opacity:.3}
-  .about-strip-inner,.why-grid,.what-grid,.g-inner,.recap-grid{grid-template-columns:1fr;gap:32px}
+  .about-strip-inner,.why-grid,.what-grid,.g-inner{grid-template-columns:1fr;gap:32px}
   .dmc-feat,.events-row,.venue-grid,.form-inner{grid-template-columns:1fr}
   .dfc-r{min-height:240px}
   .sess-grid{grid-template-columns:1fr 1fr}
