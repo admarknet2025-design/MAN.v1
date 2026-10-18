@@ -872,3 +872,19 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 @media(max-width:900px){.sess-row>*,.sess-row{min-width:0}.sess-row{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:900px){.bridge-inner,.bridge-inner>*,.bc{min-width:0}.bridge-inner{grid-template-columns:minmax(0,1fr)}.bc{flex-wrap:wrap}}
 @media(max-width:380px){.reg-sec .btn,.h26-cta .btn{white-space:normal;max-width:100%}}
+
+/* FAQ */
+.faq-sec{background:var(--ink);padding:88px 48px}
+.faq-list{max-width:860px;margin-top:40px;border-top:1px solid rgba(244,239,230,.14)}
+.faq-i{border-bottom:1px solid rgba(244,239,230,.14)}
+.faq-i summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:20px 0;font-size:clamp(16px,2vw,19px);font-weight:700;color:var(--cr)}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-i summary::after{content:'+';flex-shrink:0;font-size:24px;line-height:1;color:var(--go);transition:transform .2s}
+.faq-i[open] summary::after{transform:rotate(45deg)}
+.faq-i summary:focus-visible{outline:2px solid var(--go);outline-offset:4px}
+.faq-a{padding:0 0 22px;max-width:720px}
+.faq-a p{font-size:15px;line-height:1.75;color:rgba(244,239,230,.75)}
+.faq-a a{color:var(--go)}
+@media(max-width:1024px){.faq-sec{padding-left:24px;padding-right:24px}}
+@media(max-width:900px){.faq-sec{padding-top:64px;padding-bottom:64px}}
+.faq-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;line-height:1.08;color:var(--cr)}
