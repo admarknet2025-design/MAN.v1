@@ -422,8 +422,25 @@ function syncLinks(){
   setHref('fl-wa', 'https://wa.me/?text=' + q);
   setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + q);
 }
+/* Caption follows the name/role fields until the attendee edits it by hand */
+var capDirty = false;
+var CAP_BASE = cap ? cap.value : '';
+function buildCaption(){
+  var name = val('fl-name'), role = val('fl-role');
+  if(!name) return CAP_BASE;
+  return CAP_BASE + '\n— ' + name + (role ? ', ' + role : '');
+}
+function refreshCaption(){
+  if(capDirty || !cap) return;
+  cap.value = buildCaption();
+  syncLinks();
+}
 if(cap){
-  cap.addEventListener('input', syncLinks);
+  cap.addEventListener('input', function(){ capDirty = true; syncLinks(); });
+  ['fl-name', 'fl-role'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', refreshCaption);
+  });
   syncLinks();
 }
 if(copyBtn && cap) copyBtn.addEventListener('click', function(){
