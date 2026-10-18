@@ -268,7 +268,7 @@ function draw(){
   ctx.fillText('SCAN TO REGISTER', lx, qrY + qrSize + 28);
   ctx.font = '500 14px "Archivo"';
   ctx.fillStyle = SC7;
-  ctx.fillText('tickets.mojo-pay.com', lx, qrY + qrSize + 50);
+  ctx.fillText('mangh.org/dmc-2026', lx, qrY + qrSize + 50);
 
   /* 10 Date & venue */
   var dtY = 965;
