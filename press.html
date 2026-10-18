@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared links become campaign data in GA4, e.g. mangh.org/dmc-2026?ref=li-event
+     Format: <channel>[-<detail>]. Keep this table in step with assets/links.js (the link builder). */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = (gaU.searchParams.get('ref') || '').toLowerCase();
+    if (/^[a-z0-9]+(-[a-z0-9-]+)?$/.test(gaR) && !gaU.searchParams.has('utm_source')) {
+      var gaP = gaR.split('-'), gaK = gaP[0], gaD = gaP.slice(1).join('-');
+      var gaSoc = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
+      var gaPar = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
+      var gaS = gaK, gaM = 'referral-link';
+      if (gaR === 'flyer') { gaS = 'flyer'; gaM = 'flyer-share'; }
+      else if (gaR === 'wa' || gaR === 'li' || gaR === 'x') { gaS = gaSoc[gaR]; gaM = 'flyer-share'; }
+      else if (gaSoc[gaK]) { gaS = gaSoc[gaK]; gaM = 'social'; }
+      else if (gaPar[gaK]) { gaS = gaPar[gaK]; gaM = 'partner'; }
+      else if (gaK === 'spk') { gaS = 'speaker'; gaM = 'speaker'; }
+      else if (gaK === 'email') { gaS = 'email'; gaM = 'email'; }
+      else if (gaK === 'qr') { gaS = 'qr'; gaM = 'print'; }
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', gaM);
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      if (gaD && gaR !== 'flyer') gaU.searchParams.set('utm_content', gaD);
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
+<title>Press and Media Kit — DMC 2026 | M·A·N</title>
+<meta name="description" content="Facts, boilerplate copy, speaker and sponsor lists and photo downloads for journalists covering the Digital Marketers’ Conference 2026 (21 Nov, British Council Accra) by the Marketers &amp; Advertisers Network.">
+<link rel="canonical" href="https://mangh.org/press">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1C1C1C">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Marketers &amp; Advertisers Network">
+<meta property="og:locale" content="en_GH">
+<meta property="og:title" content="Press and Media Kit — DMC 2026 | M·A·N">
+<meta property="og:description" content="Facts, boilerplate copy, speaker and sponsor lists and photo downloads for journalists covering the Digital Marketers’ Conference 2026 (21 Nov, British Council Accra) by the Marketers &amp; Advertisers Network.">
+<meta property="og:url" content="https://mangh.org/press">
+<meta property="og:image" content="https://mangh.org/assets/og-dmc-2026.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Digital Marketers’ Conference 2026 — Built To Scale. 21 November 2026, British Council Accra.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@mangh">
+<meta name="twitter:title" content="Press and Media Kit — DMC 2026 | M·A·N">
+<meta name="twitter:description" content="Facts, boilerplate copy, speaker and sponsor lists and photo downloads for journalists covering the Digital Marketers’ Conference 2026 (21 Nov, British Council Accra) by the Marketers &amp; Advertisers Network.">
+<meta name="twitter:image" content="https://mangh.org/assets/og-dmc-2026.png">
+<link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v=e3c8498c">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "@id": "https://mangh.org/#organization",
+ "name": "Marketers & Advertisers Network",
+ "alternateName": [
+  "M·A·N",
+  "MAN"
+ ],
+ "url": "https://mangh.org/",
+ "logo": "https://mangh.org/assets/apple-touch-icon.png",
+ "description": "Ghana's peer-driven community for marketing and advertising professionals.",
+ "email": "admarknet2025@gmail.com",
+ "areaServed": "GH",
+ "contactPoint": {"@type": "ContactPoint", "contactType": "general and sponsorship enquiries", "email": "admarknet2025@gmail.com", "availableLanguage": "English"},
+ "sameAs": [
+  "https://instagram.com/admarknet",
+  "https://www.linkedin.com/company/admarknet",
+  "https://www.facebook.com/admarknet",
+  "https://twitter.com/mangh",
+  "https://vt.tiktok.com/ZSqNHyRJu/"
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "@id": "https://mangh.org/press#page",
+ "url": "https://mangh.org/press",
+ "name": "Press and Media Kit — DMC 2026",
+ "description": "Facts, boilerplate copy, speaker and sponsor lists and photo downloads for journalists covering the Digital Marketers’ Conference 2026.",
+ "about": {"@id": "https://mangh.org/dmc-2026#event"},
+ "publisher": {"@id": "https://mangh.org/#organization"}
+}
+</script>
+</head>
+<body class="nogold" data-page="press">
+<div id="page-press" class="page active">
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Main">
+  <a href="/dmc-2026" class="nav-back">← DMC 2026</a>
+  <div class="nav-brand">DMC <span class="d">2026</span></div>
+  <ul class="nav-menu">
+    <li class="nav-item"><a href="/dmc-2026#programme">Programme</a></li>
+    <li class="nav-item"><a href="/dmc-2026#speakers">Speakers</a></li>
+    <li class="nav-item"><a href="/partners">Partner With Us</a></li>
+    <li class="nav-item"><a href="/sponsor">Sponsor</a></li>
+    <li class="nav-item"><a href="/dmc-2026#venue">Venue</a></li>
+    <li class="nav-item"><a href="/#connect">Connect</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" class="btn btn-f" target="_blank" rel="noopener noreferrer">Register →</a>
+    <button type="button" class="hamburger" onclick="toggleMM('mm-press')" aria-label="Menu" aria-expanded="false" aria-controls="mm-press"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mm" id="mm-press" role="navigation" aria-label="Mobile menu">
+  <a href="/dmc-2026#programme" onclick="closeMM('mm-press')">Programme</a>
+  <a href="/dmc-2026#speakers" onclick="closeMM('mm-press')">Speakers</a>
+  <a href="/partners#tiers" onclick="closeMM('mm-press')">Sponsorship Tiers</a>
+  <a href="/sponsor" onclick="closeMM('mm-press')">Sponsor</a>
+  <a href="/dmc-2026" onclick="closeMM('mm-press')">← DMC 2026</a>
+  <a href="/partners" class="mm-cta" onclick="closeMM('mm-press')">Partner With DMC 2026 →</a>
+</div>
+
+<div class="pr-page">
+<main class="pr" id="main" tabindex="-1">
+  <header class="pr-head">
+    <div class="pr-eyebrow">Press and media · DMC 2026 · Built To Scale</div>
+    <h1>Press and media kit</h1>
+    <p class="pr-lede">Facts, ready-to-use copy and downloads for journalists, partners and anyone writing about the Digital Marketers’ Conference. Last updated 18 October 2026.</p>
+    <nav class="pr-nav" aria-label="On this page"><a href="#facts">At a glance</a><a href="#about">About</a><a href="#people">Speakers</a><a href="#partners">Partners</a><a href="#story">Story angles</a><a href="#downloads">Downloads</a><a href="#contact">Contact</a></nav>
+  </header>
+
+  <section class="pr-sec" id="facts">
+    <h2>At a glance</h2>
+    <dl class="pr-dl">
+      <div><dt>Event</dt><dd>Digital Marketers’ Conference 2026 (DMC 2026) — “Built To Scale”</dd></div>
+      <div><dt>Date and time</dt><dd>Saturday 21 November 2026, 10:00–15:00 (GMT)</dd></div>
+      <div><dt>Venue</dt><dd>British Council Accra, Liberia Road, Accra, Ghana</dd></div>
+      <div><dt>Organiser</dt><dd>Marketers &amp; Advertisers Network (M·A·N)</dd></div>
+      <div><dt>Themes</dt><dd>Build Yourself, Build Your Team, Build Your Work</dd></div>
+      <div><dt>Format</dt><dd>Keynote, panel discussions, partner presentations, a pitching masterclass and three breakout sessions (14:10–14:30)</dd></div>
+      <div><dt>Capacity</dt><dd>About 200 seated in the main auditorium</dd></div>
+      <div><dt>Tickets</dt><dd>Sold through MojoPay. Early bird GH₵100 until 31 October 2026; the <a href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank" rel="noopener noreferrer">ticket page</a> shows the current price</dd></div>
+      <div><dt>Website</dt><dd><a href="/dmc-2026">mangh.org/dmc-2026</a></dd></div>
+      <div><dt>Hashtags</dt><dd>#DMC2026 · #BuiltToScale</dd></div>
+    </dl>
+  </section>
+
+  <section class="pr-sec" id="about">
+    <h2>About DMC and M·A·N</h2>
+    <p class="pr-note">Copy and paste. Short version first, then the longer one.</p>
+    <div class="pr-card"><p id="bp-short">The Digital Marketers’ Conference (DMC) is Ghana’s annual gathering for marketing and advertising professionals, organised by the Marketers &amp; Advertisers Network (M·A·N). DMC 2026 — Built To Scale takes place on Saturday 21 November 2026 at the British Council Accra.</p><button type="button" class="btn" data-copy="bp-short">Copy short version</button></div>
+    <div class="pr-card"><p id="bp-long">The Marketers &amp; Advertisers Network (M·A·N) is Ghana’s peer-driven community for marketing and advertising professionals. It exists to close the knowledge gap between practitioners through curated spaces where the country’s marketing and advertising people build with each other, rather than through workshops and webinars. M·A·N runs the Digital Marketers’ Conference (DMC) every year and MAN Sessions, free community sessions, three times a year. DMC 2026 — Built To Scale takes place on Saturday 21 November 2026, 10:00 to 15:00, at the British Council Accra, with keynotes, panel discussions, partner presentations, a pitching masterclass and breakout sessions around three themes: Build Yourself, Build Your Team and Build Your Work.</p><button type="button" class="btn" data-copy="bp-long">Copy long version</button></div>
+  </section>
+
+  <section class="pr-sec" id="people">
+    <h2>Speakers and hosts</h2>
+    <p class="pr-note">Confirmed so far. The keynote speaker will be announced; see the <a href="/dmc-2026#speakers">speakers section</a> for the latest.</p>
+    <ul class="pr-list"><li><b>Isaac Newton Acquah</b><span>Co-Founder, The Innovation Spark</span></li><li><b>Alex Offei Lartey</b><span>Marketing Communications &amp; Digital Solutions Consultant</span></li><li><b>Ronald Tagoe</b><span>Founder &amp; CEO, mNotify; Founder, Impact AI Labs</span></li><li><b>Emelia Dede Quist</b><span>Employer Engagement Manager, Generation Ghana</span></li><li><b>Kwaku Ofosuhene</b><span>Chief Commercial Officer, Mojo Payments</span></li><li><b>Samuel Kwabena Ansong</b><span>Marketing Manager, HR Certification Centre</span></li><li><b>Sena Quarshie</b><span>Panelist</span></li><li><b>Simon Alangdee</b><span>Panelist</span></li><li><b>Florentia Teye</b><span>Panelist</span></li><li><b>Yvonne Dumor</b><span>Panelist</span></li><li><b>Ian Hutchful</b><span>Panelist</span></li><li><b>Enoch “RobotBoy” Appiah Jr.</b><span>Host, COSM Podcast</span></li></ul>
+    <p class="pr-note">Speaker photos and biographies are available from the organisers on request.</p>
+  </section>
+
+  <section class="pr-sec" id="partners">
+    <h2>Sponsors and partners</h2>
+    <ul class="pr-list">
+      <li><b>MojoPay</b><span>Title sponsor (Gold) and official ticketing and payments partner</span></li>
+      <li><b>Generation Ghana</b><span>Silver sponsor</span></li>
+      <li><b>FIDO</b><span>Silver sponsor</span></li>
+      <li><b>mNotify</b><span>Programme partner</span></li>
+      <li><b>Kasad3</b><span>Media partner</span></li>
+      <li><b>Tech Labari</b><span>Media partner</span></li>
+      <li><b>Koin Photography</b><span>Event photography partner</span></li>
+    </ul>
+    <p class="pr-note">Sponsorship tiers are still open. See <a href="/partners">sponsorship packages</a>.</p>
+  </section>
+
+  <section class="pr-sec" id="story">
+    <h2>Story angles</h2>
+    <ul class="pr-bul">
+      <li><b>A first-year conference that outgrew its room.</b> DMC 2025 drew 289 registrations for a room of 100 seats, with more than 100 attending in person and 30–38 joining online. DMC 2026 moves to a venue that holds about 200.</li>
+      <li><b>Built To Scale.</b> This year’s theme asks how Ghanaian marketers and organisations build their careers, teams and work to grow. The conference tagline: “The organisations scaling in Ghana aren’t waiting. They’re building.”</li>
+      <li><b>A community that meets all year.</b> M·A·N runs free MAN Sessions three times a year alongside the annual conference. <a href="/sessions">See the sessions</a>.</li>
+    </ul>
+  </section>
+
+  <section class="pr-sec" id="downloads">
+    <h2>Downloads</h2>
+    <p class="pr-note">For editorial use about DMC and M·A·N. Please credit “Marketers &amp; Advertisers Network (DMC 2025)”. Partner logos, speaker photos and the M·A·N logo pack are available on request.</p>
+    <p><a class="btn btn-f" href="/assets/og-dmc-2026.png" download>DMC 2026 artwork (PNG, 1200 × 630)</a></p>
+    <h3>DMC 2025 photos (WebP, up to 1600 px)</h3>
+    <div class="pr-photos"><a class="pr-ph" href="/assets/gallery25/group-full.webp" download><img src="/assets/gallery25/group-thumb.webp" alt="The DMC 2025 community" loading="lazy" decoding="async"><span>The DMC 2025 community · download</span></a><a class="pr-ph" href="/assets/gallery25/keynote-full.webp" download><img src="/assets/gallery25/keynote-thumb.webp" alt="Keynote address" loading="lazy" decoding="async"><span>Keynote address · download</span></a><a class="pr-ph" href="/assets/gallery25/on-stage-full.webp" download><img src="/assets/gallery25/on-stage-thumb.webp" alt="On stage" loading="lazy" decoding="async"><span>On stage · download</span></a><a class="pr-ph" href="/assets/gallery25/panel-data-driven-full.webp" download><img src="/assets/gallery25/panel-data-driven-thumb.webp" alt="Data-driven marketing panel" loading="lazy" decoding="async"><span>Data-driven marketing panel · download</span></a><a class="pr-ph" href="/assets/gallery25/panel-full.webp" download><img src="/assets/gallery25/panel-thumb.webp" alt="Panel discussion" loading="lazy" decoding="async"><span>Panel discussion · download</span></a><a class="pr-ph" href="/assets/gallery25/breakout-full.webp" download><img src="/assets/gallery25/breakout-thumb.webp" alt="Breakout session" loading="lazy" decoding="async"><span>Breakout session · download</span></a><a class="pr-ph" href="/assets/gallery25/audience-full.webp" download><img src="/assets/gallery25/audience-thumb.webp" alt="Audience" loading="lazy" decoding="async"><span>Audience · download</span></a></div>
+  </section>
+
+  <section class="pr-sec" id="contact">
+    <h2>Media contact</h2>
+    <p>Marketers &amp; Advertisers Network: <a href="mailto:admarknet2025@gmail.com?subject=DMC%202026%20press%20enquiry">admarknet2025@gmail.com</a></p>
+    <p class="pr-note">Please include your outlet, your deadline and what you need (interviews, photos, quotes or accreditation).</p>
+    <p class="pr-social"><a href="https://instagram.com/admarknet" target="_blank" rel="noopener noreferrer">Instagram</a> · <a href="https://www.linkedin.com/company/admarknet" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://twitter.com/mangh" target="_blank" rel="noopener noreferrer">X</a> · <a href="https://www.facebook.com/admarknet" target="_blank" rel="noopener noreferrer">Facebook</a></p>
+  </section>
+</main>
+</div>
+<footer>
+  <div class="fi">
+    <div class="fb"><div class="bm">A M·A·N Event</div><div class="brand">DMC <span class="d">2026</span></div><p>Digital Marketers’ Conference 2026. Built To Scale. British Council, Accra.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank" rel="noopener noreferrer">in</a><a href="https://twitter.com/mangh" target="_blank" rel="noopener noreferrer">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank" rel="noopener noreferrer">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" rel="noopener noreferrer" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a><a href="https://www.linkedin.com/company/admarknet" target="_blank" rel="noopener noreferrer" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div></div>
+    <div class="fc"><h3>The Programme</h3><ul><li><a href="/dmc-2026#programme">Overview</a></li><li><a href="/dmc-2026#speakers">Speakers</a></li><li><a href="/dmc-2026#venue">Venue</a></li><li><a href="/dmc-2026#travel">Travel Guide</a></li></ul></div>
+    <div class="fc"><h3>Be Part of DMC</h3><ul><li><a href="/partners#tiers">Sponsorship Tiers</a></li><li><a href="/sponsor">Enquire</a></li><li><a href="/dmc-2026#register">Register</a></li><li><a href="/">mangh.org</a></li></ul></div>
+    <div class="fc"><h3>MAN</h3><ul><li><a href="/">mangh.org</a></li><li><a href="/sessions">MAN Sessions</a></li><li><a href="/dmc-2025">DMC 2025</a></li><li><a href="/#team">The Team</a></li><li><a href="/press">Press</a></li></ul></div>
+    <div class="fc fc-c"><h3>Contact</h3><div class="cl">Sponsorship</div><div class="cv"><a href="mailto:admarknet2025@gmail.com">Email us</a></div><div class="cl">Event</div><div class="cv">21 Nov 2026 · British Council, Accra</div></div>
+  </div>
+  <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network.</p><div class="fb-lnks"><a href="/privacy">Privacy and Terms</a><a href="/#connect">Connect</a></div></div>
+</footer>
+<script src="/assets/press.js?v=de25db87" defer></script>
+</div>
+<script src="/assets/analytics.js?v=2410f050" defer></script>
+<script src="/assets/app.js?v=3f752896" defer></script>
