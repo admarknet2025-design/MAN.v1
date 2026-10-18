@@ -968,3 +968,5 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 .pr-ph:hover{border-color:var(--go)}
 .pr-social{margin-top:14px;font-size:15px!important}
 @media(max-width:700px){.pr{padding:72px 20px 96px}.pr-dl>div,.pr-list li{grid-template-columns:1fr;gap:4px}}
+.p25-tile>a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.p25-tile>a:focus-visible{outline:2px solid var(--te);outline-offset:4px}
