@@ -64,7 +64,7 @@
 <meta name="twitter:description" content="Marketers &amp; Advertisers Network (M·A·N) is Ghana&#x27;s peer-driven community for marketing and advertising professionals, home of DMC and MAN Sessions.">
 <meta name="twitter:image" content="https://mangh.org/assets/og-image.png">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=d8b697ca">
+<link rel="stylesheet" href="/assets/styles.css?v=6229710d">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -368,27 +368,27 @@
         <div class="jform-row">
           <div class="jfield">
             <label for="f-name">Full Name *</label>
-            <input id="f-name" type="text" name="name" placeholder="Your full name" required>
+            <input id="f-name" type="text" name="name" placeholder="Your full name" autocomplete="name" required>
           </div>
           <div class="jfield">
             <label for="f-email">Email Address *</label>
-            <input id="f-email" type="email" name="email" placeholder="you@example.com" required>
+            <input id="f-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
           </div>
         </div>
         <div class="jform-row">
           <div class="jfield">
             <label for="f-whatsapp">WhatsApp Number *</label>
-            <input id="f-whatsapp" type="tel" name="whatsapp" placeholder="+233 XX XXX XXXX" required>
+            <input id="f-whatsapp" type="tel" name="whatsapp" placeholder="+233 XX XXX XXXX" autocomplete="tel" inputmode="tel" required>
           </div>
           <div class="jfield">
             <label for="f-role">Current Role / Title *</label>
-            <input id="f-role" type="text" name="role" placeholder="e.g. Brand Manager" required>
+            <input id="f-role" type="text" name="role" placeholder="e.g. Brand Manager" autocomplete="organization-title" required>
           </div>
         </div>
         <div class="jform-row">
           <div class="jfield">
             <label for="f-company">Company / Organisation *</label>
-            <input id="f-company" type="text" name="company" placeholder="Where you work" required>
+            <input id="f-company" type="text" name="company" placeholder="Where you work" autocomplete="organization" required>
           </div>
           <div class="jfield">
             <label for="f-experience">Years in Marketing *</label>
@@ -404,11 +404,13 @@
         </div>
         <div class="jfield">
           <label for="f-reason">What brings you to MAN? *</label>
-          <textarea id="f-reason" name="reason" placeholder="2–3 sentences. Tell us about your work and what you're hoping to get from the community." required></textarea>
+          <textarea id="f-reason" name="reason" autocomplete="off" placeholder="2–3 sentences. Tell us about your work and what you're hoping to get from the community." required></textarea>
         </div>
+        <div class="hp" aria-hidden="true"><label for="f-fax">Leave this empty<input id="f-fax" name="fax" type="text" tabindex="-1" autocomplete="off"></label></div>
         <div class="jform-note">
           <span>Moderated community.</span> We review every application and respond within 3 business days. Not everyone gets in on the first application — that's by design.
         </div>
+        <p class="jform-note">We use these details only to review your application and, if you join, to set up your membership. <a href="/privacy">Privacy and Terms</a></p>
         <div>
           <button type="submit" class="btn-join" id="joinBtn">Apply to Join MAN →</button>
         </div>
@@ -434,6 +436,7 @@
 </footer>
 </div>
 <script src="/assets/analytics.js?v=2410f050" defer></script>
-<script src="/assets/app.js?v=3f752896" defer></script>
+<script src="/assets/ticket-checkout.js?v=0cafe70d" defer></script>
+<script src="/assets/app.js?v=d631a65a" defer></script>
 </body>
 </html>

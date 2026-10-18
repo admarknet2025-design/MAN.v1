@@ -18,6 +18,7 @@
     need('company', 'Enter your company or organisation.');
     need('name', 'Enter the contact person’s name.');
     need('phone', 'Enter a phone or WhatsApp number.');
+    if (val('phone') && val('phone').replace(/\D/g, '').length < 7) { setErr('phone', 'Enter a phone number with at least 7 digits, including the country code.'); ok = false; if (!first) first = 'phone'; }
     var em = val('email');
     var badEm = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
     setErr('email', badEm ? 'Enter a valid email address, like name@company.com.' : '');
@@ -72,6 +73,8 @@
       document.getElementById('fallback').hidden = false;
       document.getElementById('summary').textContent = summaryText(p);
     }
+    d.setAttribute('role', 'status'); d.tabIndex = -1;
+    d.focus({ preventScroll: true }); /* announces the result to screen readers */
     d.scrollIntoView({ block: 'start' });
   }
 
