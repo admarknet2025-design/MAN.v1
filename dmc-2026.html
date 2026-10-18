@@ -29,7 +29,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,300..900;1,75..125,300..900&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v=20261020">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css?v=20261021">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -149,7 +150,7 @@
   <a href="/" class="nav-back">← mangh.org</a>
   <div class="nav-brand">DMC <span class="d">2026</span></div>
   <ul class="nav-menu">
-    <li class="nav-item" id="ni-prog"><button type="button" onclick="toggleDrop('ni-prog')" aria-expanded="false" aria-haspopup="true">Programme <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a href="/dmc-2026#programme">Full Schedule</a><a href="/dmc-2026#speakers">Speakers</a><a href="/dmc-2026#venue">Venue</a><a href="/dmc-2026#travel">Travel Guide</a></div></li>
+    <li class="nav-item" id="ni-prog"><button type="button" onclick="toggleDrop('ni-prog')" aria-expanded="false" aria-haspopup="true">Programme <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a href="/dmc-2026#programme">Full Schedule</a><a href="/dmc-2026#speakers">Speakers</a><a href="/dmc-2026#flyer">Make Your Flyer</a><a href="/dmc-2026#venue">Venue</a><a href="/dmc-2026#travel">Travel Guide</a></div></li>
     <li class="nav-item" id="ni-bep"><button type="button" onclick="toggleDrop('ni-bep')" aria-expanded="false" aria-haspopup="true">Be Part of DMC <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a href="/partners">Sponsorship Packages</a><a href="/partners#tiers">Package Tiers</a><a href="/sponsor">Sponsor</a><a href="/sponsor">Enquire</a><div class="drop-div"></div><a href="/dmc-2026#partners26">Current Sponsors</a></div></li>
     <li class="nav-item" id="ni-gi"><button type="button" onclick="toggleDrop('ni-gi')" aria-expanded="false" aria-haspopup="true">Get Involved <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="drop"><a href="/dmc-2026#venue">Venue</a><a href="/dmc-2026#travel">Travel Guide</a><a href="/sessions">MAN Sessions</a></div></li>
   </ul>
@@ -161,6 +162,7 @@
 <div class="mm" id="mm-dmc26" role="navigation" aria-label="Mobile menu">
   <a href="/dmc-2026#programme" onclick="closeMM('mm-dmc26')">Programme</a>
   <a href="/dmc-2026#speakers" onclick="closeMM('mm-dmc26')">Speakers</a>
+  <a href="/dmc-2026#flyer" onclick="closeMM('mm-dmc26')">Make Your Flyer</a>
   <a href="/dmc-2026#venue" onclick="closeMM('mm-dmc26')">Venue</a>
   <a href="/dmc-2026#travel" onclick="closeMM('mm-dmc26')">Travel Guide</a>
   <a href="/partners" onclick="closeMM('mm-dmc26')">Partner With Us</a>
@@ -365,6 +367,33 @@
 
 <div class="kente"></div>
 
+<section class="flyer-sec" id="flyer" aria-labelledby="flyer-h">
+  <div class="section-head sr">
+    <h2 id="flyer-h">Make Your Flyer</h2>
+    <p>Upload your photo, add your name and role. Download a 1080 × 1440 PNG ready for Instagram, WhatsApp and LinkedIn.</p>
+  </div>
+  <div class="flyer-tool">
+    <div class="flyer-ctrl">
+      <label class="fl-zone" id="fl-zone">
+        <input type="file" id="fl-photo" accept="image/*">
+        <span class="fl-circle"><img id="fl-thumb" alt=""><svg id="fl-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+        <span class="fl-zt"><strong>Click to upload</strong> or drag a photo here</span>
+        <span class="fl-zs">JPG or PNG · Square crop recommended · stays on your device</span>
+      </label>
+      <p class="fl-msg" id="fl-msg" role="status" aria-live="polite"></p>
+      <div class="fl-field"><label for="fl-name">Your name</label><input id="fl-name" type="text" placeholder="e.g. Abena Mensah" maxlength="30" autocomplete="off"></div>
+      <div class="fl-field"><label for="fl-role">Your role / title</label><input id="fl-role" type="text" placeholder="e.g. Brand Strategist" maxlength="36" autocomplete="off"></div>
+      <button type="button" class="btn btn-f fl-dl" id="fl-dl">Download Flyer ↓</button>
+      <p class="fl-tip">1080 × 1440 · Full-resolution PNG</p>
+    </div>
+    <div class="flyer-preview">
+      <canvas id="dmc26-flyer" width="1080" height="1440" role="img" aria-label="Live preview of your DMC 2026 flyer"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="kente"></div>
+
 <section class="reg-sec" id="register">
   <div class="c" style="text-align:center">
     <span class="sl sr" style="color:rgba(28,28,28,.72)">Register</span>
@@ -390,12 +419,14 @@
 <footer>
   <div class="fi">
     <div class="fb"><div class="bm">A M·A·N Event</div><div class="brand">DMC <span class="d">2026</span></div><p>Digital Marketers’ Conference 2026. Built To Scale. British Council, Accra.</p><div class="soc-row"><a href="https://instagram.com/admarknet" target="_blank" rel="noopener noreferrer">in</a><a href="https://twitter.com/mangh" target="_blank" rel="noopener noreferrer">𝕏</a><a href="https://www.facebook.com/admarknet" target="_blank" rel="noopener noreferrer">fb</a><a href="https://vt.tiktok.com/ZSqNHyRJu/" target="_blank" rel="noopener noreferrer" title="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.16 8.16 0 0 0 4.77 1.52V7.07a4.85 4.85 0 0 1-1-.38z"/></svg></a><a href="https://www.linkedin.com/company/admarknet" target="_blank" rel="noopener noreferrer" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div></div>
-    <div class="fc"><h3>The Programme</h3><ul><li><a href="/dmc-2026#programme">Full Schedule</a></li><li><a href="/dmc-2026#speakers">Speakers</a></li><li><a href="/dmc-2026#venue">Venue</a></li><li><a href="/dmc-2026#travel">Travel Guide</a></li></ul></div>
+    <div class="fc"><h3>The Programme</h3><ul><li><a href="/dmc-2026#programme">Full Schedule</a></li><li><a href="/dmc-2026#speakers">Speakers</a></li><li><a href="/dmc-2026#flyer">Make Your Flyer</a></li><li><a href="/dmc-2026#venue">Venue</a></li><li><a href="/dmc-2026#travel">Travel Guide</a></li></ul></div>
     <div class="fc"><h3>Be Part of DMC</h3><ul><li><a href="/partners">Sponsorship Packages</a></li><li><a href="/sponsor">Enquire</a></li><li><a href="/dmc-2026#register">Register</a></li><li><a href="/">mangh.org</a></li></ul></div>
   </div>
   <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network. DMC 2026 — Built To Scale.</p><div class="fb-lnks"><a href="/privacy">Privacy and Terms</a><a href="/#connect">Connect</a></div></div>
 </footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
+<script src="/assets/flyer.js?v=20261021" defer></script>
 <script src="/assets/app.js?v=20261020" defer></script>
 </body>
 </html>

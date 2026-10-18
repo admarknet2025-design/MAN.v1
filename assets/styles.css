@@ -806,3 +806,29 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .attend-sec .sl{color:#4fb3a9!important}
 .join-inner > .sl{color:#236963!important}
 .tn-go .tname{color:#0d0d0d!important}
+
+/* DMC 2026 — Make Your Flyer */
+.flyer-sec{padding:88px 48px;background:var(--ob)}
+.flyer-sec h2{color:var(--cr)}
+.flyer-sec .section-head p{color:rgba(244,239,230,.45)}
+.flyer-tool{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:start;margin-top:56px}
+.flyer-ctrl{display:flex;flex-direction:column;gap:0}
+.flyer-preview canvas{width:100%;max-width:420px;height:auto;display:block;border-radius:3px;box-shadow:0 16px 48px rgba(0,0,0,.5)}
+.fl-zone{display:block;cursor:pointer;border:1.5px dashed rgba(42,123,116,.45);border-radius:10px;background:rgba(42,123,116,.05);padding:20px 14px;text-align:center;transition:border-color .2s,background .2s}
+.fl-zone:hover,.fl-zone.drag,.fl-zone:focus-within{border-color:var(--te);background:rgba(42,123,116,.1)}
+.fl-zone input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.fl-circle{display:flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:50%;margin:0 auto 10px;overflow:hidden;background:rgba(42,123,116,.1);border:2px solid rgba(42,123,116,.25);color:var(--cr)}
+.fl-circle svg{opacity:.35}
+.fl-circle img{display:none;width:100%;height:100%;object-fit:cover}
+.fl-zt{display:block;font-size:13px;line-height:1.5;color:rgba(244,239,230,.6)}
+.fl-zt strong{color:var(--te);font-weight:700}
+.fl-zs{display:block;font-size:11px;line-height:1.5;color:rgba(244,239,230,.4);margin-top:4px}
+.fl-msg{min-height:18px;margin:8px 0 6px;font-size:12px;line-height:1.5;color:var(--co)}
+.fl-field{margin-bottom:20px}
+.fl-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.5);margin-bottom:6px}
+.fl-field input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(244,239,230,.2);color:var(--cr);font-family:var(--f);font-size:15px;padding:8px 0;outline:none;border-radius:0;transition:border-color .2s}
+.fl-field input:focus{border-bottom-color:var(--go)}
+.fl-field input::placeholder{color:rgba(244,239,230,.3)}
+.fl-dl{text-align:center;margin-top:6px;padding:14px 24px}
+.fl-tip{font-size:11px;color:rgba(244,239,230,.4);text-align:center;margin-top:10px}
+@media(max-width:900px){.flyer-tool{grid-template-columns:1fr;gap:40px}.flyer-sec .section-head{grid-template-columns:1fr;gap:16px}.flyer-sec{padding-top:72px;padding-bottom:72px}}
