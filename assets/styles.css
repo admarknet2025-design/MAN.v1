@@ -970,3 +970,33 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 @media(max-width:700px){.pr{padding:72px 20px 96px}.pr-dl>div,.pr-list li{grid-template-columns:1fr;gap:4px}}
 .p25-tile>a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .p25-tile>a:focus-visible{outline:2px solid var(--te);outline-offset:4px}
+
+/* Ticket checkout modal (assets/ticket-checkout.js). Brand colours only: obsidian, cream, teal, coral. No gold. */
+html.tk-lock-scroll{overflow:hidden}
+dialog.tk{margin:auto;padding:0;border:0;background:#F4EFE6;color:#1C1C1C;width:min(560px,100vw);height:85vh;max-height:85vh;border-radius:6px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.55);font-family:var(--f)}
+dialog.tk[open]{display:flex;flex-direction:column}
+dialog.tk::backdrop{background:rgba(13,13,13,.74)}
+.tk-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#1C1C1C;color:#F4EFE6;padding:6px 6px 6px 18px;flex-shrink:0}
+.tk-brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.tk-brand b{font-size:15px;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:.1em}
+.tk-brand span{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.72)}
+.tk-x{flex-shrink:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:#F4EFE6;cursor:pointer;border-radius:3px}
+.tk-x:hover{background:#D95F45}
+.tk-x:focus-visible,.tk-btn:focus-visible,.tk-fb:focus-visible{outline:2px solid #F4EFE6;outline-offset:2px}
+.tk-body{position:relative;flex:1;min-height:0;background:#F4EFE6}
+.tk-frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.tk-load,.tk-slow,.tk-ok{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;font-size:15px;font-weight:600}
+.tk-load[hidden],.tk-slow[hidden],.tk-ok[hidden],.tk-frame[hidden]{display:none}
+.tk-spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(42,123,116,.25);border-top-color:#2A7B74;animation:tk-spin .8s linear infinite}
+@keyframes tk-spin{to{transform:rotate(360deg)}}
+.tk-ok h2{font-size:34px;font-weight:900;font-variation-settings:'wdth' 125;color:#2A7B74;text-transform:uppercase}
+.tk-btn{display:inline-block;background:#2A7B74;color:#F4EFE6;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border-radius:3px}
+.tk-btn:hover{background:#1f5f59}
+.tk-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 18px;background:#1C1C1C;color:rgba(244,239,230,.78);padding:10px 18px calc(10px + env(safe-area-inset-bottom));font-size:12px;flex-shrink:0}
+.tk-lock{display:inline-flex;align-items:center;gap:6px}
+.tk-fb{color:#F4EFE6;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){
+  dialog.tk{width:100%;max-width:100%;height:100vh;height:100dvh;max-height:100dvh;margin:0;inset:0;border-radius:0;animation:tk-up .28s ease-out}
+  @keyframes tk-up{from{transform:translateY(100%)}to{transform:none}}
+}
+@media(prefers-reduced-motion:reduce){dialog.tk{animation:none!important}.tk-spin{animation-duration:2s}}
