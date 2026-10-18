@@ -64,6 +64,22 @@ function addSettingsLink(){
   box.appendChild(a);
 }
 
+/* Every link to the ticket page reports where on the page it was clicked */
+function ticketPlace(el){
+  if(el.closest('#sticky-reg')) return 'sticky bar';
+  if(el.closest('nav')) return 'nav';
+  if(el.closest('.mm')) return 'mobile menu';
+  if(el.closest('.hero')) return 'hero';
+  if(el.closest('footer')) return 'footer';
+  var sec = el.closest('section[id]');
+  return sec ? sec.id : 'other';
+}
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="tickets.mojo-pay.com"]');
+  if(!a) return;
+  window.gtag('event', 'ticket_click', { link_location: ticketPlace(a), page_path: location.pathname });
+});
+
 function init(){
   addSettingsLink();
   if(getChoice() === null) showBanner(); /* 'granted' was already applied by the tag in <head> */

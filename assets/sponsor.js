@@ -82,8 +82,13 @@
     if (!validate()) return;
     var p = payload();
     submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
-    try { await save(p); showDone(true, p); }
-    catch (e) { showDone(false, p); }
+    try {
+      await save(p); showDone(true, p);
+      if (window.gtag) window.gtag('event', 'sponsor_enquiry', { tier: p.tier });
+    } catch (e) {
+      showDone(false, p);
+      if (window.gtag) window.gtag('event', 'sponsor_enquiry_error', { tier: p.tier });
+    }
   });
 
   document.getElementById('copy').addEventListener('click', function () {
