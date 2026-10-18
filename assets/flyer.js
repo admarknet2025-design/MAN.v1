@@ -35,6 +35,9 @@ var PARTNERS = [
 ];
 
 var logos = {};
+/* Speaker/host flyers are produced offline by tools/speaker-flyers.js, which sets this before the page loads.
+   The public page offers no speaker option. */
+var SPK = window.DMC_SPEAKER_FLYER || null;
 var photo = null;
 var qrData = null;
 
@@ -243,8 +246,21 @@ function draw(){
   /* 7 MEET ME THERE */
   ctx.font = 'normal 56px "Archivo Black"';
   ctx.fillStyle = SC;
-  ctx.fillText('MEET ME', lx, 530);
-  ctx.fillText('THERE', lx, 596);
+  if(SPK){
+    ctx.fillText(SPK.lines[0], lx, 530);
+    ctx.fillText(SPK.lines[1], lx, 596);
+    /* gold tag under the photo */
+    ctx.fillStyle = AG;
+    ctx.fillRect(px - 120, 842, 240, 52);
+    ctx.fillStyle = OB;
+    ctx.font = 'normal 26px "Archivo Black"';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(SPK.tag, px, 869);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  } else {
+    ctx.fillText('MEET ME', lx, 530);
+    ctx.fillText('THERE', lx, 596);
+  }
 
   /* 8 Name badge */
   var bx = lx, by = 622, bw = 460, bh = 82;
@@ -255,7 +271,9 @@ function draw(){
   ctx.font = '700 24px "Archivo"';
   ctx.fillStyle = SC;
   ctx.fillText(clip(name, bw - 44), bx + 18, by + 30);
-  ctx.font = '400 18px "Archivo"';
+  var rs = 18;
+  ctx.font = '400 ' + rs + 'px "Archivo"';
+  while(rs > 14 && ctx.measureText(role).width > bw - 44){ rs--; ctx.font = '400 ' + rs + 'px "Archivo"'; }
   ctx.fillStyle = SC6;
   ctx.fillText(clip(role, bw - 44), bx + 18, by + 60);
 
@@ -268,7 +286,7 @@ function draw(){
   ctx.fillText('SCAN TO REGISTER', lx, qrY + qrSize + 28);
   ctx.font = '500 14px "Archivo"';
   ctx.fillStyle = SC7;
-  ctx.fillText('tickets.mojo-pay.com', lx, qrY + qrSize + 50);
+  ctx.fillText('mangh.org/dmc-2026', lx, qrY + qrSize + 50);
 
   /* 10 Date & venue */
   var dtY = 965;
@@ -423,7 +441,7 @@ function copyText(text){
 function setHref(id, href){ var a = document.getElementById(id); if(a) a.href = href; }
 function syncLinks(){
   /* each channel gets its own ?ref= code so GA can tell them apart */
-  function withRef(code){ return encodeURIComponent(cap.value.replace('?ref=flyer', '?ref=' + code)); }
+  function withRef(code){ return encodeURIComponent(cap.value.replace(/\?ref=[a-z0-9-]+/, '?ref=' + code)); }
   setHref('fl-wa', 'https://wa.me/?text=' + withRef('wa'));
   setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + withRef('x'));
 }
@@ -448,6 +466,7 @@ if(cap){
   });
   syncLinks();
 }
+
 if(copyBtn && cap) copyBtn.addEventListener('click', function(){
   copyText(cap.value).then(function(){
     track('flyer_copy_caption');

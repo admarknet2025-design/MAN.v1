@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared links become campaign data in GA4, e.g. mangh.org/dmc-2026?ref=li-event
+     Format: <channel>[-<detail>]. Keep this table in step with assets/links.js (the link builder). */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = (gaU.searchParams.get('ref') || '').toLowerCase();
+    if (/^[a-z0-9]+(-[a-z0-9-]+)?$/.test(gaR) && !gaU.searchParams.has('utm_source')) {
+      var gaP = gaR.split('-'), gaK = gaP[0], gaD = gaP.slice(1).join('-');
+      var gaSoc = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
+      var gaPar = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
+      var gaS = gaK, gaM = 'referral-link';
+      if (gaR === 'flyer') { gaS = 'flyer'; gaM = 'flyer-share'; }
+      else if (gaR === 'wa' || gaR === 'li' || gaR === 'x') { gaS = gaSoc[gaR]; gaM = 'flyer-share'; }
+      else if (gaSoc[gaK]) { gaS = gaSoc[gaK]; gaM = 'social'; }
+      else if (gaPar[gaK]) { gaS = gaPar[gaK]; gaM = 'partner'; }
+      else if (gaK === 'spk') { gaS = 'speaker'; gaM = 'speaker'; }
+      else if (gaK === 'email') { gaS = 'email'; gaM = 'email'; }
+      else if (gaK === 'qr') { gaS = 'qr'; gaM = 'print'; }
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', gaM);
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      if (gaD && gaR !== 'flyer') gaU.searchParams.set('utm_content', gaD);
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
+<title>Campaign link builder | M·A·N</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1C1C1C">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v=87c090e7">
+</head>
+<body>
+<main class="lk" id="main">
+  <span class="sl">Team tool</span>
+  <h1>Campaign link builder</h1>
+  <p class="lk-lead">Make a tracked link for DMC 2026. Visits that arrive through it show up in Google Analytics under the campaign <b>dmc26</b>, with the source, medium and detail you pick, so you can see which post, partner or speaker brings people in.</p>
+
+  <form class="lk-form" id="lk-form" onsubmit="return false">
+    <div class="lk-f"><label for="lk-page">Link to</label>
+      <select id="lk-page">
+        <option value="/dmc-2026">DMC 2026 page</option>
+        <option value="/dmc-2026#register">DMC 2026 — register section</option>
+        <option value="/dmc-2026#flyer">Flyer maker</option>
+        <option value="/">Home page</option>
+        <option value="/partners">Sponsorship packages</option>
+        <option value="/sponsor">Sponsor enquiry form</option>
+        <option value="/dmc-2025">DMC 2025 archive</option>
+      </select></div>
+    <div class="lk-f"><label for="lk-ch">Where will it be shared?</label>
+      <select id="lk-ch">
+        <optgroup label="Social and messaging">
+          <option value="li">LinkedIn</option><option value="ig">Instagram</option><option value="wa">WhatsApp</option>
+          <option value="x">X</option><option value="fb">Facebook</option><option value="tt">TikTok</option>
+          <option value="yt">YouTube</option><option value="tg">Telegram</option>
+        </optgroup>
+        <optgroup label="Partners">
+          <option value="mojopay">MojoPay</option><option value="fido">FIDO</option><option value="gengh">Generation Ghana</option>
+          <option value="mnotify">mNotify</option><option value="kasad3">Kasad3</option><option value="techlabari">Tech Labari</option><option value="koin">Koin Photography</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="spk">A speaker</option><option value="email">Email</option><option value="qr">Print / QR code</option><option value="custom">Something else…</option>
+        </optgroup>
+      </select></div>
+    <div class="lk-f" id="lk-cu-wrap" hidden><label for="lk-cu">Name for it (letters and numbers)</label><input id="lk-cu" type="text" maxlength="20" autocomplete="off" placeholder="e.g. university"></div>
+    <div class="lk-f"><label for="lk-d">Detail (optional)</label><input id="lk-d" type="text" maxlength="30" autocomplete="off" placeholder="e.g. event, bio, status, isaac, post1"></div>
+  </form>
+
+  <div class="lk-out">
+    <label for="lk-url">Your link</label>
+    <div class="lk-row"><input id="lk-url" type="text" readonly><button type="button" class="btn btn-f" id="lk-copy">Copy</button></div>
+    <p class="lk-gm" id="lk-gm"></p>
+    <p class="lk-msg" id="lk-msg" role="status" aria-live="polite"></p>
+  </div>
+
+  <h2>Ready-made partner links</h2>
+  <p class="lk-lead">One link per partner for the DMC 2026 page. Ask each partner to use theirs in every post and email.</p>
+  <div class="lk-tbl" id="lk-partners"></div>
+
+  <h2>Rules of thumb</h2>
+  <ul class="lk-notes">
+    <li>Use a different detail for each post or placement, so you can compare them (<code>li-event</code>, <code>li-post1</code>).</li>
+    <li>Use the same link every time for the same placement, and keep details lower-case, with no spaces.</li>
+    <li>Visitors who decline the cookie notice are counted without their campaign details, so treat these numbers as a floor.</li>
+    <li>In GA4: Reports → Acquisition → Traffic acquisition, then add the dimension <b>Session manual ad content</b> to see details.</li>
+  </ul>
+</main>
+<script src="/assets/analytics.js?v=2410f050" defer></script>
+<script src="/assets/links.js?v=225d915e" defer></script>
+</body>
+</html>

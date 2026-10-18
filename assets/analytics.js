@@ -80,6 +80,11 @@ document.addEventListener('click', function(e){
   window.gtag('event', 'ticket_click', { link_location: ticketPlace(a), page_path: location.pathname });
 });
 
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[data-cal]');
+  if(a) window.gtag('event', 'calendar_add', { method: a.getAttribute('data-cal') });
+});
+
 function init(){
   addSettingsLink();
   if(getChoice() === null) showBanner(); /* 'granted' was already applied by the tag in <head> */

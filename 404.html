@@ -14,15 +14,27 @@
   gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   gtag('js', new Date());
 
-  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  /* Short ?ref= codes on shared links become campaign data in GA4, e.g. mangh.org/dmc-2026?ref=li-event
+     Format: <channel>[-<detail>]. Keep this table in step with assets/links.js (the link builder). */
   var gaCfg = {};
   try {
-    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
-    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
-    if (gaS && !gaU.searchParams.has('utm_source')) {
+    var gaU = new URL(location.href), gaR = (gaU.searchParams.get('ref') || '').toLowerCase();
+    if (/^[a-z0-9]+(-[a-z0-9-]+)?$/.test(gaR) && !gaU.searchParams.has('utm_source')) {
+      var gaP = gaR.split('-'), gaK = gaP[0], gaD = gaP.slice(1).join('-');
+      var gaSoc = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
+      var gaPar = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
+      var gaS = gaK, gaM = 'referral-link';
+      if (gaR === 'flyer') { gaS = 'flyer'; gaM = 'flyer-share'; }
+      else if (gaR === 'wa' || gaR === 'li' || gaR === 'x') { gaS = gaSoc[gaR]; gaM = 'flyer-share'; }
+      else if (gaSoc[gaK]) { gaS = gaSoc[gaK]; gaM = 'social'; }
+      else if (gaPar[gaK]) { gaS = gaPar[gaK]; gaM = 'partner'; }
+      else if (gaK === 'spk') { gaS = 'speaker'; gaM = 'speaker'; }
+      else if (gaK === 'email') { gaS = 'email'; gaM = 'email'; }
+      else if (gaK === 'qr') { gaS = 'qr'; gaM = 'print'; }
       gaU.searchParams.set('utm_source', gaS);
-      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_medium', gaM);
       gaU.searchParams.set('utm_campaign', 'dmc26');
+      if (gaD && gaR !== 'flyer') gaU.searchParams.set('utm_content', gaD);
       gaCfg.page_location = gaU.href;
     }
   } catch(e) {}
@@ -34,7 +46,7 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=5faa403d">
+<link rel="stylesheet" href="/assets/styles.css?v=87c090e7">
 <style>.nf{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 48px;max-width:760px;margin:0 auto}.nf .sl{margin-bottom:16px}.nf h1{font-size:clamp(40px,8vw,84px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.95;letter-spacing:-.02em;margin-bottom:20px}.nf p{font-size:16px;line-height:1.7;color:rgba(244,239,230,.7);margin-bottom:32px;max-width:520px}.nf .row{display:flex;gap:12px;flex-wrap:wrap}@media(max-width:600px){.nf{padding:72px 24px}}</style>
 </head>
 <body>
@@ -48,6 +60,6 @@
     <a class="btn" href="/partners">Partner with us</a>
   </div>
 </main>
-<script src="/assets/analytics.js?v=a2f489c4" defer></script>
+<script src="/assets/analytics.js?v=2410f050" defer></script>
 </body>
 </html>

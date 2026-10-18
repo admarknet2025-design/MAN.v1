@@ -14,15 +14,27 @@
   gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   gtag('js', new Date());
 
-  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  /* Short ?ref= codes on shared links become campaign data in GA4, e.g. mangh.org/dmc-2026?ref=li-event
+     Format: <channel>[-<detail>]. Keep this table in step with assets/links.js (the link builder). */
   var gaCfg = {};
   try {
-    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
-    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
-    if (gaS && !gaU.searchParams.has('utm_source')) {
+    var gaU = new URL(location.href), gaR = (gaU.searchParams.get('ref') || '').toLowerCase();
+    if (/^[a-z0-9]+(-[a-z0-9-]+)?$/.test(gaR) && !gaU.searchParams.has('utm_source')) {
+      var gaP = gaR.split('-'), gaK = gaP[0], gaD = gaP.slice(1).join('-');
+      var gaSoc = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
+      var gaPar = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
+      var gaS = gaK, gaM = 'referral-link';
+      if (gaR === 'flyer') { gaS = 'flyer'; gaM = 'flyer-share'; }
+      else if (gaR === 'wa' || gaR === 'li' || gaR === 'x') { gaS = gaSoc[gaR]; gaM = 'flyer-share'; }
+      else if (gaSoc[gaK]) { gaS = gaSoc[gaK]; gaM = 'social'; }
+      else if (gaPar[gaK]) { gaS = gaPar[gaK]; gaM = 'partner'; }
+      else if (gaK === 'spk') { gaS = 'speaker'; gaM = 'speaker'; }
+      else if (gaK === 'email') { gaS = 'email'; gaM = 'email'; }
+      else if (gaK === 'qr') { gaS = 'qr'; gaM = 'print'; }
       gaU.searchParams.set('utm_source', gaS);
-      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_medium', gaM);
       gaU.searchParams.set('utm_campaign', 'dmc26');
+      if (gaD && gaR !== 'flyer') gaU.searchParams.set('utm_content', gaD);
       gaCfg.page_location = gaU.href;
     }
   } catch(e) {}
@@ -52,7 +64,7 @@
 <meta name="twitter:description" content="DMC 2026 — Built To Scale. Sat 21 Nov, 10AM–3PM, British Council Accra. Keynotes, panels, a pitching masterclass and breakouts. Early bird GH₵100.">
 <meta name="twitter:image" content="https://mangh.org/assets/og-dmc-2026.png">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=5faa403d">
+<link rel="stylesheet" href="/assets/styles.css?v=87c090e7">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -311,6 +323,7 @@
       <a href="/dmc-2026#programme" class="btn btn-cr">View Programme</a>
       <a href="/dmc-2026#flyer" class="btn btn-cr">Make Your Flyer</a>
     </div>
+    <p class="h26-proof hr">Last year, 289 people registered for 100 seats at <a href="/dmc-2025">DMC 2025</a>.</p>
   </div>
   <div class="hero-r">
     <div class="ph" data-label="" style="width:100%;height:100%;min-height:100vh;border:none;background:#171310">
@@ -422,12 +435,7 @@
       <span class="sl" style="color:var(--te)">Venue</span>
       <h2>British Council Accra</h2>
       <div class="venue-sub">Main Auditorium & Frontage</div>
-      <div class="venue-photos">
-        <div class="ph-cr" data-label="Main Auditorium" style="aspect-ratio:4/3;width:100%;border:none;background:#ccc9c2"></div>
-        <div class="ph-cr" data-label="Frontage" style="aspect-ratio:4/3;width:100%;border:none;background:#d0ccc5"></div>
-        <div class="ph-cr" data-label="Hallway" style="aspect-ratio:4/3;width:100%;border:none;background:#c8c5bd"></div>
-        <div class="ph-cr" data-label="Breakouts" style="aspect-ratio:4/3;width:100%;border:none;background:#cec9c1"></div>
-      </div>
+      <!-- Venue photos (Main Auditorium, Frontage, Hallway, Breakouts) are hidden until real photos exist; restore the .venue-photos block from git history. -->
       <div class="vi conf"><div class="vl">Status</div><div class="vv">Confirmed — British Council Accra</div></div>
       <div class="vi"><div class="vl">Address</div><div class="vv">Liberia Road, Accra, Ghana</div></div>
       <div class="vi"><div class="vl">Capacity</div><div class="vv">~200 seated (main auditorium)</div></div>
@@ -559,6 +567,7 @@ Bring a colleague — tag them below!</textarea>
     <span class="sl sr" style="color:rgba(28,28,28,.72)">Register</span>
     <h2 class="sr">Built To<br>Scale</h2>
     <p class="sr" data-eb-after="Limited seats. Tickets are on sale now — grab yours before they're gone.">Limited seats. Early bird tickets (GH₵ 100) are available until 31 October 2026 — grab yours before they're gone.</p>
+    <p class="reg-proof sr">Last year, 289 people registered for 100 seats.</p>
     <div class="reg-meta sr">
       <div class="rm"><div class="l">Date</div><div class="v">Sat 21 November 2026</div></div>
       <div class="rm"><div class="l">Time</div><div class="v">10AM – 3PM</div></div>
@@ -571,7 +580,10 @@ Bring a colleague — tag them below!</textarea>
         <strong style="color:rgba(28,28,28,.72)">No data? Pay by phone —</strong> Dial <strong>*789*411#</strong> · Event Code <strong>2334</strong> · Pay with MoMo
       </div>
     </div>
-    <a class="cal-link sr" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank" rel="noopener noreferrer" style="margin-top:14px;display:inline-flex">📅 Add to Calendar</a>
+    <div class="cal-row sr">
+      <a class="cal-link" href="/assets/dmc-2026.ics" download="DMC-2026.ics" data-cal="ics">📅 Add to Calendar</a>
+      <a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Digital%20Marketers%E2%80%99%20Conference%202026%20%E2%80%94%20Built%20To%20Scale&amp;dates=20261121T100000Z/20261121T150000Z&amp;details=Keynotes%2C%20panels%2C%20a%20pitching%20masterclass%20and%20breakouts.%20Tickets%3A%20https%3A//tickets.mojo-pay.com/events/digital-marketers-conference-2026%20%C2%B7%20https%3A//mangh.org/dmc-2026&amp;location=British%20Council%20Accra%2C%20Liberia%20Road%2C%20Accra%2C%20Ghana" target="_blank" rel="noopener noreferrer" data-cal="google">Google Calendar ↗</a>
+    </div>
   </div>
 </section>
 
@@ -588,8 +600,8 @@ Bring a colleague — tag them below!</textarea>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
 <script src="/assets/countdown.js?v=0f11557f" defer></script>
 <script src="/assets/earlybird.js?v=92fe92b3" defer></script>
-<script src="/assets/flyer.js?v=621ca111" defer></script>
-<script src="/assets/analytics.js?v=a2f489c4" defer></script>
+<script src="/assets/flyer.js?v=2a270f43" defer></script>
+<script src="/assets/analytics.js?v=2410f050" defer></script>
 <script src="/assets/app.js?v=3f752896" defer></script>
 </body>
 </html>
