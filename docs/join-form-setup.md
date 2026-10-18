@@ -49,10 +49,10 @@ Moved out of the public JavaScript (it contained the review sheet URL and notifi
         "Company:    " + r["Company / Organisation"] + "\n" +
         "Experience: " + r["Years in Marketing"] + "\n\n" +
         "Why MAN:\n" + r["What brings you to MAN?"] + "\n\n" +
-        "Review in Sheet: https://docs.google.com/spreadsheets/d/1oaN8BGlGksI3LmHs9Qz9cihkWsNTwjh7i7ABFeXgwTI";
+        "Review in Sheet: https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID";
 
       MailApp.sendEmail({
-        to: "admarknet2025@gmail.com",
+        to: "YOUR_NOTIFICATION_EMAIL",
         subject: "MAN Application — " + r["Full Name"],
         body: msg
       });
