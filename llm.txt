@@ -1,6 +1,6 @@
 # Marketers & Advertisers Network (M·A·N)
 
-> M·A·N is Ghana's peer-driven community for marketing and advertising professionals. It runs MAN Sessions (free community sessions, three a year) and the annual Digital Marketers’ Conference (DMC).
+> M·A·N is Ghana's peer-driven community for marketing and advertising professionals. It runs MAN Sessions (free community sessions, three a year) and the annual Digital Marketers’ Conference (DMC), held in Accra.
 
 ## Digital Marketers’ Conference 2026 — Built To Scale
 - Date and time: Saturday 21 November 2026, 10:00–15:00 (GMT)
@@ -8,17 +8,34 @@
 - Themes: Build Yourself, Build Your Team, Build Your Work
 - Format: keynote, panel discussions, partner presentations and spotlights, a pitching masterclass and breakout sessions
 - Capacity: about 200 attendees
-- Early bird ticket: GH₵100, on sale until 31 October 2026 — https://tickets.mojo-pay.com/events/digital-marketers-conference-2026
-- Title sponsor: MojoPay
+- Tickets: sold through MojoPay (the official ticketing platform) at https://tickets.mojo-pay.com/events/digital-marketers-conference-2026. Early bird price GH₵100 until 31 October 2026; check that page for current pricing.
+- Attendees can make a shareable personal flyer for the event at https://mangh.org/dmc-2026#flyer
+
+### Confirmed speakers and hosts (programme still being finalised)
+- Isaac Newton Acquah — Co-Founder, The Innovation Spark (presentation, Build Yourself)
+- Alex Offei Lartey — Marketing Communications & Digital Solutions Consultant (panel)
+- Ronald Tagoe — Founder & CEO, mNotify; Founder, Impact AI Labs (panel)
+- Emelia Dede Quist — Employer Engagement Manager, Generation Ghana (panel)
+- Kwaku Ofosuhene — Chief Commercial Officer, Mojo Payments (presentation, Build Your Team)
+- Sena Quarshie, Simon Alangdee, Florentia Teye (panel, Build Your Team); Yvonne Dumor, Ian Hutchful (panel, Build Your Work)
+- Enoch “RobotBoy” Appiah Jr. — host, COSM Podcast
+- Samuel Kwabena Ansong — Marketing Manager, HR Certification Centre (pitching masterclass)
+- The keynote speaker is yet to be announced.
+
+### Sponsors and partners
+- Title sponsor (Gold): MojoPay
+- Silver sponsors: Generation Ghana and FIDO
+- Partners: mNotify (programme partner), Kasad3 and Tech Labari (media partners), Koin Photography (event photography)
+- Sponsorship tiers still open: Silver, Bronze and Cedar
 
 ## Pages
 - [Home](https://mangh.org/): about M·A·N, team, partners, and how to join the community
-- [DMC 2026](https://mangh.org/dmc-2026): programme, speakers, venue, travel guide and registration
+- [DMC 2026](https://mangh.org/dmc-2026): programme, speakers, venue, travel guide, flyer maker and registration
 - [MAN Sessions](https://mangh.org/sessions): community firesides and conference sessions
-- [Partner with DMC 2026](https://mangh.org/partners): sponsorship tiers (Silver, Bronze, Cedar) and enquiry form
+- [Partner with DMC 2026](https://mangh.org/partners): sponsorship tiers and enquiry form
 - [Sponsor DMC 2026](https://mangh.org/sponsor): sponsorship enquiry form
-- [Privacy and Terms](https://mangh.org/privacy): how sponsorship form data is used, and the terms that apply
-- [DMC 2025 archive](https://mangh.org/dmc-2025): recap of the 2025 conference held at the Google AI Community Center, Accra on 28 November 2025
+- [Privacy and Terms](https://mangh.org/privacy): how sponsorship form data and website analytics are used, and the terms that apply
+- [DMC 2025 archive](https://mangh.org/dmc-2025): recap of the 2025 conference held at the Google AI Community Center, Accra on 28 November 2025, with speakers, partners and a photo gallery
 
 ## Contact
 - Email: admarknet2025@gmail.com
