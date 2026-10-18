@@ -1,0 +1,12 @@
+{
+  "_note": "Speakers and hosts to make flyers for. photo is a file in assets/speakers/. Add a person here once they have a photo. role is shown on the badge (keep it short).",
+  "people": [
+    { "slug": "isaac",  "name": "Isaac Newton Acquah",   "role": "Co-Founder, The Innovation Spark",             "photo": "isaac-newton-acquah.webp",  "kind": "speaker" },
+    { "slug": "alex",   "name": "Alex Offei Lartey",     "role": "Marketing Communications & Digital Solutions Consultant", "photo": "alex-offei-lartey.webp", "kind": "speaker" },
+    { "slug": "ronald", "name": "Ronald Tagoe",          "role": "Founder & CEO, mNotify",                       "photo": "ronald-tagoe.webp",         "kind": "speaker" },
+    { "slug": "emelia", "name": "Emelia Dede Quist",     "role": "Employer Engagement Manager, Generation Ghana", "photo": "emelia-dede-quist.webp",   "kind": "speaker" },
+    { "slug": "kwaku",  "name": "Kwaku Ofosuhene",       "role": "Chief Commercial Officer, Mojo Payments",      "photo": "kwaku-asare-ofosuhene.webp","kind": "speaker" },
+    { "slug": "samuel", "name": "Samuel Kwabena Ansong", "role": "Marketing Manager, HR Certification Centre",   "photo": "samuel-kwabena-ansong.webp","kind": "speaker" },
+    { "slug": "enoch",  "name": "Enoch “RobotBoy” Appiah Jr.", "role": "Host · COSM Podcast",                    "photo": "enoch-appiah-jr.webp",      "kind": "host" }
+  ]
+}

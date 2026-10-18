@@ -932,11 +932,3 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 .lk-notes{padding-left:20px;font-size:14px;line-height:1.8;color:rgba(244,239,230,.75)}
 .lk-notes code{background:rgba(244,239,230,.1);padding:1px 6px;border-radius:3px;font-size:13px}
 @media(max-width:700px){.lk{padding:64px 20px 96px}.lk-form{grid-template-columns:1fr}.lk-pr{grid-template-columns:1fr auto}.lk-pr b{grid-column:1/-1}.lk-row{flex-wrap:wrap}}
-
-/* flyer: attending / speaking switch */
-.fl-mode{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(244,239,230,.25);border-radius:6px;overflow:hidden;margin:0 0 18px;padding:0;min-width:0}
-.fl-mode label{position:relative;display:block;cursor:pointer}
-.fl-mode input{position:absolute;opacity:0;width:1px;height:1px}
-.fl-mode span{display:block;text-align:center;padding:11px 8px;font-size:13px;font-weight:700;color:rgba(244,239,230,.7);background:transparent;transition:background .2s,color .2s}
-.fl-mode input:checked + span{background:var(--go);color:var(--ob)}
-.fl-mode input:focus-visible + span{outline:2px solid var(--go);outline-offset:-4px}
