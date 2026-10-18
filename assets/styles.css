@@ -843,3 +843,11 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .fl-event p{font-size:14px;line-height:1.6;color:rgba(244,239,230,.6);margin-bottom:14px}
 .fl-links{display:flex;flex-wrap:wrap;gap:10px}
 .fl-links .btn{flex:1 1 90px;text-align:center}
+
+/* Cookie notice */
+.ck{position:fixed;left:16px;bottom:16px;z-index:500;max-width:560px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--ink);color:var(--cr);border:1px solid rgba(244,239,230,.18);border-top:3px solid var(--go);padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.ck-t{flex:1 1 260px;font-size:13px;line-height:1.55;color:rgba(244,239,230,.78)}
+.ck-t a{color:var(--go)}
+.ck-b{display:flex;gap:10px}
+.ck-b .btn{padding:10px 18px}
+@media(max-width:580px){.ck{left:0;right:0;bottom:0;max-width:none;border-left:0;border-right:0}.ck-b{width:100%}.ck-b .btn{flex:1;text-align:center}}
