@@ -384,6 +384,9 @@ function sched(){ clearTimeout(t); t = setTimeout(draw, 50); }
   if(el) el.addEventListener('input', sched);
 });
 
+/* GA events (no-op until analytics.js has a Measurement ID) */
+function track(name, params){ if(window.gtag) window.gtag('event', name, params || {}); }
+
 /* Download / share */
 function fileName(){
   return 'DMC2026-BuiltToScale-' + (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-') + '.png';
@@ -392,6 +395,7 @@ function flyerBlob(cb){ canvas.toBlob(cb, 'image/png'); }
 
 var dl = document.getElementById('fl-dl');
 if(dl) dl.addEventListener('click', function(){
+  track('flyer_download');
   flyerBlob(function(blob){
     if(!blob) return;
     var url = URL.createObjectURL(blob);
@@ -418,9 +422,10 @@ function copyText(text){
 }
 function setHref(id, href){ var a = document.getElementById(id); if(a) a.href = href; }
 function syncLinks(){
-  var q = encodeURIComponent(cap.value);
-  setHref('fl-wa', 'https://wa.me/?text=' + q);
-  setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + q);
+  /* each channel gets its own ?ref= code so GA can tell them apart */
+  function withRef(code){ return encodeURIComponent(cap.value.replace('?ref=flyer', '?ref=' + code)); }
+  setHref('fl-wa', 'https://wa.me/?text=' + withRef('wa'));
+  setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + withRef('x'));
 }
 /* Caption follows the name/role fields until the attendee edits it by hand */
 var capDirty = false;
@@ -445,6 +450,7 @@ if(cap){
 }
 if(copyBtn && cap) copyBtn.addEventListener('click', function(){
   copyText(cap.value).then(function(){
+    track('flyer_copy_caption');
     snote('Caption copied — paste it into your post.');
   }, function(){
     snote('Could not copy automatically — select the caption and copy it.');
@@ -466,7 +472,7 @@ if(shareBtn && canShareFiles()){
       if(!blob) return;
       var file = new File([blob], fileName(), { type: 'image/png' });
       navigator.share({ files: [file], text: cap ? cap.value : '', title: 'DMC 2026 — Built To Scale' })
-        .then(function(){ snote(''); })
+        .then(function(){ track('flyer_share', { method: 'share_sheet' }); snote(''); })
         .catch(function(err){
           if(err && err.name === 'AbortError') return; /* user closed the sheet */
           snote('Sharing did not work on this device — download the flyer and copy the caption instead.');
