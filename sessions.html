@@ -3,6 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
+    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
+    if (gaS && !gaU.searchParams.has('utm_source')) {
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
 <title>MAN Sessions — Free Marketing Sessions in Ghana | M·A·N</title>
 <meta name="description" content="MAN Sessions: free community firesides and conference sessions for Ghana&#x27;s marketers — three a year, virtual and in person, plus DMC 2026.">
 <link rel="canonical" href="https://mangh.org/sessions">
@@ -29,7 +54,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,300..900;1,75..125,300..900&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v=20261024">
+<link rel="stylesheet" href="/assets/styles.css?v=20261026">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -266,7 +291,7 @@
   <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network.</p><div class="fb-lnks"><a href="/privacy#privacy">Privacy</a><a href="/#connect">Connect</a></div></div>
 </footer>
 </div>
-<script src="/assets/analytics.js?v=20261024" defer></script>
+<script src="/assets/analytics.js?v=20261025" defer></script>
 <script src="/assets/app.js?v=20261020" defer></script>
 </body>
 </html>
