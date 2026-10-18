@@ -832,3 +832,14 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .fl-dl{text-align:center;margin-top:6px;padding:14px 24px}
 .fl-tip{font-size:11px;color:rgba(244,239,230,.4);text-align:center;margin-top:10px}
 @media(max-width:900px){.flyer-tool{grid-template-columns:1fr;gap:40px}.flyer-sec .section-head{grid-template-columns:1fr;gap:16px}.flyer-sec{padding-top:72px;padding-bottom:72px}}
+.flyer-ctrl .btn{width:100%;text-align:center;padding:14px 24px;margin-top:10px}
+.flyer-ctrl .btn[hidden]{display:none}
+.fl-cap{margin-top:22px}
+.fl-cap label{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.5);margin-bottom:8px}
+.fl-cap textarea{width:100%;resize:vertical;background:rgba(244,239,230,.04);border:1px solid rgba(244,239,230,.2);border-radius:6px;color:var(--cr);font-family:var(--f);font-size:14px;line-height:1.55;padding:12px;outline:none}
+.fl-cap textarea:focus{border-color:var(--go)}
+.fl-event{max-width:420px;margin-top:32px}
+.fl-event h3{font-size:18px;font-weight:800;color:var(--cr);margin-bottom:6px}
+.fl-event p{font-size:14px;line-height:1.6;color:rgba(244,239,230,.6);margin-bottom:14px}
+.fl-links{display:flex;flex-wrap:wrap;gap:10px}
+.fl-links .btn{flex:1 1 90px;text-align:center}

@@ -343,6 +343,8 @@ var icon   = document.getElementById('fl-icon');
 var msg    = document.getElementById('fl-msg');
 
 function note(text){ if(msg) msg.textContent = text || ''; }
+var smsg = document.getElementById('fl-smsg');
+function snote(text){ if(smsg) smsg.textContent = text || ''; }
 
 function loadPhoto(file){
   if(!file) return;
@@ -382,22 +384,79 @@ function sched(){ clearTimeout(t); t = setTimeout(draw, 50); }
   if(el) el.addEventListener('input', sched);
 });
 
-/* Download */
+/* Download / share */
+function fileName(){
+  return 'DMC2026-BuiltToScale-' + (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-') + '.png';
+}
+function flyerBlob(cb){ canvas.toBlob(cb, 'image/png'); }
+
 var dl = document.getElementById('fl-dl');
 if(dl) dl.addEventListener('click', function(){
-  var name = (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-');
-  canvas.toBlob(function(blob){
+  flyerBlob(function(blob){
     if(!blob) return;
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    a.download = 'DMC2026-BuiltToScale-' + name + '.png';
+    a.download = fileName();
     a.href = url;
     document.body.appendChild(a);
     a.click();
     a.remove();
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
-  }, 'image/png');
+  });
 });
+
+/* Caption: editable; the event links share whatever it says */
+var cap = document.getElementById('fl-caption');
+var copyBtn = document.getElementById('fl-copy');
+
+function copyText(text){
+  if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+  return new Promise(function(res, rej){
+    cap.select();
+    try { document.execCommand('copy') ? res() : rej(); } catch(e) { rej(e); }
+  });
+}
+function setHref(id, href){ var a = document.getElementById(id); if(a) a.href = href; }
+function syncLinks(){
+  var q = encodeURIComponent(cap.value);
+  setHref('fl-wa', 'https://wa.me/?text=' + q);
+  setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + q);
+}
+if(cap){
+  cap.addEventListener('input', syncLinks);
+  syncLinks();
+}
+if(copyBtn && cap) copyBtn.addEventListener('click', function(){
+  copyText(cap.value).then(function(){
+    snote('Caption copied — paste it into your post.');
+  }, function(){
+    snote('Could not copy automatically — select the caption and copy it.');
+  });
+});
+
+/* Native share sheet (phones, some desktops) — hidden where files can't be shared */
+var shareBtn = document.getElementById('fl-share');
+function canShareFiles(){
+  try {
+    return !!(navigator.share && navigator.canShare &&
+      navigator.canShare({ files: [new File([''], 'a.png', { type: 'image/png' })] }));
+  } catch(e) { return false; }
+}
+if(shareBtn && canShareFiles()){
+  shareBtn.hidden = false;
+  shareBtn.addEventListener('click', function(){
+    flyerBlob(function(blob){
+      if(!blob) return;
+      var file = new File([blob], fileName(), { type: 'image/png' });
+      navigator.share({ files: [file], text: cap ? cap.value : '', title: 'DMC 2026 — Built To Scale' })
+        .then(function(){ snote(''); })
+        .catch(function(err){
+          if(err && err.name === 'AbortError') return; /* user closed the sheet */
+          snote('Sharing did not work on this device — download the flyer and copy the caption instead.');
+        });
+    });
+  });
+}
 
 /* Init: canvas text needs the web fonts loaded before the first draw */
 function fonts(){
