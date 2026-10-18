@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
+    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
+    if (gaS && !gaU.searchParams.has('utm_source')) {
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Privacy and Terms — DMC 2026 | M·A·N</title>
@@ -115,7 +141,7 @@
     <p>If you choose to join the Marketers &amp; Advertisers Network, we use the details you give us to set up your membership, add you to our community channels, and tell you about MAN events and opportunities. Submitting the sponsorship form does not make you a member. You can leave MAN at any time, and ask us to delete your details, by <a href="mailto:admarknet2025@gmail.com">emailing us</a>.</p>
 
     <h3>Website visits</h3>
-    <p>If you accept the cookie notice, we use Google Analytics to count visits to this website and see which pages and shared flyer links bring people to it. If you decline, it is not loaded. It uses cookies and records things like the pages you view, your approximate location and your device type. It does not see your sponsorship form answers, and we do not use it to identify you. You can change your choice at any time with “Cookie settings” in the footer.</p>
+    <p>We use Google Analytics to count visits to this website and see which pages and shared flyer links bring people to it. Until you accept the cookie notice it uses no cookies and only receives anonymous page-view counts, along with the technical details any web request carries, such as your IP address, which Google uses to estimate your location and does not store. If you accept, it also uses cookies to recognise repeat visits. It does not see your sponsorship form answers, and we do not use it to identify you. You can change your choice at any time with “Cookie settings” in the footer.</p>
 
     <h3>Your rights</h3>
     <p>Under Ghana's Data Protection Act, 2012 (Act 843) you can ask us to show you what we hold about you, correct it, or delete it. <a href="mailto:admarknet2025@gmail.com">Email us</a> and we will respond.</p>
@@ -149,7 +175,7 @@
   <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network.</p><div class="fb-lnks"><a href="/privacy">Privacy and Terms</a><a href="/#connect">Connect</a></div></div>
 </footer>
 </div>
-<script src="/assets/analytics.js?v=20261024" defer></script>
+<script src="/assets/analytics.js?v=20261025" defer></script>
 <script src="/assets/app.js?v=20261020" defer></script>
 </body>
 </html>

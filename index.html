@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
+    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
+    if (gaS && !gaU.searchParams.has('utm_source')) {
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>M·A·N — Marketers &amp; Advertisers Network | Ghana&#x27;s marketing community</title>
@@ -397,7 +423,7 @@
   <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network. All rights reserved.</p><div class="fb-lnks"><a href="/privacy">Privacy and Terms</a><a href="/#connect">Connect</a></div></div>
 </footer>
 </div>
-<script src="/assets/analytics.js?v=20261024" defer></script>
+<script src="/assets/analytics.js?v=20261025" defer></script>
 <script src="/assets/app.js?v=20261020" defer></script>
 </body>
 </html>
