@@ -893,3 +893,13 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 .h26-count{min-height:34px;margin:0 0 22px;display:flex;align-items:baseline;gap:0;font-size:15px;font-weight:600;color:rgba(244,239,230,.8)}
 .h26-count b{font-size:28px;font-weight:900;font-variation-settings:'wdth' 118;color:var(--go);letter-spacing:-.01em}
 .h26-count span{margin-left:.4em}
+
+/* sponsorship table: keep tier names inside their column */
+.trow{grid-template-columns:240px 1fr 1fr}
+.tn{padding:28px 22px}
+.tn .tname{font-size:clamp(20px,2.1vw,28px);overflow-wrap:anywhere}
+@media(max-width:1024px){.trow{grid-template-columns:170px 1fr 1fr}.tn{padding:24px 16px}.tn .tname{font-size:clamp(17px,2.3vw,22px)}}
+@media(max-width:700px){.trow{grid-template-columns:140px 1fr 1fr}.tn{padding:20px 12px}.tn .tname{font-size:clamp(15px,3.2vw,18px)}}
+@media(max-width:580px){.trow{grid-template-columns:1fr}.tn .tname{font-size:clamp(22px,6vw,28px)}}
+@media(max-width:580px){.trow-head{display:none}}
+.pc .pn.pn-duo{display:flex;align-items:center;flex-wrap:wrap;gap:18px 28px;margin-bottom:12px}
