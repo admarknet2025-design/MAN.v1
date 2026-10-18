@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Marketers & Advertisers Network//DMC 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:dmc-2026@mangh.org
+DTSTAMP:20261018T000000Z
+DTSTART:20261121T100000Z
+DTEND:20261121T150000Z
+SUMMARY:Digital Marketers’ Conference 2026 — Built To Scale
+DESCRIPTION:Keynotes\, panels\, a pitching masterclass and breakouts. Tick
+ ets: https://tickets.mojo-pay.com/events/digital-marketers-conference-202
+ 6\nMore: https://mangh.org/dmc-2026
+LOCATION:British Council Accra\, Liberia Road\, Accra\, Ghana
+URL:https://mangh.org/dmc-2026
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:DMC 2026 is tomorrow — British Council Accra\, 10 AM
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:DMC 2026 starts at 10 AM
+END:VALARM
+END:VEVENT
+END:VCALENDAR
