@@ -1,3 +1,8 @@
+/* Self-hosted Archivo (variable weight + width), latin; the cedi sign has its own tiny file */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-italic.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/archivo-cedi.woff2) format('woff2');unicode-range:U+20B5}
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ob:#1C1C1C;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--go:#C9A24A;--ink:#0D0D0D;--cedar:#8B6040;--bronze:#B8721D;--silver:#6E8492;--f:'Archivo',sans-serif}
 html{scroll-behavior:smooth}
@@ -544,7 +549,7 @@ body.sr-on{padding-bottom:56px}
 .arch-banner a{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,162,74,.80);text-decoration:none;padding:5px 12px;border:1px solid rgba(201,162,74,.25);cursor:pointer}
 .arch-banner a:hover{color:var(--go);border-color:var(--go)}
 #page-dmc25{background:#141414}
-#page-dmc25 .hero{background:linear-gradient(90deg,rgba(20,20,20,.95) 0%,rgba(20,20,20,.8) 42%,rgba(20,20,20,.3) 100%),url('dmc25-cover.jpg') center/cover no-repeat #141414;min-height:80vh;display:flex;align-items:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
+#page-dmc25 .hero{background:linear-gradient(90deg,rgba(20,20,20,.95) 0%,rgba(20,20,20,.8) 42%,rgba(20,20,20,.3) 100%),url('dmc25-cover.webp') center/cover no-repeat #141414;min-height:80vh;display:flex;align-items:flex-end;padding:0 48px 72px;position:relative;overflow:hidden}
 #page-dmc25 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 25% 50%,rgba(201,162,74,.04) 0%,transparent 65%);pointer-events:none}
 .h25-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;width:100%}
 .h25-l .arch-tag{display:inline-block;padding:5px 14px;border:1px solid rgba(255,255,255,.07);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.62);margin-bottom:24px}
@@ -696,7 +701,7 @@ footer{background:var(--ink);padding:64px 48px 36px;border-top:1px solid rgba(25
   .trow{grid-template-columns:120px 1fr 1fr}
   .sq-row{grid-template-columns:1fr;padding:0 24px}
   .h25-inner{grid-template-columns:1fr;gap:36px}
-  #page-dmc25 .hero{background:linear-gradient(180deg,rgba(20,20,20,.7) 0%,rgba(20,20,20,.92) 100%),url('dmc25-cover.jpg') center/cover no-repeat #141414}
+  #page-dmc25 .hero{background:linear-gradient(180deg,rgba(20,20,20,.7) 0%,rgba(20,20,20,.92) 100%),url('dmc25-cover.webp') center/cover no-repeat #141414}
   .spk25-grid{grid-template-columns:repeat(2,1fr)}
   .p25-tile{flex-basis:calc((100% - 2px)/2)}
   .gall-grid{grid-template-columns:repeat(2,1fr)}
@@ -853,3 +858,17 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 @media(max-width:580px){.ck{left:0;right:0;bottom:0;max-width:none;border-left:0;border-right:0}.ck-b{width:100%}.ck-b .btn{flex:1;text-align:center}}
 
 @media(max-width:580px){.p26-grid{grid-template-columns:1fr}}
+
+/* speaker placeholders: readable initials instead of a faint label */
+.sp-photo .ph-sp::after{font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:.04em;color:rgba(201,162,74,.6)}
+.sp-photo .ph-sp.k::after{font-size:15px;letter-spacing:.22em;font-weight:700}
+/* larger tap targets for footer links */
+footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
+.fc li{margin-bottom:0}
+.fb-lnks{gap:6px 22px;flex-wrap:wrap}
+/* small screens: stack two-column section headings, let flex/grid children shrink */
+@media(max-width:900px){.section-head{grid-template-columns:1fr;gap:16px}.dmc-feat>*{min-width:0}}
+@media(max-width:380px){.sess-media,.sm-main{flex-wrap:wrap;min-width:0}nav{padding:0 12px!important;gap:6px}nav .btn{padding:8px 9px}}
+@media(max-width:900px){.sess-row>*,.sess-row{min-width:0}.sess-row{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:900px){.bridge-inner,.bridge-inner>*,.bc{min-width:0}.bridge-inner{grid-template-columns:minmax(0,1fr)}.bc{flex-wrap:wrap}}
+@media(max-width:380px){.reg-sec .btn,.h26-cta .btn{white-space:normal;max-width:100%}}

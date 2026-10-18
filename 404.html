@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDT1GX4GJ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  /* Cookies stay off until the visitor accepts the cookie notice (assets/analytics.js) */
+  var gaOk = false;
+  try { gaOk = localStorage.getItem('man_analytics') === 'granted'; } catch(e) {}
+  gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  gtag('js', new Date());
+
+  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  var gaCfg = {};
+  try {
+    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
+    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
+    if (gaS && !gaU.searchParams.has('utm_source')) {
+      gaU.searchParams.set('utm_source', gaS);
+      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_campaign', 'dmc26');
+      gaCfg.page_location = gaU.href;
+    }
+  } catch(e) {}
+  gtag('config', 'G-CDT1GX4GJ6', gaCfg);
+</script>
+<title>Page not found | M·A·N</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1C1C1C">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v=07f915b1">
+<style>.nf{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 48px;max-width:760px;margin:0 auto}.nf .sl{margin-bottom:16px}.nf h1{font-size:clamp(40px,8vw,84px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.95;letter-spacing:-.02em;margin-bottom:20px}.nf p{font-size:16px;line-height:1.7;color:rgba(244,239,230,.7);margin-bottom:32px;max-width:520px}.nf .row{display:flex;gap:12px;flex-wrap:wrap}@media(max-width:600px){.nf{padding:72px 24px}}</style>
+</head>
+<body>
+<main class="nf" id="main">
+  <span class="sl">Error 404</span>
+  <h1>That page<br>doesn’t exist.</h1>
+  <p>The link may be out of date or mistyped. Here are the places most people are looking for.</p>
+  <div class="row">
+    <a class="btn btn-f" href="/">M·A·N home</a>
+    <a class="btn" href="/dmc-2026">DMC 2026</a>
+    <a class="btn" href="/partners">Partner with us</a>
+  </div>
+</main>
+<script src="/assets/analytics.js?v=6d3bd585" defer></script>
+</body>
+</html>

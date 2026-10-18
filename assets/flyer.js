@@ -10,20 +10,20 @@ var W = 1080, H = 1440;
 /* Brand palette */
 var OB = '#1C1C1C', SC = '#F4EFE6', BT = '#2A7B74', PC = '#D95F45', AG = '#C9A24A';
 var SC7 = 'rgba(244,239,230,0.70)', SC6 = 'rgba(244,239,230,0.60)', SC4 = 'rgba(244,239,230,0.40)',
-    SC2 = 'rgba(244,239,230,0.22)', AG3 = 'rgba(201,162,74,0.30)';
+    SC2 = 'rgba(244,239,230,0.55)', AG3 = 'rgba(201,162,74,0.30)';
 
 var TICKET_URL = 'https://tickets.mojo-pay.com/events/digital-marketers-conference-2026';
 
 /* Logos are served from this site (same origin), so the canvas stays exportable.
    Every logo sits on a cream tile: most marks are drawn for light backgrounds. */
 var LOGO_SRCS = {
-  mojopay:         '/assets/partners26/mojopay-blue.png',
-  fido:            '/assets/partners26/fido.png',
-  mnotify:         '/assets/partners26/mnotify.png',
-  generationghana: '/assets/partners26/generation-ghana.png',
-  kasad3:          '/assets/partners26/kasad3.png',
-  techlabari:      '/assets/partners26/tech-labari.png',
-  koin:            '/assets/partners26/mista-koin.png'
+  mojopay:         '/assets/partners26/mojopay-blue.webp',
+  fido:            '/assets/partners26/fido.webp',
+  mnotify:         '/assets/partners26/mnotify.webp',
+  generationghana: '/assets/partners26/generation-ghana.webp',
+  kasad3:          '/assets/partners26/kasad3.webp',
+  techlabari:      '/assets/partners26/tech-labari.webp',
+  koin:            '/assets/partners26/mista-koin.webp'
 };
 var PARTNERS = [
   { key: 'fido',            label: 'FIDO' },
@@ -115,8 +115,8 @@ function logoBox(x, y, w, h, label){
     ctx.stroke();
   });
 
-  ctx.font = '500 12px "Archivo"';
-  ctx.fillStyle = 'rgba(244,239,230,0.30)';
+  ctx.font = '600 15px "Archivo"';
+  ctx.fillStyle = 'rgba(244,239,230,0.6)';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(label, x + w / 2, y + h / 2);
@@ -201,7 +201,7 @@ function draw(){
   ctx.beginPath(); ctx.moveTo(lx, 274); ctx.lineTo(lx + 440, 274); ctx.stroke();
 
   /* 5 BUILT TO SCALE */
-  ctx.font = '600 12px "Archivo"';
+  ctx.font = '700 14px "Archivo"';
   ctx.fillStyle = AG;
   ctx.fillText("THIS YEAR'S THEME", lx, 300);
   ctx.font = 'normal 78px "Archivo Black"';
@@ -230,12 +230,12 @@ function draw(){
     ctx.fillStyle = '#192B29';
     ctx.fillRect(px - pr, py - pr, pr * 2, pr * 2);
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.font = '400 15px "Archivo"';
-    ctx.fillStyle = 'rgba(42,123,116,.45)';
-    ctx.fillText('Upload your photo', px, py - 10);
-    ctx.font = '400 12px "Archivo"';
-    ctx.fillStyle = 'rgba(42,123,116,.28)';
-    ctx.fillText('Use the controls beside this flyer', px, py + 14);
+    ctx.font = '600 22px "Archivo"';
+    ctx.fillStyle = 'rgba(244,239,230,.7)';
+    ctx.fillText('Upload your photo', px, py - 12);
+    ctx.font = '400 16px "Archivo"';
+    ctx.fillStyle = 'rgba(244,239,230,.5)';
+    ctx.fillText('Use the controls beside this flyer', px, py + 18);
     ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   }
   ctx.restore();
@@ -262,13 +262,13 @@ function draw(){
   /* 9 QR code */
   var qrX = lx, qrY = 724, qrSize = 128;
   drawQR(qrX, qrY, qrSize);
-  ctx.font = '700 11px "Archivo"';
+  ctx.font = '700 15px "Archivo"';
   ctx.fillStyle = AG;
   ctx.textAlign = 'left';
-  ctx.fillText('SCAN TO REGISTER', lx, qrY + qrSize + 22);
-  ctx.font = '400 10.5px "Archivo"';
-  ctx.fillStyle = SC4;
-  ctx.fillText('tickets.mojo-pay.com', lx, qrY + qrSize + 40);
+  ctx.fillText('SCAN TO REGISTER', lx, qrY + qrSize + 28);
+  ctx.font = '500 14px "Archivo"';
+  ctx.fillStyle = SC7;
+  ctx.fillText('tickets.mojo-pay.com', lx, qrY + qrSize + 50);
 
   /* 10 Date & venue */
   var dtY = 965;
@@ -276,21 +276,21 @@ function draw(){
   ctx.fillStyle = SC;
   ctx.textAlign = 'left';
   ctx.fillText('21 NOV 2026', lx, dtY);
-  ctx.font = '400 16px "Archivo"';
+  ctx.font = '500 18px "Archivo"';
   ctx.fillStyle = SC7;
   ctx.fillText('Saturday  ·  10:00 AM – 3:00 PM', lx, dtY + 32);
-  ctx.font = '700 18px "Archivo"';
-  ctx.fillStyle = BT;
+  ctx.font = '700 20px "Archivo"';
+  ctx.fillStyle = '#5CC0B5';
   ctx.fillText('British Council, Accra', lx, dtY + 68);
-  ctx.font = '400 16px "Archivo"';
-  ctx.fillStyle = SC4;
+  ctx.font = '600 18px "Archivo"';
+  ctx.fillStyle = SC7;
   ctx.textAlign = 'right';
   ctx.fillText('mangh.org', W - 56, dtY + 68);
 
-  ctx.font = '400 12px "Archivo"';
-  ctx.fillStyle = SC2;
+  ctx.font = '600 16px "Archivo"';
+  ctx.fillStyle = SC6;
   ctx.textAlign = 'left';
-  ctx.fillText('#DMC2026  ·  #BuiltToScale', lx, dtY + 100);
+  ctx.fillText('#DMC2026  ·  #BuiltToScale', lx, dtY + 102);
 
   ctx.strokeStyle = AG3; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(lx, KENTE_Y - 22); ctx.lineTo(W - 56, KENTE_Y - 22); ctx.stroke();
@@ -306,31 +306,31 @@ function draw(){
 
   /* Row A: organiser + presenting partner */
   var rowAY = pY + 18;
-  ctx.font = '600 11px "Archivo"';
+  ctx.font = '700 14px "Archivo"';
   ctx.fillStyle = SC2;
   ctx.textAlign = 'left';
   ctx.fillText('ORGANIZED BY', lx, rowAY + 12);
   ctx.fillText('PRESENTING PARTNER', 400, rowAY + 12);
 
-  drawManMark(lx, rowAY + 22, 160, 56);
-  drawLogo('mojopay', 'MojoPay', 400, rowAY + 22, 240, 56);
+  drawManMark(lx, rowAY + 24, 160, 56);
+  drawLogo('mojopay', 'MojoPay', 400, rowAY + 24, 240, 56);
 
-  var ruleY = pY + 118;
+  var ruleY = pY + 122;
   ctx.strokeStyle = 'rgba(244,239,230,0.06)'; ctx.lineWidth = 1; ctx.setLineDash([]);
   ctx.beginPath(); ctx.moveTo(lx, ruleY); ctx.lineTo(W - lx, ruleY); ctx.stroke();
 
   /* Row B: six partners */
   var rowBY = ruleY + 14;
-  ctx.font = '600 11px "Archivo"';
+  ctx.font = '700 14px "Archivo"';
   ctx.fillStyle = SC2;
   ctx.textAlign = 'center';
-  ctx.fillText('IN PARTNERSHIP WITH', W / 2, rowBY + 10);
+  ctx.fillText('IN PARTNERSHIP WITH', W / 2, rowBY + 12);
 
   var gap = 14, pBoxW = 138, pBoxH = 66;
   var totalPW = PARTNERS.length * pBoxW + (PARTNERS.length - 1) * gap;
   var pxStart = (W - totalPW) / 2;
   PARTNERS.forEach(function(p, i){
-    drawLogo(p.key, p.label, pxStart + i * (pBoxW + gap), rowBY + 22, pBoxW, pBoxH);
+    drawLogo(p.key, p.label, pxStart + i * (pBoxW + gap), rowBY + 26, pBoxW, pBoxH);
   });
   ctx.textAlign = 'left';
 }
@@ -487,8 +487,8 @@ function fonts(){
   return Promise.all([
     document.fonts.load('normal 50px "Archivo Black"'),
     document.fonts.load('400 16px "Archivo"'),
-    document.fonts.load('500 12px "Archivo"'),
-    document.fonts.load('600 12px "Archivo"'),
+    document.fonts.load('500 14px "Archivo"'),
+    document.fonts.load('600 14px "Archivo"'),
     document.fonts.load('700 24px "Archivo"')
   ]).catch(function(){});
 }
