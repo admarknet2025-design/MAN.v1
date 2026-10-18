@@ -15,7 +15,7 @@ var SC7 = 'rgba(244,239,230,0.70)', SC6 = 'rgba(244,239,230,0.60)', SC4 = 'rgba(
 var TICKET_URL = 'https://tickets.mojo-pay.com/events/digital-marketers-conference-2026';
 
 /* Logos are served from this site (same origin), so the canvas stays exportable.
-   tile = backdrop the logo sits on: most marks are drawn for light backgrounds. */
+   Every logo sits on a cream tile: most marks are drawn for light backgrounds. */
 var LOGO_SRCS = {
   mojopay:         '/assets/partners26/mojopay-blue.png',
   fido:            '/assets/partners26/fido.png',
@@ -25,7 +25,6 @@ var LOGO_SRCS = {
   techlabari:      '/assets/partners26/tech-labari.png',
   koin:            '/assets/partners26/mista-koin.png'
 };
-var TILES = { koin: '#070707' };
 var PARTNERS = [
   { key: 'fido',            label: 'FIDO' },
   { key: 'mnotify',         label: 'mNotify' },
@@ -129,7 +128,7 @@ function logoBox(x, y, w, h, label){
 function drawLogo(key, label, x, y, boxW, boxH){
   var img = logos[key];
   if(!img){ logoBox(x, y, boxW, boxH, label); return; }
-  ctx.fillStyle = TILES[key] || SC;
+  ctx.fillStyle = SC;
   ctx.fillRect(x, y, boxW, boxH);
   var pad = key === 'koin' ? 8 : 12;
   var scale = Math.min((boxW - pad * 2) / img.naturalWidth, (boxH - pad * 2) / img.naturalHeight);
