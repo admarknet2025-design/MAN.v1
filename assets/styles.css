@@ -888,3 +888,8 @@ footer .fc a,.fb-lnks a{display:inline-block;padding:7px 0}
 @media(max-width:1024px){.faq-sec{padding-left:24px;padding-right:24px}}
 @media(max-width:900px){.faq-sec{padding-top:64px;padding-bottom:64px}}
 .faq-sec h2{font-size:clamp(28px,4vw,48px);font-weight:800;font-variation-settings:'wdth' 120;letter-spacing:-.025em;line-height:1.08;color:var(--cr)}
+
+/* DMC 2026 hero countdown */
+.h26-count{min-height:34px;margin:0 0 22px;display:flex;align-items:baseline;gap:0;font-size:15px;font-weight:600;color:rgba(244,239,230,.8)}
+.h26-count b{font-size:28px;font-weight:900;font-variation-settings:'wdth' 118;color:var(--go);letter-spacing:-.01em}
+.h26-count span{margin-left:.4em}
