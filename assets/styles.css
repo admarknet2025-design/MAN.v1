@@ -821,8 +821,8 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .fl-circle svg{opacity:.35}
 .fl-circle img{display:none;width:100%;height:100%;object-fit:cover}
 .fl-zt{display:block;font-size:13px;line-height:1.5;color:rgba(244,239,230,.6)}
-.fl-zt strong{color:var(--te);font-weight:700}
-.fl-zs{display:block;font-size:11px;line-height:1.5;color:rgba(244,239,230,.4);margin-top:4px}
+.fl-zt strong{color:#5CC0B5;font-weight:700}
+.fl-zs{display:block;font-size:11px;line-height:1.5;color:rgba(244,239,230,.62);margin-top:4px}
 .fl-msg{min-height:18px;margin:8px 0 6px;font-size:12px;line-height:1.5;color:var(--co)}
 .fl-field{margin-bottom:20px}
 .fl-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.5);margin-bottom:6px}
@@ -830,7 +830,7 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .fl-field input:focus{border-bottom-color:var(--go)}
 .fl-field input::placeholder{color:rgba(244,239,230,.3)}
 .fl-dl{text-align:center;margin-top:6px;padding:14px 24px}
-.fl-tip{font-size:11px;color:rgba(244,239,230,.4);text-align:center;margin-top:10px}
+.fl-tip{font-size:11px;color:rgba(244,239,230,.62);text-align:center;margin-top:10px}
 @media(max-width:900px){.flyer-tool{grid-template-columns:1fr;gap:40px}.flyer-sec .section-head{grid-template-columns:1fr;gap:16px}.flyer-sec{padding-top:72px;padding-bottom:72px}}
 .flyer-ctrl .btn{width:100%;text-align:center;padding:14px 24px;margin-top:10px}
 .flyer-ctrl .btn[hidden]{display:none}
@@ -851,3 +851,5 @@ main[tabindex]:focus-visible{outline:none;box-shadow:none}
 .ck-b{display:flex;gap:10px}
 .ck-b .btn{padding:10px 18px}
 @media(max-width:580px){.ck{left:0;right:0;bottom:0;max-width:none;border-left:0;border-right:0}.ck-b{width:100%}.ck-b .btn{flex:1;text-align:center}}
+
+@media(max-width:580px){.p26-grid{grid-template-columns:1fr}}
