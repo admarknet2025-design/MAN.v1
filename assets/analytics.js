@@ -1,7 +1,7 @@
-/* Google Analytics 4. Does nothing until GA_ID is set to the property's Measurement ID (G-XXXXXXXXXX). */
+/* Google Analytics 4 (Measurement ID in GA_ID). Leave GA_ID empty to switch it off. */
 (function(){
 'use strict';
-var GA_ID = '';
+var GA_ID = 'G-CDT1GX4GJ6';
 
 window.dataLayer = window.dataLayer || [];
 window.gtag = function(){ window.dataLayer.push(arguments); };
