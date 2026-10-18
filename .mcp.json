@@ -2,11 +2,24 @@
   "mcpServers": {
     "analytics-mcp": {
       "command": "uvx",
-      "args": ["analytics-mcp"],
+      "args": [
+        "analytics-mcp"
+      ],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS:-/root/.config/ga/service-account.json}",
         "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT:-}",
         "GOOGLE_PROJECT_ID": "${GOOGLE_CLOUD_PROJECT:-}"
+      }
+    },
+    "google-forms-mcp": {
+      "command": "node",
+      "args": [
+        "/opt/google-forms-mcp/build/index.js"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID:-}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET:-}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN:-}"
       }
     }
   }
