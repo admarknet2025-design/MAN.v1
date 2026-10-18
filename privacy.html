@@ -14,15 +14,27 @@
   gtag('consent', 'default', { analytics_storage: gaOk ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   gtag('js', new Date());
 
-  /* Short ?ref= codes on shared flyer links become campaign data (mangh.org/dmc-2026?ref=flyer) */
+  /* Short ?ref= codes on shared links become campaign data in GA4, e.g. mangh.org/dmc-2026?ref=li-event
+     Format: <channel>[-<detail>]. Keep this table in step with assets/links.js (the link builder). */
   var gaCfg = {};
   try {
-    var gaU = new URL(location.href), gaR = gaU.searchParams.get('ref');
-    var gaS = { flyer: 'flyer', wa: 'whatsapp', li: 'linkedin', x: 'x' }[gaR];
-    if (gaS && !gaU.searchParams.has('utm_source')) {
+    var gaU = new URL(location.href), gaR = (gaU.searchParams.get('ref') || '').toLowerCase();
+    if (/^[a-z0-9]+(-[a-z0-9-]+)?$/.test(gaR) && !gaU.searchParams.has('utm_source')) {
+      var gaP = gaR.split('-'), gaK = gaP[0], gaD = gaP.slice(1).join('-');
+      var gaSoc = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
+      var gaPar = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
+      var gaS = gaK, gaM = 'referral-link';
+      if (gaR === 'flyer') { gaS = 'flyer'; gaM = 'flyer-share'; }
+      else if (gaR === 'wa' || gaR === 'li' || gaR === 'x') { gaS = gaSoc[gaR]; gaM = 'flyer-share'; }
+      else if (gaSoc[gaK]) { gaS = gaSoc[gaK]; gaM = 'social'; }
+      else if (gaPar[gaK]) { gaS = gaPar[gaK]; gaM = 'partner'; }
+      else if (gaK === 'spk') { gaS = 'speaker'; gaM = 'speaker'; }
+      else if (gaK === 'email') { gaS = 'email'; gaM = 'email'; }
+      else if (gaK === 'qr') { gaS = 'qr'; gaM = 'print'; }
       gaU.searchParams.set('utm_source', gaS);
-      gaU.searchParams.set('utm_medium', 'flyer-share');
+      gaU.searchParams.set('utm_medium', gaM);
       gaU.searchParams.set('utm_campaign', 'dmc26');
+      if (gaD && gaR !== 'flyer') gaU.searchParams.set('utm_content', gaD);
       gaCfg.page_location = gaU.href;
     }
   } catch(e) {}
@@ -52,7 +64,7 @@
 <meta name="twitter:description" content="How the Marketers &amp; Advertisers Network handles information submitted through the DMC 2026 sponsorship form and when you join MAN, and the terms that apply.">
 <meta name="twitter:image" content="https://mangh.org/assets/og-image.png">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=4ec3e2c3">
+<link rel="stylesheet" href="/assets/styles.css?v=976d6280">
 <link rel="stylesheet" href="/assets/dmc-forms.css?v=b236404d">
 <script type="application/ld+json">
 {

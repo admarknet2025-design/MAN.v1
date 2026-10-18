@@ -35,6 +35,7 @@ var PARTNERS = [
 ];
 
 var logos = {};
+var mode = 'attend'; /* 'attend' or 'speaker' */
 var photo = null;
 var qrData = null;
 
@@ -243,8 +244,21 @@ function draw(){
   /* 7 MEET ME THERE */
   ctx.font = 'normal 56px "Archivo Black"';
   ctx.fillStyle = SC;
-  ctx.fillText('MEET ME', lx, 530);
-  ctx.fillText('THERE', lx, 596);
+  if(mode === 'speaker'){
+    ctx.fillText("I'M", lx, 530);
+    ctx.fillText('SPEAKING', lx, 596);
+    /* gold SPEAKER tag under the photo */
+    ctx.fillStyle = AG;
+    ctx.fillRect(px - 120, 842, 240, 52);
+    ctx.fillStyle = OB;
+    ctx.font = 'normal 26px "Archivo Black"';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('SPEAKER', px, 869);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  } else {
+    ctx.fillText('MEET ME', lx, 530);
+    ctx.fillText('THERE', lx, 596);
+  }
 
   /* 8 Name badge */
   var bx = lx, by = 622, bw = 460, bh = 82;
@@ -389,13 +403,13 @@ function track(name, params){ if(window.gtag) window.gtag('event', name, params 
 
 /* Download / share */
 function fileName(){
-  return 'DMC2026-BuiltToScale-' + (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-') + '.png';
+  return 'DMC2026-' + (mode === 'speaker' ? 'Speaker-' : 'BuiltToScale-') + (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-') + '.png';
 }
 function flyerBlob(cb){ canvas.toBlob(cb, 'image/png'); }
 
 var dl = document.getElementById('fl-dl');
 if(dl) dl.addEventListener('click', function(){
-  track('flyer_download');
+  track('flyer_download', { mode: mode });
   flyerBlob(function(blob){
     if(!blob) return;
     var url = URL.createObjectURL(blob);
@@ -421,19 +435,23 @@ function copyText(text){
   });
 }
 function setHref(id, href){ var a = document.getElementById(id); if(a) a.href = href; }
+function refFor(channel){ return mode === 'speaker' ? 'spk-' + channel : channel; }
 function syncLinks(){
-  /* each channel gets its own ?ref= code so GA can tell them apart */
-  function withRef(code){ return encodeURIComponent(cap.value.replace('?ref=flyer', '?ref=' + code)); }
+  /* each channel gets its own ?ref= code so GA can tell them apart (speakers get spk-…) */
+  function withRef(channel){ return encodeURIComponent(cap.value.replace(/\?ref=[a-z0-9-]+/, '?ref=' + refFor(channel))); }
   setHref('fl-wa', 'https://wa.me/?text=' + withRef('wa'));
   setHref('fl-x', 'https://twitter.com/intent/tweet?text=' + withRef('x'));
+  setHref('fl-li', 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent('https://mangh.org/dmc-2026?ref=' + refFor('li')));
 }
 /* Caption follows the name/role fields until the attendee edits it by hand */
 var capDirty = false;
-var CAP_BASE = cap ? cap.value : '';
+var CAP_ATTEND = cap ? cap.value : '';
+var CAP_SPEAKER = 'I’m speaking at the Digital Marketers’ Conference 2026 — 21 Nov, British Council Accra. #DMC2026 #BuiltToScale. Get your ticket: mangh.org/dmc-2026?ref=spk-flyer\n\nCome and say hello — and bring a colleague!';
 function buildCaption(){
+  var base = mode === 'speaker' ? CAP_SPEAKER : CAP_ATTEND;
   var name = val('fl-name'), role = val('fl-role');
-  if(!name) return CAP_BASE;
-  return CAP_BASE + '\n— ' + name + (role ? ', ' + role : '');
+  if(!name) return base;
+  return base + '\n— ' + name + (role ? ', ' + role : '');
 }
 function refreshCaption(){
   if(capDirty || !cap) return;
@@ -448,9 +466,23 @@ if(cap){
   });
   syncLinks();
 }
+
+/* "I'm attending" / "I'm speaking" — ?flyer=speaker on the page link preselects speaker mode */
+function setMode(m){
+  mode = m === 'speaker' ? 'speaker' : 'attend';
+  var r = document.querySelector('input[name="fl-mode"][value="' + mode + '"]');
+  if(r) r.checked = true;
+  refreshCaption();
+  syncLinks();
+  draw();
+}
+Array.prototype.forEach.call(document.querySelectorAll('input[name="fl-mode"]'), function(r){
+  r.addEventListener('change', function(){ setMode(r.value); });
+});
+try { if(new URLSearchParams(location.search).get('flyer') === 'speaker') setMode('speaker'); } catch(e) {}
 if(copyBtn && cap) copyBtn.addEventListener('click', function(){
   copyText(cap.value).then(function(){
-    track('flyer_copy_caption');
+    track('flyer_copy_caption', { mode: mode });
     snote('Caption copied — paste it into your post.');
   }, function(){
     snote('Could not copy automatically — select the caption and copy it.');
@@ -472,7 +504,7 @@ if(shareBtn && canShareFiles()){
       if(!blob) return;
       var file = new File([blob], fileName(), { type: 'image/png' });
       navigator.share({ files: [file], text: cap ? cap.value : '', title: 'DMC 2026 — Built To Scale' })
-        .then(function(){ track('flyer_share', { method: 'share_sheet' }); snote(''); })
+        .then(function(){ track('flyer_share', { method: 'share_sheet', mode: mode }); snote(''); })
         .catch(function(err){
           if(err && err.name === 'AbortError') return; /* user closed the sheet */
           snote('Sharing did not work on this device — download the flyer and copy the caption instead.');
