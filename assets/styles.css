@@ -1000,3 +1000,8 @@ dialog.tk::backdrop{background:rgba(13,13,13,.74)}
   @keyframes tk-up{from{transform:translateY(100%)}to{transform:none}}
 }
 @media(prefers-reduced-motion:reduce){dialog.tk{animation:none!important}.tk-spin{animation-duration:2s}}
+
+/* Join form: hidden spam trap, link colour in the note, 16px inputs on phones so iOS Safari does not zoom */
+.jform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.jform-note a{color:var(--te)}
+@media(max-width:900px){.jfield input,.jfield select,.jfield textarea{font-size:16px}}

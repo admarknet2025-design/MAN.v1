@@ -204,20 +204,31 @@ function formError(form, msg){
   var label = btn.textContent;
   form.addEventListener('submit', function(e){
     e.preventDefault();
+    var phone = document.getElementById('f-whatsapp');
+    if(phone && phone.value.replace(/\D/g, '').length < 7){
+      phone.setCustomValidity('Enter your WhatsApp number with country code, like +233 24 000 0000.');
+      phone.reportValidity();
+      phone.addEventListener('input', function clear(){ phone.setCustomValidity(''); phone.removeEventListener('input', clear); });
+      return;
+    }
     btn.disabled = true;
     btn.textContent = 'Sending…';
     var v = {};
     new FormData(form).forEach(function(val, k){ v[k] = val; });
-    gfSubmit(GF_URL, GF_FIELDS, v).then(function(){
+    /* spam trap: a filled hidden field means a bot; show the usual screen but send nothing */
+    var send = v.fax ? Promise.resolve() : gfSubmit(GF_URL, GF_FIELDS, v);
+    send.then(function(){
       var wrap = document.getElementById('join-form-wrap');
       var first = String(v.name || '').split(' ')[0] || 'there';
       wrap.innerHTML =
-        '<div style="text-align:center;padding:56px 32px;background:#fff;border:1px solid rgba(28,28,28,.08)">' +
+        '<div role="status" tabindex="-1" id="join-done" style="text-align:center;padding:56px 32px;background:#fff;border:1px solid rgba(28,28,28,.08);outline:none">' +
           '<div style="font-size:48px;margin-bottom:16px">✅</div>' +
           '<h3 style="font-size:24px;font-weight:800;color:#1C1C1C;margin:0 0 10px">Application received.</h3>' +
           '<p style="font-size:15px;color:rgba(28,28,28,.55);line-height:1.7;max-width:380px;margin:0 auto"></p>' +
         '</div>';
       wrap.querySelector('p').textContent = 'Thank you, ' + first + '. We review every application manually and will reach out on WhatsApp within 3 business days if it’s a fit.';
+      var doneEl = document.getElementById('join-done');
+      if(doneEl) doneEl.focus({preventScroll: true}); /* announces the result to screen readers */
       wrap.scrollIntoView({behavior: 'smooth', block: 'center'});
     }).catch(function(){
       btn.disabled = false;
