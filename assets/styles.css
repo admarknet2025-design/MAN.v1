@@ -1005,3 +1005,13 @@ dialog.tk::backdrop{background:rgba(13,13,13,.74)}
 .jform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .jform-note a{color:var(--te)}
 @media(max-width:900px){.jfield input,.jfield select,.jfield textarea{font-size:16px}}
+
+/* ── MAN brand lockup (from the MAN DMC brand guide) ── */
+.nav-logo img{display:block;height:48px;width:auto}
+a.nav-brand{text-decoration:none}
+.fb-logo{display:inline-block;margin-bottom:18px}
+.fb-logo img{display:block;height:48px;width:auto}
+@media(max-width:1180px){nav .nav-brand{display:none}}
+@media(max-width:1100px){.nav-menu{display:none}.hamburger{display:flex}}
+@media(max-width:580px){.nav-logo img{height:36px}.nav-back{display:none}}
+.section-head > p{color:rgba(28,28,28,.72)!important}
