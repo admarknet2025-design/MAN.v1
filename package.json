@@ -1,0 +1,10 @@
+{
+  "name": "man-v1",
+  "private": true,
+  "description": "mangh.org: static site plus Vercel functions (ticket attribution, DMC Studio)",
+  "engines": { "node": "22.x" },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "qrcode-generator": "^1.4.4"
+  }
+}

@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /studio
 
 # AI search and assistant crawlers are welcome
 User-agent: GPTBot

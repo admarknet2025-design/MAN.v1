@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>DMC Studio — DMC 2026 team artwork</title>
+<style>
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
+:root{--ob:#1C1C1C;--ob2:#252525;--ob3:#303030;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--line:rgba(244,239,230,.18);--mut:rgba(244,239,230,.74);color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ob);color:var(--cr);font:16px/1.5 'Archivo',system-ui,sans-serif}
+h1,h2,h3{margin:0;font-stretch:125%;font-weight:900;letter-spacing:.01em}
+a{color:var(--cr)}
+.kente{height:12px;background:repeating-linear-gradient(90deg,var(--te) 0 18px,var(--ob) 18px 20px,var(--co) 20px 38px,var(--ob) 38px 40px,var(--cr) 40px 58px,var(--ob) 58px 60px)}
+header.top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 20px 14px;max-width:1280px;margin:0 auto}
+header.top h1{font-size:26px}
+header.top .sub{color:var(--mut);font-size:14px}
+header.top .badge{margin-left:auto;border:1px solid var(--line);padding:4px 10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+main{max-width:1280px;margin:0 auto;padding:6px 20px 80px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:28px;align-items:start}
+@media(max-width:980px){main{grid-template-columns:1fr}}
+section.card{background:var(--ob2);border:1px solid var(--line);padding:18px 18px 20px;margin-bottom:18px}
+section.card>h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+section.card>h2 .n{background:var(--te);color:#fff;width:26px;height:26px;display:inline-grid;place-items:center;font-size:13px;letter-spacing:0}
+.tpl{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.tpl label{display:block;border:1px solid var(--line);padding:11px 12px;cursor:pointer;background:var(--ob);position:relative}
+.tpl input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.tpl .t{font-weight:800;font-size:14px;display:block}
+.tpl .d{font-size:12.5px;color:var(--mut);display:block;margin-top:2px}
+.tpl label:has(input:checked){border-color:var(--cr);box-shadow:inset 0 0 0 1px var(--cr);background:var(--ob3)}
+.tpl label:has(input:focus-visible){outline:2px solid var(--cr);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.f label,.f .l{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:700}
+input[type=text],textarea,select{width:100%;background:var(--ob);color:var(--cr);border:1px solid var(--line);padding:10px 11px;font:inherit;border-radius:0}
+textarea{min-height:92px;resize:vertical}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--cr);outline-offset:2px}
+.hint{font-size:13px;color:var(--mut)}
+.cnt{font-size:12px;color:var(--mut);text-align:right}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--te);color:#fff;border:0;padding:12px 18px;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px;cursor:pointer;text-decoration:none}
+.btn:hover{background:#1F6862}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;border:1px solid var(--cr);color:var(--cr)}
+.btn.ghost:hover{background:rgba(244,239,230,.1)}
+.btn.coral{background:var(--co);color:#1C1C1C}
+.btn.sm{padding:8px 12px;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:6px 0}
+.chk input{margin-top:4px;width:18px;height:18px;accent-color:var(--te)}
+.crop{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+#cropc{width:240px;height:240px;background:#161616;border:1px solid var(--line);touch-action:none;cursor:grab;border-radius:50%}
+#cropc:active{cursor:grabbing}
+.crop .ctl{flex:1 1 200px;display:flex;flex-direction:column;gap:10px}
+input[type=range]{width:100%;accent-color:var(--te)}
+.note{border-left:3px solid var(--co);padding:6px 0 6px 12px;font-size:14px;color:var(--cr);margin:10px 0}
+.warn{border-left:3px solid var(--co);background:rgba(217,95,69,.12);padding:10px 12px;font-size:14px;margin:10px 0}
+.ok{border-left:3px solid var(--te);background:rgba(42,123,116,.18);padding:10px 12px;font-size:14px;margin:10px 0}
+aside .sticky{position:sticky;top:12px}
+.prev{background:#141414;border:1px solid var(--line);display:grid;place-items:center;min-height:300px;padding:10px}
+.prev img{max-width:100%;max-height:70vh;display:block}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.tabs button{background:var(--ob);color:var(--cr);border:1px solid var(--line);padding:6px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--cr);color:var(--ob);border-color:var(--cr);font-weight:800}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:12px}
+.res{background:var(--ob);border:1px solid var(--line);padding:8px;display:flex;flex-direction:column;gap:8px}
+.res img{width:100%;height:210px;object-fit:contain;background:#141414}
+.res .t{font-size:13px;font-weight:700}
+.res .s{font-size:12px;color:var(--mut)}
+.cap{background:var(--ob);border:1px solid var(--line);padding:12px;margin-bottom:12px}
+.cap h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.cap textarea{min-height:140px;font-size:14.5px}
+.cap .lk{font-size:13px;color:var(--mut);word-break:break-all;margin:6px 0}
+.cap .lk code{color:var(--cr);font:13px ui-monospace,Menlo,monospace}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hide{display:none!important}
+.mov{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px;border:1px solid var(--cr)}
+</style>
+</head>
+<body>
+<div class="kente" aria-hidden="true"></div>
+<header class="top">
+  <h1>DMC Studio</h1>
+  <span class="sub">On-brand DMC 2026 artwork, captions and tracked links, in every size.</span>
+  <span class="badge">Team only</span>
+</header>
+
+<main>
+<div>
+  <section class="card" aria-labelledby="h-tpl">
+    <h2 id="h-tpl"><span class="n">1</span> Template</h2>
+    <div class="tpl" role="radiogroup" aria-label="Template" id="tpl"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-det">
+    <h2 id="h-det"><span class="n">2</span> Details</h2>
+    <div id="form"></div>
+  </section>
+
+  <section class="card hide" id="photoCard" aria-labelledby="h-photo">
+    <h2 id="h-photo"><span class="n">3</span> Photo</h2>
+    <div class="crop">
+      <canvas id="cropc" width="480" height="480" aria-label="Photo crop. Drag to move the photo, use the slider to zoom." role="img"></canvas>
+      <div class="ctl">
+        <div class="row">
+          <label class="btn ghost sm" for="photoFile">Upload photo</label>
+          <input id="photoFile" type="file" accept="image/png,image/jpeg,image/webp" class="sr-only">
+          <button type="button" class="btn ghost sm" id="photoClear">Remove</button>
+        </div>
+        <div class="f" style="margin:0"><label for="zoom">Zoom</label><input id="zoom" type="range" min="1" max="3.5" step="0.01" value="1"></div>
+        <p class="hint">Drag the photo to centre the face. The circle is what appears in the artwork.</p>
+        <div id="permBox" class="hide">
+          <label class="chk"><input type="checkbox" id="perm"> <span>I confirm I have this person’s permission to use their photo.</span></label>
+          <label class="chk"><input type="checkbox" id="saveLib" disabled> <span>Save to library so the team can reuse it. Uploaded photos stay in this browser unless this is ticked.</span></label>
+        </div>
+        <div id="libBox" class="hide f" style="margin:0"><label for="libSel">Saved people</label><div class="row"><select id="libSel" style="flex:1"></select><button type="button" class="btn ghost sm" id="libDel">Remove</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-cap">
+    <h2 id="h-cap"><span class="n">4</span> Captions</h2>
+    <div class="grid2">
+      <div class="f"><label for="tone">Tone</label><select id="tone"><option value="pro">Professional</option><option value="friendly" selected>Friendly</option><option value="hype">High energy</option></select></div>
+      <div class="f"><label for="len">Length</label><select id="len"><option value="short">Short</option><option value="std" selected>Standard</option></select></div>
+    </div>
+    <p class="hint">Every caption carries #DMC2026 #BuiltToScale, the right handle for the platform and the tracked link.</p>
+  </section>
+
+  <section class="card" aria-labelledby="h-go">
+    <h2 id="h-go"><span class="n">5</span> Create</h2>
+    <div class="row">
+      <button type="button" class="btn" id="go">Create artwork set</button>
+      <span id="status" class="hint" role="status" aria-live="polite"></span>
+    </div>
+    <div id="msg"></div>
+    <div id="outWrap" class="hide">
+      <div class="row" style="margin-top:14px"><button type="button" class="btn coral" id="zipBtn">Download all (ZIP)</button><span id="took" class="hint"></span></div>
+      <div class="results" id="results"></div>
+      <h3 style="margin:22px 0 10px;font-size:15px;letter-spacing:.14em;text-transform:uppercase">Captions and tracked links</h3>
+      <div id="caps"></div>
+    </div>
+  </section>
+</div>
+
+<aside aria-label="Preview">
+  <div class="sticky">
+    <section class="card">
+      <h2 style="margin-bottom:10px">Preview</h2>
+      <div class="tabs" id="ptabs" role="group" aria-label="Preview size"></div>
+      <div class="prev"><img id="prevImg" alt="Artwork preview" class="hide"><span id="prevMsg" class="hint">Fill in the details to see the artwork.</span></div>
+      <p class="hint" style="margin-top:8px">Rendered on the server, so the downloads match this exactly. The preview carries no QR; story and TikTok sizes get one when you create the set.</p>
+    </section>
+  </div>
+</aside>
+</main>
+<div class="kente" aria-hidden="true"></div>
+
+<script>
+'use strict';
+var DATA = /*__STUDIO_DATA__*/null;
+var $ = function (id) { return document.getElementById(id); };
+
+/* ------------------------------------------------------------------ config */
+var TEMPLATES = [
+  { id: 'speaker',   name: 'Speaker / panelist', desc: 'Photo, name, title, company, session', photo: true },
+  { id: 'attending', name: 'I’m attending',      desc: 'The public flyer, with an optional “I’m building…” line', photo: true },
+  { id: 'sponsor',   name: 'Sponsor / partner',  desc: 'Logo, tier and role. Facts only.', photo: false },
+  { id: 'quote',     name: 'Quote card',         desc: 'A quote with the speaker’s name and photo', photo: true },
+  { id: 'countdown', name: 'Countdown',          desc: 'X days to go, counted from today', photo: false },
+  { id: 'session',   name: 'Session card',       desc: 'Session title, time and speakers', photo: false }
+];
+var MOV = { 'Build Yourself': '#2A7B74', 'Build Your Team': '#D95F45', 'Build Your Work': '#F4EFE6' };
+var ROLES = ['Speaker', 'Panelist', 'Host', 'Moderator', 'Emcee'];
+
+/* one file per output; `size` is the renderer size and `platform` the tracked link carried by the QR */
+var OUTPUTS = [
+  { key: 'ig-feed',        size: 'ig-feed',       label: 'Instagram and Facebook feed', dim: '1080×1350' },
+  { key: 'ig-story',       size: 'story',         label: 'Instagram story',             dim: '1080×1920', qr: 'instagram' },
+  { key: 'wa-status',      size: 'story',         label: 'WhatsApp status',             dim: '1080×1920', qr: 'whatsapp' },
+  { key: 'tiktok-cover',   size: 'story',         label: 'TikTok and Reels cover',      dim: '1080×1920', qr: 'tiktok' },
+  { key: 'square',         size: 'square',        label: 'Square',                      dim: '1080×1080' },
+  { key: 'linkedin-link',  size: 'linkedin-link', label: 'LinkedIn and Facebook link',  dim: '1200×627' },
+  { key: 'x',              size: 'x',             label: 'X',                           dim: '1600×900' }
+];
+var PLATFORMS = [
+  { id: 'instagram', name: 'Instagram' }, { id: 'facebook', name: 'Facebook' }, { id: 'linkedin', name: 'LinkedIn' },
+  { id: 'x', name: 'X' }, { id: 'tiktok', name: 'TikTok' }, { id: 'whatsapp', name: 'WhatsApp' }
+];
+var PREVIEW_SIZES = [['ig-feed', 'Feed'], ['story', 'Story'], ['square', 'Square'], ['linkedin-link', 'Link'], ['x', 'X']];
+
+/* ------------------------------------------------------------------ state */
+var S = {
+  template: 'speaker', f: {}, personKey: '', slug: '',
+  photo: null,            /* HTMLImageElement being cropped */
+  photoFromSite: false, photoUploaded: false,
+  logo: '',               /* data URL of an uploaded logo for a custom partner */
+  libId: '', preview: 'ig-feed', gen: 0, busy: false, outputs: [], links: null
+};
+var libCache = [];
+
+function slugify(s) {
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[“”"']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50);
+}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+/* ------------------------------------------------------------------ form */
+function field(id, label, type, opts) {
+  opts = opts || {};
+  var v = esc(S.f[id] || '');
+  var max = opts.max ? ' maxlength="' + opts.max + '"' : '';
+  var h = '<div class="f"><label for="f-' + id + '">' + label + '</label>';
+  if (type === 'textarea') h += '<textarea id="f-' + id + '" data-k="' + id + '"' + max + '>' + v + '</textarea>';
+  else if (type === 'select') {
+    h += '<select id="f-' + id + '" data-k="' + id + '">' + opts.options.map(function (o) {
+      var val = Array.isArray(o) ? o[0] : o, lab = Array.isArray(o) ? o[1] : o;
+      return '<option value="' + esc(val) + '"' + (String(S.f[id] || '') === String(val) ? ' selected' : '') + '>' + esc(lab) + '</option>';
+    }).join('') + '</select>';
+  } else h += '<input type="text" id="f-' + id + '" data-k="' + id + '"' + max + ' value="' + v + '" autocomplete="off">';
+  if (opts.hint) h += '<span class="hint">' + opts.hint + '</span>';
+  return h + '</div>';
+}
+
+function personOptions() {
+  /* [value, label, group] */
+  var o = [['', 'Someone else (type the details)', '']];
+  DATA.people.forEach(function (p) { o.push(['site:' + p.slug, p.name + (p.photo ? '' : ' (no photo yet)'), 'Speakers and hosts']); });
+  (DATA.team || []).forEach(function (p) { o.push(['team:' + p.slug, p.name + ' (M·A·N team)', 'M·A·N team']); });
+  libCache.forEach(function (p) { o.push(['lib:' + p.id, p.name + ' (saved)', 'Saved to library']); });
+  return o;
+}
+function personSelectHtml(cur) {
+  var h = '', group = null;
+  personOptions().forEach(function (o) {
+    if (o[2] !== group) { if (group) h += '</optgroup>'; group = o[2]; if (group) h += '<optgroup label="' + esc(group) + '">'; }
+    h += '<option value="' + esc(o[0]) + '"' + (cur === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+  });
+  return h + (group ? '</optgroup>' : '');
+}
+
+function renderForm() {
+  var t = S.template, h = '';
+  var person = '<div class="f"><label for="person">Pick from the site</label><select id="person">' + personSelectHtml(S.personKey) + '</select><span class="hint">Name, title and photo fill in from the speaker list on dmc-2026. Changes here do not touch the site.</span></div>';
+  if (t === 'speaker') {
+    h += person + '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('role', 'Role', 'select', { options: ROLES }) + '</div>';
+    h += '<div class="grid2">' + field('title', 'Title', 'text', { max: 90 }) + field('company', 'Company', 'text', { max: 70 }) + '</div>';
+    h += '<div class="f"><label for="sessSel">Session</label><select id="sessSel"><option value="">Custom session (type below)</option>' + DATA.sessions.filter(function (s) { return s.speakers && !/^Emcee$|TBC/.test(s.speakers); }).map(function (s) {
+      return '<option value="' + s.id + '">' + esc(s.start + ' ' + s.title) + '</option>'; }).join('') + '</select></div>';
+    h += '<div class="grid2">' + field('session', 'Session title', 'text', { max: 90 }) + field('time', 'Time', 'text', { max: 24, hint: 'e.g. 10:45–11:15' }) + '</div>';
+    h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
+  } else if (t === 'attending') {
+    h += person + '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>';
+    h += field('company', 'Company', 'text', { max: 70 }) + field('building', 'I’m building… (optional)', 'text', { max: 110, hint: 'Finishes the line “I’m building”, for example “a content studio for Ghanaian SMEs”.' });
+  } else if (t === 'sponsor') {
+    h += '<div class="f"><label for="partner">Partner</label><select id="partner"><option value="">Someone else (type the details)</option>' + DATA.partners.map(function (p) {
+      return '<option value="' + p.slug + '"' + (S.f.partner === p.slug ? ' selected' : '') + '>' + esc(p.name) + '</option>'; }).join('') + '</select></div>';
+    h += field('name', 'Name', 'text', { max: 60 }) + '<div class="grid2">' + field('tier', 'Tier', 'text', { max: 60 }) + field('role', 'Role', 'text', { max: 90 }) + '</div>';
+    h += '<div id="logoBox" class="f ' + (S.f.partner ? 'hide' : '') + '"><span class="l">Logo</span><div class="row"><label class="btn ghost sm" for="logoFile">Upload logo</label><input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp" class="sr-only"><span class="hint" id="logoName">' + (S.logo ? 'Logo loaded' : 'PNG or JPG, shown on a cream tile') + '</span></div></div>';
+    h += '<p class="note">Sponsor and partner artwork shows facts only: name, logo, tier and role. No quotes or claims.</p>';
+  } else if (t === 'quote') {
+    h += field('quote', 'Quote', 'textarea', { max: 260 }) + '<div class="cnt" id="qcnt"></div>' + person;
+    h += '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>' + field('company', 'Company', 'text', { max: 70 });
+    h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
+  } else if (t === 'countdown') {
+    h += '<p class="note">The number is worked out when each image is rendered: <b id="dtg"></b>.</p>';
+  } else if (t === 'session') {
+    h += '<div class="f"><label for="sessSel">Session</label><select id="sessSel"><option value="">Custom session (type below)</option>' + DATA.sessions.map(function (s) {
+      return '<option value="' + s.id + '"' + (S.f.sessionId === s.id ? ' selected' : '') + '>' + esc(s.start + ' ' + s.title) + '</option>'; }).join('') + '</select></div>';
+    h += field('title', 'Session title', 'text', { max: 120 }) + '<div class="grid2">' + field('time', 'Time', 'text', { max: 24 }) + field('movement', 'Movement', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) }) + '</div>';
+    h += field('speakers', 'Speakers (separate with ·)', 'text', { max: 160 });
+  }
+  $('form').innerHTML = h;
+  $('photoCard').classList.toggle('hide', !TEMPLATES.filter(function (x) { return x.id === t; })[0].photo);
+  if ($('dtg')) { var d = daysToGo(); $('dtg').textContent = d > 0 ? d + (d === 1 ? ' day' : ' days') + ' to go today' : d === 0 ? 'the event is today' : 'the event has passed'; }
+  countQuote();
+  syncPhotoUi();
+}
+
+function daysToGo() {
+  var n = new Date(); var today = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
+  return Math.round((Date.UTC(2026, 10, 21) - today) / 86400000);
+}
+function countQuote() { var c = $('qcnt'); if (c) c.textContent = (S.f.quote || '').length + ' / 260'; }
+
+/* ------------------------------------------------------------------ cropper */
+var cv = $('cropc'), cx = cv.getContext('2d');
+var CR = { s: 1, ox: 0, oy: 0, drag: null };
+function coverScale() { return S.photo ? Math.max(cv.width / S.photo.width, cv.height / S.photo.height) : 1; }
+function drawCrop(ctx, size, mask) {
+  ctx.fillStyle = '#161616'; ctx.fillRect(0, 0, size, size);
+  if (!S.photo) {
+    ctx.fillStyle = 'rgba(244,239,230,.7)'; ctx.font = '600 ' + size / 17 + 'px Archivo,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('No photo', size / 2, size / 2); return;
+  }
+  var k = size / cv.width, sc = coverScale() * CR.s * k;
+  var w = S.photo.width * sc, h = S.photo.height * sc;
+  ctx.drawImage(S.photo, size / 2 - w / 2 + CR.ox * k, size / 2 - h / 2 + CR.oy * k, w, h);
+}
+function clampPan() {
+  if (!S.photo) return;
+  var sc = coverScale() * CR.s, w = S.photo.width * sc, h = S.photo.height * sc;
+  var mx = Math.max(0, (w - cv.width) / 2), my = Math.max(0, (h - cv.height) / 2);
+  CR.ox = Math.max(-mx, Math.min(mx, CR.ox)); CR.oy = Math.max(-my, Math.min(my, CR.oy));
+}
+function paintCrop() { clampPan(); drawCrop(cx, cv.width); }
+function setPhoto(img, fromSite) {
+  S.photo = img; S.photoFromSite = !!fromSite; S.photoUploaded = !fromSite && !!img;
+  CR.s = 1; CR.ox = 0;
+  /* start with the face area: portraits are taller than wide, so shift the picture up a little */
+  CR.oy = img ? Math.max(0, (img.height * coverScale() - cv.height) / 2) * 0.65 : 0;
+  $('zoom').value = 1; paintCrop(); syncPhotoUi(); queuePreview();
+}
+cv.addEventListener('pointerdown', function (e) { if (!S.photo) return; cv.setPointerCapture(e.pointerId); CR.drag = { x: e.clientX, y: e.clientY, ox: CR.ox, oy: CR.oy }; });
+cv.addEventListener('pointermove', function (e) {
+  if (!CR.drag) return;
+  var k = cv.width / cv.getBoundingClientRect().width;
+  CR.ox = CR.drag.ox + (e.clientX - CR.drag.x) * k; CR.oy = CR.drag.oy + (e.clientY - CR.drag.y) * k; paintCrop();
+});
+function endDrag() { if (CR.drag) { CR.drag = null; queuePreview(); } }
+cv.addEventListener('pointerup', endDrag); cv.addEventListener('pointercancel', endDrag);
+cv.addEventListener('wheel', function (e) { if (!S.photo) return; e.preventDefault(); $('zoom').value = Math.max(1, Math.min(3.5, Number($('zoom').value) - e.deltaY * 0.002)); $('zoom').dispatchEvent(new Event('input')); }, { passive: false });
+$('zoom').addEventListener('input', function () { CR.s = Number(this.value); paintCrop(); queuePreview(); });
+
+/* the cropped square that goes to the server (800 x 800 JPEG, so a request stays small) */
+function croppedPhoto() {
+  if (!S.photo) return '';
+  var c = document.createElement('canvas'); c.width = c.height = 800;
+  drawCrop(c.getContext('2d'), 800);
+  return c.toDataURL('image/jpeg', 0.86);
+}
+
+function loadImage(src) {
+  return new Promise(function (res, rej) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = rej; i.src = src; });
+}
+$('photoFile').addEventListener('change', function () {
+  var file = this.files && this.files[0]; this.value = '';
+  if (!file) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) { say('That file is not a PNG, JPG or WebP image.', 'warn'); return; }
+  var r = new FileReader();
+  r.onload = function () { loadImage(r.result).then(function (img) { S.libId = ''; $('perm').checked = false; setPhoto(img, false); }, function () { say('Could not read that photo.', 'warn'); }); };
+  r.readAsDataURL(file);
+});
+$('photoClear').addEventListener('click', function () { S.photo = null; S.photoFromSite = S.photoUploaded = false; S.libId = ''; paintCrop(); syncPhotoUi(); queuePreview(); });
+
+function syncPhotoUi() {
+  var up = S.photoUploaded;
+  $('permBox').classList.toggle('hide', !up);
+  if (!up) { $('perm').checked = false; }
+  $('saveLib').disabled = !$('perm').checked; if ($('saveLib').disabled) $('saveLib').checked = false;
+  $('libBox').classList.toggle('hide', !libCache.length);
+  paintCrop();
+}
+$('perm').addEventListener('change', syncPhotoUi);
+
+/* ------------------------------------------------------------------ person / session pickers */
+function setFields(o) { Object.keys(o).forEach(function (k) { S.f[k] = o[k]; var el = $('f-' + k); if (el) el.value = o[k]; }); }
+
+function applyPerson(key) {
+  S.personKey = key; S.libId = '';
+  if (!key) { S.slug = ''; return Promise.resolve(); }
+  if (key.indexOf('site:') === 0 || key.indexOf('team:') === 0) {
+    var list = key.indexOf('team:') === 0 ? DATA.team : DATA.people;
+    var p = list.filter(function (x) { return x.slug === key.slice(5); })[0];
+    if (!p) return Promise.resolve();
+    var o = { name: p.name, title: p.title, company: p.company };
+    if (S.template === 'speaker' && p.session !== undefined) { o.session = p.session; o.time = p.sessionTime; o.movement = p.movement; o.role = p.company === 'COSM Podcast' ? 'Host' : (/Panel/.test(p.session) ? 'Panelist' : 'Speaker'); }
+    if (S.template === 'quote' && p.movement !== undefined) o.movement = p.movement;
+    setFields(o);
+    var sm = !p.session ? null : DATA.sessions.filter(function (x) { return x.title === p.session && (x.start + '–' + x.end) === p.sessionTime; })[0];
+    if ($('sessSel')) $('sessSel').value = sm ? sm.id : '';
+    if (p.photo) return loadImage('/assets/speakers/' + p.photo).then(function (img) { setPhoto(img, true); }, function () {});
+    setPhoto(null, true); return Promise.resolve();
+  }
+  if (key.indexOf('lib:') === 0) {
+    var id = key.slice(4);
+    return fetch('/api/studio-library?id=' + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (p) {
+      setFields({ name: p.name, title: p.title, company: p.company });
+      S.libId = id;
+      return loadImage(p.photo).then(function (img) { setPhoto(img, true); S.photoUploaded = false; syncPhotoUi(); });
+    }).catch(function () { say('Could not load that saved person.', 'warn'); });
+  }
+  return Promise.resolve();
+}
+
+function applySession(id) {
+  var s = DATA.sessions.filter(function (x) { return x.id === id; })[0];
+  S.f.sessionId = id;
+  if (!s) return;
+  if (S.template === 'session') setFields({ title: s.title, time: s.start + '–' + s.end, movement: s.movement, speakers: /^Emcee$|TBC/.test(s.speakers) ? '' : s.speakers.replace(/ — hosted by.*$/, '').replace(/ \(.*?\)/g, '') });
+  else setFields({ session: s.title, time: s.start + '–' + s.end, movement: s.movement });
+}
+
+document.addEventListener('input', function (e) {
+  var k = e.target && e.target.getAttribute && e.target.getAttribute('data-k');
+  if (!k) return;
+  S.f[k] = e.target.value; if (k === 'quote') countQuote(); queuePreview();
+});
+document.addEventListener('change', function (e) {
+  var t = e.target;
+  if (t.id === 'person') applyPerson(t.value).then(queuePreview);
+  else if (t.id === 'sessSel') { applySession(t.value); queuePreview(); }
+  else if (t.id === 'partner') {
+    var p = DATA.partners.filter(function (x) { return x.slug === t.value; })[0];
+    S.f.partner = t.value; S.logo = '';
+    if (p) setFields({ name: p.name, tier: p.tier, role: p.role });
+    $('logoBox').classList.toggle('hide', !!p); queuePreview();
+  } else if (t.id === 'logoFile') {
+    var file = t.files && t.files[0]; if (!file) return;
+    var r = new FileReader();
+    r.onload = function () {
+      /* shrink to at most 600 px wide so the request stays small */
+      loadImage(r.result).then(function (img) {
+        var k = Math.min(1, 600 / img.width), c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); S.logo = c.toDataURL('image/png'); $('logoName').textContent = 'Logo loaded: ' + file.name; queuePreview();
+      });
+    };
+    r.readAsDataURL(file);
+  }
+});
+
+/* ------------------------------------------------------------------ rendering */
+function payload(size, qrCode) {
+  var f = Object.assign({}, S.f);
+  if (S.template === 'sponsor') { delete f.session; }
+  var body = { template: S.template, size: size, fields: f };
+  if (TEMPLATES.filter(function (x) { return x.id === S.template; })[0].photo && S.photo) body.photo = S._photoData || (S._photoData = croppedPhoto());
+  if (S.template === 'sponsor') { if (S.f.partner) body.partner = S.f.partner; else if (S.logo) body.logo = S.logo; }
+  if (qrCode) body.qrCode = qrCode;
+  return body;
+}
+function drop() { S._photoData = null; }
+function postRender(body) {
+  return fetch('/api/studio-render', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(function (r) {
+    if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { throw new Error(j.error || ('render failed (' + r.status + ')')); });
+    return r.blob();
+  });
+}
+
+var pTimer = null, pSeq = 0;
+function queuePreview() { drop(); clearTimeout(pTimer); pTimer = setTimeout(renderPreview, 650); }
+function renderPreview() {
+  var t = S.template, f = S.f;
+  var ready = t === 'countdown' || (t === 'quote' ? f.quote : t === 'session' ? f.title : f.name);
+  if (!ready) { $('prevImg').classList.add('hide'); $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = 'Fill in the details to see the artwork.'; return; }
+  var seq = ++pSeq;
+  $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = 'Rendering…';
+  postRender(payload(S.preview)).then(function (blob) {
+    if (seq !== pSeq) return;
+    var url = URL.createObjectURL(blob), img = $('prevImg');
+    if (img._u) URL.revokeObjectURL(img._u);
+    img._u = url; img.src = url; img.classList.remove('hide'); $('prevMsg').classList.add('hide');
+  }).catch(function (e) { if (seq === pSeq) { $('prevImg').classList.add('hide'); $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = 'Preview failed: ' + e.message; } });
+}
+
+function renderTabs() {
+  $('ptabs').innerHTML = PREVIEW_SIZES.map(function (p) { return '<button type="button" data-p="' + p[0] + '" aria-pressed="' + (S.preview === p[0]) + '">' + p[1] + '</button>'; }).join('');
+}
+$('ptabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.preview = b.getAttribute('data-p'); renderTabs(); renderPreview(); });
+
+/* ------------------------------------------------------------------ slug / names */
+function currentSlug() {
+  var t = S.template, f = S.f;
+  if (t === 'countdown') return 'countdown';
+  if (t === 'session') return f.sessionId || ('s-' + slugify(f.title).slice(0, 30));
+  if (t === 'sponsor') return f.partner || slugify(f.name);
+  if (S.personKey.indexOf('site:') === 0 || S.personKey.indexOf('team:') === 0) return S.personKey.slice(5);
+  return slugify(f.name);
+}
+function fileBase() {
+  var s = currentSlug();
+  return 'dmc26_' + S.template + '_' + (S.template === 'countdown' ? 'countdown' : s);
+}
+
+/* ------------------------------------------------------------------ captions */
+var HANDLE = { instagram: '@admarknet', facebook: '@admarknet', tiktok: '@admarknet', x: '@mangh', linkedin: '', whatsapp: '' };
+var VERB = { Speaker: 'speaking at', Panelist: 'joining a panel at', Host: 'hosting', Moderator: 'moderating a panel at', Emcee: 'emceeing' };
+
+function personLine(f) { return f.name + (f.title || f.company ? ' (' + [f.title, f.company].filter(Boolean).join(', ') + ')' : ''); }
+
+function hook(tone, f, t, days) {
+  var n = f.name || '', DMC = 'DMC 2026';
+  if (t === 'speaker') {
+    var v = VERB[f.role] || 'speaking at', sess = f.session ? ' Session: ' + f.session + (f.time ? ' (' + f.time + ')' : '') + '.' : '';
+    if (tone === 'pro') return n + ' is ' + v + ' ' + DMC + '.' + sess;
+    if (tone === 'hype') return '🔥 ' + n.toUpperCase() + ' is ' + v + ' ' + DMC + '!' + sess;
+    return 'Meet ' + n + ', who is ' + v + ' ' + DMC + '.' + sess;
+  }
+  if (t === 'attending') {
+    var b = f.building ? ' I’m building ' + f.building + '.' : '';
+    if (tone === 'pro') return 'I’ll be at ' + DMC + ', the Digital Marketers’ Conference.' + b;
+    if (tone === 'hype') return '🚀 I’m attending ' + DMC + '!' + b + ' Who else is coming?';
+    return 'I’m attending ' + DMC + ' — Built To Scale.' + b + ' Come and say hello.';
+  }
+  if (t === 'sponsor') {
+    var fact = f.name + ' is a ' + (f.tier || 'partner') + ' of ' + DMC + (f.role ? '. ' + f.role + '.' : '.');
+    return tone === 'hype' ? '🤝 ' + fact : fact;
+  }
+  if (t === 'quote') {
+    var q = '“' + f.quote + '” — ' + n + (f.company ? ', ' + f.company : '');
+    return tone === 'hype' ? '💬 ' + q : q;
+  }
+  if (t === 'countdown') {
+    if (days > 0) {
+      var d = days + (days === 1 ? ' day' : ' days');
+      if (tone === 'pro') return d + ' until ' + DMC + '.';
+      if (tone === 'hype') return '⏳ ' + d.toUpperCase() + ' TO GO until ' + DMC + '!';
+      return d + ' to go until ' + DMC + '.';
+    }
+    return days === 0 ? DMC + ' is today.' : 'Thank you for joining ' + DMC + '.';
+  }
+  if (t === 'session') {
+    var who = f.speakers ? ' With ' + f.speakers.replace(/\s*·\s*/g, ', ') + '.' : '';
+    var s = f.title + (f.time ? ' (' + f.time + ')' : '') + ' at ' + DMC + '.' + who;
+    return tone === 'hype' ? '📍 ' + s : s;
+  }
+  return '';
+}
+
+function buildCaption(platform, tone, len, link) {
+  var f = S.f, t = S.template, days = daysToGo();
+  var parts = [hook(tone, f, t, days)];
+  if (len === 'std') {
+    parts.push('');
+    parts.push('DMC 2026 · Built To Scale. Saturday 21 November 2026, 10AM–3PM, British Council Accra.');
+    if (platform === 'linkedin') parts.push('Organised by M·A·N, Ghana’s peer-driven community for marketing and advertising professionals.');
+  }
+  parts.push('');
+  var bioFirst = platform === 'instagram' || platform === 'tiktok';
+  if (bioFirst) parts.push('Link in bio' + (platform === 'instagram' ? ' (and the QR on the story).' : '.'));
+  else if (platform === 'whatsapp') parts.push('Tickets: ' + link);
+  else parts.push('Get your ticket: ' + link);
+  var tags = ['#DMC2026', '#BuiltToScale'];
+  var line = (HANDLE[platform] ? HANDLE[platform] + ' ' : '') + tags.join(' ');
+  if (platform === 'linkedin') line = 'linkedin.com/company/mangh ' + tags.join(' ');
+  if (platform !== 'whatsapp') parts.push(line);
+  var text = parts.join('\n').replace(/\n{3,}/g, '\n\n');
+  if (platform === 'x') {
+    var count = function (s) { return s.replace(link, new Array(24).join('x')).length; };
+    if (count(text) > 280) return buildCaption('x', tone, 'short', link);
+  }
+  return text;
+}
+
+/* ------------------------------------------------------------------ create */
+function say(text, kind) { $('msg').innerHTML = text ? '<div class="' + (kind || 'note') + '">' + esc(text) + '</div>' : ''; }
+function setStatus(t) { $('status').textContent = t || ''; }
+
+function validate() {
+  var t = S.template, f = S.f;
+  if (t === 'speaker' && !f.name) return 'Add a name.';
+  if (t === 'attending' && !f.name) return 'Add a name.';
+  if (t === 'sponsor' && (!f.name || !f.tier)) return 'Add the partner’s name and tier.';
+  if (t === 'quote' && (!f.quote || !f.name)) return 'Add the quote and the speaker’s name.';
+  if (t === 'session' && !f.title) return 'Add a session title.';
+  if (S.photoUploaded && !$('perm').checked) return 'Tick the box to confirm you have the person’s permission to use their photo.';
+  if (S.template === 'sponsor' && !S.f.partner && !S.logo) return 'Upload the logo for a partner that is not in the list.';
+  return '';
+}
+
+function pool(tasks, n) {
+  var i = 0, out = new Array(tasks.length);
+  function worker() { var k = i++; if (k >= tasks.length) return Promise.resolve(); return tasks[k]().then(function (v) { out[k] = v; return worker(); }); }
+  var ws = []; for (var w = 0; w < n; w++) ws.push(worker());
+  return Promise.all(ws).then(function () { return out; });
+}
+
+$('go').addEventListener('click', function () {
+  if (S.busy) return;
+  var bad = validate();
+  if (bad) { say(bad, 'warn'); return; }
+  S.busy = true; $('go').disabled = true; say(''); setStatus('Creating links…');
+  drop();
+  var t0 = Date.now(), slug = currentSlug(), warnings = [];
+  var tpl = S.template;
+  fetch('/api/studio-links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug: slug, template: tpl, platforms: PLATFORMS.map(function (p) { return p.id; }) }) })
+    .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'links failed'); return j.links; }); })
+    .catch(function (e) { warnings.push('Tracked links are unavailable (' + e.message + '). The artwork has no QR and the captions use the plain page link, so these clicks will not be tracked.'); return null; })
+    .then(function (links) {
+      S.links = links;
+      var code = function (p) { return links && links[p] ? links[p].split('/t/')[1] : ''; };
+      setStatus('Rendering 7 images…');
+      var tasks = OUTPUTS.map(function (o) { return function () {
+        return postRender(payload(o.size, o.qr ? code(o.qr) : '')).then(function (blob) { return { o: o, blob: blob, url: URL.createObjectURL(blob) }; });
+      }; });
+      return pool(tasks, 4);
+    })
+    .then(function (outs) {
+      S.outputs = outs;
+      showResults(outs, Date.now() - t0);
+      if (warnings.length) say(warnings.join(' '), 'warn');
+      else say('Done. Links are tracked: each click is logged and sent on to the DMC 2026 page with this person’s code.', 'ok');
+      return maybeSaveLibrary();
+    })
+    .catch(function (e) { say('Could not create the set: ' + e.message, 'warn'); })
+    .then(function () { S.busy = false; $('go').disabled = false; setStatus(''); });
+});
+
+function maybeSaveLibrary() {
+  if (!S.photoUploaded || !$('saveLib').checked || !$('perm').checked) return Promise.resolve();
+  var small = document.createElement('canvas'); small.width = small.height = 480; drawCrop(small.getContext('2d'), 480);
+  return fetch('/api/studio-library', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+    name: S.f.name, title: S.f.title, company: S.f.company, photo: small.toDataURL('image/jpeg', 0.82), permission: true }) })
+    .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'save failed'); return loadLibrary(); }); })
+    .then(function () { $('saveLib').checked = false; })
+    .catch(function (e) { say('Artwork is ready, but saving to the library failed: ' + e.message, 'warn'); });
+}
+
+function fileName(o) { return fileBase() + '_' + o.key + '.png'; }
+
+function showResults(outs, ms) {
+  $('outWrap').classList.remove('hide');
+  $('took').textContent = 'Rendered in ' + (ms / 1000).toFixed(1) + ' s';
+  $('results').innerHTML = outs.map(function (r, i) {
+    return '<div class="res"><img src="' + r.url + '" alt="' + esc(r.o.label) + ' artwork"><div><div class="t">' + esc(r.o.label) + '</div><div class="s">' + r.o.dim + (r.o.qr ? ' · QR to ' + r.o.qr : '') + '</div></div>' +
+      '<a class="btn sm" download="' + esc(fileName(r.o)) + '" href="' + r.url + '">Download PNG</a></div>';
+  }).join('');
+  /* captions + links */
+  var tone = $('tone').value, len = $('len').value;
+  $('caps').innerHTML = PLATFORMS.map(function (p) {
+    var link = S.links && S.links[p.id] ? S.links[p.id] : 'https://mangh.org/dmc-2026?ref=' + encodeURIComponent(currentSlug()) + '&utm_source=' + p.id + '&utm_medium=social&utm_campaign=' + S.template;
+    var text = buildCaption(p.id, tone, len, link);
+    var where = { instagram: 'Put this link in your bio or a story link sticker.', tiktok: 'Put this link in your bio.', facebook: '', linkedin: '', x: '', whatsapp: '' }[p.id];
+    return '<div class="cap" data-p="' + p.id + '"><h3><span>' + p.name + '</span><span class="hint">' + text.length + ' characters</span></h3>' +
+      '<label class="sr-only" for="cap-' + p.id + '">' + p.name + ' caption</label><textarea id="cap-' + p.id + '">' + esc(text) + '</textarea>' +
+      '<div class="lk">' + (S.links ? 'Tracked link' : 'Untracked link') + ': <code>' + esc(link) + '</code>' + (where && S.links ? '<br>' + where : '') + '</div>' +
+      '<div class="row"><button type="button" class="btn sm" data-copy="cap-' + p.id + '">Copy caption</button><button type="button" class="btn ghost sm" data-copy-link="' + esc(link) + '">Copy link</button></div></div>';
+  }).join('');
+  $('outWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* captions re-word when tone or length change, without re-rendering */
+['tone', 'len'].forEach(function (id) { $(id).addEventListener('change', function () { if (S.outputs.length) showResults(S.outputs, 0); }); });
+
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-copy],[data-copy-link]');
+  if (!b) return;
+  var text = b.hasAttribute('data-copy') ? $(b.getAttribute('data-copy')).value : b.getAttribute('data-copy-link');
+  var done = function () { var o = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = o; }, 1400); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { say('Could not copy automatically. Select the text and copy it.', 'warn'); });
+  else { var ta = b.hasAttribute('data-copy') ? $(b.getAttribute('data-copy')) : null; if (ta) { ta.select(); try { document.execCommand('copy'); done(); } catch (x) {} } }
+});
+
+/* ------------------------------------------------------------------ ZIP (store only, no compression) */
+var CRCT = (function () { var t = [], c; for (var n = 0; n < 256; n++) { c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8) { var c = 0xFFFFFFFF; for (var i = 0; i < u8.length; i++) c = CRCT[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zip(files) {
+  var enc = new TextEncoder(), parts = [], central = [], offset = 0;
+  files.forEach(function (f) {
+    var name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
+    var lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, 0, true); lh.setUint16(12, 0x21, true); lh.setUint32(14, crc, true); lh.setUint32(18, size, true); lh.setUint32(22, size, true);
+    lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(lh.buffer, name, f.data);
+    var ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, 0, true); ch.setUint16(14, 0x21, true); ch.setUint32(16, crc, true); ch.setUint32(20, size, true); ch.setUint32(24, size, true);
+    ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+    central.push(ch.buffer, name);
+    offset += 30 + name.length + size;
+  });
+  var csize = central.reduce(function (a, p) { return a + (p.byteLength || p.length); }, 0);
+  var end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true); end.setUint32(12, csize, true); end.setUint32(16, offset, true);
+  return new Blob(parts.concat(central, [end.buffer]), { type: 'application/zip' });
+}
+$('zipBtn').addEventListener('click', function () {
+  if (!S.outputs.length) return;
+  Promise.all(S.outputs.map(function (r) { return r.blob.arrayBuffer().then(function (b) { return { name: fileName(r.o), data: new Uint8Array(b) }; }); })).then(function (files) {
+    var caps = PLATFORMS.map(function (p) { var el = $('cap-' + p.id); return '=== ' + p.name + ' ===\n' + (el ? el.value : '') + '\n' + (S.links && S.links[p.id] ? 'Tracked link: ' + S.links[p.id] + '\n' : ''); }).join('\n');
+    files.push({ name: fileBase() + '_captions.txt', data: new TextEncoder().encode(caps) });
+    var blob = zip(files), a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = fileBase() + '_all.zip'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+  });
+});
+
+/* ------------------------------------------------------------------ library */
+function loadLibrary() {
+  return fetch('/api/studio-library').then(function (r) { return r.ok ? r.json() : { people: [] }; }).then(function (j) {
+    libCache = j.people || [];
+    $('libSel').innerHTML = '<option value="">Choose a saved person…</option>' + libCache.map(function (p) { return '<option value="' + p.id + '">' + esc(p.name) + '</option>'; }).join('');
+    var sel = $('person'); if (sel) sel.innerHTML = personSelectHtml(S.personKey);
+    $('libBox').classList.toggle('hide', !libCache.length);
+  }).catch(function () {});
+}
+$('libSel').addEventListener('change', function () { if (this.value) applyPerson('lib:' + this.value).then(queuePreview); });
+$('libDel').addEventListener('click', function () {
+  var id = $('libSel').value; if (!id || !confirm('Remove this person from the library?')) return;
+  fetch('/api/studio-library?id=' + encodeURIComponent(id), { method: 'DELETE' }).then(loadLibrary);
+});
+
+/* ------------------------------------------------------------------ boot */
+function renderTemplates() {
+  $('tpl').innerHTML = TEMPLATES.map(function (t) {
+    return '<label><input type="radio" name="tpl" value="' + t.id + '"' + (S.template === t.id ? ' checked' : '') + '><span class="t">' + esc(t.name) + '</span><span class="d">' + esc(t.desc) + '</span></label>';
+  }).join('');
+}
+$('tpl').addEventListener('change', function (e) {
+  S.template = e.target.value; S.f = {}; S.personKey = ''; S.logo = ''; S.outputs = []; $('outWrap').classList.add('hide');
+  setPhoto(null, true); renderForm(); say(''); queuePreview();
+});
+renderTemplates(); renderForm(); renderTabs(); paintCrop(); loadLibrary(); renderPreview();
+</script>
+</body>
+</html>
