@@ -15,7 +15,7 @@ artwork in every platform size, a caption per platform, and one tracked short li
 | Sponsor / partner | One of the seven partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
 | Quote card | Quote (260 characters), speaker name, title, company, photo | Movement colour |
 | Countdown | Nothing. "X days to go" is worked out each time an image is rendered (Accra date, event day 21 Nov 2026) | Coral |
-| Early bird | Price (default GH₵100, from the ticket page) and last day (default 2026-10-31). "N days left" is worked out each time an image is rendered; on the last day it says LAST DAY, and after it the Studio refuses to render. Check the price and date against the ticket page whenever they change | Coral number, gold tag |
+| Early bird | Price (default GH₵100), last day (default 2026-10-31) and the price afterwards (default GH₵150, shown as "Then GH₵150 from 1 November 2026"; clear it to leave the line out). "N days left" is worked out each time an image is rendered; on the last day it says LAST DAY, and after it the Studio refuses to render. Check the price and date against the ticket page whenever they change | Coral number, gold tag |
 | Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Movement colour |
 
 Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
