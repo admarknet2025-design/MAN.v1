@@ -66,11 +66,11 @@
    "sessionTime": "11:30–11:40"
   },
   {
-   "slug": "sena-quarshie",
-   "name": "Sena Quarshie",
-   "title": "",
-   "company": "",
-   "photo": "",
+   "slug": "richard-sena-quashie",
+   "name": "Richard Sena Quashie",
+   "title": "General Manager",
+   "company": "MG Digital Media Ltd",
+   "photo": "richard-sena-quashie.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
    "sessionTime": "11:40–12:10"
@@ -88,9 +88,9 @@
   {
    "slug": "florentia-teye",
    "name": "Florentia Teye",
-   "title": "",
-   "company": "",
-   "photo": "",
+   "title": "Capacity Development Professional",
+   "company": "Digital Sales",
+   "photo": "florentia-teye.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
    "sessionTime": "11:40–12:10"
@@ -98,9 +98,9 @@
   {
    "slug": "yvonne-dumor",
    "name": "Yvonne Dumor",
-   "title": "",
-   "company": "",
-   "photo": "",
+   "title": "Administrative Business Partner and Program Lead",
+   "company": "Google Research",
+   "photo": "yvonne-dumor.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
    "sessionTime": "12:35–13:05"
@@ -241,7 +241,7 @@
    "end": "12:10",
    "title": "Build Your Team: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Sena Quarshie · Simon Alangdee · Florentia Teye",
+   "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye",
    "movement": "Build Your Team"
   },
   {

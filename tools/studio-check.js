@@ -24,6 +24,7 @@ const jobs = [
   ['sponsor', { name: 'Test Partner', tier: 'Silver Sponsor', role: 'Role' }],
   ['quote', { quote: 'A quote.', name: 'Test Person', title: 'Title', company: 'Company', movement: 'Build Your Work' }],
   ['countdown', {}],
+  ['earlybird', { price: 'GH₵100', deadline: '2026-10-31' }],
   ['session', { title: 'Session title', time: '10:45–11:15', movement: 'Build Your Team', speakers: 'Nobody Known · Another Person' }]
 ];
 (async () => {

@@ -67,6 +67,8 @@ Keys: `att:v1:<reference>` (record, written once), `att:v1:index` (sorted set by
 
 Never commit these. `/api/attribution` answers `503` until the store variables exist (the checkout itself is unaffected).
 
+Retention: records expire automatically on 21 November 2027, as `/privacy` says (see "Retention" in `docs/studio.md`).
+
 ## Admin: `/admin/attribution`
 Basic auth. Shows counts by ref, the 200 most recent checkouts started, and **Download CSV** (`/admin/attribution.csv`:
 reference, ref, utm_source, utm_medium, utm_campaign, utm_content, utm_term, timestamp, page, device). The page and CSV
