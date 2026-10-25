@@ -10,14 +10,14 @@ artwork in every platform size, a caption per platform, and one tracked short li
 ## Templates
 | Template | Inputs | Accent |
 |---|---|---|
-| Speaker / panelist | Pick from the site's speaker list (name, title, company, photo, session and time fill in) or type; role (Speaker, Panelist, Host, Moderator, Emcee); movement | Movement colour |
+| Speaker / panelist | Pick from the site's speaker list or the M·A·N team (name, title, company, photo, session and time fill in) or type; role (Speaker, Panelist, Host, Moderator, Emcee); movement | Movement colour (session bar) |
 | I'm attending | Name, title, company, photo, optional "I'm building…" line; the M·A·N team can be picked | Teal |
 | Sponsor / partner | One of the seven partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
 | Quote card | Quote (260 characters), speaker name, title, company, photo | Movement colour |
 | Countdown | Nothing. "X days to go" is worked out each time an image is rendered (Accra date, event day 21 Nov 2026) | Coral |
 | Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Movement colour |
 
-Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal.
+Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
 
 All templates share one frame (header with the M·A·N logo, kente divider, date/venue/site footer, corner triangles) in `lib/studio/render.js`, so they look like a set.
 
@@ -98,13 +98,25 @@ means *paid*. Match order references with MojoPay's paid-orders export.
 | `KV_REST_API_URL`, `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) | Redis store for links, clicks, checkouts and the photo library. Upstash for Redis from the Vercel Marketplace, free plan |
 | `ADMIN_USER`, `ADMIN_PASSWORD` | Team login for `/studio` and `/admin/attribution` |
 
-Nothing is provisioned by this branch. Free-plan usage: a click is about 4 commands, a new set about 20.
+To set up the store (about two minutes, free): Vercel dashboard → project `man-v1` → **Storage** → **Create database** → **Upstash for Redis**
+(Marketplace) → **Free** plan → connect it to the project for **Production, Preview and Development**. Vercel then adds `KV_REST_API_URL`
+and `KV_REST_API_TOKEN` (the code reads those, or the `UPSTASH_REDIS_REST_*` pair). From a terminal the same thing is
+`vercel integration add upstash` in the linked project. Add `ADMIN_USER` and `ADMIN_PASSWORD` under Settings → Environment Variables,
+then redeploy so the new variables are picked up. Nothing is provisioned by this branch. Free-plan usage: a click is about 4 commands, a new set about 20.
 
-## No gold
-The palette is Obsidian, Signal Cream, Build Teal and Pulse Coral. The Studio's kente strip is teal, coral and cream. Run
-`node tools/studio-check.js` after any change: it greps the Studio source for the gold hex and renders every template at every size
-(without photos or logos) and fails if any pixel is gold-like. Partner logos and people's photos are other people's pictures and are not
-scanned. (The public site's own flyer and some buttons still use the gold; this tool does not touch them.)
+## Colours and the touch of gold
+Obsidian, Signal Cream, Build Teal and Pulse Coral carry the artwork. Akan Gold (#C9A24A) is a **touch**, as on the public "Make
+Your Flyer": the fourth kente segment, the photo ring, the speaker/sponsor tag, the "Built To Scale" label, the thin wedge under the
+corner triangles, the slim bar down the left edge, the quote mark and the edge lines of the partner band. It is never a large fill and
+is never used as text on cream. `node tools/studio-check.js` renders every template at every size (without photos or uploaded logos) and
+fails if gold-like pixels cover more than 3 % of any image (today the most is about 2.4 %), or if the gold colour appears anywhere
+outside `lib/studio/render.js`. The Studio's own page (`/studio`) and the dashboard stay gold-free.
+
+## Sponsor and partner band
+Every image ends with the band the public flyer has, with the roles the site gives each company: **Title sponsor** MojoPay and
+"Organised by" M·A·N, then **Sponsors and partners** FIDO, Generation Ghana, mNotify, Kasad3, Tech Labari and Koin Photography
+(logos from `assets/partners26/`, each on a cream tile). Feed and story use two rows; square and the wide sizes use one row. To change
+the line-up, edit `BAND_PARTNERS` and the title-sponsor line in `lib/studio/render.js`.
 
 ## Keeping the data current
 Speakers, programme rows, the team and partners come from `lib/studio/data.json`, generated from `dmc-2026.html` and `index.html`:
