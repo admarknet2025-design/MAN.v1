@@ -127,6 +127,6 @@ Speakers, programme rows, the team and partners come from `lib/studio/data.json`
 Run it whenever the speaker or programme markup changes (for example when a photo is added).
 
 ## Data needed from the team
-- Photos for Sena Quarshie, Simon Alangdee, Florentia Teye, Yvonne Dumor and Ian Hutchful (until then their cards use initials), and the keynote speaker once announced.
+- Photos for Simon Alangdee and Ian Hutchful (until then their cards use initials), and the keynote speaker once announced.
 - Larger partner logos: Kasad3's file is 163×129 pixels and looks soft at story size. MojoPay, FIDO and the rest are fine.
 - A decision on the sponsor tier wording for mNotify and Koin Photography (the cards use "Programme Partner" and "Event Photography Partner", copied from the home page).
