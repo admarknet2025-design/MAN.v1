@@ -7,7 +7,7 @@ const store = require('./_store');
 const { requireAuth, origin } = require('./_auth');
 
 const PLATFORMS = ['instagram', 'facebook', 'linkedin', 'x', 'tiktok', 'whatsapp'];
-const TEMPLATES = ['speaker', 'attending', 'sponsor', 'quote', 'countdown', 'session'];
+const TEMPLATES = ['speaker', 'attending', 'sponsor', 'quote', 'countdown', 'earlybird', 'session'];
 const SLUG = /^[a-z0-9][a-z0-9-]{0,59}$/;
 
 module.exports = async function handler(req, res) {

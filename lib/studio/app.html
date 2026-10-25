@@ -169,6 +169,7 @@ var TEMPLATES = [
   { id: 'sponsor',   name: 'Sponsor / partner',  desc: 'Logo, tier and role. Facts only.', photo: false },
   { id: 'quote',     name: 'Quote card',         desc: 'A quote with the speaker’s name and photo', photo: true },
   { id: 'countdown', name: 'Countdown',          desc: 'X days to go, counted from today', photo: false },
+  { id: 'earlybird', name: 'Early bird',         desc: 'Days left to buy at the early bird price', photo: false },
   { id: 'session',   name: 'Session card',       desc: 'Session title, time and speakers', photo: false }
 ];
 var MOV = { 'Build Yourself': '#2A7B74', 'Build Your Team': '#D95F45', 'Build Your Work': '#F4EFE6' };
@@ -262,6 +263,9 @@ function renderForm() {
     h += field('quote', 'Quote', 'textarea', { max: 260 }) + '<div class="cnt" id="qcnt"></div>' + person;
     h += '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>' + field('company', 'Company', 'text', { max: 70 });
     h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
+  } else if (t === 'earlybird') {
+    h += '<div class="grid2">' + field('price', 'Early bird price', 'text', { max: 20, hint: 'As on the ticket page, for example GH₵100.' }) + field('deadline', 'Last day (YYYY-MM-DD)', 'text', { max: 10, hint: 'The early bird deadline on the ticket page.' }) + '</div>';
+    h += '<p class="note" id="ebnote"></p>';
   } else if (t === 'countdown') {
     h += '<p class="note">The number is worked out when each image is rendered: <b id="dtg"></b>.</p>';
   } else if (t === 'session') {
@@ -272,14 +276,29 @@ function renderForm() {
   }
   $('form').innerHTML = h;
   $('photoCard').classList.toggle('hide', !TEMPLATES.filter(function (x) { return x.id === t; })[0].photo);
+  if ($('ebnote')) $('ebnote').textContent = earlyBirdNote();
   if ($('dtg')) { var d = daysToGo(); $('dtg').textContent = d > 0 ? d + (d === 1 ? ' day' : ' days') + ' to go today' : d === 0 ? 'the event is today' : 'the event has passed'; }
   countQuote();
   syncPhotoUi();
 }
 
+var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function longDate(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? (+m[3]) + ' ' + MONTH_NAMES[+m[2] - 1] + ' ' + m[1] : ''; }
 function daysToGo() {
   var n = new Date(); var today = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
   return Math.round((Date.UTC(2026, 10, 21) - today) / 86400000);
+}
+function earlyBirdDays() {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(S.f.deadline || '');
+  if (!m) return null;
+  var n = new Date(), today = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
+  return Math.round((Date.UTC(+m[1], +m[2] - 1, +m[3]) - today) / 86400000);
+}
+function earlyBirdNote() {
+  var d = earlyBirdDays();
+  if (d === null) return 'Enter the last day as YYYY-MM-DD, for example 2026-10-31.';
+  if (d < 0) return 'That date has passed, so there is nothing to count down to.';
+  return d === 0 ? 'Today is the last day.' : d + (d === 1 ? ' day' : ' days') + ' left, counted when each image is rendered.';
 }
 function countQuote() { var c = $('qcnt'); if (c) c.textContent = (S.f.quote || '').length + ' / 260'; }
 
@@ -394,7 +413,7 @@ function applySession(id) {
 document.addEventListener('input', function (e) {
   var k = e.target && e.target.getAttribute && e.target.getAttribute('data-k');
   if (!k) return;
-  S.f[k] = e.target.value; if (k === 'quote') countQuote(); queuePreview();
+  S.f[k] = e.target.value; if (k === 'quote') countQuote(); if (k === 'deadline' && $('ebnote')) $('ebnote').textContent = earlyBirdNote(); queuePreview();
 });
 document.addEventListener('change', function (e) {
   var t = e.target;
@@ -441,7 +460,8 @@ var pTimer = null, pSeq = 0;
 function queuePreview() { drop(); clearTimeout(pTimer); pTimer = setTimeout(renderPreview, 650); }
 function renderPreview() {
   var t = S.template, f = S.f;
-  var ready = t === 'countdown' || (t === 'quote' ? f.quote : t === 'session' ? f.title : f.name);
+  if (t === 'earlybird') { var ed = earlyBirdDays(); if (ed === null || ed < 0) { $('prevImg').classList.add('hide'); $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = earlyBirdNote(); return; } }
+  var ready = t === 'countdown' || t === 'earlybird' || (t === 'quote' ? f.quote : t === 'session' ? f.title : f.name);
   if (!ready) { $('prevImg').classList.add('hide'); $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = 'Fill in the details to see the artwork.'; return; }
   var seq = ++pSeq;
   $('prevMsg').classList.remove('hide'); $('prevMsg').textContent = 'Rendering…';
@@ -461,7 +481,7 @@ $('ptabs').addEventListener('click', function (e) { var b = e.target.closest('bu
 /* ------------------------------------------------------------------ slug / names */
 function currentSlug() {
   var t = S.template, f = S.f;
-  if (t === 'countdown') return 'countdown';
+  if (t === 'countdown' || t === 'earlybird') return t;
   if (t === 'session') return f.sessionId || ('s-' + slugify(f.title).slice(0, 30));
   if (t === 'sponsor') return f.partner || slugify(f.name);
   if (S.personKey.indexOf('site:') === 0 || S.personKey.indexOf('team:') === 0) return S.personKey.slice(5);
@@ -499,6 +519,13 @@ function hook(tone, f, t, days) {
   if (t === 'quote') {
     var q = '“' + f.quote + '” — ' + n + (f.company ? ', ' + f.company : '');
     return tone === 'hype' ? '💬 ' + q : q;
+  }
+  if (t === 'earlybird') {
+    var ebd = earlyBirdDays(), when = f.deadline ? longDate(f.deadline) : '', pr = f.price || 'GH₵100', dd = ebd + (ebd === 1 ? ' day' : ' days');
+    if (ebd === 0) dd = 'today is the last day';
+    if (tone === 'pro') return 'Early bird tickets for ' + DMC + ' are ' + pr + ' until ' + when + '. ' + (ebd === 0 ? 'Today is the last day.' : dd + ' left.');
+    if (tone === 'hype') return '⏳ ' + (ebd === 0 ? 'LAST DAY' : dd.toUpperCase() + ' LEFT') + '! Early bird for ' + DMC + ' is ' + pr + ' until ' + when + '.';
+    return (ebd === 0 ? 'Last day' : dd + ' left') + ' to get your early bird ticket for ' + DMC + ' (' + pr + ', until ' + when + ').';
   }
   if (t === 'countdown') {
     if (days > 0) {
@@ -553,6 +580,7 @@ function validate() {
   if (t === 'sponsor' && (!f.name || !f.tier)) return 'Add the partner’s name and tier.';
   if (t === 'quote' && (!f.quote || !f.name)) return 'Add the quote and the speaker’s name.';
   if (t === 'session' && !f.title) return 'Add a session title.';
+  if (t === 'earlybird') { var vd = earlyBirdDays(); if (vd === null) return 'Enter the last day as YYYY-MM-DD.'; if (vd < 0) return 'The early bird date has passed.'; }
   if (S.photoUploaded && !$('perm').checked) return 'Tick the box to confirm you have the person’s permission to use their photo.';
   if (S.template === 'sponsor' && !S.f.partner && !S.logo) return 'Upload the logo for a partner that is not in the list.';
   return '';
@@ -698,7 +726,7 @@ function renderTemplates() {
   }).join('');
 }
 $('tpl').addEventListener('change', function (e) {
-  S.template = e.target.value; S.f = {}; S.personKey = ''; S.logo = ''; S.outputs = []; $('outWrap').classList.add('hide');
+  S.template = e.target.value; S.f = e.target.value === 'earlybird' ? { price: 'GH₵100', deadline: '2026-10-31' } : {}; S.personKey = ''; S.logo = ''; S.outputs = []; $('outWrap').classList.add('hide');
   setPhoto(null, true); renderForm(); say(''); queuePreview();
 });
 renderTemplates(); renderForm(); renderTabs(); paintCrop(); loadLibrary(); renderPreview();
