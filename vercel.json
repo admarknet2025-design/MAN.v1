@@ -71,5 +71,15 @@
       "destination": "/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/admin/attribution",
+      "destination": "/api/admin-attribution"
+    },
+    {
+      "source": "/admin/attribution.csv",
+      "destination": "/api/admin-attribution?format=csv"
+    }
   ]
 }
