@@ -1,82 +1,92 @@
-# Ticket checkout on mangh.org (MojoTickets modal)
+# Ticket checkout on mangh.org (MojoTickets embed + our own referral log)
 
-`assets/ticket-checkout.js` opens MojoTickets checkout in a modal on mangh.org instead of sending people to
-tickets.mojo-pay.com. It is built and tested but **switched off** (`var EMBED = false;`) until MojoPay confirms their
-checkout may be shown inside a mangh.org page.
+One component, `assets/ticket-checkout.js`, sits behind every ticket button on the site. Buttons are still plain
+`<a href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026">` links, so they work with JavaScript
+off and with ctrl/cmd/middle-click. The script picks up every such link on every page, so new buttons are covered
+automatically.
 
-## How it behaves (when on)
-- Every link to `https://tickets.mojo-pay.com/events/digital-marketers-conference-2026` on any page is intercepted
-  by one click listener, so new buttons are covered automatically. The links stay real links: no JavaScript, in-app
-  browsers (Instagram, Facebook, TikTok, WhatsApp, Snapchat, Line) and ctrl/cmd/middle-click all open the ticket page in a
-  new tab as before.
-- Desktop: centred modal, 560px wide, 85vh tall. Phones: full-screen sheet that slides up.
-- Header bar "DMC 2026", close button, Esc, click on the dimmed backdrop. Focus is trapped (native `<dialog>`), focus
-  returns to the button that opened it, page scroll is locked.
-- The iframe is created only when the modal opens. A branded loading state shows until the iframe's `load` event;
-  after 8 s without it, a "Open checkout in a new tab →" panel appears. A "Having trouble? Open checkout in a new tab →"
-  link is always visible in the footer.
-- Iframe: `allow="payment"`, `referrerpolicy="strict-origin-when-cross-origin"`, a descriptive `title`, no `sandbox`
-  (not tested against the real checkout, so left off).
-- Colours: obsidian, cream, teal, coral. No gold.
+## What a click does
+| Visitor | Result |
+|---|---|
+| Normal browser | Modal over the page with the **embed** checkout: `https://tickets.mojo-pay.com/embed/events/digital-marketers-conference-2026?ref=…`. The page stays open behind it. |
+| In-app browser (Instagram, Facebook, TikTok, WhatsApp, Snapchat, Line) or no `<dialog>` support | The embed URL opens in a new tab. If the browser blocks the new tab, the modal shows a plain "Open checkout in a new tab →" link and `ticket_popup_blocked` is logged. |
+| JavaScript off, or ctrl/cmd/middle/shift-click | The ordinary ticket page, in the normal way. |
 
-## Referral pass-through
-`ref` and `utm_source|medium|campaign|content|term` (values limited to letters, numbers and `_ . ~ - %`) are read from
-the page URL, saved in `sessionStorage` for the visit, and added to the iframe URL, the fallback links and the plain
-ticket links on every page. A new `ref` in the URL replaces the saved one. Example:
-`mangh.org/dmc-2026?ref=kwaku` -> `tickets.mojo-pay.com/events/digital-marketers-conference-2026?ref=kwaku`.
+Always visible in the modal: **"Having trouble? Open checkout in a new tab →"** (embed URL, with `ref`/`utm_*`), and the line
+**"Payment completes securely on MojoPay."**
 
-## Analytics (GA4, through the existing `gtag`)
-`ticket_modal_open` (with `ref`), `ticket_iframe_loaded`, `ticket_fallback_click`, `ticket_purchase_success`
-(only if MojoTickets sends a message, see below). The existing `ticket_click` event still fires on the click.
+Do **not** iframe `/events/...` (MojoTickets only allows its own origin there). Only the `/embed/events/...` URL is framed.
+The iframe has `allow="payment"` and **no `sandbox`**: MoMo payment redirects the **top** window to MojoPay, and a sandbox
+would block that. So on a MoMo payment the mangh.org page itself is replaced by the MojoPay payment page.
 
-## Turning it on
-1. MojoPay allows framing from `https://mangh.org` (see the note below) and you have checked it (next section).
-2. Change `var EMBED = false;` to `true` in `assets/ticket-checkout.js`, run `python3 tools/stamp-assets.py`, merge.
+## Popup mode (`embed.js`) is not wired in
+MojoTickets also offers a widget script (`data-event`, `data-mode="modal"|"popup"`). Its exact script URL and `data-event`
+value are not confirmed, and nothing in this repo guesses them. Popup mode would keep mangh.org open during MoMo payment,
+so it is the better experience once MojoPay gives us the two values. Until then the modal iframe above is the primary path.
 
-## Testing before it is on
-On a Vercel preview or localhost only, add `?embed=1` to any page URL (e.g. `/dmc-2026?embed=1&ref=test`). That
-switches it on for that browser tab; `?embed=0` switches it off. On mangh.org itself the flag is the only switch.
+## Referral capture
+`ref` and `utm_source|medium|campaign|content|term` (values limited to letters, numbers and `_ . ~ - %`, 80 characters) are saved
+in `sessionStorage` (`man_ticket_params`) on the first page of a visit, even before checkout is opened. A new `ref` in the
+URL replaces the saved one. They are appended to the embed URL, the fallback links and the plain ticket links. The Google tag
+in each page's `<head>` still turns `?ref=` codes into GA4 campaign data (unchanged).
 
-## Check whether MojoPay allows framing
-Run: `curl -sI https://tickets.mojo-pay.com/events/digital-marketers-conference-2026`
-- Embeddable if there is **no** `X-Frame-Options` header, or it is `ALLOW-FROM`/absent, **and** no
-  `Content-Security-Policy` with `frame-ancestors`, or one that lists `https://mangh.org`.
-- Blocked if you see `X-Frame-Options: DENY` or `SAMEORIGIN`, or `frame-ancestors 'self'` / `'none'`.
-Then confirm in a browser: open a preview with `?embed=1`, click Get Tickets, and see whether checkout appears.
-Important: when a site refuses framing, browsers still fire the iframe `load` event (they show an error page), so the
-8-second fallback will NOT trigger. Do not enable it until you have seen checkout render in the modal.
+## Attribution log ("checkout started", never "paid")
+MojoTickets does not store `ref`/`utm_*` (embed sales only show as channel "Embed"). When an order is created (before
+payment) the embed page posts `{ type: 'mojotickets:checkout:complete', reference }` to the parent window.
+`ticket-checkout.js` accepts it only from `https://tickets.mojo-pay.com` with that exact `type`, then:
 
-## Open questions for MojoPay
-1. May `https://mangh.org` (and `https://*.mangh.org`) frame the checkout (`frame-ancestors`)?
-2. Is `ref` (and `utm_*`) recorded against orders, and where do we see it?
-3. Does checkout send a `postMessage` to the parent page after a purchase? If so: the exact origin and message
-   name(s). Put the names into `SUCCESS_EVENTS` in `assets/ticket-checkout.js`; the "You're in. Make your flyer →" screen is
-   already built and only shows for those names, from `https://tickets.mojo-pay.com`.
-4. Does MoMo approval (the phone prompt and any redirect back) work inside an iframe, on Android Chrome and iOS Safari?
+1. posts `{ reference, ref, utm_*, path, ts, ua }` to **`/api/attribution`** (`fetch` with `keepalive`, because MoMo
+   payment can navigate the page away straight after);
+2. fires GA4 `ticket_checkout_started` (with `ref`);
+3. shows "You're almost in. Finish payment on MojoPay, then make your flyer →" (links to `/dmc-2026#flyer`) above the
+   still-visible checkout.
 
-## Draft note to MojoPay
-> Subject: Embedding MojoTickets checkout on mangh.org
->
-> Hi team,
->
-> For DMC 2026 we would like to keep ticket buyers on mangh.org instead of sending them away to the MojoTickets page.
-> We would show your checkout (https://tickets.mojo-pay.com/events/digital-marketers-conference-2026) inside a modal on
-> our site. We always show an "Open checkout in a new tab" link next to it, so nobody is blocked if it does not work
-> for them.
->
-> Could you please:
-> 1. Add `https://mangh.org` and `https://*.mangh.org` to the `frame-ancestors` allow-list for the checkout pages (or
->    tell us if there is an embeddable checkout widget or SDK we should use instead)?
-> 2. Confirm that a `ref` query parameter on the checkout URL (e.g. `?ref=kwaku`) is recorded against orders, and how we
->    can get that report? We also pass standard `utm_*` parameters.
-> 3. Tell us whether the checkout sends a `postMessage` to the parent page after a successful purchase (and its format),
->    so we can show a confirmation message?
-> 4. Confirm MoMo approval works when checkout is inside an iframe.
->
-> Thank you. Happy to test on a preview link whenever you are ready.
+`ua` is `mobile`, `desktop` or `in-app`. The event means **checkout started**; it is labelled that way everywhere.
+**Match the CSV against MojoPay's paid-orders export by order reference to find real sales.**
 
-## What still needs a human
-- A real MoMo test purchase inside the modal, on an Android phone and an iPhone.
-- MojoPay's answers above.
-- Check the Instagram, Facebook, TikTok and WhatsApp in-app browsers on real phones (they are detected from the user
-  agent and opened in a new tab; simulated in tests only).
+### Known gap: new-tab and popup flows send no message
+`postMessage` goes to `window.parent`. A checkout opened in a **new tab** (in-app browsers, blocked-modal fallback) has no
+parent frame, and we open it with the opener cleared (`noopener`), so mangh.org never hears that an order started. Those sales
+will not appear in our log; they will show in MojoPay's export as channel "Embed" with no ref. If MojoPay's embed page also
+posts to `window.opener`, we could keep the opener for the embed URL only (a security trade-off to decide with MojoPay).
+Popup mode (widget) has the same question: unknown until MojoPay confirms how it reports back.
+
+## Storage: Upstash Redis via Vercel Marketplace (not yet provisioned)
+`api/attribution.js` and `api/admin-attribution.js` talk to Redis over the Upstash **REST** API with plain `fetch` (no npm
+packages). Cheapest option: the **Upstash for Redis** Marketplace integration on its **Free** plan (about 500k commands a
+month; an order uses about 4 commands, so cost is $0 at this scale). It adds the env vars below to the Vercel project.
+Nothing has been provisioned.
+
+Keys: `att:v1:<reference>` (record, written once), `att:v1:index` (sorted set by time), `att:v1:counts` (hash by ref).
+
+### Environment variables (Vercel → Project → Settings → Environment Variables; Preview and Production)
+| Name | Purpose |
+|---|---|
+| `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Redis REST endpoint and token (the Upstash/Vercel KV integration creates these; `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` also work) |
+| `ADMIN_USER`, `ADMIN_PASSWORD` | Basic-auth login for `/admin/attribution`. Choose a long password. If either is missing the page refuses to load. |
+
+Never commit these. `/api/attribution` answers `503` until the store variables exist (the checkout itself is unaffected).
+
+## Admin: `/admin/attribution`
+Basic auth. Shows counts by ref, the 200 most recent checkouts started, and **Download CSV** (`/admin/attribution.csv`:
+reference, ref, utm_source, utm_medium, utm_campaign, utm_content, utm_term, timestamp, page, device). The page and CSV
+are `no-store` and `noindex`, and `/admin/` and `/api/` are disallowed in `robots.txt`. Spreadsheet cells that begin with
+`= + - @` are prefixed with `'` so they cannot run as formulas.
+
+## Analytics (GA4, existing `gtag` only)
+`ticket_open` (`ref`, `mode`: modal or tab), `ticket_popup_blocked`, `ticket_fallback_click` (`where`), `ticket_checkout_started`
+(`ref`). The older `ticket_click` (which button was clicked) still fires from `assets/analytics.js`.
+
+## Colours
+Obsidian #1C1C1C, Signal Cream #F4EFE6, Build Teal #2A7B74, Pulse Coral #D95F45, Archivo. No Akan Gold in the modal, banner or admin page.
+
+## Previews
+`?embed=0` on a Vercel preview or localhost turns the modal off for that tab (to check the plain links); `?embed=1` turns it back on.
+On mangh.org itself the flag in the script is the only switch.
+
+## Still to check with real devices and MojoPay
+- A real MoMo purchase from the modal on Android Chrome and iPhone Safari (the top window leaves mangh.org to pay).
+- That the real embed page posts exactly `mojotickets:checkout:complete` with a `reference` in iframe mode (tested here with a
+  stand-in page that sends that message; the real MojoTickets host cannot be reached from the build environment).
+- Whether new-tab and popup flows can report back (see "Known gap").
+- Instagram, Facebook, TikTok and WhatsApp in-app browsers on real phones (detected from the user agent; simulated in tests only).
