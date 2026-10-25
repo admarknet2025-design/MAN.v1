@@ -105,6 +105,11 @@ and `KV_REST_API_TOKEN` (the code reads those, or the `UPSTASH_REDIS_REST_*` pai
 `vercel integration add upstash` in the linked project. Add `ADMIN_USER` and `ADMIN_PASSWORD` under Settings → Environment Variables,
 then redeploy so the new variables are picked up. Nothing is provisioned by this branch. Free-plan usage: a click is about 4 commands, a new set about 20.
 
+## Retention (matches /privacy)
+Ticket-order records, click records, tracked-link records and their counters are deleted automatically by **21 November 2027**
+(12 months after DMC 2026): `api/_store.js` sets an expiry on every key it writes (`KEEP_UNTIL`). Saved library photos are the exception:
+they stay until someone removes the person in the Studio. If the retention period changes, change `KEEP_UNTIL` and the wording on `/privacy` together.
+
 ## Colours and the touch of gold
 Obsidian, Signal Cream, Build Teal and Pulse Coral carry the artwork. Akan Gold (#C9A24A) is a **touch**, as on the public "Make
 Your Flyer": the fourth kente segment, the photo ring, the speaker/sponsor tag, the "Built To Scale" label, the thin wedge under the

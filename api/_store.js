@@ -20,6 +20,9 @@
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
 
+/* Retention: ticket-order, click and link records are deleted automatically by 21 November 2027 (12 months after DMC 2026),
+   which is what /privacy promises. The Studio photo library is different: it is kept until the team removes a person. */
+const KEEP_UNTIL = Math.floor(Date.UTC(2027, 10, 21, 23, 59, 59) / 1000);
 const KEY = (reference) => 'att:v1:' + reference;
 const INDEX = 'att:v1:index';
 const COUNTS = 'att:v1:counts';
@@ -43,12 +46,15 @@ async function pipeline(commands) {
 
 /* returns true if this reference was new, false if it was already logged */
 async function add(record) {
-  const [created] = await pipeline([['SET', KEY(record.reference), JSON.stringify(record), 'NX']]);
+  const [created] = await pipeline([['SET', KEY(record.reference), JSON.stringify(record), 'NX'], ['EXPIREAT', KEY(record.reference), String(KEEP_UNTIL)]]);
   if (created !== 'OK') return false;
   await pipeline([
     ['ZADD', INDEX, String(Date.parse(record.received) || Date.now()), record.reference],
     ['HINCRBY', COUNTS, record.ref || '(none)', '1'],
     ['HINCRBY', COMBO, comboField('ck', record.ref, record.utm_source, record.utm_campaign), '1'],
+    ['EXPIREAT', INDEX, String(KEEP_UNTIL)],
+    ['EXPIREAT', COUNTS, String(KEEP_UNTIL)],
+    ['EXPIREAT', COMBO, String(KEEP_UNTIL)],
   ]);
   return true;
 }
@@ -76,9 +82,9 @@ async function linkFor(rec) {
   if (existing) return existing;
   for (let i = 0; i < 6; i++) {
     const code = newCode();
-    const [ok] = await pipeline([['SET', LINK(code), JSON.stringify(Object.assign({ created: new Date().toISOString() }, rec)), 'NX']]);
+    const [ok] = await pipeline([['SET', LINK(code), JSON.stringify(Object.assign({ created: new Date().toISOString() }, rec)), 'NX'], ['EXPIREAT', LINK(code), String(KEEP_UNTIL)]]);
     if (ok === 'OK') {
-      const [won] = await pipeline([['SET', LINK_MAP(key), code, 'NX']]);
+      const [won] = await pipeline([['SET', LINK_MAP(key), code, 'NX'], ['EXPIREAT', LINK_MAP(key), String(KEEP_UNTIL)]]);
       if (won === 'OK') return code;
       const [other] = await pipeline([['GET', LINK_MAP(key)], ['DEL', LINK(code)]]);
       return other;
@@ -98,6 +104,8 @@ async function logClick(link, click) {
     ['HINCRBY', COMBO, comboField('cl', link.slug, link.platform, link.template), '1'],
     ['LPUSH', CLICKS, JSON.stringify(row)],
     ['LTRIM', CLICKS, '0', '1999'],
+    ['EXPIREAT', CLICKS, String(KEEP_UNTIL)],
+    ['EXPIREAT', COMBO, String(KEEP_UNTIL)],
   ]);
 }
 
@@ -154,4 +162,4 @@ async function counts() {
   return { byRef: out, total: Number(total) || 0 };
 }
 
-module.exports = { configured, pipeline, add, recent, counts, linkFor, getLink, logClick, recentClicks, combos, libSave, libList, libGet, libDelete };
+module.exports = { KEEP_UNTIL, configured, pipeline, add, recent, counts, linkFor, getLink, logClick, recentClicks, combos, libSave, libList, libGet, libDelete };
