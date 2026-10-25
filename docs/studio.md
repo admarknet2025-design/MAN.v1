@@ -44,7 +44,7 @@ right corner above the footer.
 ## Rendering
 Images are drawn **on the server** (`api/studio-render.js` → `lib/studio/render.js`) with `@napi-rs/canvas` (Skia), using static
 Archivo files embedded in `lib/studio/fonts/` (Archivo Regular, Medium, SemiBold, Bold, and Expanded ExtraBold and Black, cut from
-the site's variable font with fontTools and with the cedi sign ₵ from the site's cedi font merged in; Archivo is SIL OFL). The same code and fonts run for everyone, so a PNG is identical whoever
+the site's variable font with fontTools and with the cedi sign ₵ from the site's cedi font merged in; Archivo is SIL OFL). Letters Archivo lacks (Akan, Ewe, Ga and Hausa `ɔ ɛ ɖ ʋ ŋ` and their capitals, Yoruba `ẹ ọ ṣ` with tone marks) fall back to a matching-weight Noto Sans (SIL OFL, licence in `lib/studio/fonts/NotoSans-OFL.txt`), cut down to those ranges. `node tools/studio-check.js` checks the coverage at every weight; scripts outside Latin (for example Chinese or Arabic) are not supported. The same code and fonts run for everyone, so a PNG is identical whoever
 asks for it. A full set takes about a second.
 
 Dependencies are in `package.json` (`@napi-rs/canvas`, `qrcode-generator`); Vercel installs them on deploy.
