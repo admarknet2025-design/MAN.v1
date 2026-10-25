@@ -11,6 +11,23 @@ const { render, SIZES } = require(path.join(ROOT, 'lib/studio/render'));
 
 const MAX_GOLD = 0.03;
 let bad = 0;
+
+/* letters used in Ghanaian and Nigerian names must be in the embedded Archivo or its Noto Sans fallback, at every weight */
+(function glyphCoverage() {
+  const { execFileSync } = require('child_process');
+  const py = "import sys\nfrom fontTools.ttLib import TTFont\nneed=sys.argv[1]\nfor k in sys.argv[2:]:\n    a=TTFont('lib/studio/fonts/'+k[0]).getBestCmap(); b=TTFont('lib/studio/fonts/'+k[1]).getBestCmap()\n    miss=[c for c in need if ord(c) not in a and ord(c) not in b]\n    print(k[0]+' '+''.join(miss))";
+  const pairs = [['Archivo-Regular.ttf', 'NotoSans-R-subset.ttf'], ['Archivo-Medium.ttf', 'NotoSans-M-subset.ttf'], ['Archivo-SemiBold.ttf', 'NotoSans-SB-subset.ttf'],
+    ['Archivo-Bold.ttf', 'NotoSans-B-subset.ttf'], ['ArchivoExpanded-ExtraBold.ttf', 'NotoSans-XB-subset.ttf'], ['ArchivoExpanded-Black.ttf', 'NotoSans-XK-subset.ttf']];
+  const need = 'ɔɛɖʋƆƐƉƲŊŋƒƑ₵ẹọṣẸỌṢéèêëáàâãíìîóòôõúùûñçÉÈÀÓÚ’“”–·&';
+  const args = ['-I', '-c', py, need].concat(pairs.map((p) => p.join('|')));
+  /* each argument is "archivo|noto"; split inside python for brevity */
+  const code = py.replace("a=TTFont('lib/studio/fonts/'+k[0]).getBestCmap(); b=TTFont('lib/studio/fonts/'+k[1]).getBestCmap()", "x=k.split('|'); a=TTFont('lib/studio/fonts/'+x[0]).getBestCmap(); b=TTFont('lib/studio/fonts/'+x[1]).getBestCmap()").replace("print(k[0]+' '+''.join(miss))", "print(x[0]+' '+''.join(miss))");
+  try {
+    const out = execFileSync('python3', ['-I', '-c', code, need].concat(pairs.map((p) => p.join('|'))), { cwd: ROOT }).toString().trim().split('\n');
+    out.forEach((l) => { const [f, ...m] = l.split(' '); if (m.join('')) { console.log('glyphs: ' + f + ' is missing ' + m.join('')); bad++; } });
+    console.log('glyph coverage: checked ' + need.length + ' letters at ' + pairs.length + ' weights');
+  } catch (e) { console.log('glyph coverage check could not run (needs python3 and fontTools): ' + e.message.split('\n')[0]); }
+})();
 ['lib/studio/app.html', 'api/studio.js', 'api/studio-render.js', 'api/studio-links.js', 'api/studio-library.js', 'api/t.js', 'lib/studio/data.json'].forEach((f) => {
   const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
   if (/c9a24a|rgba?\(\s*201\s*,\s*162/i.test(src)) { console.log('source: ' + f + ' uses the gold colour; it belongs in render.js only'); bad++; }
@@ -24,7 +41,7 @@ const jobs = [
   ['sponsor', { name: 'Test Partner', tier: 'Silver Sponsor', role: 'Role' }],
   ['quote', { quote: 'A quote.', name: 'Test Person', title: 'Title', company: 'Company', movement: 'Build Your Work' }],
   ['countdown', {}],
-  ['earlybird', { price: 'GH₵100', deadline: '2026-10-31' }],
+  ['earlybird', { price: 'GH₵100', priceAfter: 'GH₵150', deadline: '2026-10-31' }],
   ['session', { title: 'Session title', time: '10:45–11:15', movement: 'Build Your Team', speakers: 'Nobody Known · Another Person' }]
 ];
 (async () => {
