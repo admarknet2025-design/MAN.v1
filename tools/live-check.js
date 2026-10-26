@@ -1,6 +1,6 @@
 /* Checks for DMC Live that need no server, no browser and no store:  node tools/live-check.js
    The word filter (false positives and evasions), word normalisation, plain-text cleaning, the programme data the sponsor rule relies on,
-   and a scan of every Live file for the one colour that must never appear. Exits 1 on any failure. */
+   and where Akan Gold may appear and that nothing outside the brand palette does. Exits 1 on any failure. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -34,16 +34,18 @@ const sponsors = live.DATA.people.filter((p) => p.sponsor).map((p) => p.name + '
 ok('sponsor representatives are flagged in the data', sponsors.length >= 3 && sponsors.some((s) => /MojoPay/.test(s)), sponsors);
 ok('every session has a start time and a format', live.DATA.sessions.every((s) => s.start && (s.format || s.badge)));
 
-/* ---- no gold, anywhere in DMC Live ---- */
+/* ---- Akan Gold: a small accent on the audience-facing pages and cards only (as on the DMC Studio flyers) ---- */
 const files = ['lib/live', 'api', 'tools/live-cards', 'assets'].flatMap((d) => {
   const dir = path.join(root, d);
   return fs.readdirSync(dir, { withFileTypes: true }).filter((e) => e.isFile() && /(live|_live).*\.(js|html|txt|css)$|^(phone|screen|control|cards|filter-core|blocklist)\./.test(e.name)).map((e) => path.join(dir, e.name));
 }).concat([path.join(root, 'tools/live-cards-check.js'), path.join(root, 'tools/live-load-test.js')]);
-const gold = files.filter((f) => /c9a24a|akan gold/i.test(fs.readFileSync(f, 'utf8')) && !/live-cards-check\.js$/.test(f));
-ok('no Akan Gold (#C9A24A) in any Live file (' + files.length + ' files scanned)', gold.length === 0, gold);
+const GOLD_OK = new Set(['lib/live/phone.html', 'lib/live/screen.html', 'tools/live-cards/cards.js', 'assets/live-cards.js', 'tools/live-cards-check.js']);
+const goldIn = files.filter((f) => /c9a24a/i.test(fs.readFileSync(f, 'utf8'))).map((f) => path.relative(root, f));
+ok('gold appears only on the phone page, the screen page and the card maker (the operator panel and the server stay gold-free)', goldIn.every((f) => GOLD_OK.has(f)), goldIn);
+ok('gold is used on the phone page, the screen page and the cards', ['lib/live/phone.html', 'lib/live/screen.html', 'tools/live-cards/cards.js'].every((f) => goldIn.indexOf(f) >= 0), goldIn);
 const hex = new Set();
 files.filter((f) => /\.(html|js)$/.test(f) && !/live-check|live-cards-check/.test(f)).forEach((f) => (fs.readFileSync(f, 'utf8').match(/#[0-9a-fA-F]{6}\b/g) || []).forEach((h) => hex.add(h.toUpperCase())));
-const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#FFFFFF', '#000000', '#262626', '#303030']);
+const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030']);
 ok('only brand colours and neutral greys appear as hex values', [...hex].every((h) => palette.has(h)), [...hex].filter((h) => !palette.has(h)));
 
 console.log(passes + ' passed, ' + fails + ' failed');

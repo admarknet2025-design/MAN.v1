@@ -32,7 +32,7 @@ const EVENT_END = Math.floor(Date.UTC(2026, 10, 21, 23, 59, 59) / 1000);
 const KEEP = EVENT_END + 30 * 86400;        /* device ids and everything else */
 const KEEP_WALL = EVENT_END + 90 * 86400;   /* Build Wall entries (opt-in contacts for the What I Built cards) */
 
-/* ---- brand: the movements and their fixed accent colours (no gold anywhere in DMC Live) ---- */
+/* ---- brand: the movements and their fixed accent colours (gold is only a small accent: kente strips, rings, tag chips) ---- */
 const COLOURS = { ob: '#1C1C1C', cr: '#F4EFE6', te: '#2A7B74', co: '#D95F45' };
 const MOVEMENTS = {
   'Build Yourself': { cloud: 'yourself', accent: COLOURS.te, ink: '#FFFFFF' },

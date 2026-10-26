@@ -19,7 +19,7 @@ Operator instructions: [live-operator-guide.md](live-operator-guide.md). This pa
 5. **Build Wall.** "What are you building?" (120 characters), optional contact with an opt-in tick box for the What I Built card. Approved entries scroll on the screen. CSV export.
 6. **Quote cards.** Official quotes (verified by the operator, with speaker name, title, photo) and "My takeaway" cards (the attendee's own words, attributed to them). Three layouts, two sizes, drawn on the phone.
 
-Brand rules enforced in code and by `tools/live-check.js`: Obsidian `#1C1C1C`, Signal Cream `#F4EFE6`, Build Teal `#2A7B74`, Pulse Coral `#D95F45`, Archivo (expanded, heavy), kente-strip dividers. **No Akan Gold (`#C9A24A`) anywhere**: phones, screen, cards. Each movement has a fixed accent: Build Yourself teal, Build Your Team coral, Build Your Work cream.
+Brand rules enforced in code and by `tools/live-check.js`: Obsidian `#1C1C1C`, Signal Cream `#F4EFE6`, Build Teal `#2A7B74`, Pulse Coral `#D95F45`, Archivo (expanded, heavy), kente-strip dividers. Akan Gold (`#C9A24A`) is a small accent only, as on the DMC Studio flyers (added at the team's request on 26 October; the original brief said none): the fourth kente segment on every strip, the ring round the speaker photo or initials on cards, the opening quote mark on dark card panels, the tag chips on the screen, and the rings on the phone's speaker initials. It never fills a large area (cards are tested to stay under 3%), and the operator panel and the server stay gold-free, like the Studio's own page. Each movement has a fixed accent: Build Yourself teal, Build Your Team coral, Build Your Work cream.
 
 ## Realtime: why polling, not a hosted realtime service
 
@@ -94,8 +94,8 @@ No tracking beyond the existing analytics. Device hashes and everything else exp
 
 | Command | What it proves |
 |---|---|
-| `node tools/live-check.js` | word filter (false positives and evasions), normalisation, programme data, no gold, palette |
-| `node tools/live-cards-check.js [dir]` | 114 card renders (shortest and longest text, long names, no photo, each movement colour, three layouts, both sizes), no text cut, no gold pixel, a contact sheet, phone/server filter parity |
+| `node tools/live-check.js` | word filter (false positives and evasions), normalisation, programme data, gold only where allowed, palette |
+| `node tools/live-cards-check.js [dir]` | 114 card renders (shortest and longest text, long names, no photo, each movement colour, three layouts, both sizes), no text cut, gold under 3% of every card, a contact sheet, phone/server filter parity |
 | `tools/live-dryrun.js` | all six features through the real phone, operator and screen pages, with screenshots |
 | `tools/live-offline-check.js` | first load under 150 KB, offline outbox, card maker offline |
 | `tools/live-a11y-check.js` | axe-core on every phone state, screen mode and operator tab |

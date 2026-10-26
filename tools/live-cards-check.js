@@ -1,7 +1,7 @@
 /* Render tests for the DMC Live quote cards, in a real browser (Playwright + Chromium; nothing else needed, no server).
      node tools/live-cards-check.js [outdir]
    Draws every combination that matters: the shortest and longest text of each type, long names, a missing photo, Twi letters, an emoji,
-   each movement colour, three layouts, both sizes. Fails if any text had to be cut, if any pixel is gold, or if a card is blank.
+   each movement colour, three layouts, both sizes. Fails if any text had to be cut, if gold covers more than 3% of a card (it is an accent only), or if a card is blank.
    Writes the cards and a contact sheet (contact-sheet-4x5.png, contact-sheet-9x16.png) to outdir (default: ./live-cards-out). */
 'use strict';
 const fs = require('fs');
@@ -50,9 +50,9 @@ add('rehearsal', { type: 'official', rehearsal: true, session: sess('teal'), tex
         const spec = Object.assign({}, k, { size, layout, photo: photoImg, accent: k.session.accent, ink: k.session.ink, qr: 'https://mangh.org/t/abc123' });
         const o = D.render(c, spec);
         const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
-        let gold = 0, nonBlank = 0;
-        for (let i = 0; i < d.length; i += 4 * 7) { const dr = d[i] - 0xC9, dg = d[i + 1] - 0xA2, db = d[i + 2] - 0x4A; if (dr * dr + dg * dg + db * db < 900) gold++; if (d[i] + d[i + 1] + d[i + 2] > 60) nonBlank++; }
-        res.push({ id: k.id, size, layout, fits: o.fits, fontSize: o.size, lines: o.lines, gold, nonBlank, url: c.toDataURL('image/png') });
+        let gold = 0, nonBlank = 0, seen = 0;
+        for (let i = 0; i < d.length; i += 4 * 7) { seen++; const dr = d[i] - 0xC9, dg = d[i + 1] - 0xA2, db = d[i + 2] - 0x4A; if (dr * dr + dg * dg + db * db < 900) gold++; if (d[i] + d[i + 1] + d[i + 2] > 60) nonBlank++; }
+        res.push({ id: k.id, size, layout, fits: o.fits, fontSize: o.size, lines: o.lines, gold: gold / seen, nonBlank, url: c.toDataURL('image/png') });
       }
     }
     return res;
@@ -67,9 +67,9 @@ add('rehearsal', { type: 'official', rehearsal: true, session: sess('teal'), tex
   console.log('filter parity: ' + corpus.length + ' strings agree between phone and server');
   results.forEach((r) => {
     fs.writeFileSync(path.join(out, r.id + '-' + r.layout + '-' + r.size + '.png'), Buffer.from(r.url.split(',')[1], 'base64'));
-    if (!r.fits || r.gold || r.nonBlank < 1000) { bad++; console.log('FAIL', r.id, r.layout, r.size, { fits: r.fits, gold: r.gold, nonBlank: r.nonBlank }); }
+    if (!r.fits || r.gold > 0.03 || r.gold === 0 || r.nonBlank < 1000) { bad++; console.log('FAIL', r.id, r.layout, r.size, { fits: r.fits, gold: r.gold, nonBlank: r.nonBlank }); }
   });
-  console.log(results.length + ' cards drawn, ' + bad + ' failed. Smallest text size used: ' + Math.min.apply(null, results.map((r) => r.fontSize)) + 'px');
+  console.log(results.length + ' cards drawn, ' + bad + ' failed. Smallest text size used: ' + Math.min.apply(null, results.map((r) => r.fontSize)) + 'px. Most gold on any card: ' + (Math.max.apply(null, results.map((r) => r.gold)) * 100).toFixed(2) + '%');
   for (const size of ['4x5', '9x16']) {
     const list = results.filter((r) => r.size === size);
     const cell = size === '4x5' ? [216, 270] : [216, 384];

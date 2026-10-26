@@ -7,7 +7,9 @@
      takeaway   an attendee's own words, attributed to them ("— Ama, at DMC 2026"); the session and speakers appear only as
                 context ("From: ... Discussion with ..."), never as the author of the words
    Three layouts (Bold, Portrait, Night) in two sizes (1080x1350, 1080x1920) that read as one set.
-   Palette: Obsidian, Signal Cream, Build Teal, Pulse Coral. No gold anywhere. */
+   Palette: Obsidian, Signal Cream, Build Teal, Pulse Coral, plus a touch of Akan Gold as on the DMC Studio flyers: the fourth kente segment, the ring
+   round the photo or initials, and the opening quote mark on dark panels. Gold is an accent only and never fills a large area
+   (tools/live-cards-check.js fails if it covers more than 3% of any card). */
 import qrcode from 'qrcode-generator';
 import { compile, hits } from '../../lib/live/filter-core.js';
 import BASE_LIST from '../../lib/live/blocklist.txt';
@@ -18,7 +20,7 @@ import F_MED from './fonts/Archivo-Medium.woff2';
 import F_NB from './fonts/NotoSans-B-subset.woff2';
 import F_NM from './fonts/NotoSans-M-subset.woff2';
 
-const OB = '#1C1C1C', CR = '#F4EFE6', TE = '#2A7B74', CO = '#D95F45';
+const OB = '#1C1C1C', CR = '#F4EFE6', TE = '#2A7B74', CO = '#D95F45', GO = '#C9A24A';
 const W = 1080, M = 72, STRIP = 44;
 const SIZES = { '4x5': 1350, '9x16': 1920 };
 const LAYOUTS = [{ id: 'bold', name: 'Bold' }, { id: 'portrait', name: 'Portrait' }, { id: 'night', name: 'Night' }];
@@ -107,8 +109,8 @@ function spaced(ctx, text, x, y, gap, align) {
 }
 function kente(ctx, x, y, w, h) {
   ctx.fillStyle = OB; ctx.fillRect(x, y, w, h);
-  const cols = [TE, CO, CR]; const bh = Math.round(h * 0.5); const by = y + Math.round((h - bh) / 2);
-  for (let i = 0, cx = x + 6; cx < x + w; i++, cx += 60) { ctx.fillStyle = cols[i % 3]; ctx.fillRect(cx, by, Math.min(54, x + w - cx), bh); }
+  const cols = [GO, TE, CO, CR]; const bh = Math.round(h * 0.5); const by = y + Math.round((h - bh) / 2);
+  for (let i = 0, cx = x + 6; cx < x + w; i++, cx += 60) { ctx.fillStyle = cols[i % 4]; ctx.fillRect(cx, by, Math.min(54, x + w - cx), bh); }
 }
 function circle(ctx, cx, cy, r) { ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.closePath(); }
 function cover(ctx, img, x, y, w, h, focusY) {
@@ -171,7 +173,7 @@ function render(canvas, spec) {
     if (spec.type === 'official' && spec.photo) { cover(ctx, spec.photo, 0, hy, W, heroH, 0.18); }
     else {
       ctx.fillStyle = OB; ctx.fillRect(0, hy, W, heroH);
-      ctx.fillStyle = accent; ctx.font = X(900, 420); ctx.textBaseline = 'top'; ctx.fillText(spec.type === 'official' ? initials(d.avatar).toUpperCase() : '“', M, hy - (spec.type === 'official' ? 20 : 70));
+      ctx.fillStyle = spec.type === 'official' ? accent : GO; ctx.font = X(900, 420); ctx.textBaseline = 'top'; ctx.fillText(spec.type === 'official' ? initials(d.avatar).toUpperCase() : '“', M, hy - (spec.type === 'official' ? 20 : 70));
       ctx.textBaseline = 'alphabetic';
       const mv = spec.session && spec.session.movement ? spec.session.movement.toUpperCase() : 'DMC 2026';
       const f = fit(ctx, mv, (p) => X(900, p), { w: W - 2 * M, h: tall ? 200 : 150 }, 44, 92, 1.05);
@@ -197,7 +199,8 @@ function render(canvas, spec) {
   const tx = M + (hasAvatar ? AV + 30 : 0), tw = W - M - tx;
   if (hasAvatar) {
     const cx = M + AV / 2, cy = ay + AH / 2;
-    if (night) { ctx.fillStyle = accent; circle(ctx, cx, cy, AV / 2 + 7); ctx.fill(); }
+    ctx.fillStyle = OB; circle(ctx, cx, cy, AV / 2 + 11); ctx.fill();          /* gold ring with a thin obsidian edge, so it reads on teal, coral and cream */
+    ctx.fillStyle = GO; circle(ctx, cx, cy, AV / 2 + 7); ctx.fill();
     ctx.save(); circle(ctx, cx, cy, AV / 2); ctx.clip();
     if (spec.type === 'official' && spec.photo) cover(ctx, spec.photo, cx - AV / 2, cy - AV / 2, AV, AV, 0.15);
     else {
@@ -206,7 +209,6 @@ function render(canvas, spec) {
       ctx.fillText(initials(d.avatar).toUpperCase() || '·', cx, cy + 4); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
     }
     ctx.restore();
-    if (!night) { ctx.strokeStyle = OB; ctx.lineWidth = 6; circle(ctx, cx, cy, AV / 2); ctx.stroke(); }
   }
   const n1 = oneLine(ctx, d.l1, (p) => X(900, p), tw, 40, 22);
   ctx.fillStyle = fg; ctx.font = X(900, n1.size); ctx.fillText(n1.text, tx, ay + 42);
@@ -221,7 +223,7 @@ function render(canvas, spec) {
   /* the words: quote mark, then text fitted to whatever room is left */
   const qy = ly + 14;
   const qSize = layout === 'portrait' ? 0 : (tall ? 230 : 190);
-  if (qSize) { ctx.fillStyle = night ? accent : OB; ctx.font = X(900, qSize); ctx.textBaseline = 'top'; ctx.fillText('“', M - 6, qy - qSize * 0.08); ctx.textBaseline = 'alphabetic'; }
+  if (qSize) { ctx.fillStyle = night ? GO : OB; ctx.font = X(900, qSize); ctx.textBaseline = 'top'; ctx.fillText('“', M - 6, qy - qSize * 0.08); ctx.textBaseline = 'alphabetic'; }
   const barW = night ? 18 : 0;
   const bx = M + (night ? barW + 34 : 0);
   const ty = qy + (qSize ? qSize * 0.62 : 24);
