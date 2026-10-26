@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>DMC Live · Screen</title>
+<style>
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:block;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:block;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
+/* 16:9 stage: 80rem x 45rem, scaled to fit whatever the projector is (24px per rem at 1920x1080) */
+html{font-size:min(1.25vw,2.2222vh);background:#000}
+*{box-sizing:border-box;margin:0}
+body{background:#000;color:#F4EFE6;font:500 1.15rem/1.3 'Archivo',system-ui,sans-serif;width:100vw;height:100vh;display:grid;place-items:center;overflow:hidden;cursor:none}
+#stage{position:relative;width:80rem;height:45rem;background:#1C1C1C;overflow:hidden}
+:root{--ob:#1C1C1C;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--ac:#2A7B74}
+.disp{font-family:'Archivo Black','Archivo',sans-serif;font-weight:400;letter-spacing:.01em}
+.kente{position:absolute;left:0;right:0;height:.6rem;background:repeating-linear-gradient(90deg,#C9A24A 0 1rem,#1C1C1C 1rem 1.12rem,#2A7B74 1.12rem 2.12rem,#1C1C1C 2.12rem 2.24rem,#D95F45 2.24rem 3.24rem,#1C1C1C 3.24rem 3.36rem,#F4EFE6 3.36rem 4.36rem,#1C1C1C 4.36rem 4.48rem)}
+#topk{top:0}#botk{bottom:0}
+#lock{position:absolute;left:2.4rem;top:1.5rem;font-size:1.5rem}
+#lock small{display:block;font:700 .62rem/1.2 'Archivo',sans-serif;letter-spacing:.26em;color:rgba(244,239,230,.78);margin-top:.2rem}
+#join{position:absolute;right:2.4rem;bottom:1.4rem;font:700 1.05rem/1 'Archivo',sans-serif;letter-spacing:.06em;color:rgba(244,239,230,.88)}
+#rehearsal{position:absolute;left:50%;top:0;transform:translateX(-50%);background:#D95F45;color:#1C1C1C;font:800 .9rem/1 'Archivo',sans-serif;letter-spacing:.14em;padding:.45rem 1.2rem;display:none;z-index:9}
+#view{position:absolute;left:0;right:0;top:5.2rem;bottom:3.2rem;padding:0 2.4rem}
+.fade{animation:fade .6s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(.6rem)}to{opacity:1;transform:none}}
+h1.prompt{font-size:2.5rem;line-height:1.1;max-width:68rem}
+.tag{display:inline-block;background:#C9A24A;color:#1C1C1C;font:800 .85rem/1 'Archivo',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:.45rem .75rem;margin-bottom:.7rem}
+.tag.dark{color:#1C1C1C}
+/* holding */
+.hold{height:100%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem}
+.hold h1{font-size:4.6rem;line-height:1.02}
+.hold p{font-size:1.5rem;color:rgba(244,239,230,.85);margin-top:1rem}
+.hold .now{margin-top:2.2rem;border-left:.5rem solid var(--ac);padding-left:1rem;font-size:1.3rem;max-width:34rem}
+.qrbox{background:#F4EFE6;padding:1.1rem;width:17rem}
+.qrbox svg,.qrbox img{display:block;width:100%;height:auto}
+.qrbox div{color:#1C1C1C;font:800 1rem/1.2 'Archivo',sans-serif;text-align:center;margin-top:.6rem;letter-spacing:.04em}
+/* word cloud */
+.cloudwrap{position:relative;width:100%;height:calc(100% - 5.6rem);margin-top:.6rem}
+.w{position:absolute;white-space:nowrap;line-height:1;font-family:'Archivo Black','Archivo',sans-serif;transition:left .9s ease,top .9s ease,font-size .9s ease,opacity .6s ease,transform .6s ease;transform-origin:left top}
+.w.new{animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+.count{position:absolute;right:2.4rem;top:1.7rem;font:700 1rem/1 'Archivo',sans-serif;color:rgba(244,239,230,.8)}
+/* finale */
+.fin{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;height:100%}
+.fin .col{border-top:.45rem solid var(--ac);padding-top:.6rem;position:relative}
+.fin h2{font-size:1.25rem;line-height:1.15;min-height:3rem}
+.fin .cloudwrap{height:calc(100% - 3.6rem)}
+/* Q&A */
+.qlist{list-style:none;padding:0;display:grid;gap:.8rem;margin-top:1rem}
+.qlist li{display:grid;grid-template-columns:5.5rem 1fr;gap:1.2rem;align-items:center;background:#262626;border-left:.5rem solid var(--ac);padding:.9rem 1.2rem}
+.qlist .v{font:400 2.4rem/1 'Archivo Black',sans-serif;text-align:center;color:var(--ac)}
+.qlist .v small{display:block;font:700 .6rem/1 'Archivo',sans-serif;letter-spacing:.14em;color:rgba(244,239,230,.75);margin-top:.3rem}
+.qlist .t{font-size:1.55rem;line-height:1.2;font-weight:700}
+.qlist .t small{display:block;font-size:.95rem;color:rgba(244,239,230,.75);font-weight:500;margin-top:.25rem}
+.iview .qlist .t{font-size:2.5rem;line-height:1.12}
+.iview .qlist li{padding:1.4rem 1.6rem;grid-template-columns:7rem 1fr}
+.iview .qlist .v{font-size:3.6rem}
+.pin{font:800 .6rem/1 'Archivo',sans-serif;letter-spacing:.14em;background:var(--te);color:#fff;padding:.2rem .4rem;margin-right:.5rem;vertical-align:.25em}
+/* poll */
+.bars{display:grid;gap:1rem;margin-top:1.4rem}
+.bar{position:relative;background:#262626;height:4.4rem;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--ac);transition:width .9s ease;opacity:.95}
+.bar span{position:absolute;left:1.2rem;top:50%;transform:translateY(-50%);font:700 1.7rem/1 'Archivo',sans-serif;color:#F4EFE6;text-shadow:0 0 .4rem #1C1C1C}
+.bar b{position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);font:400 2.2rem/1 'Archivo Black',sans-serif;color:#F4EFE6;text-shadow:0 0 .4rem #1C1C1C}
+.swing{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.swing h3{font-size:1rem;letter-spacing:.2em;text-transform:uppercase;margin-top:1rem;color:rgba(244,239,230,.82);font-family:'Archivo',sans-serif;font-weight:800}
+.shift{position:absolute;right:2.4rem;top:1.2rem;text-align:right}
+.shift b{display:block;font:400 4.4rem/1 'Archivo Black',sans-serif;color:var(--ac)}
+.shift span{font:800 1rem/1.2 'Archivo',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.total{font:700 1rem/1 'Archivo',sans-serif;color:rgba(244,239,230,.8);margin-top:1rem}
+/* wall */
+.wallbox{position:absolute;left:2.4rem;right:2.4rem;top:7rem;bottom:0;overflow:hidden;mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
+.wallcol{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.2rem;animation:scroll var(--dur,60s) linear infinite}
+@keyframes scroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.wi{background:#262626;border-left:.4rem solid var(--ac);padding:.8rem 1rem}
+.wi b{display:block;font:400 1.2rem/1.1 'Archivo Black',sans-serif;color:var(--cr)}
+.wi span{font-size:1.25rem;line-height:1.2;font-weight:600}
+/* takeaways & quote */
+.tks{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.2rem}
+.tk{background:#262626;border-top:.5rem solid var(--ac);padding:1.2rem 1.3rem;min-height:9rem}
+.tk q{display:block;font:800 1.55rem/1.2 'Archivo',sans-serif;quotes:'\201C' '\201D'}
+.tk b{display:block;margin-top:.8rem;font:700 1rem/1 'Archivo',sans-serif;color:rgba(244,239,230,.85);letter-spacing:.04em}
+.bigq{height:100%;display:flex;flex-direction:column;justify-content:center;border-left:.8rem solid var(--ac);padding-left:2.4rem}
+.bigq q{font:800 3.1rem/1.12 'Archivo',sans-serif;font-stretch:112%;quotes:'\201C' '\201D';max-width:62rem}
+.bigq b{margin-top:1.6rem;font:400 1.7rem/1.1 'Archivo Black',sans-serif}
+.bigq small{display:block;margin-top:.4rem;font-size:1.05rem;color:rgba(244,239,230,.85)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="kente" id="topk" aria-hidden="true"></div>
+  <header><div id="rehearsal">REHEARSAL</div>
+  <div id="lock" class="disp">DMC 2026<small>BUILT TO SCALE</small></div>
+  <div class="count" id="count"></div></header>
+  <main id="view" aria-live="polite" aria-label="DMC Live"></main>
+  <footer><div id="join"></div></footer>
+  <div class="kente" id="botk" aria-hidden="true"></div>
+</div>
+<script src="/assets/live-qr.js?v=1"></script>
+<script>
+(function () {
+'use strict';
+var $ = function (id) { return document.getElementById(id); };
+function h(tag, attrs) {
+  var e = document.createElement(tag);
+  if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'class') e.className = attrs[k]; else if (k === 'text') e.textContent = attrs[k]; else e.setAttribute(k, attrs[k]); });
+  (function add(list) { for (var i = 0; i < list.length; i++) { var c = list[i]; if (c == null || c === false) continue; if (Array.isArray(c)) add(c); else e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); } }(Array.prototype.slice.call(arguments, 2)));
+  return e;
+}
+var view = $('view'), cur = '', ST = null;
+var ACC = { 'Build Yourself': '#2A7B74', 'Build Your Team': '#D95F45', 'Build Your Work': '#F4EFE6' };
+function setAc(c) { $('stage').style.setProperty('--ac', c || '#2A7B74'); }
+function darkTag(c) { return c === '#F4EFE6' ? ' dark' : ''; }
+
+/* ---- QR ---- */
+/* where the QR points: mangh.org in production; on a preview or a local copy, that copy (so the code opens what you are looking at) */
+var JOIN_URL = (/^(www\.)?mangh\.org$/.test(location.hostname) ? 'https://mangh.org' : location.origin) + '/live';
+var JOIN = JOIN_URL.replace(/^https?:\/\//, '');
+document.getElementById('join').textContent = JOIN;
+function qrSvg(text, px) {
+  var q = window.qrcode(0, 'M'); q.addData(text); q.make();
+  var n = q.getModuleCount(), d = '';
+  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + c + ' ' + r + 'h1v1h-1z';
+  var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 ' + n + ' ' + n); s.setAttribute('shape-rendering', 'crispEdges'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'QR code for ' + text);
+  var p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', d); p.setAttribute('fill', '#1C1C1C'); s.appendChild(p); return s;
+}
+
+/* ---- word cloud: biggest in the middle, no overlaps, glides to new places as words arrive ---- */
+var measureCtx = document.createElement('canvas').getContext('2d');
+function cloudLayout(words, W, H, rem) {
+  var max = Math.max.apply(null, words.map(function (w) { return w.n; }).concat([1])), min = Math.min.apply(null, words.map(function (w) { return w.n; }).concat([max]));
+  var big = Math.min(H * 0.34, rem * 6.4), small = rem * 1.5;
+  var placed = [], out = [];
+  words.slice().sort(function (a, b) { return b.n - a.n || a.w.localeCompare(b.w); }).forEach(function (w) {
+    var t = max === min ? 1 : Math.sqrt((w.n - min) / (max - min));
+    var size = small + (big - small) * t;
+    var box;
+    for (var tries = 0; tries < 3; tries++) {
+      measureCtx.font = size + 'px "Archivo Black", Archivo, sans-serif';
+      var tw = measureCtx.measureText(w.w).width, th = size * 1.02;
+      var a = 0, found = null;
+      while (a < 900 && !found) {
+        var r = a * 0.9, ang = a * 0.35;
+        var x = W / 2 + r * Math.cos(ang) * 1.9 - tw / 2, y = H / 2 + r * Math.sin(ang) * 0.9 - th / 2;
+        a++;
+        if (x < 0 || y < 0 || x + tw > W || y + th > H) continue;
+        var hit = placed.some(function (p) { return !(x + tw + 8 < p.x || x > p.x + p.w + 8 || y + th + 6 < p.y || y > p.y + p.h + 6); });
+        if (!hit) found = { x: x, y: y, w: tw, h: th };
+      }
+      if (found) { box = found; break; }
+      size *= 0.82;
+    }
+    if (box) { placed.push(box); out.push({ w: w.w, n: w.n, x: box.x, y: box.y, size: size }); }
+  });
+  return out;
+}
+function drawCloud(wrap, words, accent) {
+  var W = wrap.clientWidth, H = wrap.clientHeight, rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  var els = wrap._els || (wrap._els = {});
+  var lay = cloudLayout(words, W, H, rem), seen = {};
+  lay.forEach(function (p) {
+    seen[p.w] = 1;
+    var e = els[p.w];
+    if (!e) { e = els[p.w] = h('span', { class: 'w new', text: p.w }); wrap.appendChild(e); e.style.left = p.x + 'px'; e.style.top = p.y + 'px'; e.style.fontSize = p.size + 'px'; }
+    e.style.left = p.x + 'px'; e.style.top = p.y + 'px'; e.style.fontSize = p.size + 'px'; e.style.color = accent;
+  });
+  Object.keys(els).forEach(function (k) { if (!seen[k]) { els[k].remove(); delete els[k]; } });
+}
+
+/* ---- modes ---- */
+var modes = {
+  holding: function (st) {
+    var root = h('div', { class: 'hold fade' });
+    var left = h('div', null, h('h1', { class: 'disp', text: 'Scan to join' }), h('p', { text: 'Questions, polls, word clouds and your own quote cards, from your phone. No app, no login.' }));
+    if (st.session) left.appendChild(h('div', { class: 'now' }, h('div', { style: 'font:800 .8rem/1 Archivo,sans-serif;letter-spacing:.2em;color:rgba(244,239,230,.78)', text: 'NOW' }), st.session.title));
+    var box = h('div', { class: 'qrbox' }, qrSvg(JOIN_URL), h('div', { text: JOIN }));
+    root.append(left, box); setAc(st.session ? st.session.accent : '#2A7B74'); return { el: root };
+  },
+  cloud: function (st) {
+    var c = st.cloud; setAc(c.accent);
+    var wrap = h('div', { class: 'cloudwrap' });
+    var root = h('div', { class: 'fade', style: 'height:100%' }, h('span', { class: 'tag' + darkTag(c.accent), text: c.movement }), h('h1', { class: 'prompt disp', text: c.prompt }), wrap);
+    return { el: root, update: function (s) { drawCloud(wrap, s.cloud.words, s.cloud.accent); $('count').textContent = s.cloud.words.reduce(function (a, w) { return a + w.n; }, 0) + ' words'; }, after: function (s) { this.update(s); } };
+  },
+  finale: function (st) {
+    var wraps = [];
+    var root = h('div', { class: 'fin fade' });
+    st.clouds.forEach(function (c) {
+      var wrap = h('div', { class: 'cloudwrap' }); wraps.push(wrap);
+      var col = h('div', { class: 'col' }, h('h2', { class: 'disp', text: c.movement }), wrap); col.style.setProperty('--ac', c.accent); root.appendChild(col);
+    });
+    return { el: root, update: function (s) { s.clouds.forEach(function (c, i) { drawCloud(wraps[i], c.words, c.accent); }); }, after: function (s) { this.update(s); } };
+  },
+  qa: function (st, interview) {
+    setAc(st.session ? st.session.accent : '#2A7B74');
+    var list = h('ul', { class: 'qlist' });
+    var root = h('div', { class: 'fade' + (interview ? ' iview' : ''), style: 'height:100%' }, h('span', { class: 'tag' + darkTag(st.session && st.session.accent), text: interview ? 'Interview mode · top questions' : 'Ask the panel' }),
+      h('h1', { class: 'prompt disp', text: st.title || 'Questions from the room', style: 'font-size:' + (interview ? '2rem' : '2.1rem') }), list);
+    function fill(s) {
+      list.textContent = '';
+      if (!s.questions.length) list.appendChild(h('li', null, h('div', { class: 'v', text: '?' }), h('div', { class: 't', text: 'Send your question at ' + JOIN })));
+      s.questions.forEach(function (q) { list.appendChild(h('li', null, h('div', { class: 'v' }, String(q.votes), h('small', { text: 'VOTES' })), h('div', { class: 't' }, q.pinned ? h('span', { class: 'pin', text: 'PINNED' }) : null, q.text, h('small', { text: q.name })))); });
+    }
+    fill(st);
+    return { el: root, update: fill };
+  },
+  interview: function (st) { return modes.qa(st, true); },
+  poll: function (st) {
+    var p = st.poll; if (!p) return modes.holding(st);
+    setAc(st.session ? st.session.accent : '#2A7B74');
+    var root = h('div', { class: 'fade', style: 'height:100%;position:relative' });
+    var inner = h('div'); root.appendChild(inner);
+    function bars(p2, title) {
+      var box = h('div'); if (title) box.appendChild(h('h3', { text: title }));
+      var total = p2.total || 0, bw = h('div', { class: 'bars' });
+      p2.options.forEach(function (o, i) {
+        var pct = total && p2.counts ? Math.round(p2.counts[i] / total * 100) : 0;
+        var bar = h('div', { class: 'bar' }, h('i', { style: 'width:' + (p2.counts ? pct : 0) + '%' }), h('span', { text: o }), h('b', { text: p2.counts ? pct + '%' : '' }));
+        bw.appendChild(bar);
+      });
+      box.appendChild(bw); box.appendChild(h('div', { class: 'total', text: p2.counts ? total + ' answers' : p2.open ? 'Voting is open: ' + JOIN : '' }));
+      return box;
+    }
+    function fill(s) {
+      inner.textContent = '';
+      var q = s.poll;
+      inner.appendChild(h('span', { class: 'tag' + darkTag(st.session && st.session.accent), text: s.swing ? 'The swing' : 'Live poll' }));
+      inner.appendChild(h('h1', { class: 'prompt disp', text: q.question, style: 'font-size:2.2rem' }));
+      if (s.swing && s.before) {
+        var sw = h('div', { class: 'shift' }, h('b', { text: s.swing.pct + '%' }), h('span', { text: 'changed their minds' }));
+        inner.appendChild(sw);
+        inner.appendChild(h('div', { class: 'swing' }, bars(s.before, 'Before'), bars(q, 'After')));
+      } else inner.appendChild(bars(q, ''));
+    }
+    fill(st);
+    return { el: root, update: fill };
+  },
+  wall: function (st) {
+    setAc(st.session ? st.session.accent : '#2A7B74');
+    var root = h('div', { class: 'fade', style: 'height:100%' }, h('span', { class: 'tag' + darkTag(st.session && st.session.accent), text: 'The Build Wall' }), h('h1', { class: 'prompt disp', text: 'What are you building?' }));
+    var box = h('div', { class: 'wallbox' }); root.appendChild(box);
+    var key = '';
+    function fill(s) {
+      var k = JSON.stringify(s.wall); if (k === key) return; key = k; box.textContent = '';
+      if (!s.wall.length) { box.appendChild(h('p', { style: 'font-size:1.6rem;color:rgba(244,239,230,.85)', text: 'Add yours at ' + JOIN })); return; }
+      var col = h('div', { class: 'wallcol' });
+      var items = s.wall.slice().reverse();
+      var rows = items.concat(items);
+      rows.forEach(function (w) { col.appendChild(h('div', { class: 'wi' }, h('b', { text: w.name }), h('span', { text: w.line }))); });
+      col.style.setProperty('--dur', Math.max(30, items.length * 4) + 's');
+      box.appendChild(col);
+    }
+    fill(st);
+    return { el: root, update: fill };
+  },
+  takeaways: function (st) {
+    setAc(st.session ? st.session.accent : '#2A7B74');
+    var grid = h('div', { class: 'tks' });
+    var root = h('div', { class: 'fade', style: 'height:100%' }, h('span', { class: 'tag' + darkTag(st.session && st.session.accent), text: 'Takeaways from the room' }), h('h1', { class: 'prompt disp', text: 'What people are taking home', style: 'font-size:2.1rem' }), grid);
+    var key = '';
+    function fill(s) {
+      var k = JSON.stringify(s.takeaways); if (k === key) return; key = k; grid.textContent = '';
+      s.takeaways.slice(0, 6).forEach(function (t) { grid.appendChild(h('div', { class: 'tk' }, h('q', { text: t.text }), h('b', { text: '— ' + t.name }))); });
+    }
+    fill(st);
+    return { el: root, update: fill };
+  },
+  quote: function (st) {
+    var q = st.quote; if (!q) return modes.holding(st);
+    setAc(st.session ? st.session.accent : '#2A7B74');
+    var root = h('div', { class: 'bigq fade' }, h('q', { text: q.text }), h('b', { text: q.speaker.name }), h('small', { text: q.speaker.title || '' }));
+    return { el: root };
+  }
+};
+
+/* a later full-screen takeover (for example a session-wide activity) registers here, one function per takeover type returning { el, update?, after? }: none are built yet */
+var TAKEOVERS = {};
+function render(st) {
+  ST = st;
+  $('rehearsal').style.display = st.rehearsal ? 'block' : 'none';
+  $('join').style.visibility = st.mode === 'holding' ? 'hidden' : 'visible';
+  $('count').textContent = st.mode === 'cloud' ? $('count').textContent : '';
+  var tk = st.takeover && TAKEOVERS[st.takeover.type];
+  var maker = tk || modes[st.mode] || modes.holding;
+  var key = (tk ? 'takeover:' + st.takeover.type + ':' : '') + st.mode + ':' + (st.cloud ? st.cloud.id : '') + (st.poll ? st.poll.id : '') + (st.quote ? st.quote.text : '') + (st.mode === 'qa' || st.mode === 'interview' ? st.title : '');
+  if (key !== cur) {
+    cur = key; view.textContent = '';
+    view.__m = maker(st); view.appendChild(view.__m.el);
+    if (view.__m.after) requestAnimationFrame(function () { view.__m.after(st); });
+  } else if (view.__m && view.__m.update) view.__m.update(st);
+}
+function poll() {
+  fetch('/api/live-state?view=screen').then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(render).catch(function (e) { if (e && e.stack && window.console) console.error('live', e.stack); }).then(function () { setTimeout(poll, 2000); });
+}
+document.fonts.load('40px "Archivo Black"').then(function () { return document.fonts.load('600 20px Archivo'); }).catch(function () {}).then(poll);
+document.addEventListener('keydown', function (e) { if (e.key === 'f' || e.key === 'F') { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } });
+window.addEventListener('resize', function () { if (view.__m && view.__m.update && ST) view.__m.update(ST); });
+}());
+</script>
+</body>
+</html>

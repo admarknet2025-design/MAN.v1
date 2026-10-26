@@ -1,0 +1,67 @@
+# DMC Live word filter. One entry per line; "#" starts a comment.
+# An entry matches that whole word or the word with a common ending (fucks, fucking, bitchy), so innocent words such as
+# "Scunthorpe", "therapist", "grape" and "Hancock" are not caught.
+# Put a "*" in front of the very worst words to block them anywhere inside another word (*fuck also catches "motherfucker").
+# An entry with a space ("wo maame") matches as a phrase. Accents and look-alike characters (f*ck, sh1t, a$$) are ignored.
+# Anything caught is held back for the operator in /live/control ("Flagged words"); nothing is shown on a screen or phone until released.
+# You can also add or remove entries live from /live/control without redeploying.
+
+# ---- English ----
+*fuck
+shit
+bullshit
+bitch
+bastard
+asshole
+arsehole
+dickhead
+dick
+cock
+pussy
+cunt
+whore
+slut
+*nigger
+*nigga
+*faggot
+fag
+retard
+rapist
+rape
+*motherfuck
+wanker
+twat
+bollocks
+prick
+penis
+vagina
+boob
+porn
+nazi
+hitler
+cum
+tits
+jizz
+dildo
+blowjob
+handjob
+kill yourself
+die bitch
+
+# ---- Ghanaian and Nigerian slang and insults (starter set; please review and extend with a native speaker) ----
+kwasia
+kwasea
+okwasea
+gyimi
+gyimifo
+nkwasiafo
+wo maame
+wo papa
+twe wo
+tweaa
+mumu
+ashawo
+ashewo
+olodo
+oloshi
+mugu

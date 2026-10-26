@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1C1C1C">
+<title>DMC Live · Control</title>
+<style>
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
+:root{--ob:#1C1C1C;--ob2:#262626;--ob3:#303030;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--ac:#2A7B74;--mut:rgba(244,239,230,.78);--line:rgba(244,239,230,.22)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--ob);color:var(--cr);font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:40px}
+h1,h2,h3{font-family:'Archivo Black',system-ui,sans-serif;font-weight:400;line-height:1.1}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--cr)}
+.kente{height:10px;background:repeating-linear-gradient(90deg,var(--te) 0 16px,var(--ob) 16px 18px,var(--co) 18px 34px,var(--ob) 34px 36px,var(--cr) 36px 52px,var(--ob) 52px 54px)}
+#bar{position:sticky;top:0;z-index:20;background:var(--ob);border-bottom:2px solid var(--line);padding:8px 12px}
+#bar .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#bar h1{font-size:18px}
+.counters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.counters span{background:var(--ob2);border:1px solid var(--line);padding:5px 9px;font-weight:700;font-size:14px}
+.counters b{font-family:'Archivo Black',sans-serif;font-weight:400;margin-left:4px}
+.btn{min-height:48px;padding:0 16px;background:var(--te);color:#fff;border:0;font-weight:800;letter-spacing:.04em;cursor:pointer;font-size:15px;text-transform:uppercase}
+.btn.cr{background:var(--cr);color:var(--ob)}
+.btn.co{background:var(--co);color:var(--ob)}
+.btn.ghost{background:transparent;border:2px solid var(--cr);color:var(--cr)}
+.btn.sm{min-height:38px;padding:0 12px;font-size:13px}
+.btn.big{min-height:72px;font-size:20px;flex:1}
+.btn.on{outline:4px solid var(--cr);outline-offset:-4px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+nav{border-bottom:1px solid var(--line);background:var(--ob)}
+#tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px}
+nav button{flex:0 0 auto;background:var(--ob2);border:2px solid transparent;padding:0 14px;min-height:44px;font-weight:700;cursor:pointer}
+nav button[aria-selected=true]{border-color:var(--cr);background:var(--ob3)}
+nav b{background:var(--co);color:var(--ob);border-radius:10px;padding:1px 7px;margin-left:6px;font-size:12px}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.panel{background:var(--ob2);border:1px solid var(--line);padding:14px;margin-bottom:12px}
+.panel h2{font-size:18px;margin-bottom:10px}
+.panel h3{font-size:15px;margin:12px 0 6px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+label{display:block;font-weight:700;font-size:13px;margin:10px 0 4px;color:var(--mut)}
+input[type=text],select,textarea{width:100%;background:var(--ob);border:2px solid rgba(244,239,230,.4);padding:10px;font-size:16px}
+textarea{min-height:80px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--cr);outline-offset:2px}
+.muted{color:var(--mut);font-size:14px}
+.item{border-top:1px solid var(--line);padding:10px 0;display:grid;gap:8px}
+.item .t{font-size:17px;font-weight:600}
+.item .m{font-size:13px;color:var(--mut)}
+.flag{background:var(--co);color:var(--ob);font-weight:800;font-size:12px;padding:2px 6px;margin-right:6px}
+.pill{display:inline-block;background:var(--ob3);padding:2px 8px;font-size:12px;font-weight:700;margin-right:6px;border:1px solid var(--line)}
+.check{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px;margin:8px 0;color:var(--cr)}
+.check input{width:22px;height:22px;accent-color:var(--te)}
+.now{border-left:10px solid var(--ac);padding-left:12px}
+.now h2{font-size:24px}
+#err{display:none;background:var(--co);color:var(--ob);font-weight:800;padding:10px 12px;margin:8px 12px}
+details.tip{margin:4px 0 8px;font-size:14px}
+details.tip summary{cursor:pointer;color:var(--cr);font-weight:700;min-height:32px;display:flex;align-items:center;gap:8px;list-style:none}
+details.tip summary::-webkit-details-marker{display:none}
+details.tip summary::before{content:'?';display:inline-grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border:2px solid var(--cr);border-radius:50%;font-weight:800;font-size:13px}
+details.tip[open] summary::before{background:var(--cr);color:var(--ob)}
+details.tip ul,details.tip p{color:var(--cr);margin:6px 0 0 30px;line-height:1.45}
+details.tip li{margin:3px 0}
+#preview{max-width:1100px;margin:12px auto 0;padding:0 12px}
+#preview .panel{margin-bottom:0}
+#pvbox{position:relative;width:100%;max-width:560px;background:#000;border:1px solid var(--line);overflow:hidden}
+#pvbox iframe{position:absolute;left:0;top:0;width:1920px;height:1080px;border:0;transform-origin:0 0;pointer-events:none}
+.links a{text-decoration:none;display:inline-flex;align-items:center}
+img.prev{max-width:240px;border:1px solid var(--line)}
+.bar2{height:14px;background:var(--ob);margin-top:4px}.bar2 i{display:block;height:100%;background:var(--ac)}
+</style>
+</head>
+<body>
+<div class="kente" aria-hidden="true"></div>
+<header id="bar">
+  <div class="row">
+    <h1>DMC Live control</h1><span id="rehbadge" class="flag" hidden>REHEARSAL</span>
+    <div class="counters" id="counters" aria-live="off"></div>
+    <button class="btn co" id="hold" type="button">Holding slide</button>
+  </div>
+</header>
+<div id="err" role="alert"></div>
+<nav aria-label="Sections"><div id="tabs" role="tablist" aria-label="Sections"></div></nav>
+<section id="preview" aria-label="Projector preview" hidden>
+  <div class="panel">
+    <div class="row"><h2 style="margin:0">What the projector shows right now</h2><button class="btn sm ghost" id="pvtoggle" type="button" style="margin-left:auto">Hide preview</button></div>
+    <p class="muted" style="margin:6px 0 8px">This is a live copy of the projector page. The room sees the page that is open on the venue laptop, which shows the same thing.</p>
+    <div id="pvbox"><iframe id="pvframe" title="Preview of the projector page" tabindex="-1"></iframe></div>
+  </div>
+</section>
+<main id="main"></main>
+
+<script>
+(function () {
+'use strict';
+var $ = function (id) { return document.getElementById(id); };
+function h(tag, attrs) {
+  var e = document.createElement(tag);
+  if (attrs) Object.keys(attrs).forEach(function (k) {
+    if (k === 'class') e.className = attrs[k]; else if (k === 'text') e.textContent = attrs[k];
+    else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), attrs[k]); else if (attrs[k] !== false && attrs[k] != null) e.setAttribute(k, attrs[k]);
+  });
+  for (var i = 2; i < arguments.length; i++) { var c = arguments[i]; if (c == null || c === false) continue; if (Array.isArray(c)) { c.forEach(function (x) { if (x) e.appendChild(typeof x === 'string' ? document.createTextNode(x) : x); }); continue; } e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }
+  return e;
+}
+var S = null, tab = 'run', busy = false, sig = {};
+function err(m) { var e = $('err'); e.textContent = m || ''; e.style.display = m ? 'block' : 'none'; if (m) setTimeout(function () { if (e.textContent === m) err(''); }, 6000); }
+function api(body) {
+  return fetch('/api/live-control', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'failed'); return j; }); })
+    .then(function (j) { return refresh().then(function () { return j; }); })
+    .catch(function (e) { err(e.message); throw e; });
+}
+function act(body) { return function () { api(body).catch(function () {}); }; }
+function sessionTitle(id) { var s = S.sessions.filter(function (x) { return x.id === id; })[0]; return s ? s.title : id; }
+
+
+/* ---- guidance: a "?" note on every tab and panel, and a tooltip on every button ---- */
+function tip(summary, items) {
+  var d = h('details', { class: 'tip' }, h('summary', { text: summary }), Array.isArray(items) ? h('ul', null, items.map(function (t) { return h('li', { text: t }); })) : h('p', { text: items }));
+  return d;
+}
+var INTROS = {
+  q: ['How questions work', ['Questions arrive here from phones and wait under “Waiting for you”. Phones and the screen show nothing until you approve.', 'Approve puts a question on phones and the screen, ranked by upvotes. Reject hides it. Pin keeps one at the top; Answered moves it down the list.', 'Use the session menu to see another session’s questions (each session has its own Q&A).', 'To show them on the projector: Run tab, panel 3, “Questions list” or “Interview mode: top 3”.', 'A red FILTER tag means a blocked word was found. Read it before approving.']],
+  wall: ['How the Build Wall works', ['People answer “What are you building?” on their phones while Build Wall is the phone activity (Run tab, panel 2).', 'Each line waits here. Approve it to put it on the wall; Reject keeps it off.', 'Approved lines scroll on the projector when the screen shows “Build Wall” (Run tab, panel 3).', 'The CSV has the contacts of people who ticked “Send me my What I Built card”. Nobody else’s.']],
+  tk: ['How takeaway cards work', ['Every “My takeaway” card an attendee makes arrives here with a small preview of the card.', 'Nothing shows in the room until you press “Send to screen” on one.', 'To show the ones you picked, press “Show takeaways on the screen” below (or Run tab, panel 3, “Takeaways from the room”). Only first names are shown.', 'Approve means “fine, but not for the screen”. Reject hides it from everything.']],
+  polls: ['How polls work', ['Create a poll, then press “Make live on phones” so people can answer, and “Show on screen” to put the bars on the projector.', 'Swing: tick the box when creating. You get two linked polls, BEFORE and AFTER. Run the before poll early in a session, close it, then run the after poll at the end. “Show on screen” on the after poll shows both sets of bars and the share of people who changed their minds.', '“Close voting” stops answers. “Hide results on phones” keeps the numbers from the audience until you are ready.']],
+  quotes: ['How official quotes work', ['An official quote is a line a speaker really said, checked by you or the note-taker. Attendees can turn it into a card with the speaker’s name, title and photo.', 'Pick the session and the speaker, type the line exactly, press “Save quote”, then “Publish to phones”. “Show on screen” puts it on the projector.', 'If the speaker represents a sponsor or partner, the quote cannot be published until you tick “Sponsor-approved”. Tick it only after the sponsor has agreed those exact words. Editing the words clears the tick.']],
+  words: ['How this tab works', ['“Flagged words” are words the filter held back. They never show in a cloud unless you press “Release to the cloud”. “Dismiss” deletes them.', 'Add extra blocked words below. They apply within 30 seconds.', 'Export (CSV) downloads everything for after the event: words, questions, polls, wall, takeaways, quotes and card statistics.']],
+  setup: ['How setup works', ['Before the event: check the sessions, add anything the programme does not list, and type each speaker’s social handle (used in card captions).', '“Start rehearsal data” fills the system with fake content so you can practise. Everything is marked REHEARSAL.', '“Reset everything” (type RESET) clears all of it. Do this before doors open.']]
+};
+var TITLES = {
+  'holding slide': 'Emergency button: put the join QR code on the projector now. Phones are not affected.',
+  '◀ back': 'Go back to the previous session', 'next session ▶': 'Move phones and the screen on to the next session. Ends this session’s Q&A.', 'start ▶': 'Start the programme with the first session',
+  'nothing (end activity)': 'Close the current activity on phones. Nothing that people sent is deleted.',
+  'follow phones': 'The projector copies whatever phones are doing, or shows the join slide when nothing is open. Default.',
+  'finale: three clouds': 'Show all three word clouds side by side, for the closing moment',
+  'interview mode: top 3': 'Show the three best approved questions in large type, for the moderator',
+  'questions list': 'Show the approved questions on the projector, ranked by upvotes',
+  'takeaways from the room': 'Show the takeaway cards you sent to the screen (first names only)',
+  'poll with results': 'Show the live poll’s bars on the projector. A swing shows before and after.',
+  'approve': 'Show this in the room: it goes to phones and the screen', 'reject': 'Keep this out of the room. You can bring it back from the Rejected list.',
+  'remove': 'Take this off phones and the screen', 'take down': 'Take this off the wall', 'pin': 'Keep this question at the top of the list', 'unpin': 'Stop keeping this question at the top',
+  'answered': 'Mark as answered: it moves down the list', 'mark open': 'Mark as not answered yet', 'back to queue': 'Return it to “Waiting for you”', 'restore': 'Bring it back to the approved list',
+  'send to screen': 'Add this takeaway to “Takeaways from the room” on the projector', 'take off screen': 'Remove this takeaway from the projector',
+  'show card preview': 'See the small image of the card this person made', 'show takeaways on the screen': 'Switch the projector to “Takeaways from the room”',
+  'create': 'Create the poll (a swing makes two linked polls)', 'make live on phones': 'Phones show this poll and people can answer', 'show on screen': 'Put this on the projector now',
+  'open voting': 'Let people answer this poll', 'close voting': 'Stop taking answers (results stay)', 'show results on phones': 'Let phones see the bars', 'hide results on phones': 'Hide the bars from phones until you are ready',
+  'delete': 'Delete permanently (asks you first)', 'save quote': 'Save this quote. It stays private until you press “Publish to phones”.', 'save changes': 'Save the edit. A sponsor quote needs approving again.',
+  'publish to phones': 'Attendees see this quote and can make a card from it', 'unpublish': 'Hide this quote from phones again', 'edit': 'Change the wording of this quote', 'cancel': 'Discard these edits',
+  'release to the cloud': 'Allow this word into the word cloud', 'dismiss': 'Delete it. It never shows.', 'block': 'Add this word to the filter. It applies within 30 seconds.',
+  'download wall csv': 'Download the Build Wall as a spreadsheet, with opt-in contacts', 'save': 'Save this change', 'add session': 'Add this session to the programme',
+  'hide from the list': 'Hide this session from the programme (phones and screen)', 'start rehearsal data': 'Fill the system with fake content for practice (marked REHEARSAL)',
+  'reset everything': 'Delete everything people sent and all rehearsal data. Asks you to type RESET.', 'reset': 'Delete everything people sent and all rehearsal data',
+  'everything': 'Download everything as one CSV file'
+};
+var COUNTER_TITLES = { 'Connected': 'People with the phone page open in the last 3 minutes', 'Responses': 'Words, questions, upvotes, poll answers, wall entries and takeaways', 'Cards made': 'Quote cards made on phones', 'Shared': 'Quote cards shared from phones', 'Link clicks': 'People who opened the link inside a shared card' };
+function applyTitles() {
+  var els = document.querySelectorAll('button, a.btn, .counters span');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i]; if (el.getAttribute('title') || el.classList.contains('x')) continue;
+    var label = (el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild.nodeValue : el.textContent).replace(/\s+/g, ' ').trim();
+    var key = label.toLowerCase(), t = null;
+    if (el.parentNode && el.parentNode.id === 'counters') t = COUNTER_TITLES[label];
+    else if (key.indexOf('cloud: ') === 0) t = 'Phones get the ' + label.slice(7) + ' prompt, and the projector builds the cloud as words arrive';
+    else if (key === 'ask the panel (this session)') t = 'Phones can send and upvote questions for this session. You approve them in the Questions tab.';
+    else if (key === 'build wall') { var h2 = el.closest('.panel') && el.closest('.panel').querySelector('h2'); t = h2 && /^2\./.test(h2.textContent) ? 'Phones can post what they are building. You approve each line in the Build Wall tab.' : 'Show the approved Build Wall entries on the projector'; }
+    else if (key === 'export' || /^(wall|questions|words|polls|takeaways|quotes|analytics)$/.test(key)) t = 'Download this as a CSV file';
+    else t = TITLES[key] || null;
+    if (t) el.setAttribute('title', t);
+  }
+  var sels = document.querySelectorAll('select[aria-label]');
+  for (var j = 0; j < sels.length; j++) if (!sels[j].title) sels[j].title = ({ 'Jump to a session': 'Go straight to any session, for when the day runs out of order', 'Make a poll live': 'Pick a poll to put on phones', 'Put a quote on the screen': 'Put one official quote on the projector' })[sels[j].getAttribute('aria-label')] || '';
+}
+
+/* the live preview of the projector (only on the Run tab; the page is not even loaded elsewhere) */
+var PV = { on: (function () { try { return localStorage.getItem('dmc_ctl_preview') !== 'off'; } catch (e) { return true; } }()) };
+function scalePreview() { var b = $('pvbox'); if (!b) return; var w = b.clientWidth || 600; b.style.height = Math.round(w * 9 / 16) + 'px'; $('pvframe').style.transform = 'scale(' + (w / 1920) + ')'; }
+function syncPreview() {
+  var show = tab === 'run'; $('preview').hidden = !show;
+  var f = $('pvframe'), want = show && PV.on;
+  $('pvbox').style.display = PV.on ? '' : 'none';
+  $('pvtoggle').textContent = PV.on ? 'Hide preview' : 'Show preview';
+  if (want && f.getAttribute('src') !== '/live/screen') f.setAttribute('src', '/live/screen');
+  if (!want && f.getAttribute('src')) f.removeAttribute('src');
+  if (show) scalePreview();
+}
+$('pvtoggle').onclick = function () { PV.on = !PV.on; try { localStorage.setItem('dmc_ctl_preview', PV.on ? 'on' : 'off'); } catch (e) {} syncPreview(); };
+window.addEventListener('resize', scalePreview);
+
+function guidePanel() {
+  var open = true; try { open = localStorage.getItem('dmc_ctl_guide') !== 'closed'; } catch (e) {}
+  var d = tip('How to run the room (read this first)', [
+    'Three screens work together. PHONES (/live) are what attendees see after scanning the QR code. The PROJECTOR page (/live/screen) is open on the venue laptop in full screen: open it once, press F, and leave it alone. This panel is yours; the room never sees it.',
+    'You change things in the three panels below, top to bottom: 1 the session, 2 what phones are doing, 3 what the projector shows. Changes reach phones and the projector in about 3 seconds.',
+    'The projector normally copies the phones (“Follow phones”). Press any other button in panel 3 to take over, and “Follow phones” to hand back.',
+    'The preview under the tabs is a live copy of the projector. If it looks right there, it is right in the room.',
+    'Something wrong? “Holding slide”, top right, always works: the join QR goes up at once.'
+  ]);
+  if (open) d.open = true;
+  d.addEventListener('toggle', function () { try { localStorage.setItem('dmc_ctl_guide', d.open ? 'open' : 'closed'); } catch (e) {} });
+  var base = location.origin;
+  var links = h('div', { class: 'row links', style: 'margin:6px 0 0 30px' },
+    h('a', { class: 'btn sm cr', href: '/live/screen', target: '_blank', rel: 'noopener', text: 'Open the projector page' }),
+    h('a', { class: 'btn sm ghost', href: '/live', target: '_blank', rel: 'noopener', text: 'Open the phone page' }),
+    h('button', { class: 'btn sm ghost', type: 'button', text: 'Copy the join link', onclick: function () { var u = (/^(www\.)?mangh\.org$/.test(location.hostname) ? 'https://mangh.org' : base) + '/live'; var done = function () { err(''); var b = this; }; if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { err('Copied: ' + u); }); else err(u); } }));
+  d.appendChild(links);
+  return h('div', { class: 'panel' }, d);
+}
+
+/* ---- tabs ---- */
+var TABS = [['run', 'Run'], ['q', 'Questions'], ['wall', 'Build Wall'], ['tk', 'Takeaways'], ['polls', 'Polls'], ['quotes', 'Official quotes'], ['words', 'Words'], ['setup', 'Setup']];
+function renderTabs() {
+  var pend = { q: S.questions.filter(function (q) { return q.status === 'pending'; }).length, wall: S.wall.filter(function (w) { return w.status === 'pending'; }).length,
+    tk: S.takeaways.filter(function (t) { return t.status === 'pending'; }).length, words: S.flagged.length };
+  var key = JSON.stringify([tab, pend]);
+  if (sig.tabs === key) return; sig.tabs = key;
+  var nav = $('tabs'); nav.textContent = '';
+  TABS.forEach(function (t) {
+    var n = pend[t[0]];
+    nav.appendChild(h('button', { type: 'button', role: 'tab', 'aria-selected': String(tab === t[0]), onclick: function () { tab = t[0]; sig = {}; draw(); } }, t[1], n ? h('b', { text: String(n) }) : null));
+  });
+}
+function renderBar() {
+  $('rehbadge').hidden = !S.rehearsal;
+  var c = S.counters, k = JSON.stringify(c); if (sig.bar === k) return; sig.bar = k;
+  var box = $('counters'); box.textContent = '';
+  [['Connected', c.connected], ['Responses', c.words + c.questions + c.qvotes + c.pollvotes + c.wall + c.takeaways], ['Cards made', c.cardsMade], ['Shared', c.cardsShared], ['Link clicks', c.clicks]].forEach(function (x) { box.appendChild(h('span', null, x[0], h('b', { text: String(x[1]) }))); });
+}
+
+/* ---- Run ---- */
+function accentOf(s) { return s && s.accent ? s.accent : '#2A7B74'; }
+function runTab(box) {
+  var cur = S.now, idx = S.sessions.findIndex(function (s) { return s.id === S.session; }), nxt = S.sessions[idx + 1];
+  document.documentElement.style.setProperty('--ac', accentOf(cur));
+  var sel = h('select', { 'aria-label': 'Jump to a session', onchange: function () { if (this.value) act({ op: 'session.set', id: this.value })(); } },
+    h('option', { value: '', text: 'Jump to a session…' }), S.sessions.map(function (s) { return h('option', { value: s.id, text: (s.start ? s.start + ' · ' : '') + s.title }); }));
+  box.appendChild(guidePanel());
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '1. Session' }), tip('What this does', 'Next session moves phones and the projector on to the next item in the programme. Back goes back. “Jump to a session” is for when the day runs out of order (clock times are not used). Moving on ends the last session’s Q&A.'),
+    h('div', { class: 'now' }, cur ? [h('div', { class: 'muted', text: 'NOW · ' + cur.format + (cur.movement ? ' · ' + cur.movement : '') }), h('h2', { text: cur.title }), h('div', { class: 'muted', text: cur.speakers.map(function (p) { return p.name; }).join(', ') })] : h('h2', { text: 'Not started' })),
+    h('p', { class: 'muted', style: 'margin:8px 0', text: nxt ? 'Next: ' + nxt.title : 'That is the last session.' }),
+    h('div', { class: 'row' }, h('button', { class: 'btn ghost big', type: 'button', onclick: act({ op: 'session.step', dir: -1 }), text: '◀ Back' }), h('button', { class: 'btn big', type: 'button', onclick: act({ op: 'session.step', dir: 1 }), text: S.session ? 'Next session ▶' : 'Start ▶' })),
+    h('div', { style: 'margin-top:8px' }, sel)));
+
+  var a = S.activity || { type: 'none' };
+  function actBtn(label, body, on) { return h('button', { class: 'btn' + (on ? ' on' : ''), type: 'button', 'aria-pressed': String(!!on), onclick: act(body), text: label }); }
+  var openPolls = S.polls;
+  var pollSel = h('select', { 'aria-label': 'Make a poll live' }, h('option', { value: '', text: 'Make a poll live…' }), openPolls.map(function (p) { return h('option', { value: p.id, text: p.id + ' · ' + p.question + (p.role ? ' (' + p.role + ')' : '') }); }));
+  pollSel.onchange = function () { if (this.value) act({ op: 'activity.set', type: 'poll', id: this.value })(); };
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '2. What phones are doing' }),
+    tip('What this does', ['This is what attendees can answer on their phones right now. Pick one: a word cloud, Ask the Panel, the Build Wall, or a poll. “Nothing” closes it.', 'The “Make a quote card” button is always on phones, whatever you pick.', 'Panel 2 changes phones. The projector follows it unless you override it in panel 3.']),
+    h('div', { class: 'grid' },
+      S.clouds.map(function (c) { return actBtn('Cloud: ' + c.movement, { op: 'activity.set', type: 'cloud', id: c.id }, a.type === 'cloud' && a.id === c.id); }),
+      actBtn('Ask the Panel (this session)', { op: 'activity.set', type: 'qa', id: S.session }, a.type === 'qa'),
+      actBtn('Build Wall', { op: 'activity.set', type: 'wall' }, a.type === 'wall'),
+      h('button', { class: 'btn ghost' + (a.type === 'none' ? ' on' : ''), type: 'button', onclick: act({ op: 'activity.set', type: 'none' }), text: 'Nothing (end activity)' })),
+    h('div', { style: 'margin-top:8px' }, pollSel), a.type === 'poll' ? h('p', { class: 'muted', text: 'Live poll: ' + a.id }) : null));
+
+  var sc = S.screen || { mode: 'follow' };
+  function scrBtn(label, body, on) { return h('button', { class: 'btn' + (on ? ' on' : ''), type: 'button', onclick: act(Object.assign({ op: 'screen.set' }, body)), text: label, 'aria-pressed': String(!!on) }); }
+  var quoteSel = h('select', { 'aria-label': 'Put a quote on the screen' }, h('option', { value: '', text: 'Put an official quote on the screen…' }),
+    S.quotes.filter(function (q) { return q.published && (!q.sponsor || q.approved); }).map(function (q) { return h('option', { value: q.id, text: '“' + q.text.slice(0, 60) + '” · ' + q.speaker.name }); }));
+  quoteSel.onchange = function () { if (this.value) act({ op: 'screen.set', mode: 'quote', id: this.value })(); };
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '3. What the screen shows' }),
+    tip('How to put things on the projector', ['“Follow phones” (default): the projector copies panel 2, or shows the join QR when nothing is open.', 'Any other button takes over the projector: Holding slide (join QR, for breaks), Finale (all three clouds), Interview mode (top 3 questions, large), Questions list, Build Wall, Takeaways from the room, Poll with results.', 'The menu underneath puts one official quote on the projector. Quotes for the menu are published in the “Official quotes” tab.', 'Pressing “Follow phones” hands the projector back. The preview under the tabs shows the result.']),
+    h('div', { class: 'grid' },
+      scrBtn('Follow phones', { mode: 'follow' }, sc.mode === 'follow'), scrBtn('Holding slide', { mode: 'holding' }, sc.mode === 'holding'),
+      scrBtn('Finale: three clouds', { mode: 'finale' }, sc.mode === 'finale'), scrBtn('Interview mode: top 3', { mode: 'interview', id: S.session }, sc.mode === 'interview'),
+      scrBtn('Questions list', { mode: 'qa', id: S.session }, sc.mode === 'qa'), scrBtn('Build Wall', { mode: 'wall' }, sc.mode === 'wall'),
+      scrBtn('Takeaways from the room', { mode: 'takeaways' }, sc.mode === 'takeaways'), scrBtn('Poll with results', { mode: 'poll', id: a.type === 'poll' ? a.id : '', results: true }, sc.mode === 'poll')),
+    h('div', { style: 'margin-top:8px' }, quoteSel),
+    h('p', { class: 'muted', style: 'margin-top:8px', text: 'Screen now: ' + sc.mode + '. “Follow phones” mirrors the activity above, or the holding slide when there is none.' })));
+
+  var pr = h('div', { class: 'panel' }, h('h2', { text: 'Word cloud prompts' }), tip('What this does', 'The question phones see for each word cloud, and the heading on the projector. Change the words and press Save next to it; it updates for everyone within a few seconds.'));
+  S.clouds.forEach(function (c) {
+    var inp = h('input', { type: 'text', id: 'pr-' + c.id, value: S.prompts[c.id], maxlength: 120, 'aria-label': 'Prompt for ' + c.movement });
+    pr.appendChild(h('label', { for: 'pr-' + c.id, text: c.movement })); pr.appendChild(h('div', { class: 'row' }, h('div', { style: 'flex:1;min-width:200px' }, inp), h('button', { class: 'btn sm', type: 'button', onclick: function () { api({ op: 'prompt.set', cloud: c.id, text: inp.value }).then(function () { err(''); }).catch(function () {}); }, text: 'Save' })));
+  });
+  box.appendChild(pr);
+}
+
+/* ---- Questions ---- */
+var qSession = '';
+function questionsTab(box) {
+  var sid = qSession || S.session || (S.sessions[0] || {}).id;
+  var sel = h('select', { 'aria-label': 'Session', onchange: function () { qSession = this.value; sig = {}; draw(); } }, S.sessions.map(function (s) { var o = h('option', { value: s.id, text: s.title }); if (s.id === sid) o.selected = true; return o; }));
+  var qs = S.questions.filter(function (q) { return q.s === sid; });
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Questions' }), sel,
+    h('p', { class: 'muted', style: 'margin-top:8px', text: 'Only approved questions show on phones and the screen. “Interview mode” on the Run tab shows the top three (pinned first, then votes).' })));
+  function row(q) {
+    var b = [];
+    if (q.status === 'pending') b.push(h('button', { class: 'btn big', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: 'approve' }), text: 'Approve' }), h('button', { class: 'btn co big', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: 'reject' }), text: 'Reject' }));
+    else if (q.status === 'approved') b.push(h('button', { class: 'btn sm', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: q.pinned ? 'unpin' : 'pin' }), text: q.pinned ? 'Unpin' : 'Pin' }),
+      h('button', { class: 'btn sm cr', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: q.answered ? 'unanswered' : 'answered' }), text: q.answered ? 'Mark open' : 'Answered' }),
+      h('button', { class: 'btn sm co', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: 'reject' }), text: 'Remove' }));
+    else b.push(h('button', { class: 'btn sm ghost', type: 'button', onclick: act({ op: 'q.moderate', session: sid, id: q.id, action: 'pending' }), text: 'Back to queue' }));
+    return h('div', { class: 'item' }, h('div', { class: 't' }, q.flagged ? h('span', { class: 'flag', text: 'FILTER' }) : null, q.pinned ? h('span', { class: 'pill', text: 'PINNED' }) : null, q.answered ? h('span', { class: 'pill', text: 'ANSWERED' }) : null, q.text),
+      h('div', { class: 'm', text: q.name + ' · ' + q.votes + ' votes' }), h('div', { class: 'row' }, b));
+  }
+  var groups = [['Waiting for you', 'pending'], ['Approved (on phones and screen)', 'approved'], ['Rejected', 'rejected']];
+  groups.forEach(function (g) {
+    var list = qs.filter(function (q) { return q.status === g[1]; });
+    if (g[1] === 'approved') list.sort(function (a, b) { return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || (a.answered ? 1 : 0) - (b.answered ? 1 : 0) || b.votes - a.votes; });
+    else list.sort(function (a, b) { return a.ts - b.ts; });
+    box.appendChild(h('div', { class: 'panel' }, h('h2', { text: g[0] + ' (' + list.length + ')' }), list.length ? list.map(row) : h('p', { class: 'muted', text: 'None.' })));
+  });
+}
+
+/* ---- Build Wall ---- */
+function wallTab(box) {
+  function row(w) {
+    var b = w.status === 'pending' ? [h('button', { class: 'btn big', type: 'button', onclick: act({ op: 'wall.moderate', id: w.id, action: 'approve' }), text: 'Approve' }), h('button', { class: 'btn co big', type: 'button', onclick: act({ op: 'wall.moderate', id: w.id, action: 'reject' }), text: 'Reject' })]
+      : w.status === 'approved' ? [h('button', { class: 'btn sm co', type: 'button', onclick: act({ op: 'wall.moderate', id: w.id, action: 'reject' }), text: 'Take down' })] : [h('button', { class: 'btn sm ghost', type: 'button', onclick: act({ op: 'wall.moderate', id: w.id, action: 'pending' }), text: 'Back to queue' })];
+    return h('div', { class: 'item' }, h('div', { class: 't' }, w.flagged ? h('span', { class: 'flag', text: 'FILTER' }) : null, w.name + ': ' + w.line), h('div', { class: 'm', text: w.optin ? 'Opted in to a What I Built card' + (w.hasContact ? ' (contact saved)' : '') : 'No contact' }), h('div', { class: 'row' }, b));
+  }
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Build Wall' }), h('p', { class: 'muted', text: 'Approved entries scroll on the screen when the Build Wall is on it. Opt-in contacts are only in the CSV export.' }),
+    h('a', { class: 'btn sm cr', href: '/api/live-control?export=wall', style: 'display:inline-flex;align-items:center;text-decoration:none', text: 'Download wall CSV' })));
+  [['Waiting for you', 'pending'], ['On the wall', 'approved'], ['Rejected', 'rejected']].forEach(function (g) {
+    var list = S.wall.filter(function (w) { return w.status === g[1]; });
+    box.appendChild(h('div', { class: 'panel' }, h('h2', { text: g[0] + ' (' + list.length + ')' }), list.length ? list.map(row) : h('p', { class: 'muted', text: 'None.' })));
+  });
+}
+
+/* ---- Takeaways ---- */
+var previews = {};
+function takeawaysTab(box) {
+  function row(t) {
+    var holder = h('div'); if (previews[t.id]) holder.appendChild(h('img', { class: 'prev', src: previews[t.id], alt: 'Card preview' }));
+    var b = [];
+    if (t.status === 'pending') b.push(h('button', { class: 'btn big', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'screen' }), text: 'Send to screen' }), h('button', { class: 'btn cr big', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'approve' }), text: 'Approve' }), h('button', { class: 'btn co big', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'reject' }), text: 'Reject' }));
+    else if (t.status === 'approved') b.push(h('button', { class: 'btn sm', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'screen' }), text: 'Send to screen' }), h('button', { class: 'btn sm co', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'reject' }), text: 'Reject' }));
+    else if (t.status === 'screen') b.push(h('button', { class: 'btn sm co', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'unscreen' }), text: 'Take off screen' }));
+    else b.push(h('button', { class: 'btn sm ghost', type: 'button', onclick: act({ op: 'tk.moderate', id: t.id, action: 'approve' }), text: 'Restore' }));
+    b.push(h('button', { class: 'btn sm ghost', type: 'button', onclick: function () { fetch('/api/live-control?view=tki&id=' + t.id).then(function (r) { return r.json(); }).then(function (j) { previews[t.id] = j.img || ''; if (!j.img) err('No preview image was sent for this one.'); sig = {}; draw(); }); }, text: 'Show card preview' }));
+    return h('div', { class: 'item' }, h('div', { class: 't' }, t.flagged ? h('span', { class: 'flag', text: 'FILTER' }) : null, '“' + t.text + '”'), h('div', { class: 'm', text: '— ' + t.name + ' · ' + sessionTitle(t.session) }), holder, h('div', { class: 'row' }, b));
+  }
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Takeaway cards' }), h('p', { class: 'muted', text: 'Every “My takeaway” card an attendee makes lands here. Only the ones you send to the screen appear, with first name only. Use “Takeaways from the room” in Run to show them.' }),
+    h('button', { class: 'btn', type: 'button', onclick: act({ op: 'screen.set', mode: 'takeaways' }), text: 'Show takeaways on the screen' })));
+  [['Waiting for you', 'pending'], ['On the screen', 'screen'], ['Approved, not on screen', 'approved'], ['Rejected', 'rejected']].forEach(function (g) {
+    var list = S.takeaways.filter(function (t) { return t.status === g[1]; });
+    box.appendChild(h('div', { class: 'panel' }, h('h2', { text: g[0] + ' (' + list.length + ')' }), list.length ? list.map(row) : h('p', { class: 'muted', text: 'None.' })));
+  });
+}
+
+/* ---- Polls ---- */
+function pollsTab(box) {
+  var q = h('input', { type: 'text', id: 'np-q', maxlength: 140, 'aria-label': 'Poll question' });
+  var o = h('textarea', { id: 'np-o', 'aria-label': 'Options, one per line', placeholder: 'One option per line (2 to 5)' });
+  var sw = h('input', { type: 'checkbox', id: 'np-sw' });
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'New poll' }), h('label', { for: 'np-q', text: 'Question' }), q, h('label', { for: 'np-o', text: 'Options' }), o,
+    h('label', { class: 'check', for: 'np-sw' }, sw, 'Swing: make a linked before and after pair'),
+    h('button', { class: 'btn', type: 'button', onclick: function () { api({ op: 'poll.create', question: q.value, options: o.value.split('\n'), swing: sw.checked, session: S.session }).then(function () { q.value = ''; o.value = ''; sw.checked = false; }).catch(function () {}); }, text: 'Create' })));
+  S.polls.forEach(function (p) {
+    var total = p.total || 0;
+    var opts = p.options.map(function (op, i) { var pct = total ? Math.round((p.counts[i] || 0) / total * 100) : 0; return h('div', null, h('div', { class: 'row' }, h('span', { text: op }), h('b', { style: 'margin-left:auto', text: (p.counts[i] || 0) + ' · ' + pct + '%' })), h('div', { class: 'bar2' }, h('i', { style: 'width:' + pct + '%' }))); });
+    box.appendChild(h('div', { class: 'panel' }, h('h2', { text: p.id + (p.role ? ' · ' + p.role.toUpperCase() + ' (pairs with ' + p.pair + ')' : '') }), h('div', { class: 't', text: p.question }), h('div', { class: 'm', text: (p.open ? 'OPEN' : 'closed') + ' · results ' + (p.show ? 'shown' : 'hidden') + ' on phones · ' + total + ' answers' }), opts,
+      h('div', { class: 'row', style: 'margin-top:10px' },
+        h('button', { class: 'btn sm', type: 'button', onclick: act({ op: 'poll.set', id: p.id, open: !p.open }), text: p.open ? 'Close voting' : 'Open voting' }),
+        h('button', { class: 'btn sm', type: 'button', onclick: act({ op: 'poll.set', id: p.id, show: !p.show }), text: p.show ? 'Hide results on phones' : 'Show results on phones' }),
+        h('button', { class: 'btn sm cr', type: 'button', onclick: act({ op: 'activity.set', type: 'poll', id: p.id }), text: 'Make live on phones' }),
+        h('button', { class: 'btn sm cr', type: 'button', onclick: act({ op: 'screen.set', mode: 'poll', id: p.id, results: true }), text: 'Show on screen' }),
+        h('button', { class: 'btn sm co', type: 'button', onclick: function () { if (confirm('Delete this poll and its votes?')) api({ op: 'poll.delete', id: p.id }).catch(function () {}); }, text: 'Delete' }))));
+  });
+  if (!S.polls.length) box.appendChild(h('p', { class: 'muted', text: 'No polls yet. For a swing, tick the box: run the “before” poll, then the “after” after the session, and show the “after” on the screen.' }));
+}
+
+/* ---- Official quotes ---- */
+var qtDraft = { session: '', speaker: '', name: '', title: '', text: '', sponsor: '', id: '' };
+function quotesTab(box) {
+  var d = qtDraft; if (!d.session) d.session = S.session || (S.sessions[0] || {}).id;
+  var sess = h('select', { id: 'oq-s', 'aria-label': 'Session' }, S.sessions.map(function (s) { var o = h('option', { value: s.id, text: s.title }); if (s.id === d.session) o.selected = true; return o; }));
+  var cur = S.sessions.filter(function (s) { return s.id === d.session; })[0];
+  var spk = h('select', { id: 'oq-p', 'aria-label': 'Speaker' }, h('option', { value: '', text: 'Someone else (type below)' }),
+    S.people.map(function (p) { var o = h('option', { value: p.slug, text: p.name + (p.sponsor ? ' · represents ' + p.sponsor : '') }); if (cur && cur.speakers.some(function (x) { return x.slug === p.slug; })) o.setAttribute('data-onstage', '1'); if (p.slug === d.speaker) o.selected = true; return o; }));
+  var nm = h('input', { type: 'text', id: 'oq-n', maxlength: 60, value: d.name, 'aria-label': 'Speaker name' }), ti = h('input', { type: 'text', id: 'oq-t', maxlength: 90, value: d.title, 'aria-label': 'Speaker title' });
+  var tx = h('textarea', { id: 'oq-x', maxlength: 220, 'aria-label': 'The quote' }); tx.value = d.text;
+  var sp = h('input', { type: 'text', id: 'oq-sp', maxlength: 40, value: d.sponsor, placeholder: 'Sponsor or partner name, if they represent one', 'aria-label': 'Sponsor they represent' });
+  var onStage = cur && cur.speakers.length ? 'On stage in this session: ' + cur.speakers.map(function (p) { return p.name + (p.sponsor ? ' (' + p.sponsor + ')' : ''); }).join(', ') : 'No speakers are listed for this session. Type the speaker below.';
+  function save() {
+    d = qtDraft = { session: sess.value, speaker: spk.value, name: nm.value, title: ti.value, text: tx.value, sponsor: sp.value, id: d.id };
+    api({ op: 'quote.save', id: d.id, session: d.session, speakerSlug: d.speaker, speakerName: d.name, speakerTitle: d.title, text: d.text, sponsor: d.sponsor }).then(function () { qtDraft = { session: d.session, speaker: '', name: '', title: '', text: '', sponsor: '', id: '' }; sig = {}; draw(); }).catch(function () {});
+  }
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: d.id ? 'Edit quote ' + d.id : 'New official quote' }),
+    h('p', { class: 'muted', text: 'Type exactly what the speaker said. Only published quotes reach phones. Quotes from a speaker who represents a sponsor or partner stay unpublished until you tick “Sponsor-approved”.' }),
+    h('label', { for: 'oq-s', text: 'Session' }), sess, h('p', { class: 'muted', style: 'margin-top:6px', text: onStage }),
+    h('label', { for: 'oq-p', text: 'Speaker' }), spk, h('div', { class: 'grid' }, h('div', null, h('label', { for: 'oq-n', text: 'Or type the name' }), nm), h('div', null, h('label', { for: 'oq-t', text: 'Title' }), ti)),
+    h('label', { for: 'oq-x', text: 'The quote (220 characters)' }), tx, h('label', { for: 'oq-sp', text: 'Represents a sponsor or partner (optional)' }), sp,
+    h('div', { class: 'row', style: 'margin-top:10px' }, h('button', { class: 'btn', type: 'button', onclick: save, text: d.id ? 'Save changes' : 'Save quote' }), d.id ? h('button', { class: 'btn ghost', type: 'button', onclick: function () { qtDraft = { session: d.session, speaker: '', name: '', title: '', text: '', sponsor: '', id: '' }; sig = {}; draw(); }, text: 'Cancel' }) : null)));
+  sess.onchange = function () { qtDraft.session = sess.value; qtDraft.text = tx.value; qtDraft.speaker = spk.value; qtDraft.name = nm.value; qtDraft.title = ti.value; qtDraft.sponsor = sp.value; sig = {}; draw(); };
+  spk.onchange = function () { var p = S.people.filter(function (x) { return x.slug === spk.value; })[0]; if (p) { nm.value = p.name; ti.value = [p.title, p.company].filter(Boolean).join(', '); sp.value = p.sponsor || ''; } };
+
+  S.sessions.forEach(function (s) {
+    var list = S.quotes.filter(function (q) { return q.session === s.id; });
+    if (!list.length) return;
+    box.appendChild(h('div', { class: 'panel' }, h('h2', { text: s.title }), list.map(function (q) {
+      var needs = q.sponsor && !q.approved;
+      var ap = q.sponsor ? h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: q.approved ? 'checked' : false, onchange: function () { api({ op: 'quote.flag', id: q.id, approved: this.checked }).catch(function () {}); } }), 'Sponsor-approved (' + q.sponsor + ')') : null;
+      if (ap && q.approved) ap.firstChild.checked = true;
+      return h('div', { class: 'item' }, h('div', { class: 't', text: '“' + q.text + '”' }), h('div', { class: 'm', text: q.speaker.name + (q.speaker.title ? ', ' + q.speaker.title : '') + (q.sponsor ? ' · represents ' + q.sponsor : '') }),
+        needs ? h('div', { class: 'm' }, h('span', { class: 'flag', text: 'HELD' }), 'Not published: needs sponsor approval.') : null, ap,
+        h('div', { class: 'row' },
+          h('button', { class: 'btn sm' + (q.published ? ' cr' : ''), type: 'button', disabled: !q.published && needs ? 'disabled' : false, onclick: act({ op: 'quote.flag', id: q.id, published: !q.published }), text: q.published ? 'Unpublish' : 'Publish to phones' }),
+          q.published && !needs ? h('button', { class: 'btn sm cr', type: 'button', onclick: act({ op: 'screen.set', mode: 'quote', id: q.id }), text: 'Show on screen' }) : null,
+          h('button', { class: 'btn sm ghost', type: 'button', onclick: function () { qtDraft = { session: q.session, speaker: q.speaker.slug || '', name: q.speaker.name, title: q.speaker.title, text: q.text, sponsor: q.sponsor || '', id: q.id }; sig = {}; draw(); window.scrollTo(0, 0); }, text: 'Edit' }),
+          h('button', { class: 'btn sm co', type: 'button', onclick: function () { if (confirm('Delete this quote?')) api({ op: 'quote.delete', id: q.id }).catch(function () {}); }, text: 'Delete' })));
+    })));
+  });
+}
+
+/* ---- Words ---- */
+function wordsTab(box) {
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Flagged words (' + S.flagged.length + ')' }), h('p', { class: 'muted', text: 'Held back by the word filter. They never reach a screen unless you release them.' }),
+    S.flagged.length ? S.flagged.map(function (f) { return h('div', { class: 'item' }, h('div', { class: 't', text: f.text }), h('div', { class: 'm', text: (S.clouds.filter(function (c) { return c.id === f.cloud; })[0] || {}).movement }),
+      h('div', { class: 'row' }, h('button', { class: 'btn sm', type: 'button', onclick: act({ op: 'flag.release', id: f.id }), text: 'Release to the cloud' }), h('button', { class: 'btn sm co', type: 'button', onclick: act({ op: 'flag.dismiss', id: f.id }), text: 'Dismiss' }))); }) : h('p', { class: 'muted', text: 'Nothing held back.' })));
+  var inp = h('input', { type: 'text', id: 'bw', maxlength: 40, 'aria-label': 'Word or phrase to block' });
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Extra blocked words' }), h('p', { class: 'muted', text: 'Added on top of the list in the repo (lib/live/blocklist.txt). Takes effect within 30 seconds.' }),
+    h('div', { class: 'row' }, h('div', { style: 'flex:1;min-width:200px' }, inp), h('button', { class: 'btn sm', type: 'button', onclick: function () { if (inp.value.trim()) api({ op: 'block.add', word: inp.value }).then(function () { inp.value = ''; }).catch(function () {}); }, text: 'Block' })),
+    h('div', { class: 'row', style: 'margin-top:10px' }, S.blocked.map(function (w) { return h('button', { class: 'btn sm ghost', type: 'button', onclick: act({ op: 'block.remove', word: w }), text: w + '  ✕', 'aria-label': 'Unblock ' + w }); }))));
+}
+
+/* ---- Setup ---- */
+function setupTab(box) {
+  var exports = ['all', 'wall', 'questions', 'words', 'polls', 'takeaways', 'quotes', 'analytics'];
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Export (CSV)' }), h('div', { class: 'row' }, exports.map(function (e) { return h('a', { class: 'btn sm ' + (e === 'all' ? '' : 'cr'), style: 'display:inline-flex;align-items:center;text-decoration:none', href: '/api/live-control?export=' + e, text: e === 'all' ? 'Everything' : e }); }))));
+  var an = S.analytics;
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Quote cards by session and type' }), an.length ? h('div', null, an.map(function (a) { return h('div', { class: 'item' }, h('div', { class: 't', text: sessionTitle(a.session) + ' · ' + (a.ct === 'official' ? 'Official quote' : 'My takeaway') }), h('div', { class: 'm', text: a.made + ' made · ' + a.shared + ' shared · ' + a.saved + ' saved · ' + a.clicks + ' link clicks' })); })) : h('p', { class: 'muted', text: 'No cards yet.' })));
+  var ft = h('input', { type: 'text', id: 'ns-t', maxlength: 90, 'aria-label': 'New session title' });
+  var ff = h('select', { id: 'ns-f', 'aria-label': 'Format' }, S.formats.map(function (f) { return h('option', { value: f, text: f }); }));
+  var fm = h('select', { id: 'ns-m', 'aria-label': 'Movement' }, h('option', { value: '', text: 'No movement' }), S.movements.map(function (m) { return h('option', { value: m, text: m }); }));
+  var fa = h('select', { id: 'ns-a', 'aria-label': 'After which session' }, S.sessions.map(function (s) { var o = h('option', { value: s.id, text: s.title }); if (s.id === S.session) o.selected = true; return o; }));
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Add a session' }), h('p', { class: 'muted', text: 'For anything the programme does not list. Clock times are not used; you move through sessions with the Next button.' }),
+    h('label', { for: 'ns-t', text: 'Title' }), ft, h('div', { class: 'grid' }, h('div', null, h('label', { for: 'ns-f', text: 'Format' }), ff), h('div', null, h('label', { for: 'ns-m', text: 'Movement (sets the accent colour)' }), fm), h('div', null, h('label', { for: 'ns-a', text: 'Place it after' }), fa)),
+    h('button', { class: 'btn', style: 'margin-top:10px', type: 'button', onclick: function () { api({ op: 'session.add', title: ft.value, format: ff.value, movement: fm.value, after: fa.value }).then(function () { ft.value = ''; }).catch(function () {}); }, text: 'Add session' })));
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Sessions' }), S.sessions.map(function (s) {
+    var t = h('input', { type: 'text', value: s.title, maxlength: 90, 'aria-label': 'Title of ' + s.title });
+    var f = h('select', { 'aria-label': 'Format of ' + s.title }, S.formats.concat(S.formats.indexOf(s.format) < 0 ? [s.format] : []).map(function (x) { var o = h('option', { value: x, text: x }); if (x === s.format) o.selected = true; return o; }));
+    var m = h('select', { 'aria-label': 'Movement of ' + s.title }, h('option', { value: '', text: 'No movement' }), S.movements.map(function (x) { var o = h('option', { value: x, text: x }); if (x === s.movement) o.selected = true; return o; }));
+    return h('div', { class: 'item' }, h('div', { class: 'm', text: s.id + (s.start ? ' · ' + s.start : '') + (s.custom ? ' · added' : '') + ' · ' + s.speakers.map(function (p) { return p.name; }).join(', ') }),
+      h('div', { class: 'grid' }, t, f, m), h('div', { class: 'row' }, h('button', { class: 'btn sm', type: 'button', onclick: function () { api({ op: 'session.edit', id: s.id, title: t.value, format: f.value, movement: m.value }).catch(function () {}); }, text: 'Save' }),
+        h('button', { class: 'btn sm ghost', type: 'button', onclick: act({ op: 'session.edit', id: s.id, hidden: true }), text: 'Hide from the list' })));
+  })));
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Speaker handles for captions' }), h('p', { class: 'muted', text: 'Shown on official quote cards’ captions, for example @name. Leave blank to omit.' }),
+    S.people.map(function (p) { var i = h('input', { type: 'text', value: p.handle, maxlength: 40, placeholder: '@handle', 'aria-label': 'Handle for ' + p.name }); return h('div', { class: 'row', style: 'margin:6px 0' }, h('span', { style: 'min-width:190px;font-weight:700', text: p.name }), h('div', { style: 'flex:1;min-width:140px' }, i), h('button', { class: 'btn sm', type: 'button', onclick: function () { api({ op: 'handle.set', slug: p.slug, handle: i.value }).catch(function () {}); }, text: 'Save' })); })));
+  var rs = h('input', { type: 'text', id: 'rs', placeholder: 'Type RESET', 'aria-label': 'Type RESET to confirm' });
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: 'Rehearsal and reset' }),
+    h('p', { class: 'muted', text: 'Rehearsal fills Live with fake words, questions, polls, wall entries, takeaways and clearly marked fake quotes so you can practise. Reset deletes everything people sent (not the blocked words or handles). Do this before the doors open.' }),
+    h('div', { class: 'row' }, h('button', { class: 'btn', type: 'button', onclick: function () { if (confirm('Fill Live with rehearsal data? This replaces the current session and activity.')) api({ op: 'rehearsal.seed' }).catch(function () {}); }, text: 'Start rehearsal data' })),
+    h('label', { for: 'rs', text: 'Reset everything' }), h('div', { class: 'row' }, h('div', { style: 'flex:1;min-width:160px' }, rs), h('button', { class: 'btn co', type: 'button', onclick: function () { api({ op: 'reset', confirm: rs.value }).then(function (j) { rs.value = ''; err(''); alert('Cleared ' + j.deleted + ' items.'); }).catch(function () {}); }, text: 'Reset' }))));
+}
+
+function draw() {
+  if (!S) return;
+  renderBar(); renderTabs(); applyTitles();
+  var box = $('main');
+  var focused = document.activeElement && box.contains(document.activeElement) && /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+  var key = JSON.stringify([tab, tab === 'run' ? [S.now && S.now.id, S.activity, S.screen, S.prompts, S.polls.map(function (p) { return p.id; }), S.quotes.length] : tab === 'q' ? [qSession, S.questions] : tab === 'wall' ? S.wall : tab === 'tk' ? [S.takeaways, Object.keys(previews)] : tab === 'polls' ? S.polls : tab === 'quotes' ? [S.quotes, S.session, S.now && S.now.id, qtDraft.id] : tab === 'words' ? [S.flagged, S.blocked] : [S.analytics, S.sessions, S.people.map(function (p) { return p.handle; })]]);
+  if (sig.main === key) return;
+  if (focused) return;               /* never rebuild a panel while someone is typing in it */
+  sig.main = key;
+  box.textContent = '';
+  ({ run: runTab, q: questionsTab, wall: wallTab, tk: takeawaysTab, polls: pollsTab, quotes: quotesTab, words: wordsTab, setup: setupTab }[tab])(box);
+  if (INTROS[tab]) box.insertBefore(h('div', { class: 'panel' }, tip(INTROS[tab][0], INTROS[tab][1])), box.firstChild);
+  syncPreview(); applyTitles();
+}
+function refresh() {
+  return fetch('/api/live-control', { cache: 'no-store' }).then(function (r) { if (r.status === 401) { location.reload(); throw new Error('login'); } return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'failed'); return j; }); })
+    .then(function (j) { S = j; $('err').style.display === 'block' && /connection/i.test($('err').textContent) && err(''); draw(); })
+    .catch(function (e) { if (e.message !== 'login') err('Lost connection to the server: ' + e.message); });
+}
+$('hold').onclick = function () { api({ op: 'screen.holding' }).catch(function () {}); };
+refresh(); setInterval(refresh, 2500);
+}());
+</script>
+</body>
+</html>

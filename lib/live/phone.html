@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1C1C1C">
+<title>DMC Live · DMC 2026</title>
+<style>
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
+:root{--ob:#1C1C1C;--ob2:#262626;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--go:#C9A24A;--ac:#2A7B74;--ink:#fff;--mut:rgba(244,239,230,.78);--line:rgba(244,239,230,.2)}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ob);color:var(--cr);font:17px/1.45 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+h1,h2,h3,.disp{font-family:'Archivo Black',system-ui,sans-serif;font-weight:400;letter-spacing:.01em;line-height:1.1}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--cr)}
+.kente{height:10px;background:repeating-linear-gradient(90deg,var(--go) 0 16px,var(--ob) 16px 18px,var(--te) 18px 34px,var(--ob) 34px 36px,var(--co) 36px 52px,var(--ob) 52px 54px,var(--cr) 54px 70px,var(--ob) 70px 72px)}
+header{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;max-width:560px;margin:0 auto}
+header .lock{font-size:19px}
+header .lock small{display:block;font:700 11px/1.2 system-ui,sans-serif;letter-spacing:.2em;color:var(--mut);margin-top:2px}
+#conn{margin-left:auto;font-size:13px;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:6px;color:var(--mut)}
+#conn i{width:10px;height:10px;border-radius:50%;background:var(--te);display:inline-block}
+#conn.off i{background:var(--co)}
+main{max-width:560px;margin:0 auto;padding:0 16px}
+.rehearsal{background:var(--co);color:var(--ob);font-weight:800;text-align:center;padding:8px 12px;letter-spacing:.08em;font-size:14px}
+.card{background:var(--ob2);border:1px solid var(--line);border-left:8px solid var(--ac);padding:14px 16px;margin:10px 0}
+.card .lab{font:800 12px/1 system-ui,sans-serif;letter-spacing:.2em;color:var(--mut);text-transform:uppercase}
+.card h2{font-size:23px;margin:8px 0 6px}
+.chip{display:inline-block;background:var(--ac);color:var(--ink);font:800 12px/1 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;margin-right:8px}
+.who{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px 12px;color:var(--cr);font-size:15px}
+.who span{display:inline-flex;align-items:center;gap:7px}
+.who b{width:28px;height:28px;border-radius:50%;box-shadow:0 0 0 2px var(--go);background:var(--ac);color:var(--ink);display:inline-grid;place-items:center;font:700 12px/1 system-ui,sans-serif}
+.next{font-size:15px;color:var(--mut);padding:2px 4px 6px}
+.next b{color:var(--cr)}
+section.act{background:var(--ob2);border:1px solid var(--line);border-top:8px solid var(--ac);padding:16px;margin:12px 0}
+section.act h2{font-size:22px;margin-bottom:10px}
+.hint{color:var(--mut);font-size:14px}
+label{display:block;font-weight:700;font-size:14px;margin:12px 0 5px}
+input[type=text],textarea{width:100%;background:var(--ob);border:2px solid rgba(244,239,230,.45);padding:13px 12px;font-size:18px;border-radius:0}
+textarea{min-height:104px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--cr);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 20px;background:var(--ac);color:var(--ink);border:0;font:800 16px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:12px}
+.btn.alt{background:transparent;border:2px solid var(--cr);color:var(--cr)}
+.btn[disabled]{opacity:.45}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:56px;margin:8px 0;padding:10px 14px;background:var(--ob);border:2px solid rgba(244,239,230,.45);text-align:left;font-weight:700;font-size:18px;cursor:pointer;position:relative;overflow:hidden}
+.opt .bar{position:absolute;inset:0 auto 0 0;background:var(--ac);opacity:.35;z-index:0}
+.opt span{position:relative;z-index:1}
+.opt.mine{border-color:var(--cr);box-shadow:inset 0 0 0 2px var(--cr)}
+ul.qs{list-style:none;padding:0;margin:12px 0 0}
+ul.qs li{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding:12px 0}
+ul.qs .t{flex:1}
+ul.qs .t small{display:block;color:var(--mut);font-size:13px;margin-top:3px}
+.up{min-width:64px;min-height:56px;background:var(--ob);border:2px solid rgba(244,239,230,.45);font-weight:800;font-size:15px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.up[aria-pressed=true]{background:var(--ac);color:var(--ink);border-color:var(--ac)}
+.pin{font:800 11px/1 system-ui,sans-serif;letter-spacing:.12em;color:var(--ink);background:var(--te);padding:3px 6px;margin-right:6px}
+.quotes button{display:block;width:100%;text-align:left;background:var(--ob);border:1px solid var(--line);border-left:6px solid var(--ac);padding:12px 14px;margin:8px 0;cursor:pointer;min-height:56px}
+.quotes q{display:block;font-weight:700;quotes:'\201C' '\201D'}
+.quotes small{color:var(--mut);display:block;margin-top:4px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:12px 0}
+.check input{width:24px;height:24px;margin-top:2px;accent-color:var(--te)}
+#makebar{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--ob) 28%);display:flex;justify-content:center;z-index:5}
+#makebar .btn{max-width:528px;margin:0;background:var(--cr);color:var(--ob);box-shadow:0 0 0 2px var(--ob)}
+#toast{position:fixed;left:16px;right:16px;bottom:calc(86px + env(safe-area-inset-bottom));max-width:528px;margin:0 auto;background:var(--cr);color:var(--ob);font-weight:700;padding:12px 14px;z-index:9;display:none}
+#sending{font-size:13px;color:var(--mut);text-align:center;min-height:18px}
+dialog{background:var(--ob2);color:var(--cr);border:2px solid var(--cr);max-width:420px;width:calc(100% - 32px);padding:18px}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="kente" aria-hidden="true"></div>
+<header>
+  <h1 class="lock disp">DMC 2026<small>BUILT TO SCALE</small></h1>
+  <div id="conn" role="status" aria-live="polite"><i></i><span>Live</span></div>
+</header>
+<main id="app">
+  <div id="reh" class="rehearsal" hidden>REHEARSAL: nothing here is real</div>
+  <div id="now"></div>
+  <div id="next" class="next"></div>
+  <div id="takeover"></div>
+  <div id="activity"></div>
+  <div id="quotes" class="quotes"></div>
+  <p id="sending" aria-live="polite"></p>
+  <p class="hint" style="padding:6px 4px 14px">No account. Your first name and a random code stay on this phone. <a href="/privacy#privacy">Privacy</a></p>
+</main>
+<div id="makebar"><button class="btn" id="make" type="button">Make a quote card</button></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="namedlg" aria-labelledby="nd-h">
+  <h2 id="nd-h" style="font-size:22px;margin-bottom:8px">What should we call you?</h2>
+  <p class="hint">First name only. It is kept on this phone.</p>
+  <label for="nd-in">First name</label>
+  <input id="nd-in" type="text" maxlength="30" autocomplete="given-name" autocapitalize="words">
+  <button class="btn" id="nd-ok" type="button">Continue</button>
+</dialog>
+
+<script>
+(function () {
+'use strict';
+var $ = function (id) { return document.getElementById(id); };
+var LS = { get: function (k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+function rid(n) { var a = new Uint8Array(n || 12); (window.crypto || window.msCrypto).getRandomValues(a); return Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+function jget(k, d) { try { return JSON.parse(LS.get(k, '')) || d; } catch (e) { return d; } }
+
+/* ---- identity: a random id and a first name, both only on this phone ---- */
+var DEV = LS.get('dmc_live_dev', ''); if (!DEV) { DEV = rid(12); LS.set('dmc_live_dev', DEV); }
+function myName() { return LS.get('dmc_live_name', ''); }
+
+/* ---- tiny DOM builder (all user text goes in as text, never as HTML) ---- */
+function h(tag, attrs) {
+  var e = document.createElement(tag);
+  if (attrs) Object.keys(attrs).forEach(function (k) {
+    if (k === 'class') e.className = attrs[k]; else if (k === 'text') e.textContent = attrs[k];
+    else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), attrs[k]); else if (attrs[k] !== false && attrs[k] != null) e.setAttribute(k, attrs[k]);
+  });
+  (function add(list) { for (var i = 0; i < list.length; i++) { var c = list[i]; if (c == null || c === false) continue; if (Array.isArray(c)) add(c); else e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); } }(Array.prototype.slice.call(arguments, 2)));
+  return e;
+}
+function toast(msg) { var t = $('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(function () { t.style.display = 'none'; }, 3200); }
+function setAccent(a, ink) { document.documentElement.style.setProperty('--ac', a || '#2A7B74'); document.documentElement.style.setProperty('--ink', ink || '#fff'); }
+
+/* ---- outbox: submissions are queued, sent with a retry key, and kept until the server answers ---- */
+var outbox = jget('dmc_live_out', []);
+var sending = false, backoff = 0;
+function saveOut() { LS.set('dmc_live_out', JSON.stringify(outbox.slice(-60))); $('sending').textContent = outbox.length ? 'Sending ' + outbox.length + '…' : ''; }
+function post(body, timeout) {
+  var ctl = window.AbortController ? new AbortController() : null; var timer = ctl && setTimeout(function () { ctl.abort(); }, timeout || 12000);
+  return fetch('/api/live-submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ d: DEV }, body)), signal: ctl && ctl.signal, keepalive: JSON.stringify(body).length < 60000 })
+    .then(function (r) { clearTimeout(timer); return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
+}
+function submit(body, done) {
+  var item = { k: rid(10), body: body };
+  outbox.push(item); saveOut();
+  if (done) item.done = done;
+  flush();
+  return item;
+}
+function flush() {
+  if (sending || !outbox.length) return;
+  sending = true;
+  var item = outbox[0];
+  post(Object.assign({ k: item.k }, item.body)).then(function (r) {
+    sending = false;
+    if (r.status >= 500 || r.status === 0) throw new Error('retry');
+    outbox.shift(); saveOut(); backoff = 0;
+    if (item.done) item.done(r);
+    flush();
+  }).catch(function () {
+    sending = false; backoff = Math.min(30000, (backoff || 1500) * 2);
+    setTimeout(flush, backoff);
+  });
+}
+window.addEventListener('online', function () { backoff = 0; flush(); });
+
+/* ---- first name, asked once, only when it is needed ---- */
+function needName(then) {
+  if (myName()) return then(myName());
+  var d = $('namedlg'); var inp = $('nd-in');
+  $('nd-ok').onclick = function () { var v = inp.value.replace(/\s+/g, ' ').trim().split(' ')[0].slice(0, 30); if (!v) { inp.focus(); return; } LS.set('dmc_live_name', v); d.close(); then(v); };
+  inp.onkeydown = function (e) { if (e.key === 'Enter') $('nd-ok').click(); };
+  if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  setTimeout(function () { inp.focus(); }, 50);
+}
+
+/* ---- rendering ---- */
+var ST = null, sig = {};
+function once(name, value, fn) { var s = JSON.stringify(value); if (sig[name] === s) return false; sig[name] = s; fn(); return true; }
+function initials(n) { var w = String(n).split(' ').filter(Boolean); return ((w[0] || '')[0] || '') + ((w.length > 1 ? w[w.length - 1][0] : '') || ''); }
+
+function renderNow(st) {
+  once('now', [st.now, st.next], function () {
+    var n = st.now, box = $('now'); box.textContent = '';
+    if (!n) { box.appendChild(h('div', { class: 'card' }, h('div', { class: 'lab', text: 'DMC 2026' }), h('h2', { text: 'Welcome. The first session starts soon.' }), h('p', { class: 'hint', text: 'This page updates by itself. Keep it open.' }))); }
+    else {
+      setAccent(n.accent, n.ink);
+      box.appendChild(h('div', { class: 'card' }, h('div', { class: 'lab', text: 'Now' }), h('h2', { text: n.title }),
+        h('div', null, h('span', { class: 'chip', text: n.format }), n.movement ? h('span', { class: 'hint', text: n.movement }) : null),
+        n.speakers.length ? h('div', { class: 'who' }, n.speakers.map(function (p) { return h('span', null, h('b', { 'aria-hidden': 'true', text: initials(p.name) }), p.name); })) : null));
+    }
+    $('next').textContent = '';
+    if (st.next) $('next').append('Next: ', h('b', { text: st.next.title }), st.next.speakers.length ? ' · ' + st.next.speakers.map(function (p) { return p.name; }).join(', ') : '');
+    if (!n) setAccent('#2A7B74', '#fff');
+  });
+}
+
+function sectionAct(accent, ink) { var s = h('section', { class: 'act' }); s.style.setProperty('--ac', accent || '#2A7B74'); s.style.setProperty('--ink', ink || '#fff'); return s; }
+
+function renderActivity(a) {
+  var box = $('activity');
+  var key = a.type + ':' + (a.id || (a.poll && a.poll.id) || '') + ':' + (a.prompt || '');
+  if (sig.actKey !== key) {
+    sig.actKey = key; sig.actData = ''; box.textContent = '';
+    if (a.type === 'cloud') buildCloud(box, a);
+    else if (a.type === 'qa') buildQa(box, a);
+    else if (a.type === 'poll') buildPoll(box, a);
+    else if (a.type === 'wall') buildWall(box, a);
+    else box.appendChild(h('p', { class: 'hint', style: 'padding:6px 4px', text: 'Nothing to answer right now. Quote cards are always open below.' }));
+  }
+  if (a.type === 'qa') updateQa(a);
+  if (a.type === 'poll') updatePoll(a.poll);
+}
+
+function usedKey(c) { return 'dmc_live_used_' + c; }
+function buildCloud(box, a) {
+  var left = a.limit - Number(LS.get(usedKey(a.id), '0'));
+  var sec = sectionAct(a.accent, a.id === 'work' ? '#1C1C1C' : '#fff');
+  var inp = h('input', { type: 'text', id: 'wd', maxlength: 24, autocomplete: 'off', autocapitalize: 'none', 'aria-label': 'Your word' });
+  var msg = h('p', { class: 'hint', 'aria-live': 'polite', text: left > 0 ? 'One or two words. You can add ' + left + ' more.' : 'You have added all three. Thank you.' });
+  var btn = h('button', { class: 'btn', type: 'button', text: 'Add my word' });
+  btn.disabled = left <= 0;
+  btn.onclick = function () {
+    var v = inp.value.replace(/\s+/g, ' ').trim();
+    if (!v || v.split(' ').length > 2) { msg.textContent = 'One or two words, please.'; inp.focus(); return; }
+    var l = a.limit - Number(LS.get(usedKey(a.id), '0')); if (l <= 0) return;
+    LS.set(usedKey(a.id), String(Number(LS.get(usedKey(a.id), '0')) + 1)); l--;
+    inp.value = ''; btn.disabled = l <= 0; msg.textContent = l > 0 ? 'Added. You can add ' + l + ' more.' : 'Added. That was your last one.';
+    submit({ t: 'word', cloud: a.id, text: v }, function (r) { if (r.status === 429) msg.textContent = 'That is the limit for this prompt.'; if (r.status === 409) msg.textContent = 'This one has closed.'; });
+  };
+  inp.onkeydown = function (e) { if (e.key === 'Enter') btn.click(); };
+  sec.append(h('div', { class: 'chip', text: a.movement }), h('h2', { text: a.prompt, style: 'margin-top:10px' }), inp, btn, msg);
+  box.appendChild(sec);
+}
+
+function votedSet() { return jget('dmc_live_votes', {}); }
+function buildQa(box, a) {
+  var sec = sectionAct(sessionAccent(), sessionInk());
+  var ta = h('textarea', { id: 'qt', maxlength: 280, 'aria-label': 'Your question' });
+  var cnt = h('div', { class: 'hint', 'aria-live': 'off', text: '280 characters' });
+  var anon = h('input', { type: 'checkbox', id: 'qa-anon' });
+  var btn = h('button', { class: 'btn', type: 'button', text: 'Send my question' });
+  var msg = h('p', { class: 'hint', 'aria-live': 'polite' });
+  ta.oninput = function () { cnt.textContent = (280 - ta.value.length) + ' left'; };
+  btn.onclick = function () {
+    var v = ta.value.replace(/\s+/g, ' ').trim();
+    if (v.length < 3) { ta.focus(); return; }
+    needName(function (name) {
+      submit({ t: 'q', session: a.id, text: v, name: anon.checked ? 'Anonymous' : name }, function (r) {
+        if (r.status === 429) msg.textContent = 'Give it a few seconds before the next question.';
+        else if (r.status === 409) msg.textContent = 'Questions are closed for this session.';
+        else msg.textContent = 'Sent. The team approves questions before they appear.';
+      });
+      ta.value = ''; cnt.textContent = '280 characters'; msg.textContent = 'Sending…';
+    });
+  };
+  sec.append(h('h2', { text: 'Ask the panel' }), h('p', { class: 'hint', text: a.title }), h('label', { for: 'qt', text: 'Your question' }), ta, cnt,
+    h('label', { class: 'check', for: 'qa-anon' }, anon, 'Ask anonymously'), btn, msg, h('ul', { class: 'qs', id: 'qlist', 'aria-label': 'Questions from the room' }));
+  box.appendChild(sec);
+}
+function updateQa(a) {
+  var voted = votedSet();
+  once('qlist', [a.questions, Object.keys(voted).length], function () {
+    var ul = $('qlist'); if (!ul) return; ul.textContent = '';
+    if (!a.questions.length) { ul.appendChild(h('li', null, h('span', { class: 'hint', text: 'No questions yet. Be the first.' }))); return; }
+    a.questions.forEach(function (q) {
+      var on = !!voted['q:' + q.id];
+      var up = h('button', { class: 'up', type: 'button', 'aria-pressed': String(on), 'aria-label': 'Upvote: ' + q.text }, h('span', { 'aria-hidden': 'true', text: '▲' }), h('span', { text: String(q.votes) }));
+      up.onclick = function () {
+        var v = votedSet(); if (v['q:' + q.id]) return; v['q:' + q.id] = 1; LS.set('dmc_live_votes', JSON.stringify(v));
+        up.setAttribute('aria-pressed', 'true'); up.lastChild.textContent = String(q.votes + 1);
+        submit({ t: 'qv', session: a.id, id: q.id });
+      };
+      ul.appendChild(h('li', null, up, h('div', { class: 't' }, q.pinned ? h('span', { class: 'pin', text: 'PINNED' }) : null, q.answered ? h('span', { class: 'pin', text: 'ANSWERED' }) : null, q.text, h('small', { text: q.name }))));
+    });
+  });
+}
+
+function buildPoll(box, a) {
+  var sec = sectionAct(sessionAccent(), sessionInk()); sec.id = 'pollsec';
+  sec.append(h('h2', { id: 'pq' }), h('div', { id: 'popts' }), h('p', { class: 'hint', id: 'pmsg', 'aria-live': 'polite' }));
+  box.appendChild(sec);
+}
+function updatePoll(p) {
+  if (!p) return;
+  var mine = votedSet()['p:' + p.id];
+  once('poll', [p, mine], function () {
+    $('pq').textContent = p.question;
+    var wrap = $('popts'); wrap.textContent = '';
+    var total = p.total || 0;
+    p.options.forEach(function (o, i) {
+      var btn = h('button', { class: 'opt' + (mine === i ? ' mine' : ''), type: 'button', 'aria-pressed': String(mine === i) });
+      if (p.counts) { var bar = h('div', { class: 'bar' }); bar.style.width = (total ? Math.round(p.counts[i] / total * 100) : 0) + '%'; btn.appendChild(bar); }
+      btn.append(h('span', { text: o }), h('span', { text: p.counts ? (total ? Math.round(p.counts[i] / total * 100) : 0) + '%' : (mine === i ? '✓' : '') }));
+      btn.disabled = !p.open || mine !== undefined;
+      btn.onclick = function () {
+        var v = votedSet(); v['p:' + p.id] = i; LS.set('dmc_live_votes', JSON.stringify(v));
+        submit({ t: 'pv', poll: p.id, opt: i }); sig.poll = ''; updatePoll(p);
+      };
+      wrap.appendChild(btn);
+    });
+    $('pmsg').textContent = !p.open ? 'This poll is closed.' : mine !== undefined ? 'Thanks, your answer is in.' : 'Tap your answer.';
+  });
+}
+
+function buildWall(box, a) {
+  var sec = sectionAct(sessionAccent(), sessionInk());
+  var line = h('input', { type: 'text', id: 'wl', maxlength: a.line, autocomplete: 'off', 'aria-label': 'What are you building' });
+  var contact = h('input', { type: 'text', id: 'wc', maxlength: 80, autocomplete: 'email', placeholder: 'Email or LinkedIn handle', 'aria-label': 'Email or LinkedIn handle' });
+  var opt = h('input', { type: 'checkbox', id: 'wo' });
+  var msg = h('p', { class: 'hint', 'aria-live': 'polite' });
+  var btn = h('button', { class: 'btn', type: 'button', text: 'Put it on the wall' });
+  btn.onclick = function () {
+    var v = line.value.replace(/\s+/g, ' ').trim();
+    if (v.length < 3) { line.focus(); return; }
+    if (opt.checked && contact.value.trim().length < 3) { contact.focus(); msg.textContent = 'Add an email or LinkedIn handle, or untick the box.'; return; }
+    needName(function (name) {
+      submit({ t: 'wall', name: name, line: v, optin: opt.checked, contact: opt.checked ? contact.value.trim() : '' }, function (r) {
+        msg.textContent = r.status === 429 ? 'That is the limit for this phone.' : r.status === 400 && r.body.error === 'contact' ? 'That contact does not look right.' : 'Sent. It appears on the wall once the team approves it.';
+      });
+      line.value = ''; msg.textContent = 'Sending…';
+    });
+  };
+  sec.append(h('h2', { text: 'What are you building?' }), h('label', { for: 'wl', text: 'One line' }), line,
+    h('label', { class: 'check', for: 'wo' }, opt, 'Send me my What I Built card after DMC'), h('label', { for: 'wc', text: 'Email or LinkedIn handle (only if you ticked the box)' }), contact, btn, msg);
+  box.appendChild(sec);
+}
+
+function sessionAccent() { return ST && ST.now ? ST.now.accent : '#2A7B74'; }
+function sessionInk() { return ST && ST.now ? ST.now.ink : '#fff'; }
+
+function renderQuotes(st) {
+  once('quotes', st.quotes, function () {
+    var box = $('quotes'); box.textContent = '';
+    if (!st.quotes.length) return;
+    box.appendChild(h('h3', { text: 'Quotes from this session', style: 'font-size:18px;margin:16px 0 4px' }));
+    st.quotes.forEach(function (q) {
+      var b = h('button', { type: 'button' }, h('q', { text: q.text }), h('small', { text: q.speaker.name + (q.speaker.title ? ', ' + q.speaker.title : '') }));
+      b.onclick = function () { openMaker({ quoteId: q.id }); };
+      box.appendChild(b);
+    });
+  });
+}
+
+function render(st) {
+  ST = st;
+  $('reh').hidden = !st.rehearsal;
+  renderNow(st);
+  if (st.takeover) { renderTakeover(st.takeover); return; }
+  $('takeover').textContent = '';
+  renderActivity(st.activity);
+  renderQuotes(st);
+}
+/* a later full-screen takeover (for example a session-wide activity) plugs in here: one handler per takeover type, none built yet */
+var TAKEOVERS = {};
+function renderTakeover(t) { var fn = TAKEOVERS[t && t.type]; if (fn) fn($('takeover'), t); }
+
+/* ---- polling: every two seconds while the page is visible, slower after failures ---- */
+var failures = 0, timer = null;
+function setConn(ok) { var c = $('conn'); c.className = ok ? '' : 'off'; c.lastChild.textContent = ok ? 'Live' : 'Reconnecting…'; }
+function tick() {
+  clearTimeout(timer);
+  if (document.hidden) return;
+  var ctl = window.AbortController ? new AbortController() : null; var guard = ctl && setTimeout(function () { ctl.abort(); }, 8000);
+  fetch('/api/live-state', { signal: ctl && ctl.signal }).then(function (r) { clearTimeout(guard); if (!r.ok) throw new Error('bad'); return r.json(); })
+    .then(function (st) { failures = 0; setConn(true); render(st); })
+    .catch(function (e) { failures++; setConn(false); if (e && e.message !== 'bad' && window.console) console.error('live', e && e.stack || e); })
+    .then(function () { timer = setTimeout(tick, Math.min(15000, 2000 * Math.pow(1.6, Math.min(failures, 5))) + Math.random() * 500); });
+}
+document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
+function beat() { if (!document.hidden) post({ t: 'hb' }, 6000).catch(function () {}); }
+setInterval(beat, 120000);
+
+/* ---- the quote card maker: its code, fonts and QR library load only when it is opened ---- */
+var makerP = null;
+function loadMaker() {
+  if (makerP) return makerP;
+  makerP = new Promise(function (res, rej) {
+    var s = document.createElement('script'); s.src = '/assets/live-cards.js?v=2'; s.onload = function () { res(window.DMCCards); }; s.onerror = function () { makerP = null; rej(new Error('load')); };
+    document.head.appendChild(s);
+  });
+  return makerP;
+}
+function openMaker(opts) {
+  var b = $('make'); var old = b.textContent; b.textContent = 'Loading…'; b.disabled = true;
+  loadMaker().then(function (M) {
+    b.textContent = old; b.disabled = false;
+    M.open(Object.assign({ state: ST, device: DEV, name: myName(), setName: function (n) { LS.set('dmc_live_name', n); }, post: post, submit: submit, toast: toast }, opts || {}));
+  }).catch(function () { b.textContent = old; b.disabled = false; toast('Could not load the card maker. Check your connection and try again.'); });
+}
+$('make').onclick = function () { openMaker({}); };
+if (/[?&]prefetch=1/.test(location.search)) loadMaker();
+
+saveOut(); flush(); tick(); beat();
+}());
+</script>
+</body>
+</html>

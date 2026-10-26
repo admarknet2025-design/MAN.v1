@@ -23,7 +23,8 @@
    "photo": "isaac-newton-acquah.webp",
    "session": "Build Yourself: Presentation",
    "movement": "Build Yourself",
-   "sessionTime": "10:35–10:45"
+   "sessionTime": "10:35–10:45",
+   "sponsor": ""
   },
   {
    "slug": "alex-offei-lartey",
@@ -33,7 +34,8 @@
    "photo": "alex-offei-lartey.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15"
+   "sessionTime": "10:45–11:15",
+   "sponsor": ""
   },
   {
    "slug": "ronald-tagoe",
@@ -43,7 +45,8 @@
    "photo": "ronald-tagoe.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15"
+   "sessionTime": "10:45–11:15",
+   "sponsor": "mNotify"
   },
   {
    "slug": "emelia-dede-quist",
@@ -53,7 +56,8 @@
    "photo": "emelia-dede-quist.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15"
+   "sessionTime": "10:45–11:15",
+   "sponsor": "Generation Ghana"
   },
   {
    "slug": "kwaku-ofosuhene",
@@ -63,7 +67,8 @@
    "photo": "kwaku-asare-ofosuhene.webp",
    "session": "Build Your Team: Presentation",
    "movement": "Build Your Team",
-   "sessionTime": "11:30–11:40"
+   "sessionTime": "11:30–11:40",
+   "sponsor": "MojoPay"
   },
   {
    "slug": "richard-sena-quashie",
@@ -73,7 +78,8 @@
    "photo": "richard-sena-quashie.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10"
+   "sessionTime": "11:40–12:10",
+   "sponsor": ""
   },
   {
    "slug": "simon-alangdee",
@@ -83,7 +89,8 @@
    "photo": "",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10"
+   "sessionTime": "11:40–12:10",
+   "sponsor": ""
   },
   {
    "slug": "florentia-teye",
@@ -93,7 +100,8 @@
    "photo": "florentia-teye.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10"
+   "sessionTime": "11:40–12:10",
+   "sponsor": ""
   },
   {
    "slug": "yvonne-dumor",
@@ -103,7 +111,8 @@
    "photo": "yvonne-dumor.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05"
+   "sessionTime": "12:35–13:05",
+   "sponsor": ""
   },
   {
    "slug": "ian-hutchful",
@@ -113,7 +122,8 @@
    "photo": "",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05"
+   "sessionTime": "12:35–13:05",
+   "sponsor": ""
   },
   {
    "slug": "enoch-appiah-jr",
@@ -123,7 +133,8 @@
    "photo": "enoch-appiah-jr.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05"
+   "sessionTime": "12:35–13:05",
+   "sponsor": ""
   },
   {
    "slug": "samuel-kwabena-ansong",
@@ -133,7 +144,8 @@
    "photo": "samuel-kwabena-ansong.webp",
    "session": "Pitching Yourself: Masterclass",
    "movement": "",
-   "sessionTime": "14:00–14:10"
+   "sessionTime": "14:00–14:10",
+   "sponsor": ""
   }
  ],
  "team": [
@@ -188,7 +200,9 @@
    "title": "Welcome & Opening Remarks",
    "badge": "Welcome",
    "speakers": "Emcee",
-   "movement": ""
+   "movement": "",
+   "format": "Welcome",
+   "people": []
   },
   {
    "id": "s02",
@@ -197,7 +211,9 @@
    "title": "Build Yourself: Keynote",
    "badge": "Keynote",
    "speakers": "Keynote speaker (TBC)",
-   "movement": "Build Yourself"
+   "movement": "Build Yourself",
+   "format": "Keynote",
+   "people": []
   },
   {
    "id": "s03",
@@ -206,7 +222,11 @@
    "title": "Build Yourself: Presentation",
    "badge": "Presentation",
    "speakers": "Isaac Newton Acquah",
-   "movement": "Build Yourself"
+   "movement": "Build Yourself",
+   "format": "Presentation",
+   "people": [
+    "isaac-newton-acquah"
+   ]
   },
   {
    "id": "s04",
@@ -215,7 +235,13 @@
    "title": "Build Yourself: Panel Discussion",
    "badge": "Panel",
    "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist",
-   "movement": "Build Yourself"
+   "movement": "Build Yourself",
+   "format": "Discussion",
+   "people": [
+    "alex-offei-lartey",
+    "ronald-tagoe",
+    "emelia-dede-quist"
+   ]
   },
   {
    "id": "s05",
@@ -224,7 +250,9 @@
    "title": "Morning Network Break",
    "badge": "Break",
    "speakers": "",
-   "movement": ""
+   "movement": "",
+   "format": "Break",
+   "people": []
   },
   {
    "id": "s06",
@@ -233,7 +261,11 @@
    "title": "Build Your Team: Presentation",
    "badge": "Presentation",
    "speakers": "Kwaku Ofosuhene · MojoPay",
-   "movement": "Build Your Team"
+   "movement": "Build Your Team",
+   "format": "Presentation",
+   "people": [
+    "kwaku-ofosuhene"
+   ]
   },
   {
    "id": "s07",
@@ -242,7 +274,13 @@
    "title": "Build Your Team: Panel Discussion",
    "badge": "Panel",
    "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye",
-   "movement": "Build Your Team"
+   "movement": "Build Your Team",
+   "format": "Discussion",
+   "people": [
+    "richard-sena-quashie",
+    "simon-alangdee",
+    "florentia-teye"
+   ]
   },
   {
    "id": "s08",
@@ -251,7 +289,9 @@
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "MojoPay",
-   "movement": ""
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
   },
   {
    "id": "s09",
@@ -260,7 +300,9 @@
    "title": "Ice Breaker",
    "badge": "Ice Breaker",
    "speakers": "",
-   "movement": ""
+   "movement": "",
+   "format": "Ice Breaker",
+   "people": []
   },
   {
    "id": "s10",
@@ -269,7 +311,9 @@
    "title": "Build Your Work: Partner Presentation",
    "badge": "Presentation",
    "speakers": "Generation Ghana · Silver Sponsor",
-   "movement": "Build Your Work"
+   "movement": "Build Your Work",
+   "format": "Presentation",
+   "people": []
   },
   {
    "id": "s11",
@@ -278,7 +322,13 @@
    "title": "Build Your Work: Panel Discussion",
    "badge": "Panel",
    "speakers": "Yvonne Dumor · Ian Hutchful — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
-   "movement": "Build Your Work"
+   "movement": "Build Your Work",
+   "format": "Discussion",
+   "people": [
+    "yvonne-dumor",
+    "ian-hutchful",
+    "enoch-appiah-jr"
+   ]
   },
   {
    "id": "s12",
@@ -287,7 +337,9 @@
    "title": "Lunch & Networking",
    "badge": "Break",
    "speakers": "",
-   "movement": ""
+   "movement": "",
+   "format": "Break",
+   "people": []
   },
   {
    "id": "s13",
@@ -296,7 +348,9 @@
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "mNotify",
-   "movement": ""
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
   },
   {
    "id": "s14",
@@ -305,7 +359,9 @@
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "Koin Photography",
-   "movement": ""
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
   },
   {
    "id": "s15",
@@ -314,7 +370,11 @@
    "title": "Pitching Yourself: Masterclass",
    "badge": "Masterclass",
    "speakers": "Samuel Kwabena Ansong",
-   "movement": ""
+   "movement": "",
+   "format": "Masterclass",
+   "people": [
+    "samuel-kwabena-ansong"
+   ]
   },
   {
    "id": "s16",
@@ -323,7 +383,9 @@
    "title": "Breakout Sessions",
    "badge": "Breakout",
    "speakers": "A: Building Your Team · B: Building Yourself · C: Building Your Work",
-   "movement": ""
+   "movement": "",
+   "format": "Breakout",
+   "people": []
   },
   {
    "id": "s17",
@@ -332,7 +394,9 @@
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "Tech Labari · Media Partner",
-   "movement": ""
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
   },
   {
    "id": "s18",
@@ -341,7 +405,9 @@
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "Kasad3 · Media Partner",
-   "movement": ""
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
   },
   {
    "id": "s19",
@@ -350,7 +416,9 @@
    "title": "Plenary",
    "badge": "Plenary",
    "speakers": "Emcee",
-   "movement": ""
+   "movement": "",
+   "format": "Plenary",
+   "people": []
   },
   {
    "id": "s20",
@@ -359,7 +427,9 @@
    "title": "Closing",
    "badge": "Closing",
    "speakers": "Emcee",
-   "movement": ""
+   "movement": "",
+   "format": "Closing",
+   "people": []
   }
  ],
  "partners": [
