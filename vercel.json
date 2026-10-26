@@ -107,6 +107,18 @@
     {
       "source": "/t/:code",
       "destination": "/api/t?code=:code"
+    },
+    {
+      "source": "/live",
+      "destination": "/api/live-page?p=phone"
+    },
+    {
+      "source": "/live/screen",
+      "destination": "/api/live-page?p=screen"
+    },
+    {
+      "source": "/live/control",
+      "destination": "/api/live-page?p=control"
     }
   ],
   "functions": {
@@ -117,6 +129,18 @@
       "includeFiles": "{lib/studio/**,assets/speakers/**,assets/partners26/**,assets/man-logo.png}",
       "memory": 1024,
       "maxDuration": 30
+    },
+    "api/live-page.js": {
+      "includeFiles": "lib/live/*.html"
+    },
+    "api/live-state.js": {
+      "includeFiles": "{lib/live/blocklist.txt,lib/studio/data.json}"
+    },
+    "api/live-submit.js": {
+      "includeFiles": "{lib/live/blocklist.txt,lib/studio/data.json}"
+    },
+    "api/live-control.js": {
+      "includeFiles": "{lib/live/blocklist.txt,lib/studio/data.json}"
     }
   }
 }

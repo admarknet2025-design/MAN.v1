@@ -67,6 +67,23 @@ people.forEach((p) => {
   p.sessionTime = row ? row.start + '–' + row.end : '';
 });
 
+/* Which speakers represent a sponsor or partner (DMC Live holds their official quotes until the operator ticks "Sponsor-approved").
+   Matched on the company in the speaker's role; a few spellings are listed by hand. */
+const SPONSOR_ALIASES = { 'mojo payments': 'MojoPay', 'mojopay': 'MojoPay', 'generation ghana': 'Generation Ghana', 'fido': 'FIDO', 'mnotify': 'mNotify',
+  'kasad3': 'Kasad3', 'tech labari': 'Tech Labari', 'koin photography': 'Koin Photography' };
+people.forEach((p) => {
+  const key = (p.company || '').toLowerCase().trim();
+  p.sponsor = SPONSOR_ALIASES[key] || '';
+});
+
+/* programme rows: who is on stage (people the site lists), and the format DMC Live shows */
+const FORMAT = { Keynote: 'Keynote', Presentation: 'Presentation', Panel: 'Discussion' };
+sessions.forEach((r) => {
+  r.format = FORMAT[r.badge] || r.badge;
+  const names = people.map((p) => p.name).filter((n) => r.speakers.indexOf(n) >= 0);
+  r.people = names.map((n) => people.find((p) => p.name === n).slug);
+});
+
 const partners = [
   { slug: 'mojopay',          name: 'MojoPay',          logo: 'mojopay-blue.webp',      tier: 'Gold / Headline Sponsor', role: 'Title sponsor and official ticketing platform' },
   { slug: 'generation-ghana', name: 'Generation Ghana', logo: 'generation-ghana.webp',  tier: 'Silver Sponsor',          role: 'Partner presentation, 12:25' },
