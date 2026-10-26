@@ -10,7 +10,7 @@ const fs = require('fs'); const SHOTS = process.env.SHOTS || 'live-shots'; fs.mk
 const B = (process.env.BASE || 'http://localhost:4180').replace(/\/$/, ''), AUTH = 'Basic ' + Buffer.from(ENV_USER + ':' + ENV_PASS).toString('base64');
 const J = (r) => r.json().catch(() => ({}));
 const api = (op) => fetch(B + '/api/live-control', { method: 'POST', headers: { 'content-type': 'application/json', authorization: AUTH }, body: JSON.stringify(op) }).then(J);
-const state = () => fetch(B + '/api/live-control?view=state', { headers: { authorization: AUTH } }).then(J);
+const state = () => fetch(B + '/api/live-control?view=state&fresh=1', { headers: { authorization: AUTH } }).then(J);
 const sub = (d, body) => fetch(B + '/api/live-submit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(Object.assign({ d, k: Math.random().toString(36).slice(2, 12) }, body)) }).then(async (r) => ({ status: r.status, ...(await J(r)) }));
 const dev = (n) => 'dev' + String(n).padStart(6, '0') + 'abcd';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

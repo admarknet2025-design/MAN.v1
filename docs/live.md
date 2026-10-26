@@ -42,7 +42,18 @@ Upstash's free plan allows 500,000 commands a month. Design choices that keep Li
 - Per-device counters and idempotency markers use `EXPIREAT`, so nothing lingers.
 - Only sessions that have questions are read by the panel (`qsess` set).
 
-LOAD_RESULTS
+**Measured** (`tools/live-load-test.js`, local server with a simulated edge cache and a counting fake of the store; 250 phones, 2 screens, 2 operators, 10 minutes, the whole programme compressed into those 10 minutes: three clouds, Q&A, a before/after poll, the wall, about 470 quote cards, and an operator approving everything within seconds):
+
+| | |
+|---|---|
+| Requests | 76,413 (127 a second), no errors; the only non-200 answers were intended per-device limits (429) and "already closed" (409) |
+| Phones seeing an operator action | p50 1.6 s, p95 2.8 s, p99 3.1 s, 983 of 983 actions reached 95% of phones |
+| Function time per request | p50 1 to 9 ms, p99 under 35 ms |
+| Redis commands, busy (everything above) | about 6,900 a minute |
+| Redis commands, audience idle (phones just polling and sending heartbeats) | about 500 a minute |
+
+What that means for the 500,000-a-month free allowance: an idle five-hour day is about 150,000 commands, and each busy minute like the test costs about 7,000. Ninety busy minutes plus the rest idle comes to roughly 700,000, so **the free plan will probably not cover the event day plus the rehearsal.** The measurement is local: Vercel runs several edge locations and function instances, so the real count will be somewhat higher (each warm instance keeps its own cache), which the rehearsal will show on Upstash's usage page.
+
 
 **This is the one thing that may need a paid plan.** Upstash's pay-as-you-go plan is about US$0.20 per 100,000 commands; a heavy event day is well under US$1, but it needs a card on the account and a budget cap. It has **not** been enabled. Decide before the rehearsal; the rehearsal itself will use part of the free allowance.
 

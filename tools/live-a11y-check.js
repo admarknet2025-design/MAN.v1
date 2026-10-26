@@ -15,7 +15,7 @@ const api = (op) => fetch(B + '/api/live-control', { method: 'POST', headers: { 
   const run = async (name, p, setup) => { if (setup) await setup(p); await p.addScriptTag({ content: AXE }); const r = await p.evaluate(() => axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] })); const v = r.violations; console.log(name + ': ' + (v.length ? v.length + ' violation(s)' : 'clean') + ' (' + r.passes.length + ' rules passed)'); v.forEach((x) => { bad++; console.log('  -', x.id, x.impact, x.help, x.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ')); }); };
   const ph = await (await b.newContext({ viewport: { width: 390, height: 800 } })).newPage();
   for (const [act, extra] of [['qa'], ['cloud', 'yourself'], ['poll'], ['wall']]) {
-    const st = await (await fetch(B + '/api/live-control?view=state', { headers: { authorization: AUTH } })).json();
+    const st = await (await fetch(B + '/api/live-control?view=state&fresh=1', { headers: { authorization: AUTH } })).json();
     if (act === 'poll') await api({ op: 'poll.set', id: st.polls[0].id, open: true });
     await api({ op: 'activity.set', type: act, id: act === 'cloud' ? 'yourself' : act === 'poll' ? st.polls[0].id : undefined });
     await ph.goto(B + '/live'); await ph.waitForTimeout(2600);
@@ -23,7 +23,7 @@ const api = (op) => fetch(B + '/api/live-control', { method: 'POST', headers: { 
   }
   await run('phone/card maker', ph, async (p) => { await p.click('#make'); await p.waitForSelector('#dmcm canvas'); await p.fill('#dmcm-t', 'Ship small, learn fast.'); await p.waitForTimeout(800); });
   const sc = await (await b.newContext({ viewport: { width: 1920, height: 1080 } })).newPage();
-  for (const mode of ['holding', 'cloud', 'qa', 'poll', 'wall', 'finale']) { await api({ op: 'screen.set', mode, id: mode === 'poll' ? (await (await fetch(B + '/api/live-control?view=state', { headers: { authorization: AUTH } })).json()).polls[0].id : '' }); await sc.goto(B + '/live/screen'); await sc.waitForTimeout(2800); await run('screen/' + mode, sc); }
+  for (const mode of ['holding', 'cloud', 'qa', 'poll', 'wall', 'finale']) { await api({ op: 'screen.set', mode, id: mode === 'poll' ? (await (await fetch(B + '/api/live-control?view=state&fresh=1', { headers: { authorization: AUTH } })).json()).polls[0].id : '' }); await sc.goto(B + '/live/screen'); await sc.waitForTimeout(2800); await run('screen/' + mode, sc); }
   const ct = await (await b.newContext({ viewport: { width: 1280, height: 900 }, httpCredentials: { username: ENV_USER, password: ENV_PASS } })).newPage();
   await ct.goto(B + '/live/control'); await ct.waitForTimeout(2500);
   for (const tab of ['Run', 'Questions', 'Build Wall', 'Takeaways', 'Polls', 'Official quotes', 'Words', 'Setup']) await run('control/' + tab, ct, async (p) => { await p.getByRole('tab', { name: new RegExp('^' + tab) }).click(); await p.waitForTimeout(500); });

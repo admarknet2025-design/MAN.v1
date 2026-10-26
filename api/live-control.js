@@ -29,9 +29,10 @@ const iso = (t) => (t ? new Date(Number(t)).toISOString() : '');
 /* ---- the panel's view of everything ----
    The heavy part (programme, queues, polls, quotes) is rebuilt only when the "ver" counter has moved, once per server instance; each poll
    otherwise costs five cheap reads (the counters and the clicks), so two operators polling every few seconds stay well inside the store's command budget. */
-let heavy = { key: '', value: null };
-async function controlHeavy(ver) {
-  if (heavy.value && heavy.key === ver) return heavy.value;
+let heavy = { key: '', value: null, at: 0 };
+const HEAVY_MAX_AGE = 4000;   /* while submissions are flying in, "ver" moves every second; a panel that is a few seconds behind on queues is fine */
+async function controlHeavy(ver, fresh) {
+  if (heavy.value && (heavy.key === ver || (!fresh && Date.now() - heavy.at < HEAVY_MAX_AGE))) return heavy.value;
   const cfg = await live.readCfg();
   const [hflat, blocked, flag, qsess] = await run([['HGETALL', K('handles')], ['SMEMBERS', K('blocked')], ['HGETALL', K('flag')], ['SMEMBERS', K('qsess')]]);
   const handles = toObj(hflat);
@@ -57,12 +58,12 @@ async function controlHeavy(ver) {
     flagged: Object.values(toObj(flag)).map((j) => jp(j, null)).filter(Boolean).sort((a, b) => b.ts - a.ts),
     blocked: blocked || []
   };
-  heavy = { key: ver, value };
+  heavy = { key: ver, value, at: Date.now() };
   return value;
 }
-async function controlState() {
+async function controlState(fresh) {
   const [ver, cnt, hb, an] = await run([['GET', K('ver')], ['HGETALL', K('cnt')], ['ZCOUNT', K('hb'), String(Date.now() - 180000), '+inf'], ['HGETALL', K('an')]]);
-  const base = await controlHeavy(String(ver || 0));
+  const base = await controlHeavy(String(ver || 0), fresh);
   const links = await live.store.combos().catch(() => []);
   const clicks = {};
   links.filter((c) => c.kind === 'cl' && c.source === 'livequote').forEach((c) => { clicks[c.ref + '|' + c.campaign] = (clicks[c.ref + '|' + c.campaign] || 0) + c.n; });
@@ -117,7 +118,7 @@ async function exportCsv(what) {
     (await all('tk')).sort((a, b) => a.ts - b.ts).map((t) => ({ id: t.id, time: iso(t.ts), session: t.session, session_title: title(t.session), first_name: t.name, takeaway: t.text, status: t.status })));
   sections.quotes = async () => csv(['id', 'session', 'session_title', 'speaker', 'quote', 'sponsor', 'sponsor_approved', 'published'],
     (await all('quotes')).sort((a, b) => a.ts - b.ts).map((q) => ({ id: q.id, session: q.session, session_title: title(q.session), speaker: q.speaker.name, quote: q.text, sponsor: q.sponsor || '', sponsor_approved: q.sponsor ? (q.approved ? 'yes' : 'no') : '', published: q.published ? 'yes' : 'no' })));
-  sections.analytics = async () => { const st = await controlState(); return csv(['session', 'session_title', 'card_type', 'made', 'shared', 'saved', 'link_clicks'], st.analytics.map((a) => ({ session: a.session, session_title: title(a.session), card_type: a.ct, made: a.made, shared: a.shared, saved: a.saved, link_clicks: a.clicks }))); };
+  sections.analytics = async () => { const st = await controlState(true); return csv(['session', 'session_title', 'card_type', 'made', 'shared', 'saved', 'link_clicks'], st.analytics.map((a) => ({ session: a.session, session_title: title(a.session), card_type: a.ct, made: a.made, shared: a.shared, saved: a.saved, link_clicks: a.clicks }))); };
   if (what === 'all') {
     let out = '';
     for (const k of Object.keys(sections)) out += '# ' + k + '\r\n' + (await sections[k]()) + '\r\n';
@@ -331,13 +332,14 @@ module.exports = async function handler(req, res) {
         const [img] = await run([['GET', K('tki:' + q.id)]]);
         return res.status(200).json({ img: img || '' });
       }
-      return res.status(200).json(await controlState());
+      return res.status(200).json(await controlState(q.fresh === "1"));
     }
     if (req.method !== 'POST') { res.setHeader('Allow', 'GET, POST'); return fail(res, 'method', 405); }
     const b = req.body && typeof req.body === 'object' ? req.body : {};
     const op = OPS[String(b.op)];
     if (!op) return fail(res, 'unknown action');
     const out = await op(b);
+    heavy = { key: '', value: null, at: 0 };   /* the operator's own next view must show what they just did */
     return res.status(200).json(Object.assign({ ok: true }, out || {}));
   } catch (e) {
     console.error('live control error', e && e.message);

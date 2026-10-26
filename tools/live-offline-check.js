@@ -8,7 +8,7 @@ if (!ENV_USER || !ENV_PASS) { console.error('Set ADMIN_USER and ADMIN_PASSWORD (
 const { chromium } = require('playwright'); const zlib = require('zlib');
 const B = (process.env.BASE || 'http://localhost:4180').replace(/\/$/, ''), AUTH = 'Basic ' + Buffer.from(ENV_USER + ':' + ENV_PASS).toString('base64');
 const api = (op) => fetch(B + '/api/live-control', { method: 'POST', headers: { 'content-type': 'application/json', authorization: AUTH }, body: JSON.stringify(op) }).then(r => r.json());
-const state = () => fetch(B + '/api/live-control?view=state', { headers: { authorization: AUTH } }).then(r => r.json());
+const state = () => fetch(B + '/api/live-control?view=state&fresh=1', { headers: { authorization: AUTH } }).then(r => r.json());
 let fails = 0; const ok = (n, c, x) => { console.log((c ? 'PASS ' : 'FAIL ') + n + (c ? '' : ' ' + JSON.stringify(x || ''))); if (!c) fails++; };
 (async () => {
   await api({ op: 'reset', confirm: 'RESET' }); await api({ op: 'session.set', id: 's04' }); await api({ op: 'activity.set', type: 'cloud', id: 'team' });

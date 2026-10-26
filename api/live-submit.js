@@ -14,7 +14,6 @@
    Every response is small JSON: { ok: true, ... } or { error: "code" }. */
 'use strict';
 
-const crypto = require('crypto');
 const live = require('./_live');
 const { origin } = require('./_auth');
 
@@ -22,6 +21,14 @@ const { K, run, LIMITS } = live;
 const CARD_TYPES = ['official', 'takeaway'];
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,80}\.[^\s@]{2,}$/;
 
+let ipMinute = 0, ipCounts = new Map();
+function ipOk(ip) {
+  const m = Math.floor(Date.now() / 60000);
+  if (m !== ipMinute) { ipMinute = m; ipCounts = new Map(); }
+  const n = (ipCounts.get(ip) || 0) + 1;
+  ipCounts.set(ip, n);
+  return n <= 1800;
+}
 const count = (kind) => [['HINCRBY', K('cnt'), kind, '1'], ['EXPIREAT', K('cnt'), String(live.KEEP)]];
 const fail = (res, code, status) => res.status(status || 400).json({ error: code });
 const sessionKnown = (cfg, id) => typeof id === 'string' && /^[a-z0-9-]{1,24}$/.test(id) && live.sessionList(cfg.sess).some((s) => s.id === id);
@@ -48,12 +55,10 @@ module.exports = async function handler(req, res) {
   const t = String(b.t || '');
 
   try {
-    /* coarse flood guard per network address: generous, because a whole room can share one Wi-Fi address */
+    /* coarse flood guard per network address, kept in this instance's memory (no store commands): generous, because a whole room can share one Wi-Fi address */
     if (t !== 'hb') {
       const ip = String(req.headers['x-forwarded-for'] || req.socket && req.socket.remoteAddress || '').split(',')[0].trim();
-      const ipKey = crypto.createHash('sha256').update(live.hashDevice('ip' + ip)).digest('hex').slice(0, 12) + ':' + Math.floor(Date.now() / 60000);
-      const [n] = await run([['INCR', K('rl:ip:' + ipKey)], ['EXPIRE', K('rl:ip:' + ipKey), '120']]);
-      if (Number(n) > 1800) return fail(res, 'slow down', 429);
+      if (!ipOk(ip)) return fail(res, 'slow down', 429);
     }
 
     if (t === 'hb') {
