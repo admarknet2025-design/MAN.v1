@@ -44,7 +44,7 @@ const CLOUDS = {
   team: { id: 'team', movement: 'Build Your Team', accent: COLOURS.co, prompt: 'One word for the team you want.' },
   work: { id: 'work', movement: 'Build Your Work', accent: COLOURS.cr, prompt: 'One word for what you’ll ship in 2027.' }
 };
-const FORMATS = ['Keynote', 'Discussion', 'Presentation', 'Live Interview', 'Hub', 'Other'];
+const FORMATS = ['Keynote', 'Discussion', 'Presentation', 'Live Interview', 'Other'];
 const LIMITS = { word: 24, question: 280, name: 30, line: 120, takeaway: 140, contact: 80, quote: 220, wordsPerDevice: 3, previewBytes: 60000 };
 
 /* ---- redis helpers ---- */
