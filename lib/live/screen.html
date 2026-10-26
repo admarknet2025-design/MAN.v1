@@ -94,7 +94,7 @@ h1.prompt{font-size:2.5rem;line-height:1.1;max-width:68rem}
   <div id="lock" class="disp">DMC 2026<small>BUILT TO SCALE</small></div>
   <div class="count" id="count"></div></header>
   <main id="view" aria-live="polite" aria-label="DMC Live"></main>
-  <footer><div id="join">mangh.org/live</div></footer>
+  <footer><div id="join"></div></footer>
   <div class="kente" id="botk" aria-hidden="true"></div>
 </div>
 <script src="/assets/live-qr.js?v=1"></script>
@@ -114,6 +114,10 @@ function setAc(c) { $('stage').style.setProperty('--ac', c || '#2A7B74'); }
 function darkTag(c) { return c === '#F4EFE6' ? ' dark' : ''; }
 
 /* ---- QR ---- */
+/* where the QR points: mangh.org in production; on a preview or a local copy, that copy (so the code opens what you are looking at) */
+var JOIN_URL = (/^(www\.)?mangh\.org$/.test(location.hostname) ? 'https://mangh.org' : location.origin) + '/live';
+var JOIN = JOIN_URL.replace(/^https?:\/\//, '');
+document.getElementById('join').textContent = JOIN;
 function qrSvg(text, px) {
   var q = window.qrcode(0, 'M'); q.addData(text); q.make();
   var n = q.getModuleCount(), d = '';
@@ -170,7 +174,7 @@ var modes = {
     var root = h('div', { class: 'hold fade' });
     var left = h('div', null, h('h1', { class: 'disp', text: 'Scan to join' }), h('p', { text: 'Questions, polls, word clouds and your own quote cards, from your phone. No app, no login.' }));
     if (st.session) left.appendChild(h('div', { class: 'now' }, h('div', { style: 'font:800 .8rem/1 Archivo,sans-serif;letter-spacing:.2em;color:rgba(244,239,230,.78)', text: 'NOW' }), st.session.title));
-    var box = h('div', { class: 'qrbox' }, qrSvg('https://mangh.org/live'), h('div', { text: 'mangh.org/live' }));
+    var box = h('div', { class: 'qrbox' }, qrSvg(JOIN_URL), h('div', { text: JOIN }));
     root.append(left, box); setAc(st.session ? st.session.accent : '#2A7B74'); return { el: root };
   },
   cloud: function (st) {
@@ -195,7 +199,7 @@ var modes = {
       h('h1', { class: 'prompt disp', text: st.title || 'Questions from the room', style: 'font-size:' + (interview ? '2rem' : '2.1rem') }), list);
     function fill(s) {
       list.textContent = '';
-      if (!s.questions.length) list.appendChild(h('li', null, h('div', { class: 'v', text: '?' }), h('div', { class: 't', text: 'Send your question at mangh.org/live' })));
+      if (!s.questions.length) list.appendChild(h('li', null, h('div', { class: 'v', text: '?' }), h('div', { class: 't', text: 'Send your question at ' + JOIN })));
       s.questions.forEach(function (q) { list.appendChild(h('li', null, h('div', { class: 'v' }, String(q.votes), h('small', { text: 'VOTES' })), h('div', { class: 't' }, q.pinned ? h('span', { class: 'pin', text: 'PINNED' }) : null, q.text, h('small', { text: q.name })))); });
     }
     fill(st);
@@ -215,7 +219,7 @@ var modes = {
         var bar = h('div', { class: 'bar' }, h('i', { style: 'width:' + (p2.counts ? pct : 0) + '%' }), h('span', { text: o }), h('b', { text: p2.counts ? pct + '%' : '' }));
         bw.appendChild(bar);
       });
-      box.appendChild(bw); box.appendChild(h('div', { class: 'total', text: p2.counts ? total + ' answers' : p2.open ? 'Voting is open: mangh.org/live' : '' }));
+      box.appendChild(bw); box.appendChild(h('div', { class: 'total', text: p2.counts ? total + ' answers' : p2.open ? 'Voting is open: ' + JOIN : '' }));
       return box;
     }
     function fill(s) {
@@ -239,7 +243,7 @@ var modes = {
     var key = '';
     function fill(s) {
       var k = JSON.stringify(s.wall); if (k === key) return; key = k; box.textContent = '';
-      if (!s.wall.length) { box.appendChild(h('p', { style: 'font-size:1.6rem;color:rgba(244,239,230,.85)', text: 'Add yours at mangh.org/live' })); return; }
+      if (!s.wall.length) { box.appendChild(h('p', { style: 'font-size:1.6rem;color:rgba(244,239,230,.85)', text: 'Add yours at ' + JOIN })); return; }
       var col = h('div', { class: 'wallcol' });
       var items = s.wall.slice().reverse();
       var rows = items.concat(items);

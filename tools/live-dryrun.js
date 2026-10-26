@@ -29,7 +29,7 @@ const edge = async () => (await fetch(B + '/api/live-state?bust=' + Math.random(
   let st = await state(); ok('reset leaves nothing', st.polls.length === 0 && st.questions.length === 0 && st.wall.length === 0);
   await phone.goto(B + '/live'); await screen.goto(B + '/live/screen'); await ctl.goto(B + '/live/control'); await sleep(2500);
   await shot(screen, '01-screen-holding'); await shot(phone, '01-phone-start');
-  ok('screen holding slide shows join link', (await screen.textContent('body')).includes('mangh.org/live'));
+  ok('screen holding slide shows join link', (await screen.textContent('body')).includes('/live'));
   ok('screen has QR svg', await screen.$('svg[aria-label^="QR"]'));
 
   /* 1. Now & Next through the real panel */
@@ -171,7 +171,7 @@ const edge = async () => (await fetch(B + '/api/live-state?bust=' + Math.random(
   const sc2 = await (await fetch(B + '/api/live-state?view=screen&w=' + Math.random())).json(); ok('screen shows first name only', sc2.takeaways && sc2.takeaways[0].name === 'Ama' && !('session' in sc2.takeaways[0]), sc2.takeaways);
   await api({ op: 'screen.set', mode: 'quote', id: q1.id }); await sleep(3200); await shot(screen, '19-screen-quote');
   await api({ op: 'screen.holding' }); await sleep(2800); await shot(screen, '20-screen-holding-emergency');
-  ok('emergency holding slide works', (await screen.textContent('body')).includes('mangh.org/live'));
+  ok('emergency holding slide works', (await screen.textContent('body')).includes('/live'));
   st = await state(); const an = st.analytics.map((a) => a.ct + ':' + a.made + '/' + a.shared + '/' + a.saved).join(' ');
   ok('analytics recorded cards made/saved by session and type', st.analytics.length >= 2, an);
   await ctl.reload(); await sleep(2500); await shot(ctl, '21-control-final');

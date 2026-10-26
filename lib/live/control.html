@@ -55,6 +55,18 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 .now{border-left:10px solid var(--ac);padding-left:12px}
 .now h2{font-size:24px}
 #err{display:none;background:var(--co);color:var(--ob);font-weight:800;padding:10px 12px;margin:8px 12px}
+details.tip{margin:4px 0 8px;font-size:14px}
+details.tip summary{cursor:pointer;color:var(--cr);font-weight:700;min-height:32px;display:flex;align-items:center;gap:8px;list-style:none}
+details.tip summary::-webkit-details-marker{display:none}
+details.tip summary::before{content:'?';display:inline-grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border:2px solid var(--cr);border-radius:50%;font-weight:800;font-size:13px}
+details.tip[open] summary::before{background:var(--cr);color:var(--ob)}
+details.tip ul,details.tip p{color:var(--cr);margin:6px 0 0 30px;line-height:1.45}
+details.tip li{margin:3px 0}
+#preview{max-width:1100px;margin:12px auto 0;padding:0 12px}
+#preview .panel{margin-bottom:0}
+#pvbox{position:relative;width:100%;max-width:560px;background:#000;border:1px solid var(--line);overflow:hidden}
+#pvbox iframe{position:absolute;left:0;top:0;width:1920px;height:1080px;border:0;transform-origin:0 0;pointer-events:none}
+.links a{text-decoration:none;display:inline-flex;align-items:center}
 img.prev{max-width:240px;border:1px solid var(--line)}
 .bar2{height:14px;background:var(--ob);margin-top:4px}.bar2 i{display:block;height:100%;background:var(--ac)}
 </style>
@@ -70,6 +82,13 @@ img.prev{max-width:240px;border:1px solid var(--line)}
 </header>
 <div id="err" role="alert"></div>
 <nav aria-label="Sections"><div id="tabs" role="tablist" aria-label="Sections"></div></nav>
+<section id="preview" aria-label="Projector preview" hidden>
+  <div class="panel">
+    <div class="row"><h2 style="margin:0">What the projector shows right now</h2><button class="btn sm ghost" id="pvtoggle" type="button" style="margin-left:auto">Hide preview</button></div>
+    <p class="muted" style="margin:6px 0 8px">This is a live copy of the projector page. The room sees the page that is open on the venue laptop, which shows the same thing.</p>
+    <div id="pvbox"><iframe id="pvframe" title="Preview of the projector page" tabindex="-1"></iframe></div>
+  </div>
+</section>
 <main id="main"></main>
 
 <script>
@@ -95,6 +114,100 @@ function api(body) {
 }
 function act(body) { return function () { api(body).catch(function () {}); }; }
 function sessionTitle(id) { var s = S.sessions.filter(function (x) { return x.id === id; })[0]; return s ? s.title : id; }
+
+
+/* ---- guidance: a "?" note on every tab and panel, and a tooltip on every button ---- */
+function tip(summary, items) {
+  var d = h('details', { class: 'tip' }, h('summary', { text: summary }), Array.isArray(items) ? h('ul', null, items.map(function (t) { return h('li', { text: t }); })) : h('p', { text: items }));
+  return d;
+}
+var INTROS = {
+  q: ['How questions work', ['Questions arrive here from phones and wait under “Waiting for you”. Phones and the screen show nothing until you approve.', 'Approve puts a question on phones and the screen, ranked by upvotes. Reject hides it. Pin keeps one at the top; Answered moves it down the list.', 'Use the session menu to see another session’s questions (each session has its own Q&A).', 'To show them on the projector: Run tab, panel 3, “Questions list” or “Interview mode: top 3”.', 'A red FILTER tag means a blocked word was found. Read it before approving.']],
+  wall: ['How the Build Wall works', ['People answer “What are you building?” on their phones while Build Wall is the phone activity (Run tab, panel 2).', 'Each line waits here. Approve it to put it on the wall; Reject keeps it off.', 'Approved lines scroll on the projector when the screen shows “Build Wall” (Run tab, panel 3).', 'The CSV has the contacts of people who ticked “Send me my What I Built card”. Nobody else’s.']],
+  tk: ['How takeaway cards work', ['Every “My takeaway” card an attendee makes arrives here with a small preview of the card.', 'Nothing shows in the room until you press “Send to screen” on one.', 'To show the ones you picked, press “Show takeaways on the screen” below (or Run tab, panel 3, “Takeaways from the room”). Only first names are shown.', 'Approve means “fine, but not for the screen”. Reject hides it from everything.']],
+  polls: ['How polls work', ['Create a poll, then press “Make live on phones” so people can answer, and “Show on screen” to put the bars on the projector.', 'Swing: tick the box when creating. You get two linked polls, BEFORE and AFTER. Run the before poll early in a session, close it, then run the after poll at the end. “Show on screen” on the after poll shows both sets of bars and the share of people who changed their minds.', '“Close voting” stops answers. “Hide results on phones” keeps the numbers from the audience until you are ready.']],
+  quotes: ['How official quotes work', ['An official quote is a line a speaker really said, checked by you or the note-taker. Attendees can turn it into a card with the speaker’s name, title and photo.', 'Pick the session and the speaker, type the line exactly, press “Save quote”, then “Publish to phones”. “Show on screen” puts it on the projector.', 'If the speaker represents a sponsor or partner, the quote cannot be published until you tick “Sponsor-approved”. Tick it only after the sponsor has agreed those exact words. Editing the words clears the tick.']],
+  words: ['How this tab works', ['“Flagged words” are words the filter held back. They never show in a cloud unless you press “Release to the cloud”. “Dismiss” deletes them.', 'Add extra blocked words below. They apply within 30 seconds.', 'Export (CSV) downloads everything for after the event: words, questions, polls, wall, takeaways, quotes and card statistics.']],
+  setup: ['How setup works', ['Before the event: check the sessions, add anything the programme does not list, and type each speaker’s social handle (used in card captions).', '“Start rehearsal data” fills the system with fake content so you can practise. Everything is marked REHEARSAL.', '“Reset everything” (type RESET) clears all of it. Do this before doors open.']]
+};
+var TITLES = {
+  'holding slide': 'Emergency button: put the join QR code on the projector now. Phones are not affected.',
+  '◀ back': 'Go back to the previous session', 'next session ▶': 'Move phones and the screen on to the next session. Ends this session’s Q&A.', 'start ▶': 'Start the programme with the first session',
+  'nothing (end activity)': 'Close the current activity on phones. Nothing that people sent is deleted.',
+  'follow phones': 'The projector copies whatever phones are doing, or shows the join slide when nothing is open. Default.',
+  'finale: three clouds': 'Show all three word clouds side by side, for the closing moment',
+  'interview mode: top 3': 'Show the three best approved questions in large type, for the moderator',
+  'questions list': 'Show the approved questions on the projector, ranked by upvotes',
+  'takeaways from the room': 'Show the takeaway cards you sent to the screen (first names only)',
+  'poll with results': 'Show the live poll’s bars on the projector. A swing shows before and after.',
+  'approve': 'Show this in the room: it goes to phones and the screen', 'reject': 'Keep this out of the room. You can bring it back from the Rejected list.',
+  'remove': 'Take this off phones and the screen', 'take down': 'Take this off the wall', 'pin': 'Keep this question at the top of the list', 'unpin': 'Stop keeping this question at the top',
+  'answered': 'Mark as answered: it moves down the list', 'mark open': 'Mark as not answered yet', 'back to queue': 'Return it to “Waiting for you”', 'restore': 'Bring it back to the approved list',
+  'send to screen': 'Add this takeaway to “Takeaways from the room” on the projector', 'take off screen': 'Remove this takeaway from the projector',
+  'show card preview': 'See the small image of the card this person made', 'show takeaways on the screen': 'Switch the projector to “Takeaways from the room”',
+  'create': 'Create the poll (a swing makes two linked polls)', 'make live on phones': 'Phones show this poll and people can answer', 'show on screen': 'Put this on the projector now',
+  'open voting': 'Let people answer this poll', 'close voting': 'Stop taking answers (results stay)', 'show results on phones': 'Let phones see the bars', 'hide results on phones': 'Hide the bars from phones until you are ready',
+  'delete': 'Delete permanently (asks you first)', 'save quote': 'Save this quote. It stays private until you press “Publish to phones”.', 'save changes': 'Save the edit. A sponsor quote needs approving again.',
+  'publish to phones': 'Attendees see this quote and can make a card from it', 'unpublish': 'Hide this quote from phones again', 'edit': 'Change the wording of this quote', 'cancel': 'Discard these edits',
+  'release to the cloud': 'Allow this word into the word cloud', 'dismiss': 'Delete it. It never shows.', 'block': 'Add this word to the filter. It applies within 30 seconds.',
+  'download wall csv': 'Download the Build Wall as a spreadsheet, with opt-in contacts', 'save': 'Save this change', 'add session': 'Add this session to the programme',
+  'hide from the list': 'Hide this session from the programme (phones and screen)', 'start rehearsal data': 'Fill the system with fake content for practice (marked REHEARSAL)',
+  'reset everything': 'Delete everything people sent and all rehearsal data. Asks you to type RESET.', 'reset': 'Delete everything people sent and all rehearsal data',
+  'everything': 'Download everything as one CSV file'
+};
+var COUNTER_TITLES = { 'Connected': 'People with the phone page open in the last 3 minutes', 'Responses': 'Words, questions, upvotes, poll answers, wall entries and takeaways', 'Cards made': 'Quote cards made on phones', 'Shared': 'Quote cards shared from phones', 'Link clicks': 'People who opened the link inside a shared card' };
+function applyTitles() {
+  var els = document.querySelectorAll('button, a.btn, .counters span');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i]; if (el.getAttribute('title') || el.classList.contains('x')) continue;
+    var label = (el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild.nodeValue : el.textContent).replace(/\s+/g, ' ').trim();
+    var key = label.toLowerCase(), t = null;
+    if (el.parentNode && el.parentNode.id === 'counters') t = COUNTER_TITLES[label];
+    else if (key.indexOf('cloud: ') === 0) t = 'Phones get the ' + label.slice(7) + ' prompt, and the projector builds the cloud as words arrive';
+    else if (key === 'ask the panel (this session)') t = 'Phones can send and upvote questions for this session. You approve them in the Questions tab.';
+    else if (key === 'build wall') { var h2 = el.closest('.panel') && el.closest('.panel').querySelector('h2'); t = h2 && /^2\./.test(h2.textContent) ? 'Phones can post what they are building. You approve each line in the Build Wall tab.' : 'Show the approved Build Wall entries on the projector'; }
+    else if (key === 'export' || /^(wall|questions|words|polls|takeaways|quotes|analytics)$/.test(key)) t = 'Download this as a CSV file';
+    else t = TITLES[key] || null;
+    if (t) el.setAttribute('title', t);
+  }
+  var sels = document.querySelectorAll('select[aria-label]');
+  for (var j = 0; j < sels.length; j++) if (!sels[j].title) sels[j].title = ({ 'Jump to a session': 'Go straight to any session, for when the day runs out of order', 'Make a poll live': 'Pick a poll to put on phones', 'Put a quote on the screen': 'Put one official quote on the projector' })[sels[j].getAttribute('aria-label')] || '';
+}
+
+/* the live preview of the projector (only on the Run tab; the page is not even loaded elsewhere) */
+var PV = { on: (function () { try { return localStorage.getItem('dmc_ctl_preview') !== 'off'; } catch (e) { return true; } }()) };
+function scalePreview() { var b = $('pvbox'); if (!b) return; var w = b.clientWidth || 600; b.style.height = Math.round(w * 9 / 16) + 'px'; $('pvframe').style.transform = 'scale(' + (w / 1920) + ')'; }
+function syncPreview() {
+  var show = tab === 'run'; $('preview').hidden = !show;
+  var f = $('pvframe'), want = show && PV.on;
+  $('pvbox').style.display = PV.on ? '' : 'none';
+  $('pvtoggle').textContent = PV.on ? 'Hide preview' : 'Show preview';
+  if (want && f.getAttribute('src') !== '/live/screen') f.setAttribute('src', '/live/screen');
+  if (!want && f.getAttribute('src')) f.removeAttribute('src');
+  if (show) scalePreview();
+}
+$('pvtoggle').onclick = function () { PV.on = !PV.on; try { localStorage.setItem('dmc_ctl_preview', PV.on ? 'on' : 'off'); } catch (e) {} syncPreview(); };
+window.addEventListener('resize', scalePreview);
+
+function guidePanel() {
+  var open = true; try { open = localStorage.getItem('dmc_ctl_guide') !== 'closed'; } catch (e) {}
+  var d = tip('How to run the room (read this first)', [
+    'Three screens work together. PHONES (/live) are what attendees see after scanning the QR code. The PROJECTOR page (/live/screen) is open on the venue laptop in full screen: open it once, press F, and leave it alone. This panel is yours; the room never sees it.',
+    'You change things in the three panels below, top to bottom: 1 the session, 2 what phones are doing, 3 what the projector shows. Changes reach phones and the projector in about 3 seconds.',
+    'The projector normally copies the phones (“Follow phones”). Press any other button in panel 3 to take over, and “Follow phones” to hand back.',
+    'The preview under the tabs is a live copy of the projector. If it looks right there, it is right in the room.',
+    'Something wrong? “Holding slide”, top right, always works: the join QR goes up at once.'
+  ]);
+  if (open) d.open = true;
+  d.addEventListener('toggle', function () { try { localStorage.setItem('dmc_ctl_guide', d.open ? 'open' : 'closed'); } catch (e) {} });
+  var base = location.origin;
+  var links = h('div', { class: 'row links', style: 'margin:6px 0 0 30px' },
+    h('a', { class: 'btn sm cr', href: '/live/screen', target: '_blank', rel: 'noopener', text: 'Open the projector page' }),
+    h('a', { class: 'btn sm ghost', href: '/live', target: '_blank', rel: 'noopener', text: 'Open the phone page' }),
+    h('button', { class: 'btn sm ghost', type: 'button', text: 'Copy the join link', onclick: function () { var u = (/^(www\.)?mangh\.org$/.test(location.hostname) ? 'https://mangh.org' : base) + '/live'; var done = function () { err(''); var b = this; }; if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { err('Copied: ' + u); }); else err(u); } }));
+  d.appendChild(links);
+  return h('div', { class: 'panel' }, d);
+}
 
 /* ---- tabs ---- */
 var TABS = [['run', 'Run'], ['q', 'Questions'], ['wall', 'Build Wall'], ['tk', 'Takeaways'], ['polls', 'Polls'], ['quotes', 'Official quotes'], ['words', 'Words'], ['setup', 'Setup']];
@@ -123,7 +236,8 @@ function runTab(box) {
   document.documentElement.style.setProperty('--ac', accentOf(cur));
   var sel = h('select', { 'aria-label': 'Jump to a session', onchange: function () { if (this.value) act({ op: 'session.set', id: this.value })(); } },
     h('option', { value: '', text: 'Jump to a session…' }), S.sessions.map(function (s) { return h('option', { value: s.id, text: (s.start ? s.start + ' · ' : '') + s.title }); }));
-  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '1. Session' }),
+  box.appendChild(guidePanel());
+  box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '1. Session' }), tip('What this does', 'Next session moves phones and the projector on to the next item in the programme. Back goes back. “Jump to a session” is for when the day runs out of order (clock times are not used). Moving on ends the last session’s Q&A.'),
     h('div', { class: 'now' }, cur ? [h('div', { class: 'muted', text: 'NOW · ' + cur.format + (cur.movement ? ' · ' + cur.movement : '') }), h('h2', { text: cur.title }), h('div', { class: 'muted', text: cur.speakers.map(function (p) { return p.name; }).join(', ') })] : h('h2', { text: 'Not started' })),
     h('p', { class: 'muted', style: 'margin:8px 0', text: nxt ? 'Next: ' + nxt.title : 'That is the last session.' }),
     h('div', { class: 'row' }, h('button', { class: 'btn ghost big', type: 'button', onclick: act({ op: 'session.step', dir: -1 }), text: '◀ Back' }), h('button', { class: 'btn big', type: 'button', onclick: act({ op: 'session.step', dir: 1 }), text: S.session ? 'Next session ▶' : 'Start ▶' })),
@@ -135,7 +249,7 @@ function runTab(box) {
   var pollSel = h('select', { 'aria-label': 'Make a poll live' }, h('option', { value: '', text: 'Make a poll live…' }), openPolls.map(function (p) { return h('option', { value: p.id, text: p.id + ' · ' + p.question + (p.role ? ' (' + p.role + ')' : '') }); }));
   pollSel.onchange = function () { if (this.value) act({ op: 'activity.set', type: 'poll', id: this.value })(); };
   box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '2. What phones are doing' }),
-    h('p', { class: 'muted', text: 'Phones always show the quote card button. This is the activity that appears above it.' }),
+    tip('What this does', ['This is what attendees can answer on their phones right now. Pick one: a word cloud, Ask the Panel, the Build Wall, or a poll. “Nothing” closes it.', 'The “Make a quote card” button is always on phones, whatever you pick.', 'Panel 2 changes phones. The projector follows it unless you override it in panel 3.']),
     h('div', { class: 'grid' },
       S.clouds.map(function (c) { return actBtn('Cloud: ' + c.movement, { op: 'activity.set', type: 'cloud', id: c.id }, a.type === 'cloud' && a.id === c.id); }),
       actBtn('Ask the Panel (this session)', { op: 'activity.set', type: 'qa', id: S.session }, a.type === 'qa'),
@@ -149,6 +263,7 @@ function runTab(box) {
     S.quotes.filter(function (q) { return q.published && (!q.sponsor || q.approved); }).map(function (q) { return h('option', { value: q.id, text: '“' + q.text.slice(0, 60) + '” · ' + q.speaker.name }); }));
   quoteSel.onchange = function () { if (this.value) act({ op: 'screen.set', mode: 'quote', id: this.value })(); };
   box.appendChild(h('div', { class: 'panel' }, h('h2', { text: '3. What the screen shows' }),
+    tip('How to put things on the projector', ['“Follow phones” (default): the projector copies panel 2, or shows the join QR when nothing is open.', 'Any other button takes over the projector: Holding slide (join QR, for breaks), Finale (all three clouds), Interview mode (top 3 questions, large), Questions list, Build Wall, Takeaways from the room, Poll with results.', 'The menu underneath puts one official quote on the projector. Quotes for the menu are published in the “Official quotes” tab.', 'Pressing “Follow phones” hands the projector back. The preview under the tabs shows the result.']),
     h('div', { class: 'grid' },
       scrBtn('Follow phones', { mode: 'follow' }, sc.mode === 'follow'), scrBtn('Holding slide', { mode: 'holding' }, sc.mode === 'holding'),
       scrBtn('Finale: three clouds', { mode: 'finale' }, sc.mode === 'finale'), scrBtn('Interview mode: top 3', { mode: 'interview', id: S.session }, sc.mode === 'interview'),
@@ -157,7 +272,7 @@ function runTab(box) {
     h('div', { style: 'margin-top:8px' }, quoteSel),
     h('p', { class: 'muted', style: 'margin-top:8px', text: 'Screen now: ' + sc.mode + '. “Follow phones” mirrors the activity above, or the holding slide when there is none.' })));
 
-  var pr = h('div', { class: 'panel' }, h('h2', { text: 'Word cloud prompts' }));
+  var pr = h('div', { class: 'panel' }, h('h2', { text: 'Word cloud prompts' }), tip('What this does', 'The question phones see for each word cloud, and the heading on the projector. Change the words and press Save next to it; it updates for everyone within a few seconds.'));
   S.clouds.forEach(function (c) {
     var inp = h('input', { type: 'text', id: 'pr-' + c.id, value: S.prompts[c.id], maxlength: 120, 'aria-label': 'Prompt for ' + c.movement });
     pr.appendChild(h('label', { for: 'pr-' + c.id, text: c.movement })); pr.appendChild(h('div', { class: 'row' }, h('div', { style: 'flex:1;min-width:200px' }, inp), h('button', { class: 'btn sm', type: 'button', onclick: function () { api({ op: 'prompt.set', cloud: c.id, text: inp.value }).then(function () { err(''); }).catch(function () {}); }, text: 'Save' })));
@@ -336,7 +451,7 @@ function setupTab(box) {
 
 function draw() {
   if (!S) return;
-  renderBar(); renderTabs();
+  renderBar(); renderTabs(); applyTitles();
   var box = $('main');
   var focused = document.activeElement && box.contains(document.activeElement) && /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
   var key = JSON.stringify([tab, tab === 'run' ? [S.now && S.now.id, S.activity, S.screen, S.prompts, S.polls.map(function (p) { return p.id; }), S.quotes.length] : tab === 'q' ? [qSession, S.questions] : tab === 'wall' ? S.wall : tab === 'tk' ? [S.takeaways, Object.keys(previews)] : tab === 'polls' ? S.polls : tab === 'quotes' ? [S.quotes, S.session, S.now && S.now.id, qtDraft.id] : tab === 'words' ? [S.flagged, S.blocked] : [S.analytics, S.sessions, S.people.map(function (p) { return p.handle; })]]);
@@ -345,6 +460,8 @@ function draw() {
   sig.main = key;
   box.textContent = '';
   ({ run: runTab, q: questionsTab, wall: wallTab, tk: takeawaysTab, polls: pollsTab, quotes: quotesTab, words: wordsTab, setup: setupTab }[tab])(box);
+  if (INTROS[tab]) box.insertBefore(h('div', { class: 'panel' }, tip(INTROS[tab][0], INTROS[tab][1])), box.firstChild);
+  syncPreview(); applyTitles();
 }
 function refresh() {
   return fetch('/api/live-control', { cache: 'no-store' }).then(function (r) { if (r.status === 401) { location.reload(); throw new Error('login'); } return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'failed'); return j; }); })

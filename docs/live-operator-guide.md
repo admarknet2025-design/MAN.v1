@@ -10,9 +10,12 @@
 
 The room never needs to know the control address. The screen follows what you do within about 3 seconds; so do the phones.
 
+## How things get on the projector
+The projector page is an ordinary web page. Open **/live/screen** once on the venue laptop, full screen (F11, or press F), and leave that laptop alone. **You steer it from /live/control**, panel 3 "What the screen shows". By default it is on **Follow phones**: it copies whatever phones are doing (a word cloud builds as words arrive, polls show their bars) and shows the join QR when nothing is open. Press any other button in panel 3 to take over; press Follow phones to hand back. The **preview under the tabs on the Run tab is a live copy of the projector**, so you can check it without looking up. Every tab has a "?" note explaining it, and every button has a tooltip (hover on a laptop; on a phone use the "?" notes).
+
 ## Before doors open
 1. Open **/live/control**. The top bar shows how many people are connected, how many responses have come in, and how many quote cards have been made.
-2. Open **/live/screen** on the projector laptop, full screen. It shows the holding slide ("Scan to join: mangh.org/live" and a QR code).
+2. Open **/live/screen** on the projector laptop, full screen. It shows the holding slide ("Scan to join" and a QR code). Check the preview matches.
 3. In **Setup**, check the sessions and times. Clock times are not locked, so you move the programme by hand. Add anything missing ("Add a session"). Type each speaker's social handle under "Speaker handles for captions".
 4. Press **Holding slide** in the top bar at any time if something goes wrong. The screen goes to the join slide; phones are unaffected.
 5. If you rehearsed, open **Setup → Rehearsal and reset → Reset everything** (type RESET) before doors open. Rehearsal data is marked REHEARSAL on every phone, screen and card, and Reset clears all of it (including device codes). The speaker handles and extra blocked words are kept.
@@ -20,7 +23,7 @@ The room never needs to know the control address. The screen follows what you do
 ## Running a session (Run tab)
 1. **Session.** One tap on **Next session** moves phones and the screen to the next item. Phones show "Now" and "Next". Use "Jump to a session" if the day runs out of order.
 2. **What phones are doing.** Pick one: **Cloud: Build Yourself / Build Your Team / Build Your Work**, **Ask the panel** (this session), **Build Wall**, a live **poll**, or **Nothing**. The quote-card button is always on phones, whatever you pick. Moving to the next session closes that session's Q&A (one Q&A per session).
-3. **What the screen shows.** Normally **Follow phones**. Other buttons: Holding slide, **Finale: three clouds** (all three side by side), **Interview mode: top 3** (the three best questions, large), Questions list, Build Wall, **Takeaways from the room**, Poll with results, or any official quote.
+3. **What the screen shows.** Normally **Follow phones** (see "How things get on the projector"). Other buttons: Holding slide, **Finale: three clouds** (all three side by side), **Interview mode: top 3** (the three best questions, large), Questions list, Build Wall, **Takeaways from the room**, Poll with results, or any official quote.
 
 ## The five things people take part in
 - **Word clouds.** Prompts are editable (Run tab → Word cloud prompts). One or two words, three per phone. Words the filter holds back wait under **Words → Flagged words**; release or dismiss them. Nothing flagged ever shows.

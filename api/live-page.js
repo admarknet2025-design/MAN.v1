@@ -10,7 +10,7 @@ const path = require('path');
 const { requireAuth } = require('./_auth');
 
 const FILES = { phone: 'phone.html', screen: 'screen.html', control: 'control.html' };
-const CSP = "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+const CSP = (ancestors) => "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self' data:; frame-ancestors " + ancestors + "; base-uri 'none'; form-action 'self'";
 
 module.exports = function handler(req, res) {
   const which = FILES[req.query && req.query.p] ? req.query.p : 'phone';
@@ -23,6 +23,7 @@ module.exports = function handler(req, res) {
   }
   const html = fs.readFileSync(path.join(__dirname, '..', 'lib', 'live', FILES[which]), 'utf8');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Content-Security-Policy', CSP);
+  /* the operator panel shows a live preview of the projector page, so only that page may be framed (by the same site) */
+  res.setHeader('Content-Security-Policy', CSP(which === 'screen' ? "'self'" : "'none'"));
   return res.status(200).send(html);
 };

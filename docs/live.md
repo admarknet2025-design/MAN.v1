@@ -101,6 +101,8 @@ No tracking beyond the existing analytics. Device hashes and everything else exp
 | `tools/live-a11y-check.js` | axe-core on every phone state, screen mode and operator tab |
 | `tools/live-load-test.js` | 250 phones, 2 screens, 2 operators, 10 minutes, with latency, propagation time and Redis command counts |
 
+The operator panel explains itself: a "?" note on every tab and panel, a tooltip on every button, a first-read guide at the top of the Run tab, and a live preview of the projector page (an iframe of `/live/screen`, allowed by that page's `frame-ancestors 'self'`). The projector's join QR points at `mangh.org/live` in production and at the current host on a preview or local copy, so a scan opens what you are looking at.
+
 The Playwright and load tools need a running site and the team login in `ADMIN_USER` / `ADMIN_PASSWORD`; they reset the store first, so never point them at the live event. **Rehearsal mode** (Setup → Start rehearsal data) fills the store with fake sessions, speakers' quotes (prefixed "[Rehearsal]"), words, questions, polls and wall entries, and stamps every phone, screen and card with REHEARSAL until "Reset everything".
 
 ## Rebuilding the card maker
