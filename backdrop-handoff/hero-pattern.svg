@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900">
+<title>DMC 2026 hero pattern (homepage, desktop default state)</title>
+<defs>
+<linearGradient id="fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="720" y2="0">
+<stop offset="0" stop-color="#0D0D0D" stop-opacity="0.6"/>
+<stop offset="1" stop-color="#0D0D0D" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<rect id="background" x="0" y="0" width="720" height="900" fill="#0D0D0D"/>
+<polygon id="g1-build-teal" points="252,0 720,0 720,495 72,0" fill="#2A7B74" fill-opacity="0.85"/>
+<polygon id="g2-pulse-coral" points="144,0 720,360 720,675 0,855" fill="#D95F45" fill-opacity="0.8"/>
+<polygon id="g3-akan-gold" points="0,630 720,612 720,900 0,900" fill="#C9A24A" fill-opacity="0.75"/>
+<polygon id="g4-obsidian" points="0,765 432,675 720,900 0,900" fill="#1C1C1C" fill-opacity="0.5"/>
+<rect id="left-fade" x="0" y="0" width="720" height="900" fill="url(#fade)"/>
+</svg>

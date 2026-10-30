@@ -1,0 +1,88 @@
+/* Extracted verbatim from assets/styles.css (homepage hero, nav, buttons, tokens). */
+
+/* ── fonts, tokens, body ── */
+/* Self-hosted Archivo (variable weight + width), latin; the cedi sign has its own tiny file */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:italic;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-italic.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/archivo-cedi.woff2) format('woff2');unicode-range:U+20B5}
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ob:#1C1C1C;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--go:#C9A24A;--ink:#0D0D0D;--cedar:#8B6040;--bronze:#B8721D;--silver:#6E8492;--f:'Archivo',sans-serif}
+html{scroll-behavior:smooth}
+
+/* ── kente strip (section divider; not in the hero) ── */
+.kente{height:14px;background:repeating-linear-gradient(90deg,var(--go) 0,var(--go) 18px,var(--ob) 18px,var(--ob) 20px,var(--te) 20px,var(--te) 38px,var(--ob) 38px,var(--ob) 40px,var(--co) 40px,var(--co) 58px,var(--ob) 58px,var(--ob) 60px,var(--cr) 60px,var(--cr) 78px,var(--ob) 78px,var(--ob) 80px)}
+
+/* ── nav bar ── */
+nav{position:sticky;top:0;z-index:300;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07);height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:border-color .4s}
+
+/* ── nav links and brand ── */
+.nav-logo{font-weight:900;font-size:17px;font-variation-settings:'wdth' 125;letter-spacing:.1em;color:var(--cr);text-decoration:none;flex-shrink:0;cursor:pointer}
+.nav-logo .d{color:var(--go)}
+.nav-back{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.62);text-decoration:none;transition:color .2s;flex-shrink:0;cursor:pointer}
+.nav-back:hover{color:var(--go)}
+.nav-brand{font-size:14px;font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:.08em;color:var(--cr);flex-shrink:0}
+.nav-brand .d{color:var(--go)}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-item{position:relative}
+.nav-item>a,.nav-item>button{display:flex;align-items:center;gap:5px;padding:8px 13px;font-family:var(--f);font-size:11px;font-weight:600;font-variation-settings:'wdth' 110;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.62);text-decoration:none;background:none;border:none;cursor:pointer;transition:color .2s;white-space:nowrap}
+.nav-item>a:hover,.nav-item>button:hover{color:var(--cr)}
+.nav-item>button svg{width:10px;height:10px;transition:transform .2s;flex-shrink:0}
+
+/* ── buttons ── */
+.btn{display:inline-block;padding:11px 24px;font-family:var(--f);font-size:11px;font-weight:700;font-variation-settings:'wdth' 110;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--go);color:var(--go);background:transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{background:var(--go);color:var(--ob)}
+.btn-f{background:var(--go);color:var(--ob)}
+.btn-f:hover{background:transparent;color:var(--go)}
+.btn-cr{border-color:var(--cr);color:var(--cr)}
+.btn-cr:hover{background:var(--cr);color:var(--ob)}
+.btn-dk{border-color:var(--ob);color:var(--ob)}
+.btn-dk:hover{background:var(--ob);color:var(--go)}
+.btn-te{border-color:var(--te);color:var(--te)}
+.btn-te:hover{background:var(--te);color:var(--cr)}
+.btn-txt{background:none;border:none;font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,239,230,.62);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:10px 0}
+.btn-txt:hover{color:var(--cr)}
+
+/* ── hero pattern animation (the 0% frames are the default state) ── */
+@keyframes g1b{0%,100%{clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}50%{clip-path:polygon(27% 0%,100% 0%,100% 64%,4% 0%);opacity:.70}}
+@keyframes g2b{0%,100%{clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.80}40%{clip-path:polygon(13% 0%,100% 34%,100% 82%,0% 100%);opacity:.90}70%{clip-path:polygon(26% 0%,100% 47%,100% 68%,0% 88%);opacity:.72}}
+@keyframes g3b{0%,100%{clip-path:polygon(0% 70%,100% 68%,100% 100%,0% 100%);opacity:.75}50%{clip-path:polygon(0% 61%,100% 75%,100% 100%,0% 100%);opacity:.58}}
+@keyframes g4b{0%,100%{clip-path:polygon(0% 85%,60% 75%,100% 100%,0% 100%);opacity:.50}50%{clip-path:polygon(0% 80%,55% 70%,100% 100%,0% 100%);opacity:.38}}
+.g1{animation:g1b 22s ease-in-out infinite}.g2{animation:g2b 30s ease-in-out infinite}.g3{animation:g3b 17s ease-in-out infinite}.g4{animation:g4b 24s ease-in-out infinite}
+
+/* ── "SCALE" gradient (shimmer; class added by assets/app.js to .accent) ── */
+.shimmer{background:linear-gradient(90deg,var(--go) 0%,#f5d87a 30%,var(--go) 55%,#9e7520 78%,var(--go) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3.5s linear infinite}
+@keyframes shimmer{0%{background-position:250% center}100%{background-position:-250% center}}
+
+/* ── hero ── */
+#page-home .hero{position:relative;min-height:100vh;background:var(--ink);display:flex;align-items:center;overflow:hidden}
+.hero-geo{position:absolute;right:0;top:0;width:50%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.hero-geo-fade{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.6) 50%,transparent 100%);z-index:1}
+.hero-content{position:relative;z-index:2;padding:0 48px;width:100%;max-width:760px}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border:1px solid rgba(255,255,255,.12);margin-bottom:36px}
+.hero-pill .dot{width:8px;height:8px;background:var(--go);border-radius:50%;flex-shrink:0}
+.hero-pill span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.65)}
+.hero-ey{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(244,239,230,.62);margin-bottom:16px}
+.hero-h1{font-size:clamp(60px,9vw,130px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr);margin-bottom:0}
+.hero-h2{font-size:clamp(18px,3vw,40px);font-weight:700;letter-spacing:.04em;color:rgba(244,239,230,.62);margin-bottom:8px;margin-top:6px}
+.hero-conf{font-size:clamp(11px,1.2vw,14px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.62);margin-bottom:44px}
+.hero-conf-sp{margin-bottom:14px}
+.sp-credit{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
+.sp-credit a{display:inline-flex;align-items:center;line-height:0;background:var(--cr);padding:7px 12px}
+.sp-credit img{display:block;height:clamp(13px,1.9vw,26px);width:auto}
+.h26-ey.h26-credit{margin-bottom:28px}
+.hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hero-scroll{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.62);display:flex;align-items:center;gap:10px}
+.hero-scroll::before{content:'';display:block;width:24px;height:1px;background:rgba(244,239,230,.2)}
+
+/* ── hero at 900 px wide and below ── */
+@media(max-width:900px){
+  .nav-menu{display:none}.hamburger{display:flex}
+  #page-home .hero{min-height:88vh}
+  .hero-geo{width:100%;opacity:.3}
+  .about-strip-inner,.why-grid,.what-grid,.g-inner{grid-template-columns:1fr;gap:32px}
+
+/* ── reduced motion ── */
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .g1,.g2,.g3,.g4,.shimmer,.ticker-inner,.cursor-aurora{animation:none!important}
+  .js-on .sr,.js-on .hr{opacity:1!important;transform:none!important}

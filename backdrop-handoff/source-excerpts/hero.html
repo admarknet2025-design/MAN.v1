@@ -1,0 +1,58 @@
+<!-- Extracted verbatim from index.html: main nav, then the hero. -->
+<nav aria-label="Main">
+  <a href="/" class="nav-logo"><img src="/assets/man-logo.png" width="164" height="48" alt="Marketers &amp; Advertisers Network (M·A·N)"></a>
+  <ul class="nav-menu">
+    <li class="nav-item" id="ni-ev">
+      <button type="button" onclick="toggleDrop('ni-ev')" aria-expanded="false" aria-haspopup="true">Events <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
+      <div class="drop">
+        <div class="drop-label">Conference</div>
+        <a href="/dmc-2026">DMC 2026 — Built To Scale</a>
+        <a href="/dmc-2025">DMC 2025 — Archive</a>
+        <div class="drop-div"></div>
+        <div class="drop-label">Community</div>
+        <a href="/sessions">MAN Sessions</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="/#about">About MAN</a></li>
+    <li class="nav-item"><a href="/#team">Team</a></li>
+    <li class="nav-item" id="ni-par">
+      <button type="button" onclick="toggleDrop('ni-par')" aria-expanded="false" aria-haspopup="true">Partners <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button>
+      <div class="drop">
+        <a href="/partners">Partner With DMC 2026</a>
+        <a href="/sponsor">Sponsor</a>
+        <a href="/#partners">Current Partners</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="/#join-man" style="color:var(--te)">Community</a></li>
+    <li class="nav-item"><a href="/#connect">Connect</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="btn btn-f" href="https://tickets.mojo-pay.com/events/digital-marketers-conference-2026" target="_blank" rel="noopener noreferrer">Register →</a>
+    <button type="button" class="hamburger" onclick="toggleMM('mm-home')" aria-label="Menu" aria-expanded="false" aria-controls="mm-home"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero" id="home-hero">
+  <div class="hero-geo">
+    <div class="g1" style="position:absolute;inset:0;background:var(--te);clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85"></div>
+    <div class="g2" style="position:absolute;inset:0;background:var(--co);clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.80"></div>
+    <div class="g3" style="position:absolute;inset:0;background:var(--go);clip-path:polygon(0% 70%,100% 68%,100% 100%,0% 100%);opacity:.75"></div>
+    <div class="g4" style="position:absolute;inset:0;background:var(--ob);clip-path:polygon(0% 85%,60% 75%,100% 100%,0% 100%);opacity:.8"></div>
+  </div>
+  <div class="hero-geo-fade"></div>
+  <div class="hero-content">
+    <div class="hero-pill hr"><div class="dot"></div><span>DMC 2026 — Built To Scale · Now Open</span></div>
+    <p class="hero-ey hr">Marketers & Advertisers Network · Ghana</p>
+    <h1 class="hero-h1 hr">Built To<br><span class="accent">Scale</span></h1>
+    <p class="hero-h2 hr">DMC 2026</p>
+    <p class="hero-conf hero-conf-sp hr">A M·A·N Event · British Council, Accra · Sat 21 Nov 2026</p>
+    <p class="hero-conf sp-credit hr"><span>Powered by</span><a href="https://mojo-pay.com" target="_blank" rel="noopener sponsored"><img src="/assets/partners26/mojopay-logo-blue.svg" alt="MojoPay" width="1145" height="193"></a></p>
+    <div class="hero-ctas hr">
+      <a href="/dmc-2026" class="btn btn-f">Explore DMC 2026 →</a>
+      <a href="/partners" class="btn btn-cr">Partner With Us</a>
+      <a href="/sessions" class="btn-txt">MAN Sessions ↗</a>
+      <a href="/#join-man" class="btn-txt" style="color:var(--te)">Join Community ↗</a>
+    </div>
+    <div class="hero-scroll hr"><span>Scroll to explore</span></div>
+  </div>
+</section>
