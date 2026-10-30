@@ -119,13 +119,13 @@ fails if gold-like pixels cover more than 3 % of any image (today the most is ab
 outside `lib/studio/render.js`. The Studio's own page (`/studio`) and the dashboard stay gold-free.
 
 ## Sponsor credit and partner band
-Every image ends with a band. Its first row carries the **contracted sponsor credit**, the same two lockups as every other DMC 2026
-asset (see [sponsor-credit.md](sponsor-credit.md)): **Powered by MojoPay** and **Tickets on MojoLife**, beside "Organised by" M·A·N.
+Every image ends with a band. Its first row carries the **contracted sponsor credit**, the same credit as every other DMC 2026
+asset (see [sponsor-credit.md](sponsor-credit.md)): **Powered by MojoPay** and the line **Tickets exclusively on MojoLife**, beside "Organised by" M·A·N.
 The lockups are drawn by the shared `frame()` in `lib/studio/render.js`, so no template can leave them out. Below (or, on the wide
 sizes, beside) them are **Sponsors and partners**: FIDO, Generation Ghana, mNotify, Kasad3, Tech Labari and Koin Photography (logos from
 `assets/partners26/`, each on a cream tile). Feed, story and square use two rows; the two wide sizes use one. To change the line-up,
-edit `BAND_PARTNERS` in `lib/studio/render.js`. Captions end with "Tickets on MojoLife · <link>", and the story's QR is captioned
-"Scan for tickets on MojoLife".
+edit `BAND_PARTNERS` in `lib/studio/render.js`. Captions end with "Tickets exclusively on MojoLife · <link>", and the story's QR is captioned
+"Scan for tickets exclusively on MojoLife".
 
 ## Keeping the data current
 Speakers, programme rows, the team and partners come from `lib/studio/data.json`, generated from `dmc-2026.html` and `index.html`:

@@ -23,7 +23,7 @@ const KINDS = {
 
 function caption(p) {
   const k = KINDS[p.kind];
-  return `I’m ${k.verb} the Digital Marketers’ Conference 2026 — 21 Nov, British Council Accra. #DMC2026 #BuiltToScale. Get your ticket: mangh.org/dmc-2026?ref=spk-${p.slug}\n\nCome and say hello — and bring a colleague!\n— ${p.name}${p.role ? ', ' + p.role : ''}\n`;
+  return `I’m ${k.verb} the Digital Marketers’ Conference 2026 — 21 Nov, British Council Accra. #DMC2026 #BuiltToScale. Tickets exclusively on MojoLife: mangh.org/dmc-2026?ref=spk-${p.slug}\n\nCome and say hello — and bring a colleague!\n— ${p.name}${p.role ? ', ' + p.role : ''}\n`;
 }
 
 (async () => {
@@ -52,6 +52,8 @@ function caption(p) {
     await page.evaluate(() => document.getElementById('fl-role').removeAttribute('maxlength')); /* the public form caps roles at 36 characters */
     await page.fill('#fl-role', p.role);
     await page.waitForTimeout(1200);
+    /* never save a flyer without the sponsor credit (Powered by MojoPay, Tickets exclusively on MojoLife) */
+    await page.waitForFunction(() => window.DMC_SPONSOR_PLACEMENTS && window.DMC_SPONSOR_PLACEMENTS.length === 2, null, { timeout: 15000 });
     const data = await page.evaluate(() => document.getElementById('dmc26-flyer').toDataURL('image/png'));
     fs.writeFileSync(path.join(OUT, `DMC2026-${p.kind === 'host' ? 'Host' : 'Speaker'}-${p.slug}.png`), Buffer.from(data.split(',')[1], 'base64'));
     fs.writeFileSync(path.join(OUT, `DMC2026-${p.kind === 'host' ? 'Host' : 'Speaker'}-${p.slug}-caption.txt`), caption(p));

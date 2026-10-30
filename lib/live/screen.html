@@ -97,18 +97,18 @@ h1.prompt{font-size:2.5rem;line-height:1.1;max-width:68rem}
   <div class="count" id="count"></div></header>
   <main id="view" aria-live="polite" aria-label="DMC Live"></main>
   <footer><div id="join"></div></footer>
-  <div id="sponsor" aria-label="Powered by MojoPay. Tickets on MojoLife."></div>
+  <div id="sponsor" aria-label="Powered by MojoPay. Tickets exclusively on MojoLife."></div>
   <div class="kente" id="botk" aria-hidden="true"></div>
 </div>
 <script src="/assets/live-qr.js?v=1"></script>
-<script src="/assets/sponsor/config.js?v=3fc99f23"></script>
-<script src="/assets/sponsor/lockup.js?v=a59b6e6d"></script>
+<script src="/assets/sponsor/config.js?v=79de35e8"></script>
+<script src="/assets/sponsor/lockup.js?v=c2f4fb7d"></script>
 <script>
-/* "Powered by MojoPay" and "Tickets on MojoLife", always on screen. The MojoPay tile is 16% of the stage width (the contract default, config.js). */
+/* "Powered by MojoPay" and "Tickets exclusively on MojoLife", always on screen. The MojoPay tile is 16% of the stage width (the contract default, config.js). */
 (function () {
   var SP = window.DMCSponsor, box = document.getElementById('sponsor'), stage = document.getElementById('stage');
   var tileW = Math.max(SP.minTileW(1920, false), Math.round(1920 * 0.16));
-  box.innerHTML = SP.html('mojopay', tileW, 'horizontal', "'Archivo',sans-serif") + SP.html('mojolife', tileW, 'horizontal', "'Archivo',sans-serif");
+  box.innerHTML = SP.html(tileW, 'horizontal', "'Archivo',sans-serif") + SP.ticketLineHtml(tileW, "'Archivo',sans-serif");
   function fitSponsor() { box.style.transform = 'scale(' + (stage.offsetWidth / 1920) + ')'; }
   fitSponsor(); window.addEventListener('resize', fitSponsor);
 })();

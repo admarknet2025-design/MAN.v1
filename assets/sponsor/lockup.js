@@ -1,7 +1,7 @@
 /* DMC 2026 sponsor lockups, shared by every renderer so they match the homepage hero pixel for pixel.
 
-     Lockup A  "POWERED BY" + the MojoPay wordmark on a Signal Cream tile
-     Lockup B  "TICKETS ON" + the MojoLife logo on the same tile (placeholder until the official file is supplied)
+     Lockup    "POWERED BY" + the MojoPay wordmark on a Signal Cream tile
+     Ticket line  the words "Tickets exclusively on MojoLife", plain text beside the lockup (no logo: MojoLife is named, not drawn)
 
    Two shapes: `horizontal` (label left, tile right, as in the hero) and `stacked` (label above the tile, for narrow
    spaces such as a flyer footer or a 9:16 story).
@@ -53,14 +53,6 @@
     return text.replace('<svg ', '<svg width="' + Math.round(CFG.LOGO_ASPECT * 100) + '" height="100" ');
   }
 
-  /* width of the MojoLife tile: same height as MojoPay's; the width follows the official logo's aspect, or matches
-     MojoPay's while the logo is a placeholder */
-  function lifeTileW(g) {
-    var a = CFG.LOGOS.mojolife.file && CFG.LOGOS.mojolife.aspect;
-    return a ? (g.tileH - 2 * g.padY) * a + 2 * g.padX : g.tileW;
-  }
-  function tileFor(kind, g) { return kind === 'mojolife' ? { w: lifeTileW(g), h: g.tileH } : { w: g.tileW, h: g.tileH }; }
-
   /* tracked label; returns its width. Manual spacing so it is identical on every canvas implementation. */
   function tracked(ctx, text, x, y, spacing, draw) {
     var cx = x, i, ch;
@@ -76,7 +68,7 @@
 
   /* size of a lockup without drawing it */
   function measure(ctx, opts) {
-    var g = geometry(opts.tileW), t = tileFor(opts.kind, g);
+    var g = geometry(opts.tileW), t = { w: g.tileW, h: g.tileH };
     ctx.save();
     ctx.font = labelFont(opts, g);
     var text = CFG.LABELS[opts.kind].toUpperCase();
@@ -91,7 +83,7 @@
   }
 
   /* draw a lockup with its top-left corner at (x, y); opts.align 'right' puts the right edge at x instead.
-     opts: { kind, variant, tileW, images:{mojopay,mojolife}, font(px, weight), align, labelColour, tileEdge }
+     opts: { kind, variant, tileW, images:{mojopay}, font(px, weight), align, labelColour, tileEdge }
      returns where everything landed, so callers and tests can check it */
   function draw(ctx, opts) {
     var m = measure(ctx, opts), g = m.g, t = m.tile, stacked = opts.variant === 'stacked';
@@ -122,82 +114,86 @@
       ctx.strokeStyle = opts.tileEdge; ctx.lineWidth = Math.max(1, Math.round(g.logoH / 13));
       ctx.strokeRect(tileX - ctx.lineWidth / 2, tileY - ctx.lineWidth / 2, t.w + ctx.lineWidth, t.h + ctx.lineWidth);
     }
-    var img = opts.images && opts.images[opts.kind], placeholder = !(CFG.LOGOS[opts.kind].file && img);
-    if (!placeholder) {
-      var lh = t.h - 2 * g.padY, aw = img.width / img.height;
-      var lw = opts.kind === 'mojopay' ? g.logoW : lh * aw;
-      ctx.drawImage(img, tileX + (t.w - lw) / 2, tileY + g.padY, lw, lh);
-    } else {
-      /* clearly marked empty slot: dashed outline and plain small text, not a logo */
-      var lwid = Math.max(1, Math.round(g.logoH / 13));
-      ctx.strokeStyle = '#D95F45';
-      ctx.lineWidth = lwid;
-      if (ctx.setLineDash) ctx.setLineDash([lwid * 4, lwid * 3]);
-      ctx.strokeRect(tileX + lwid, tileY + lwid, t.w - 2 * lwid, t.h - 2 * lwid);
-      if (ctx.setLineDash) ctx.setLineDash([]);
-      var px = g.labelPx * 0.66;
-      ctx.font = opts.font ? opts.font(px, 700) : '700 ' + px + 'px Archivo, sans-serif';
-      var maxW = t.w - 2 * g.padX;
-      while (tracked(ctx, CFG.PLACEHOLDER_TEXT, 0, 0, px * 0.1, false) > maxW && px > 6) {
-        px -= 0.5;
-        ctx.font = opts.font ? opts.font(px, 700) : '700 ' + px + 'px Archivo, sans-serif';
-      }
-      var pw = tracked(ctx, CFG.PLACEHOLDER_TEXT, 0, 0, px * 0.1, false);
-      ctx.fillStyle = '#1C1C1C';
-      var pm = ctx.measureText('H');
-      var pa = pm.fontBoundingBoxAscent != null ? pm.fontBoundingBoxAscent : pm.actualBoundingBoxAscent * 1.2;
-      var pd = pm.fontBoundingBoxDescent != null ? pm.fontBoundingBoxDescent : pm.actualBoundingBoxAscent * 0.3;
-      tracked(ctx, CFG.PLACEHOLDER_TEXT, tileX + (t.w - pw) / 2, tileY + t.h / 2 + (pa - pd) / 2, px * 0.1, true);
-    }
+    var img = opts.images && opts.images.mojopay;
+    if (!img) throw new Error('the official MojoPay logo was not loaded');
+    ctx.drawImage(img, tileX + (t.w - g.logoW) / 2, tileY + g.padY, g.logoW, g.logoH);
     ctx.restore();
     return {
-      kind: opts.kind, variant: opts.variant, placeholder: placeholder,
+      kind: 'mojopay', variant: opts.variant,
       x: x, y: y, w: m.w, h: m.h,
       tile: { x: tileX, y: tileY, w: t.w, h: t.h },
       clear: g.clear
     };
   }
 
-  /* problems with a placement against an artwork, [] when it is fine. MojoPay is held to the minimum width;
-     MojoLife must be exactly as tall as MojoPay's tile. */
+  /* ---- the ticket line: "Tickets exclusively on MojoLife" as plain text, in the tile row beside the lockup ---- */
+  function ticketPx(tileW, lines) { var g = geometry(tileW); return lines === 1 ? g.tileH * 0.5 : g.tileH * 0.4; }
+  function ticketLines(lines) { return lines === 1 ? [CFG.TICKET_EXCLUSIVE] : CFG.TICKET_EXCLUSIVE_LINES; }
+  /* opts: { x, y, tileW, lines (1 or 2, default 2), font(px, weight), colour, align 'left'|'right' }; y is the top of the lockup it sits beside
+     (variant 'stacked', the default) or of the tile row (variant 'horizontal') */
+  function drawTicketLine(ctx, opts) {
+    var g = geometry(opts.tileW), n = opts.lines === 1 ? 1 : 2, px = ticketPx(opts.tileW, n), lines = ticketLines(n);
+    var rowY = opts.variant === 'horizontal' ? opts.y : opts.y + g.labelPx * 1.2 + g.gapStacked;
+    ctx.save();
+    ctx.font = opts.font ? opts.font(px, 700) : '700 ' + px + 'px Archivo, sans-serif';
+    ctx.fillStyle = opts.colour || CFG.TICKET_COLOUR;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    var mm = ctx.measureText('H');
+    var asc = mm.fontBoundingBoxAscent != null ? mm.fontBoundingBoxAscent : mm.actualBoundingBoxAscent * 1.2;
+    var desc = mm.fontBoundingBoxDescent != null ? mm.fontBoundingBoxDescent : mm.actualBoundingBoxAscent * 0.3;
+    var lh = px * 1.2, w = 0, i;
+    lines.forEach(function (l) { w = Math.max(w, ctx.measureText(l).width); });
+    var x = opts.align === 'right' ? opts.x - w : opts.x, top = rowY + (g.tileH - lh * n) / 2;
+    lines.forEach(function (l, k) { ctx.fillText(l, x, top + k * lh + (lh + asc - desc) / 2); });
+    ctx.restore();
+    return { kind: 'ticketline', text: lines.join(' '), px: px, x: x, y: rowY, w: w, h: g.tileH };
+  }
+  function measureTicketLine(ctx, opts) {
+    var n = opts.lines === 1 ? 1 : 2, px = ticketPx(opts.tileW, n), w = 0;
+    ctx.save(); ctx.font = opts.font ? opts.font(px, 700) : '700 ' + px + 'px Archivo, sans-serif';
+    ticketLines(n).forEach(function (l) { w = Math.max(w, ctx.measureText(l).width); });
+    ctx.restore();
+    return { w: w, h: geometry(opts.tileW).tileH, px: px };
+  }
+
+  /* problems with the placements on an artwork, [] when it is fine. The MojoPay tile is held to the minimum width; the ticket line
+     must be there and not smaller than the minimum text size. */
   function check(placements, artW, artH, tall) {
-    var out = [], pay = null, life = null;
-    placements.forEach(function (p) { if (p.kind === 'mojopay') pay = p; if (p.kind === 'mojolife') life = p; });
+    var out = [], pay = null, tl = null;
+    placements.forEach(function (p) { if (p.kind === 'mojopay') pay = p; if (p.kind === 'ticketline') tl = p; if (p.kind === 'mojolife') out.push('a MojoLife logo is drawn: only the text line is wanted'); });
     if (!pay) out.push('MojoPay lockup missing');
-    if (!life) out.push('MojoLife lockup missing');
+    if (!tl) out.push('"' + CFG.TICKET_EXCLUSIVE + '" line missing');
     if (pay) {
       var need = minTileW(artW, tall);
       if (pay.tile.w + 0.5 < need) out.push('MojoPay tile ' + Math.round(pay.tile.w) + 'px is under the minimum ' + need + 'px');
       if (pay.tile.x < 0 || pay.tile.y < 0 || pay.tile.x + pay.tile.w > artW || pay.tile.y + pay.tile.h > artH) out.push('MojoPay tile is outside the artwork');
     }
-    if (pay && life) {
-      if (Math.abs(life.tile.h - pay.tile.h) > 0.5) out.push('MojoLife tile height differs from MojoPay tile height');
-      if (life.tile.x < 0 || life.tile.y < 0 || life.tile.x + life.tile.w > artW || life.tile.y + life.tile.h > artH) out.push('MojoLife tile is outside the artwork');
+    if (tl) {
+      var minPx = Math.max(12, artW * CFG.MIN_TICKET_TEXT_PCT / 100);
+      if (tl.px + 0.25 < minPx) out.push('ticket line text ' + tl.px.toFixed(1) + 'px is under the minimum ' + minPx.toFixed(1) + 'px');
+      if (tl.x < 0 || tl.y < 0 || tl.x + tl.w > artW || tl.y + tl.h > artH) out.push('ticket line is outside the artwork');
+      if (pay && tl.x < pay.x + pay.w && tl.x + tl.w > pay.x && tl.y < pay.y + pay.h && tl.y + tl.h > pay.y) out.push('ticket line overlaps the MojoPay lockup');
     }
     return out;
   }
 
   /* ---- HTML (Live screen): the same geometry as markup with pixel sizes ---- */
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
-  function html(kind, tileW, variant, fontFamily) {
-    var g = geometry(tileW), t = tileFor(kind, g), cfg = CFG.LOGOS[kind], stacked = variant === 'stacked';
-    var ff = fontFamily || 'Archivo,sans-serif';
-    var inner;
-    if (cfg.file) {
-      var lh = t.h - 2 * g.padY, lw = kind === 'mojopay' ? g.logoW : lh * cfg.aspect;
-      inner = '<img src="/' + esc(cfg.file) + '" alt="' + esc(cfg.alt) + '" style="display:block;height:' + lh.toFixed(2) + 'px;width:' + lw.toFixed(2) + 'px">';
-    } else {
-      inner = '<span data-placeholder="1" style="font:700 ' + (g.labelPx * 0.66).toFixed(2) + 'px ' + ff + ';letter-spacing:.1em;color:#1C1C1C;white-space:nowrap">' + esc(CFG.PLACEHOLDER_TEXT) + '</span>';
-    }
-    var tileStyle = 'display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:' + t.w.toFixed(2) + 'px;height:' + t.h.toFixed(2) +
-      'px;background:' + CFG.TILE_COLOUR + ';' + (cfg.file ? '' : 'outline:' + Math.max(1, g.logoH / 13).toFixed(1) + 'px dashed #D95F45;outline-offset:-' + Math.max(1, g.logoH / 13).toFixed(1) + 'px;');
+  function html(tileW, variant, fontFamily) {
+    var g = geometry(tileW), cfg = CFG.LOGOS.mojopay, stacked = variant === 'stacked', ff = fontFamily || 'Archivo,sans-serif';
+    var tileStyle = 'display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:' + g.tileW.toFixed(2) + 'px;height:' + g.tileH.toFixed(2) + 'px;background:' + CFG.TILE_COLOUR;
     var labelStyle = 'font:' + g.weight + ' ' + g.labelPx.toFixed(2) + 'px/1.2 ' + ff + ';letter-spacing:' + g.tracking.toFixed(2) + 'px;text-transform:uppercase;color:' + CFG.LABEL_COLOUR + ';white-space:nowrap';
-    return '<div class="dmc-lockup" data-kind="' + kind + '" style="display:flex;' + (stacked ? 'flex-direction:column;align-items:flex-start;gap:' + g.gapStacked.toFixed(2) + 'px' : 'align-items:center;gap:' + g.gap.toFixed(2) + 'px') + '">' +
-      '<span style="' + labelStyle + '">' + esc(CFG.LABELS[kind]) + '</span><span style="' + tileStyle + '">' + inner + '</span></div>';
+    return '<div class="dmc-lockup" data-kind="mojopay" style="display:flex;' + (stacked ? 'flex-direction:column;align-items:flex-start;gap:' + g.gapStacked.toFixed(2) + 'px' : 'align-items:center;gap:' + g.gap.toFixed(2) + 'px') + '">' +
+      '<span style="' + labelStyle + '">' + esc(CFG.LABELS.mojopay) + '</span><span style="' + tileStyle + '"><img src="/' + esc(cfg.file) + '" alt="' + esc(cfg.alt) + '" style="display:block;height:' + g.logoH.toFixed(2) + 'px;width:' + g.logoW.toFixed(2) + 'px"></span></div>';
+  }
+  function ticketLineHtml(tileW, fontFamily) {
+    var g = geometry(tileW);
+    return '<div class="dmc-ticketline" data-kind="ticketline" style="font:700 ' + ticketPx(tileW, 1).toFixed(2) + 'px/' + g.tileH.toFixed(2) + 'px ' + (fontFamily || 'Archivo,sans-serif') + ';color:' + CFG.TICKET_COLOUR + ';white-space:nowrap;height:' + g.tileH.toFixed(2) + 'px">' + esc(CFG.TICKET_EXCLUSIVE) + '</div>';
   }
 
   return {
     config: CFG, geometry: geometry, clearSpace: clearSpace, minTileW: minTileW, sizedSvg: sizedSvg,
-    measure: measure, draw: draw, check: check, html: html
+    measure: measure, draw: draw, check: check, html: html,
+    drawTicketLine: drawTicketLine, measureTicketLine: measureTicketLine, ticketLineHtml: ticketLineHtml
   };
 });

@@ -35,13 +35,13 @@ const PICTURES = /(?![\u00A9\u00AE\u2122])\p{Extended_Pictographic}|[\u{1F1E6}-\
 const FACES = [['DMCA', '600', F_SB], ['DMCX', '900', F_BLACK], ['DMCX', '800', F_XBOLD], ['DMCA', '700', F_BOLD], ['DMCA', '500', F_MED], ['DMCN', '700', F_NB], ['DMCN', '500', F_NM]];
 const X = (w, px) => w + ' ' + px + 'px DMCX, DMCN, "Arial Black", Arial, sans-serif';
 const A = (w, px) => w + ' ' + px + 'px DMCA, DMCN, Arial, sans-serif';
-/* the sponsor credit (Powered by MojoPay, Tickets on MojoLife): shared lockups from assets/sponsor/, the official MojoPay SVG is embedded so the maker works offline */
+/* the sponsor credit (Powered by MojoPay, Tickets exclusively on MojoLife): shared lockup and ticket line from assets/sponsor/, the official MojoPay SVG is embedded so the maker works offline */
 const SP_FONT = (px, weight) => A(weight >= 700 ? 700 : 600, px);
 const spImgs = {};
 function loadSponsor() {
   return new Promise((res) => {
     const img = new Image();
-    img.onload = () => { spImgs.mojopay = img; if (SP.config.LOGOS.mojolife.file) spImgs.mojolife = img; res(); };   /* mojolife shows the MojoPay file while LOGOS.mojolife.standIn is set */
+    img.onload = () => { spImgs.mojopay = img; res(); };
     img.onerror = () => res();
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SP.sizedSvg(MOJOPAY_SVG));
   });
@@ -277,9 +277,9 @@ function render(canvas, spec) {
   /* sponsor credit row, always drawn here so no layout can leave it out */
   const spOpts = { variant: 'stacked', tileW, images: spImgs, font: SP_FONT, labelColour: night ? undefined : (fg === CR ? 'rgba(244,239,230,.8)' : fg === '#FFFFFF' ? 'rgba(255,255,255,.82)' : 'rgba(28,28,28,.78)'), tileEdge: bg === CR ? 'rgba(28,28,28,.55)' : undefined };
   const sy = H - STRIP - 22 - lockH;
-  const lb = SP.measure(ctx, Object.assign({ kind: 'mojolife' }, spOpts));
+  const lb = SP.measureTicketLine(ctx, { tileW, font: SP_FONT });
   placements.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M, y: sy }, spOpts)));
-  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojolife', x: W - M - lb.w, y: sy }, spOpts)));
+  placements.push(SP.drawTicketLine(ctx, { x: W - M - lb.w, y: sy, tileW, variant: 'stacked', font: SP_FONT, colour: fg }));
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   kente(ctx, 0, 0, W, STRIP);
   kente(ctx, 0, H - STRIP, W, STRIP);
@@ -293,9 +293,9 @@ function captionFor(spec, link) {
   if (spec.type === 'official') {
     const sp = spec.speaker || {};
     const who = sp.name + (sp.handle ? ' (' + (sp.handle.charAt(0) === '@' ? sp.handle : '@' + sp.handle) + ')' : '');
-    return '“' + spec.text + '” — ' + who + (sp.title ? ', ' + sp.title : '') + ', at DMC 2026.\n\n' + tags + '\nTickets on MojoLife \u00b7 ' + link;
+    return '“' + spec.text + '” — ' + who + (sp.title ? ', ' + sp.title : '') + ', at DMC 2026.\n\n' + tags + '\nTickets exclusively on MojoLife \u00b7 ' + link;
   }
-  return 'My takeaway from DMC 2026' + (s.movement ? ' (' + s.movement + ')' : '') + ': “' + spec.text + '”\n\n' + tags + '\nTickets on MojoLife \u00b7 ' + link;
+  return 'My takeaway from DMC 2026' + (s.movement ? ' (' + s.movement + ')' : '') + ': “' + spec.text + '”\n\n' + tags + '\nTickets exclusively on MojoLife \u00b7 ' + link;
 }
 
 /* ---- the maker: a full-screen sheet on the phone page ---- */

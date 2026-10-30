@@ -34,7 +34,7 @@ var PARTNERS = [
 ];
 
 var logos = {};
-/* Sponsor credit (Powered by MojoPay, Tickets on MojoLife): one shared lockup, assets/sponsor/ */
+/* Sponsor credit (Powered by MojoPay, Tickets exclusively on MojoLife): one shared lockup, assets/sponsor/ */
 var SP = window.DMCSponsor;
 var spImgs = {};
 /* Speaker/host flyers are produced offline by tools/speaker-flyers.js, which sets this before the page loads.
@@ -173,15 +173,16 @@ function drawManMark(x, y, boxW, boxH){
   ctx.restore();
 }
 
-/* "Powered by MojoPay" and "Tickets on MojoLife", right-aligned to rightX. Always drawn; the tile is never under the
+/* "Powered by MojoPay" and the line "Tickets exclusively on MojoLife", right-aligned to rightX. Always drawn; the tile is never under the
    contract minimum (16% of the flyer's width). Placements are kept on window.DMC_SPONSOR_PLACEMENTS for the checks. */
 function drawSponsorCredit(rightX, y){
+  if(!spImgs.mojopay) return;   /* the logo is still loading: the redraw that follows its load draws the credit, and flyerBlob waits for it */
   var tileW = Math.max(SP.minTileW(W, false), Math.round(W * 0.17)), gap = 30, out = [];
   var base = { variant: 'stacked', tileW: tileW, images: spImgs };
-  var b = SP.measure(ctx, Object.assign({ kind: 'mojolife' }, base));
+  var b = SP.measureTicketLine(ctx, { tileW: tileW });
   var a = SP.measure(ctx, Object.assign({ kind: 'mojopay' }, base));
   out.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: rightX - b.w - gap - a.w, y: y }, base)));
-  out.push(SP.draw(ctx, Object.assign({ kind: 'mojolife', x: rightX - b.w, y: y }, base)));
+  out.push(SP.drawTicketLine(ctx, { x: rightX - b.w, y: y, tileW: tileW, variant: 'stacked' }));
   ctx.textAlign = 'left';
   window.DMC_SPONSOR_PLACEMENTS = out;
 }
@@ -436,7 +437,8 @@ function track(name, params){ if(window.gtag) window.gtag('event', name, params 
 function fileName(){
   return 'DMC2026-BuiltToScale-' + (val('fl-name') || 'flyer').replace(/[\\\/:*?"<>|\s]+/g, '-') + '.png';
 }
-function flyerBlob(cb){ canvas.toBlob(cb, 'image/png'); }
+/* a flyer is never exported before the sponsor credit has been drawn */
+function flyerBlob(cb){ ready.then(function(){ draw(); canvas.toBlob(cb, 'image/png'); }); }
 
 var dl = document.getElementById('fl-dl');
 if(dl) dl.addEventListener('click', function(){
@@ -539,10 +541,11 @@ function fonts(){
   ]).catch(function(){});
 }
 
+var ready = Promise.resolve();
 function start(){
   initQR();
   draw();
-  Promise.all([loadLogos(), fonts()]).then(draw);
+  ready = Promise.all([loadLogos(), fonts()]).then(draw);
 }
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
 else start();

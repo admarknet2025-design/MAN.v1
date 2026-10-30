@@ -1,12 +1,11 @@
 /* DMC 2026 email footer: the contracted sponsor credit for any email the team sends about the event.
-   Required content (contract Schedule C and clause 8.4): the Mojo Payments and MojoLife logos in the footer, and the line
-   "Tickets exclusively on MojoLife".
+   Required content (contract Schedule C and clause 8.4): the MojoPay logo in the footer, and the line "Tickets exclusively on
+   MojoLife". MojoLife is named in words; no MojoLife logo is drawn (team decision).
 
    Use `renderEmail()` for every DMC 2026 email. It always adds the footer, to the HTML and to the plain-text part, so a message
    cannot leave it out; `assertFooter()` is the check tools/sponsor-check.js runs. The logos are the official MojoPay logo
    (a 600 px PNG of the official SVG, since mail clients do not draw SVG) on the same cream tile and in the same proportions as every other
-   DMC 2026 asset, from the shared geometry in lockup.js. While config.js has `LOGOS.mojolife.standIn`, the MojoLife slot shows that
-   same file.
+   DMC 2026 asset, from the shared geometry in lockup.js.
 
      const { renderEmail } = require('./assets/sponsor/email.js');
      const { html, text } = renderEmail({ html: bodyHtml, text: bodyText });   // then hand html and text to the mail service */
@@ -39,14 +38,14 @@
     var base = ((opts && opts.base) || 'https://mangh.org').replace(/\/$/, ''), g = SP.geometry(tileWidth());
     return '<table role="presentation" ' + MARK + '="1" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#1C1C1C" style="background:#1C1C1C"><tr><td style="padding:24px 28px">' +
       '<p style="margin:0 0 14px;font:700 16px/1.3 ' + FONT + ';color:#F4EFE6">' + esc(CFG.TICKET_LINE_EMAIL) + '</p>' +
-      lockupCell('mojopay', g, base) + lockupCell('mojolife', g, base) +
+      lockupCell('mojopay', g, base) +
       '<div style="clear:both;font-size:0;line-height:0;height:0">&nbsp;</div>' +
       '<p style="margin:6px 0 0;font:500 13px/1.4 ' + FONT + ';color:' + CFG.LABEL_COLOUR_EMAIL + '">Digital Marketers’ Conference 2026 · Built To Scale · 21 November 2026 · British Council, Accra · <a href="https://mangh.org/dmc-2026" style="color:#F4EFE6">mangh.org/dmc-2026</a></p>' +
       '</td></tr></table>';
   }
 
   function footerText() {
-    return '--\n' + CFG.TICKET_LINE_EMAIL + '.\n' + CFG.LABELS.mojopay + ' MojoPay · ' + CFG.LABELS.mojolife + ' MojoLife\nDMC 2026 · Built To Scale · 21 November 2026 · British Council, Accra · mangh.org/dmc-2026\n';
+    return '--\n' + CFG.TICKET_LINE_EMAIL + '.\n' + CFG.LABELS.mojopay + ' MojoPay\nDMC 2026 · Built To Scale · 21 November 2026 · British Council, Accra · mangh.org/dmc-2026\n';
   }
 
   /* every DMC 2026 email goes through here; the footer is added to both parts and cannot be switched off */
@@ -63,9 +62,10 @@
     var out = [], w = tileWidth();
     if (html.indexOf(MARK) < 0) out.push('HTML part has no sponsor footer');
     if (html.indexOf(CFG.TICKET_LINE_EMAIL) < 0) out.push('HTML part is missing "' + CFG.TICKET_LINE_EMAIL + '"');
-    ['MojoPay', 'MojoLife'].forEach(function (a) { if (!new RegExp('<img[^>]*alt="' + a + '"').test(html)) out.push('HTML part is missing the ' + a + ' logo'); });
+    if (!/<img[^>]*alt="MojoPay"/.test(html)) out.push('HTML part is missing the MojoPay logo');
+    if ((html.match(/<img/g) || []).length !== 1) out.push('HTML part should carry exactly one logo (MojoPay)');
     var widths = (html.match(/<img[^>]*width="(\d+)"/g) || []).map(function (m) { return +/width="(\d+)"/.exec(m)[1] + 2 * Math.round(SP.geometry(w).padX); });
-    if (widths.length < 2 || widths.some(function (x) { return x < CFG.MIN_TILE_PX; })) out.push('a logo tile in the email is under ' + CFG.MIN_TILE_PX + ' px');
+    if (widths.length < 1 || widths.some(function (x) { return x < CFG.MIN_TILE_PX; })) out.push('a logo tile in the email is under ' + CFG.MIN_TILE_PX + ' px');
     if (text.indexOf(CFG.TICKET_LINE_EMAIL) < 0) out.push('text part is missing "' + CFG.TICKET_LINE_EMAIL + '"');
     return out;
   }
