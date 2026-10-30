@@ -84,7 +84,7 @@
   {
    "slug": "simon-alangdee",
    "name": "Simon Alangdee",
-   "title": "",
+   "title": "Wineloya Digital",
    "company": "",
    "photo": "",
    "session": "Build Your Team: Panel Discussion",
@@ -104,11 +104,33 @@
    "sponsor": ""
   },
   {
+   "slug": "alice-mensah",
+   "name": "Alice Mensah",
+   "title": "Co-Founder and Partnership Lead",
+   "company": "Marketers & Advertisers Network (MAN)",
+   "photo": "alice-mensah.webp",
+   "session": "Build Your Team: Panel Discussion",
+   "movement": "Build Your Team",
+   "sessionTime": "11:40–12:10",
+   "sponsor": ""
+  },
+  {
    "slug": "yvonne-dumor",
    "name": "Yvonne Dumor",
    "title": "Administrative Business Partner and Program Lead",
    "company": "Google Research",
    "photo": "yvonne-dumor.webp",
+   "session": "Build Your Work: Panel Discussion",
+   "movement": "Build Your Work",
+   "sessionTime": "12:35–13:05",
+   "sponsor": ""
+  },
+  {
+   "slug": "elikplim-yaa-ayegbe",
+   "name": "Elikplim Yaa Ayegbe",
+   "title": "Jobberman",
+   "company": "",
+   "photo": "",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
    "sessionTime": "12:35–13:05",
@@ -273,13 +295,14 @@
    "end": "12:10",
    "title": "Build Your Team: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye",
+   "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye — hosted by Alice Mensah",
    "movement": "Build Your Team",
    "format": "Discussion",
    "people": [
     "richard-sena-quashie",
     "simon-alangdee",
-    "florentia-teye"
+    "florentia-teye",
+    "alice-mensah"
    ]
   },
   {
@@ -321,11 +344,12 @@
    "end": "13:05",
    "title": "Build Your Work: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Yvonne Dumor · Ian Hutchful — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
+   "speakers": "Yvonne Dumor · Elikplim Yaa Ayegbe · Ian Hutchful — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
    "movement": "Build Your Work",
    "format": "Discussion",
    "people": [
     "yvonne-dumor",
+    "elikplim-yaa-ayegbe",
     "ian-hutchful",
     "enoch-appiah-jr"
    ]
