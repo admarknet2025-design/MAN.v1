@@ -173,18 +173,26 @@ function drawManMark(x, y, boxW, boxH){
   ctx.restore();
 }
 
-/* "Powered by MojoPay" and the line "Tickets exclusively on MojoLife", right-aligned to rightX. Always drawn; the tile is never under the
-   contract minimum (16% of the flyer's width). Placements are kept on window.DMC_SPONSOR_PLACEMENTS for the checks. */
-function drawSponsorCredit(rightX, y){
-  if(!spImgs.mojopay) return;   /* the logo is still loading: the redraw that follows its load draws the credit, and flyerBlob waits for it */
-  var tileW = Math.max(SP.minTileW(W, false), Math.round(W * 0.17)), gap = 30, out = [];
-  var base = { variant: 'stacked', tileW: tileW, images: spImgs };
-  var b = SP.measureTicketLine(ctx, { tileW: tileW });
-  var a = SP.measure(ctx, Object.assign({ kind: 'mojopay' }, base));
-  out.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: rightX - b.w - gap - a.w, y: y }, base)));
-  out.push(SP.drawTicketLine(ctx, { x: rightX - b.w, y: y, tileW: tileW, variant: 'stacked' }));
+/* The sponsor credit is two drawings: "Powered by MojoPay" in the header beside the title block, and the line "Tickets exclusively on
+   MojoLife" in the footer, right-aligned to rightX. Always drawn; the tile is never under the contract minimum (16% of the flyer's width).
+   Placements are kept on window.DMC_SPONSOR_PLACEMENTS for the checks. */
+var SP_TILE_W = Math.max(SP.minTileW(W, false), Math.round(W * 0.17));
+function drawMojoPay(x, y){
+  if(!spImgs.mojopay) return null;   /* the logo is still loading: the redraw that follows its load draws the credit, and flyerBlob waits for it */
+  var a = SP.draw(ctx, { kind: 'mojopay', variant: 'stacked', tileW: SP_TILE_W, images: spImgs, x: x, y: y });
   ctx.textAlign = 'left';
-  window.DMC_SPONSOR_PLACEMENTS = out;
+  return a;
+}
+function drawTicketLine(rightX, y){
+  var b = SP.drawTicketLine(ctx, { x: rightX, y: y, tileW: SP_TILE_W, variant: 'stacked', align: 'right' });
+  ctx.textAlign = 'left';
+  return b;
+}
+/* the website hero's gold: dark gold into light gold */
+function goldFill(x, w){
+  var g = ctx.createLinearGradient(x, 0, x + w, 0);
+  g.addColorStop(0, AG); g.addColorStop(0.62, '#F5D87A'); g.addColorStop(1, '#E6C566');
+  return g;
 }
 
 function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
@@ -233,13 +241,20 @@ function draw(){
   ctx.strokeStyle = AG3; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(lx, 274); ctx.lineTo(lx + 440, 274); ctx.stroke();
 
-  /* 5 BUILT TO SCALE */
+  /* 4b "Powered by MojoPay", beside the title block: a rule, then the contracted lockup centred on the headline's height */
+  var mpX = lx + 440 + 40;
+  ctx.fillStyle = 'rgba(244,239,230,0.28)';
+  ctx.fillRect(mpX - 20, 112, 2, 136);
+  var mojoPlacement = drawMojoPay(mpX, 180 - Math.round(SP.measure(ctx, { kind: 'mojopay', variant: 'stacked', tileW: SP_TILE_W }).h / 2));
+
+  /* 5 BUILT TO SCALE: "BUILT TO" cream, "SCALE" in the website's gold gradient */
   ctx.font = '700 14px "Archivo"';
   ctx.fillStyle = AG;
   ctx.fillText("THIS YEAR'S THEME", lx, 300);
   ctx.font = 'normal 78px "Archivo Black"';
-  ctx.fillStyle = AG;
+  ctx.fillStyle = SC;
   ctx.fillText('BUILT TO', lx, 388);
+  ctx.fillStyle = goldFill(lx, ctx.measureText('SCALE').width);
   ctx.fillText('SCALE', lx, 476);
 
   /* 6 Photo circle */
@@ -359,7 +374,8 @@ function draw(){
   ctx.textAlign = 'left';
   ctx.fillText('ORGANIZED BY', lx, rowAY + 12);
   drawManMark(lx, rowAY + 24, 160, 56);
-  drawSponsorCredit(W - lx, rowAY);
+  var ticketPlacement = drawTicketLine(W - lx, rowAY);
+  if(mojoPlacement) window.DMC_SPONSOR_PLACEMENTS = [mojoPlacement, ticketPlacement];
 
   var ruleY = pY + 122;
   ctx.strokeStyle = 'rgba(244,239,230,0.06)'; ctx.lineWidth = 1; ctx.setLineDash([]);

@@ -81,8 +81,8 @@ async function verify(name, pngBuf, placements, w, h, tall) {
 
   /* 2. link-preview images */
   const og = require('./og-dmc.js');
-  for (const [base, out, o] of [['base-og-dmc-2026.png', 'og-dmc-2026.png', {}], ['base-og-home.png', 'og-home-dmc-2026.png', {}]]) {
-    const r = await og.make(base, out, o, OUT);
+  for (const out of ['og-dmc-2026.png', 'og-home-dmc-2026.png']) {
+    const r = await og.make(out, {}, OUT);
     const buf = fs.readFileSync(path.join(OUT, out));
     await verify('og ' + out, buf, r.placements, og.W, og.H, false);
     addSheet('other', 'og ' + out, buf);

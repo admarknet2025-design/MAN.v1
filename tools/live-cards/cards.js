@@ -257,12 +257,20 @@ function render(canvas, spec) {
   f.lines.forEach((ln, i) => ctx.fillText(ln, bx, y0 + f.size * 0.95 + i * lh));
   out.size = f.size; out.lines = f.lines.length; out.fits = !f.cut; out.box = box;
 
-  /* footer: lockup, and the small QR on the tall size */
+  /* footer: the website hero's title block ("BUILT TO" cream, "SCALE" in gold, on an obsidian panel so it reads on every card colour),
+     "Powered by MojoPay" beside it, the date line, and the small QR on the tall size */
   ctx.fillStyle = night ? CR : OB; ctx.fillRect(0, footTop, W, 0);
   const fy = footTop + (tall ? 70 : 62);
-  ctx.fillStyle = fg; ctx.font = X(900, 54); ctx.fillText('DMC 2026', M, fy);
-  ctx.font = X(800, 24); spaced(ctx, 'BUILT TO SCALE', M, fy + 44, 6);
-  ctx.globalAlpha = 0.92; ctx.font = A(700, 26); ctx.fillText('Sat 21 Nov · British Council, Accra', M, fy + 92); ctx.globalAlpha = 1;
+  const pz = tall ? 46 : 42, plh = Math.round(pz * 0.98), pPad = 22;
+  ctx.font = X(900, pz);
+  const pW = Math.ceil(ctx.measureText('BUILT TO').width) + pPad * 2, pTop = fy - 46, pH = Math.round(pPad * 2 + pz * 0.7 + plh);
+  ctx.fillStyle = OB; ctx.fillRect(M, pTop, pW, pH);
+  ctx.fillStyle = CR; ctx.fillText('BUILT TO', M + pPad, pTop + pPad + Math.round(pz * 0.7));
+  const sW = ctx.measureText('SCALE').width, gr = ctx.createLinearGradient(M + pPad, 0, M + pPad + sW, 0);
+  gr.addColorStop(0, GO); gr.addColorStop(0.62, '#F5D87A'); gr.addColorStop(1, '#E6C566');
+  ctx.fillStyle = gr; ctx.fillText('SCALE', M + pPad, pTop + pPad + Math.round(pz * 0.7) + plh);
+  ctx.fillStyle = fg;
+  ctx.globalAlpha = 0.92; ctx.font = A(700, 26); ctx.fillText('DMC 2026 · Sat 21 Nov · British Council, Accra', M, fy + 106); ctx.globalAlpha = 1;
   if (tall && spec.qr) {
     const q = qrcode(0, 'M'); q.addData(spec.qr); q.make();
     const n = q.getModuleCount(); const cell = Math.max(3, Math.floor(150 / (n + 4)));
@@ -274,11 +282,12 @@ function render(canvas, spec) {
   } else if (!tall) {
     ctx.fillStyle = fg; ctx.font = X(800, 24); spaced(ctx, 'MANGH.ORG', W - M, fy + 44, 5, 'right');
   }
-  /* sponsor credit row, always drawn here so no layout can leave it out */
+  /* sponsor credit, always drawn here so no layout can leave it out: "Powered by MojoPay" in the header block beside the title panel,
+     the line "Tickets exclusively on MojoLife" in the bottom row */
   const spOpts = { variant: 'stacked', tileW, images: spImgs, font: SP_FONT, labelColour: night ? undefined : (fg === CR ? 'rgba(244,239,230,.8)' : fg === '#FFFFFF' ? 'rgba(255,255,255,.82)' : 'rgba(28,28,28,.78)'), tileEdge: bg === CR ? 'rgba(28,28,28,.55)' : undefined };
   const sy = H - STRIP - 22 - lockH;
   const lb = SP.measureTicketLine(ctx, { tileW, font: SP_FONT });
-  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M, y: sy }, spOpts)));
+  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M + pW + 40, y: Math.round(pTop + (pH - lockH) / 2) }, spOpts)));
   placements.push(SP.drawTicketLine(ctx, { x: W - M - lb.w, y: sy, tileW, variant: 'stacked', font: SP_FONT, colour: fg }));
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   kente(ctx, 0, 0, W, STRIP);
