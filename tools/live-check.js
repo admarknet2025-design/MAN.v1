@@ -45,7 +45,7 @@ ok('gold appears only on the phone page and the card maker: /live/screen keeps r
 ok('gold is used on the phone page and the cards', ['lib/live/phone.html', 'tools/live-cards/cards.js'].every((f) => goldIn.indexOf(f) >= 0), goldIn);
 const hex = new Set();
 files.filter((f) => /\.(html|js)$/.test(f) && !/live-check|live-cards-check/.test(f)).forEach((f) => (fs.readFileSync(f, 'utf8').match(/#[0-9a-fA-F]{6}\b/g) || []).forEach((h) => hex.add(h.toUpperCase())));
-const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030', '#0500CC']);   // #0500CC is the MojoPay wordmark inside the embedded official logo file, never a Live colour
+const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030', '#0500CC', '#A29F99']);   // #0500CC is the MojoPay wordmark inside the embedded official logo file, never a Live colour; #A29F99 is the label cream flattened for email (sponsor/config.js)
 ok('only brand colours and neutral greys appear as hex values', [...hex].every((h) => palette.has(h)), [...hex].filter((h) => !palette.has(h)));
 
 console.log(passes + ' passed, ' + fails + ' failed');

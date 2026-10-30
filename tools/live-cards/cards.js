@@ -41,7 +41,7 @@ const spImgs = {};
 function loadSponsor() {
   return new Promise((res) => {
     const img = new Image();
-    img.onload = () => { spImgs.mojopay = img; res(); };
+    img.onload = () => { spImgs.mojopay = img; if (SP.config.LOGOS.mojolife.file) spImgs.mojolife = img; res(); };   /* mojolife shows the MojoPay file while LOGOS.mojolife.standIn is set */
     img.onerror = () => res();
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SP.sizedSvg(MOJOPAY_SVG));
   });

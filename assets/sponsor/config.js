@@ -23,6 +23,7 @@
     /* Label style, copied from the homepage hero (.hero-conf at 1440 wide): Archivo 600, 14px, +.18em, uppercase,
        rgba(244,239,230,.62). All other measurements are ratios of the logo height (26px in the hero). */
     LABEL_COLOUR: 'rgba(244,239,230,.62)',
+    LABEL_COLOUR_EMAIL: '#A29F99',       /* the same muted cream flattened onto #1C1C1C, because mail clients drop rgba */
     HERO: { logoH: 26, labelPx: 14, labelWeight: 600, labelTracking: 0.18, padX: 12, padY: 7, gap: 14, gapStacked: 8 },
     LOGO_ASPECT: 1144.63 / 192.72,     /* viewBox of the official MojoPay SVG */
 
@@ -31,11 +32,14 @@
     TICKET_LINE_EMAIL: 'Tickets exclusively on MojoLife',
 
     /* Official logo files. Only these files are ever drawn; they are never recoloured, stretched, cropped or rotated.
-       The MojoLife logo has not been supplied: while `file` is null every renderer draws a clearly marked placeholder
-       slot of the right size (never text styled as a logo). Drop the official file in and set `file`. */
+       The MojoLife logo has not been supplied: `LOGOS.mojolife` is a marked stand-in (see below); if `file` is null every
+       renderer draws a clearly marked placeholder slot instead (never text styled as a logo). */
     LOGOS: {
       mojopay:  { file: 'assets/partners26/mojopay-logo-blue.svg', alt: 'MojoPay', href: 'https://mojo-pay.com' },
-      mojolife: { file: null, alt: 'MojoLife', href: null, aspect: null }
+      /* TEMPORARY STAND-IN: until the official MojoLife logo is supplied this slot shows the MojoPay logo (same file, same
+         geometry), by the team's decision. To switch: point `file` at the MojoLife logo, set its `aspect` (width / height) and
+         remove `standIn`. `node tools/sponsor-check.js --strict` fails while `standIn` is set or `file` is null. */
+      mojolife: { file: 'assets/partners26/mojopay-logo-blue.svg', alt: 'MojoLife', href: null, aspect: 1144.63 / 192.72, standIn: true }
     },
     PLACEHOLDER_TEXT: 'MOJOLIFE LOGO PENDING'
   };

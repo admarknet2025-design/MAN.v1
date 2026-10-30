@@ -8,7 +8,7 @@ One shared lockup draws it everywhere, so every DMC 2026 asset matches the homep
 | Lockup | Label | Logo |
 |---|---|---|
 | A | POWERED BY | MojoPay wordmark, `assets/partners26/mojopay-logo-blue.svg` (original blue `#0500CC`) |
-| B | TICKETS ON | MojoLife logo, **not yet supplied** (marked placeholder slot) |
+| B | TICKETS ON | MojoLife logo, **not yet supplied**: the slot temporarily shows the MojoPay logo (`LOGOS.mojolife.standIn` in `config.js`) |
 
 Label style is the homepage hero's (`.hero-conf` at 1440 wide): Archivo 600, 14 px, +0.18em tracking, uppercase, `rgba(244,239,230,.62)`. The tile is Signal Cream `#F4EFE6` with the hero's padding (12 px sides, 7 px top and bottom at a 26 px logo), and every other measurement scales from the tile width in the same proportions (`geometry()` in `assets/sponsor/lockup.js`). Two shapes: **horizontal** (label left of the tile, the hero's) and **stacked** (label above, for narrow spaces: flyer footer, Studio band, cards, the projector corner uses horizontal).
 
@@ -28,15 +28,15 @@ Logo protection is structural: only the files named in `config.js` are drawn; th
 | DMC Live quote cards | `tools/live-cards/cards.js` (rebuild with `node tools/build-live-cards.js`) |
 | `/live/screen` | fixed bottom-left corner, outside the changing view |
 | Link previews | `tools/og-dmc.js` → `assets/og-dmc-2026.png` (dmc-2026 and press pages), `assets/og-home-dmc-2026.png` (home page). `assets/og-image.png` is shared with non-DMC pages and is untouched |
-| Emails | none exist. Any DMC 2026 email must carry both logos in the footer and the line "Tickets exclusively on MojoLife" (`TICKET_LINE_EMAIL` in `config.js`) |
+| Emails | `assets/sponsor/email.js`: `renderEmail({ html, text })` appends the footer (both logos on the cream tile, the line "Tickets exclusively on MojoLife", the event details) to the HTML and plain-text parts, so a message cannot leave it out. No email is sent by this repo today; whatever sends DMC 2026 email must pass its message through `renderEmail()`. The logo is `assets/sponsor/mojopay-logo-blue-email.png`, a 600 px PNG of the official SVG (mail clients do not draw SVG) |
 | "What I Built" cards | not built; see `docs/live.md` for the requirement |
 | Captions | flyer, Studio and Live captions end "Tickets on MojoLife · mangh.org/dmc-2026…" |
 
 ## The MojoLife logo (blocker)
-No official MojoLife logo file is in the repository, so lockup B draws a **marked placeholder** (cream tile, dashed coral outline, "MOJOLIFE LOGO PENDING"). Nothing is drawn to look like the logo. When MojoPay supply the file, add it under `assets/partners26/`, then in `config.js` set `LOGOS.mojolife.file` and `LOGOS.mojolife.aspect` (width ÷ height); for the cards, also import it in `tools/live-cards/cards.js` the way the MojoPay SVG is, and rebuild. `node tools/sponsor-check.js --strict` fails while the placeholder is in use: run it before any production deploy.
+No official MojoLife logo file is in the repository. By the team's decision the MojoLife slot **temporarily shows the MojoPay logo** (same file, same tile, same geometry), flagged `standIn: true` in `config.js`. When MojoPay supply the official file, add it under `assets/partners26/`, set `LOGOS.mojolife.file` and `.aspect` (width ÷ height), delete `standIn`, import it in `tools/live-cards/cards.js` the way the MojoPay SVG is, add a matching PNG for `email.js`, and rebuild (`node tools/build-live-cards.js`, `node tools/og-dmc.js`). With `file: null` every renderer draws a marked placeholder instead (dashed outline, "MOJOLIFE LOGO PENDING"). `node tools/sponsor-check.js --strict` fails while the stand-in or the placeholder is in use: run it before any production deploy.
 
 ## Test
-`node tools/sponsor-check.js [outdir]` renders every Studio template at every size, the Live cards (every layout, both sizes, each movement colour), the flyer, the link previews and the projector page (several views at two sizes); it fails if a lockup is missing, a MojoPay tile is under the minimum, the MojoLife tile height differs, a tile does not look like the official one in the pixels, or Akan Gold appears on the projector page. It writes contact sheets to `outdir`.
+`node tools/sponsor-check.js [outdir]` renders every Studio template at every size, the Live cards (every layout, both sizes, each movement colour), the flyer, the link previews and the projector page (several views at two sizes); it fails if a lockup is missing, a MojoPay tile is under the minimum, the MojoLife tile height differs, a tile does not look like the official one in the pixels, an email lacks the footer logos or "Tickets exclusively on MojoLife" (HTML and text parts), or Akan Gold appears on the projector page. It writes contact sheets to `outdir`.
 
 ## Gold
 Gold is allowed on web, social and phone assets (flyer, Studio, Live phone and cards). `/live/screen` keeps rule D-09: no Akan Gold on the room screens.

@@ -41,7 +41,7 @@ function looksRight(img, p) {
     else if (r > 180 && g < 120 && b < 100) coral++;
   }
   if (p.kind === 'mojopay') return cream / n > 0.5 && blue / n > 0.04;
-  return cream / n > 0.5 && (p.placeholder ? coral > 8 : true);
+  return cream / n > 0.5 && (p.placeholder ? coral > 8 : blue / n > 0.04);
 }
 async function verify(name, pngBuf, placements, w, h, tall) {
   checked++;
@@ -53,7 +53,7 @@ async function verify(name, pngBuf, placements, w, h, tall) {
 }
 
 (async () => {
-  const placeholder = !SP.config.LOGOS.mojolife.file;
+  const life = SP.config.LOGOS.mojolife, placeholder = !life.file, standIn = !!life.standIn;
 
   /* 1. DMC Studio: every template x every size */
   const jobs = {
@@ -91,6 +91,17 @@ async function verify(name, pngBuf, placements, w, h, tall) {
   /* the shared image stays out of this: pages that are not DMC 2026 keep it */
   console.log('link previews: 2 images, 3 pages checked');
 
+  /* 2b. email footer: every email goes through renderEmail(), which cannot leave out the logos or the line "Tickets exclusively on MojoLife" */
+  const EM = require(path.join(ROOT, 'assets/sponsor/email.js'));
+  const sample = EM.renderEmail({ html: '<!doctype html><html><body style="margin:0;background:#fff"><table width="600" align="center" style="font:16px Arial"><tr><td style="padding:28px"><h1>See you at DMC 2026</h1><p>Your registration is confirmed.</p></td></tr></table></body></html>', text: 'See you at DMC 2026.\nYour registration is confirmed.' });
+  checked++;
+  EM.assertFooter(sample.html, sample.text).forEach((m) => fail('email: ' + m));
+  /* a message with no body of its own still gets the footer */
+  const bare = EM.renderEmail({});
+  EM.assertFooter(bare.html, bare.text).forEach((m) => fail('email (empty message): ' + m));
+  fs.writeFileSync(path.join(OUT, 'sample-email.html'), sample.html.replace(/src="https:\/\/mangh\.org/g, 'src="..'));
+  console.log('email footer checked');
+
   /* 3 to 5 need a browser */
   let chromium = null;
   try { chromium = require('playwright').chromium; } catch (e) { fail('Playwright is not installed, so the flyer, the Live cards and the projector page were NOT checked (npm i --no-save playwright)'); }
@@ -104,6 +115,17 @@ async function verify(name, pngBuf, placements, w, h, tall) {
     await new Promise((r) => srv.listen(0, r));
     const BASE = 'http://localhost:' + srv.address().port;
     const b = await chromium.launch();
+
+    /* 2c. the sample email as a mail client draws it (the logo path is served from this checkout) */
+    {
+      const pg = await b.newPage({ viewport: { width: 700, height: 600 } });
+      await pg.setContent(sample.html.replace(/src="https:\/\/mangh\.org/g, 'src="' + BASE));
+      await pg.waitForTimeout(400);
+      const ok = await pg.evaluate(() => [...document.querySelectorAll('img')].every((i) => i.complete && i.naturalWidth > 0));
+      if (!ok) fail('email: a logo image did not load');
+      addSheet('other', 'email footer', await pg.screenshot({ fullPage: true }));
+      await pg.close();
+    }
 
     /* 3. the public flyer */
     {
@@ -210,9 +232,9 @@ async function verify(name, pngBuf, placements, w, h, tall) {
   }
 
   console.log(checked + ' assets checked; contact sheets in ' + OUT);
-  if (placeholder) {
-    console.log('BLOCKER: the official MojoLife logo file has not been supplied. Every "Tickets on MojoLife" lockup shows a marked placeholder slot. Set LOGOS.mojolife.file and .aspect in assets/sponsor/config.js.');
-    if (STRICT) { console.log('FAIL --strict: placeholder in use'); bad++; }
+  if (placeholder || standIn) {
+    console.log('BLOCKER: the official MojoLife logo file has not been supplied. ' + (standIn ? 'The MojoLife slot shows the MojoPay logo as a temporary stand-in.' : 'Every "Tickets on MojoLife" lockup shows a marked placeholder slot.') + ' Set LOGOS.mojolife.file and .aspect in assets/sponsor/config.js (and remove standIn).');
+    if (STRICT) { console.log('FAIL --strict: MojoLife logo is not the official file'); bad++; }
   }
   console.log(bad ? bad + ' problem(s)' : 'every asset carries both lockups at or above the minimum size');
   process.exit(bad ? 1 : 0);
