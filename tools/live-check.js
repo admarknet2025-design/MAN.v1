@@ -39,13 +39,13 @@ const files = ['lib/live', 'api', 'tools/live-cards', 'assets'].flatMap((d) => {
   const dir = path.join(root, d);
   return fs.readdirSync(dir, { withFileTypes: true }).filter((e) => e.isFile() && /(live|_live).*\.(js|html|txt|css)$|^(phone|screen|control|cards|filter-core|blocklist)\./.test(e.name)).map((e) => path.join(dir, e.name));
 }).concat([path.join(root, 'tools/live-cards-check.js'), path.join(root, 'tools/live-load-test.js')]);
-const GOLD_OK = new Set(['lib/live/phone.html', 'lib/live/screen.html', 'tools/live-cards/cards.js', 'assets/live-cards.js', 'tools/live-cards-check.js']);
+const GOLD_OK = new Set(['lib/live/phone.html', 'tools/live-cards/cards.js', 'assets/live-cards.js', 'tools/live-cards-check.js']);
 const goldIn = files.filter((f) => /c9a24a/i.test(fs.readFileSync(f, 'utf8'))).map((f) => path.relative(root, f));
-ok('gold appears only on the phone page, the screen page and the card maker (the operator panel and the server stay gold-free)', goldIn.every((f) => GOLD_OK.has(f)), goldIn);
-ok('gold is used on the phone page, the screen page and the cards', ['lib/live/phone.html', 'lib/live/screen.html', 'tools/live-cards/cards.js'].every((f) => goldIn.indexOf(f) >= 0), goldIn);
+ok('gold appears only on the phone page and the card maker: /live/screen keeps rule D-09, no Akan Gold on the room screens (the operator panel and the server stay gold-free too)', goldIn.every((f) => GOLD_OK.has(f)), goldIn);
+ok('gold is used on the phone page and the cards', ['lib/live/phone.html', 'tools/live-cards/cards.js'].every((f) => goldIn.indexOf(f) >= 0), goldIn);
 const hex = new Set();
 files.filter((f) => /\.(html|js)$/.test(f) && !/live-check|live-cards-check/.test(f)).forEach((f) => (fs.readFileSync(f, 'utf8').match(/#[0-9a-fA-F]{6}\b/g) || []).forEach((h) => hex.add(h.toUpperCase())));
-const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030']);
+const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030', '#0500CC', '#A29F99']);   // #0500CC is the MojoPay wordmark inside the embedded official logo file, never a Live colour; #A29F99 is the label cream flattened for email (sponsor/config.js)
 ok('only brand colours and neutral greys appear as hex values', [...hex].every((h) => palette.has(h)), [...hex].filter((h) => !palette.has(h)));
 
 console.log(passes + ' passed, ' + fails + ' failed');

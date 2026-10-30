@@ -557,9 +557,10 @@ function buildCaption(platform, tone, len, link) {
   }
   parts.push('');
   var bioFirst = platform === 'instagram' || platform === 'tiktok';
-  if (bioFirst) parts.push('Link in bio' + (platform === 'instagram' ? ' (and the QR on the story).' : '.'));
-  else if (platform === 'whatsapp') parts.push('Tickets: ' + link);
-  else parts.push('Get your ticket: ' + link);
+  /* MojoLife is the exclusive ticketing platform (contract clause 8.4): every ticket line says so */
+  if (bioFirst) parts.push('Tickets exclusively on MojoLife: link in bio' + (platform === 'instagram' ? ' (and the QR on the story).' : '.'));
+  else if (platform === 'whatsapp') parts.push('Tickets exclusively on MojoLife: ' + link);
+  else parts.push('Tickets exclusively on MojoLife \u00b7 ' + link);
   var tags = ['#DMC2026', '#BuiltToScale'];
   var line = (HANDLE[platform] ? HANDLE[platform] + ' ' : '') + tags.join(' ');
   if (platform === 'linkedin') line = 'linkedin.com/company/mangh ' + tags.join(' ');

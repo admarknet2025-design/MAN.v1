@@ -16,7 +16,7 @@ esbuild.buildSync(Object.assign({}, common, {
   entryPoints: [path.join(__dirname, 'live-cards', 'cards.js')],
   outfile: path.join(root, 'assets', 'live-cards.js'),
   format: 'iife',
-  loader: { '.woff2': 'base64', '.txt': 'text' }
+  loader: { '.woff2': 'base64', '.txt': 'text', '.svg': 'text' }
 }));
 
 esbuild.buildSync(Object.assign({}, common, {
