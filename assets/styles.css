@@ -95,6 +95,11 @@ nav{position:sticky;top:0;z-index:300;background:rgba(13,13,13,.95);backdrop-fil
 .hero-h1{font-size:clamp(60px,9vw,130px);font-weight:900;font-variation-settings:'wdth' 125;line-height:.88;letter-spacing:-.02em;text-transform:uppercase;color:var(--cr);margin-bottom:0}
 .hero-h2{font-size:clamp(18px,3vw,40px);font-weight:700;letter-spacing:.04em;color:rgba(244,239,230,.62);margin-bottom:8px;margin-top:6px}
 .hero-conf{font-size:clamp(11px,1.2vw,14px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.62);margin-bottom:44px}
+.hero-conf-sp{margin-bottom:14px}
+.sp-credit{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
+.sp-credit a{display:inline-flex;align-items:center;line-height:0}
+.sp-credit img{display:block;height:clamp(13px,1.9vw,26px);width:auto}
+.h26-ey.h26-credit{margin-bottom:28px}
 .hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:48px}
 .hero-scroll{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,239,230,.62);display:flex;align-items:center;gap:10px}
 .hero-scroll::before{content:'';display:block;width:24px;height:1px;background:rgba(244,239,230,.2)}
