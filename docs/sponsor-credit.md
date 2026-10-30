@@ -7,8 +7,8 @@ One shared lockup draws it everywhere, so every DMC 2026 asset matches the homep
 ## What every asset carries
 | Element | Content |
 |---|---|
-| Lockup | POWERED BY + the MojoPay wordmark (`assets/partners26/mojopay-logo-blue.svg`, original blue `#0500CC`) on a cream tile |
-| Ticket line | the text "Tickets exclusively on MojoLife" (two lines in narrow spaces, one on the projector), bold Archivo, in the tile row beside the lockup; no logo, no tile |
+| Lockup | POWERED BY + the MojoPay wordmark (`assets/partners26/mojopay-logo-blue.svg`, original blue `#0500CC`) on a cream tile. On flyers, Studio art, Live cards and link previews it sits in the header, beside the "BUILT TO SCALE" title block |
+| Ticket line | the text "Tickets exclusively on MojoLife" (two lines in narrow spaces, one on the projector), bold Archivo, no logo, no tile. On flyers, Studio art, Live cards and link previews it stays in the footer; on the projector it is beside the lockup |
 
 Label style is the homepage hero's (`.hero-conf` at 1440 wide): Archivo 600, 14 px, +0.18em tracking, uppercase, `rgba(244,239,230,.62)`. The tile is Signal Cream `#F4EFE6` with the hero's padding (12 px sides, 7 px top and bottom at a 26 px logo), and every other measurement scales from the tile width in the same proportions (`geometry()` in `assets/sponsor/lockup.js`). Two shapes: **horizontal** (label left of the tile, the hero's; used on the projector) and **stacked** (label above, for narrow spaces: flyer footer, Studio band, cards).
 
@@ -24,11 +24,11 @@ Logo protection is structural: only the files named in `config.js` are drawn; th
 ## Where it is drawn
 | Asset | How |
 |---|---|
-| DMC Studio, every template and size | `frame()` in `lib/studio/render.js` (templates cannot opt out); sizes 1080×1350, 1080×1920, 1080×1080, 1200×627, 1600×900 |
-| Make Your Flyer (`/dmc-2026#flyer`) and the speaker flyers | `assets/flyer.js` footer: "ORGANIZED BY", then the two lockups; replaced "PRESENTING PARTNER" |
-| DMC Live quote cards | `tools/live-cards/cards.js` (rebuild with `node tools/build-live-cards.js`) |
+| DMC Studio, every template and size | `frame()` in `lib/studio/render.js` (templates cannot opt out): lockup in the header, ticket line in the footer band; sizes 1080×1350, 1080×1920, 1080×1080, 1200×627, 1600×900 |
+| Make Your Flyer (`/dmc-2026#flyer`) and the speaker flyers | `assets/flyer.js`: lockup in the header beside the title block, ticket line in the footer row after "ORGANIZED BY" |
+| DMC Live quote cards | `tools/live-cards/cards.js` (rebuild with `node tools/build-live-cards.js`): lockup beside the obsidian "BUILT TO SCALE" panel, ticket line in the bottom row |
 | `/live/screen` | fixed bottom-left corner, outside the changing view |
-| Link previews | `tools/og-dmc.js` → `assets/og-dmc-2026.png` (dmc-2026 and press pages), `assets/og-home-dmc-2026.png` (home page). `assets/og-image.png` is shared with non-DMC pages and is untouched |
+| Link previews | `tools/og-dmc.js` (draws the whole image; no base artwork) → `assets/og-dmc-2026.png` (dmc-2026 and press pages), `assets/og-home-dmc-2026.png` (home page). `assets/og-image.png` is shared with non-DMC pages and is untouched |
 | Emails | `assets/sponsor/email.js`: `renderEmail({ html, text })` appends the footer (MojoPay logo on the cream tile, the line "Tickets exclusively on MojoLife", the event details) to the HTML and plain-text parts, so a message cannot leave it out. No email is sent by this repo today; whatever sends DMC 2026 email must pass its message through `renderEmail()`. The logo is `assets/sponsor/mojopay-logo-blue-email.png`, a 600 px PNG of the official SVG (mail clients do not draw SVG) |
 | "What I Built" cards | not built; see `docs/live.md` for the requirement |
 | Captions | flyer, speaker-flyer, Studio and Live captions end "Tickets exclusively on MojoLife · mangh.org/dmc-2026…" |

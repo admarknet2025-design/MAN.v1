@@ -9,7 +9,7 @@ const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const { render, SIZES } = require(path.join(ROOT, 'lib/studio/render'));
 
-const MAX_GOLD = 0.03;
+const MAX_GOLD = 0.04;
 let bad = 0;
 
 /* letters used in Ghanaian and Nigerian names must be in the embedded Archivo or its Noto Sans fallback, at every weight */

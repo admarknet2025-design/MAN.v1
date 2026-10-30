@@ -20,7 +20,7 @@ artwork in every platform size, a caption per platform, and one tracked short li
 
 Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
 
-All templates share one frame (header with the M·A·N logo, kente divider, date/venue/site footer, corner triangles) in `lib/studio/render.js`, so they look like a set.
+All templates share one frame (header with the website's "BUILT TO SCALE" title block and the Powered by MojoPay lockup beside it, kente divider, date/venue/site footer, partner band with "Organised by" M·A·N, corner triangles) in `lib/studio/render.js`, so they look like a set. The M·A·N logo is not in the header.
 
 ## Sizes and files
 One click renders seven files (five sizes; the story size is rendered three times, each with its own QR code):
@@ -112,16 +112,17 @@ they stay until someone removes the person in the Studio. If the retention perio
 
 ## Colours and the touch of gold
 Obsidian, Signal Cream, Build Teal and Pulse Coral carry the artwork. Akan Gold (#C9A24A) is a **touch**, as on the public "Make
-Your Flyer": the fourth kente segment, the photo ring, the speaker/sponsor tag, the "Built To Scale" label, the thin wedge under the
+Your Flyer": the fourth kente segment, the photo ring, the speaker/sponsor tag, the "SCALE" in the header title (the website hero's gold gradient, dark gold into light gold), the thin wedge under the
 corner triangles, the slim bar down the left edge, the quote mark and the edge lines of the partner band. It is never a large fill and
 is never used as text on cream. `node tools/studio-check.js` renders every template at every size (without photos or uploaded logos) and
-fails if gold-like pixels cover more than 3 % of any image (today the most is about 2.4 %), or if the gold colour appears anywhere
+fails if gold-like pixels cover more than 4 % of any image (today the most is about 2.9 %; the limit was 3 % before the header's gold "SCALE"), or if the gold colour appears anywhere
 outside `lib/studio/render.js`. The Studio's own page (`/studio`) and the dashboard stay gold-free.
 
 ## Sponsor credit and partner band
-Every image ends with a band. Its first row carries the **contracted sponsor credit**, the same credit as every other DMC 2026
-asset (see [sponsor-credit.md](sponsor-credit.md)): **Powered by MojoPay** and the line **Tickets exclusively on MojoLife**, beside "Organised by" M·A·N.
-The lockups are drawn by the shared `frame()` in `lib/studio/render.js`, so no template can leave them out. Below (or, on the wide
+Every image carries the **contracted sponsor credit**, the same credit as every other DMC 2026
+asset (see [sponsor-credit.md](sponsor-credit.md)): **Powered by MojoPay** sits in the header beside the "BUILT TO SCALE" title block, and the line **Tickets exclusively on MojoLife**
+is in the first row of the footer band, beside "Organised by" M·A·N (the wide sizes have one row: Organised by, the ticket line, then the partners).
+Both are drawn by the shared `frame()` in `lib/studio/render.js`, so no template can leave them out. Below (or, on the wide
 sizes, beside) them are **Sponsors and partners**: FIDO, Generation Ghana, mNotify, Kasad3, Tech Labari and Koin Photography (logos from
 `assets/partners26/`, each on a cream tile). Feed, story and square use two rows; the two wide sizes use one. To change the line-up,
 edit `BAND_PARTNERS` in `lib/studio/render.js`. Captions end with "Tickets exclusively on MojoLife · <link>", and the story's QR is captioned
