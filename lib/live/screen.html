@@ -15,17 +15,19 @@ body{background:#000;color:#F4EFE6;font:500 1.15rem/1.3 'Archivo',system-ui,sans
 #stage{position:relative;width:80rem;height:45rem;background:#1C1C1C;overflow:hidden}
 :root{--ob:#1C1C1C;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--ac:#2A7B74}
 .disp{font-family:'Archivo Black','Archivo',sans-serif;font-weight:400;letter-spacing:.01em}
-.kente{position:absolute;left:0;right:0;height:.6rem;background:repeating-linear-gradient(90deg,#C9A24A 0 1rem,#1C1C1C 1rem 1.12rem,#2A7B74 1.12rem 2.12rem,#1C1C1C 2.12rem 2.24rem,#D95F45 2.24rem 3.24rem,#1C1C1C 3.24rem 3.36rem,#F4EFE6 3.36rem 4.36rem,#1C1C1C 4.36rem 4.48rem)}
+.kente{position:absolute;left:0;right:0;height:.6rem;background:repeating-linear-gradient(90deg,#2A7B74 0 1rem,#1C1C1C 1rem 1.12rem,#D95F45 1.12rem 2.12rem,#1C1C1C 2.12rem 2.24rem,#F4EFE6 2.24rem 3.24rem,#1C1C1C 3.24rem 3.36rem)}
 #topk{top:0}#botk{bottom:0}
 #lock{position:absolute;left:2.4rem;top:1.5rem;font-size:1.5rem}
 #lock small{display:block;font:700 .62rem/1.2 'Archivo',sans-serif;letter-spacing:.26em;color:rgba(244,239,230,.78);margin-top:.2rem}
 #join{position:absolute;right:2.4rem;bottom:1.4rem;font:700 1.05rem/1 'Archivo',sans-serif;letter-spacing:.06em;color:rgba(244,239,230,.88)}
 #rehearsal{position:absolute;left:50%;top:0;transform:translateX(-50%);background:#D95F45;color:#1C1C1C;font:800 .9rem/1 'Archivo',sans-serif;letter-spacing:.14em;padding:.45rem 1.2rem;display:none;z-index:9}
-#view{position:absolute;left:0;right:0;top:5.2rem;bottom:3.2rem;padding:0 2.4rem}
+#view{position:absolute;left:0;right:0;top:5.2rem;bottom:5rem;padding:0 2.4rem}
+/* contracted sponsor credit: fixed in the bottom-left corner of every view, drawn from assets/sponsor (built at 1920 wide, scaled with the stage); no gold on this page (D-09) */
+#sponsor{position:absolute;left:2.4rem;bottom:1.1rem;display:flex;gap:48px;align-items:flex-end;transform-origin:left bottom;width:1920px}
 .fade{animation:fade .6s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(.6rem)}to{opacity:1;transform:none}}
 h1.prompt{font-size:2.5rem;line-height:1.1;max-width:68rem}
-.tag{display:inline-block;background:#C9A24A;color:#1C1C1C;font:800 .85rem/1 'Archivo',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:.45rem .75rem;margin-bottom:.7rem}
+.tag{display:inline-block;background:var(--ac);color:#fff;font:800 .85rem/1 'Archivo',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:.45rem .75rem;margin-bottom:.7rem}
 .tag.dark{color:#1C1C1C}
 /* holding */
 .hold{height:100%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem}
@@ -95,9 +97,22 @@ h1.prompt{font-size:2.5rem;line-height:1.1;max-width:68rem}
   <div class="count" id="count"></div></header>
   <main id="view" aria-live="polite" aria-label="DMC Live"></main>
   <footer><div id="join"></div></footer>
+  <div id="sponsor" aria-label="Powered by MojoPay. Tickets on MojoLife."></div>
   <div class="kente" id="botk" aria-hidden="true"></div>
 </div>
 <script src="/assets/live-qr.js?v=1"></script>
+<script src="/assets/sponsor/config.js?v=84adcf8f"></script>
+<script src="/assets/sponsor/lockup.js?v=a59b6e6d"></script>
+<script>
+/* "Powered by MojoPay" and "Tickets on MojoLife", always on screen. The MojoPay tile is 16% of the stage width (the contract default, config.js). */
+(function () {
+  var SP = window.DMCSponsor, box = document.getElementById('sponsor'), stage = document.getElementById('stage');
+  var tileW = Math.max(SP.minTileW(1920, false), Math.round(1920 * 0.16));
+  box.innerHTML = SP.html('mojopay', tileW, 'horizontal', "'Archivo',sans-serif") + SP.html('mojolife', tileW, 'horizontal', "'Archivo',sans-serif");
+  function fitSponsor() { box.style.transform = 'scale(' + (stage.offsetWidth / 1920) + ')'; }
+  fitSponsor(); window.addEventListener('resize', fitSponsor);
+})();
+</script>
 <script>
 (function () {
 'use strict';

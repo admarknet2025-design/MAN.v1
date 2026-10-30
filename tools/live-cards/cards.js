@@ -19,6 +19,9 @@ import F_BOLD from './fonts/Archivo-Bold.woff2';
 import F_MED from './fonts/Archivo-Medium.woff2';
 import F_NB from './fonts/NotoSans-B-subset.woff2';
 import F_NM from './fonts/NotoSans-M-subset.woff2';
+import F_SB from './fonts/Archivo-SemiBold.woff2';
+import SP from '../../assets/sponsor/lockup.js';
+import MOJOPAY_SVG from '../../assets/partners26/mojopay-logo-blue.svg';
 
 const OB = '#1C1C1C', CR = '#F4EFE6', TE = '#2A7B74', CO = '#D95F45', GO = '#C9A24A';
 const W = 1080, M = 72, STRIP = 44;
@@ -29,14 +32,25 @@ const MAX = { official: 220, takeaway: 140 };
 const PICTURES = /(?![\u00A9\u00AE\u2122])\p{Extended_Pictographic}|[\u{1F1E6}-\u{1F1FF}\u{1F3FB}-\u{1F3FF}\u{FE0F}\u{200D}\u{20E3}]/gu;
 
 /* ---- fonts: embedded, so cards look the same with no connection. The letters Twi, Ewe and Hausa need (ɔ ɛ ɖ ʋ ŋ) come from a small Noto subset ---- */
-const FACES = [['DMCX', '900', F_BLACK], ['DMCX', '800', F_XBOLD], ['DMCA', '700', F_BOLD], ['DMCA', '500', F_MED], ['DMCN', '700', F_NB], ['DMCN', '500', F_NM]];
+const FACES = [['DMCA', '600', F_SB], ['DMCX', '900', F_BLACK], ['DMCX', '800', F_XBOLD], ['DMCA', '700', F_BOLD], ['DMCA', '500', F_MED], ['DMCN', '700', F_NB], ['DMCN', '500', F_NM]];
 const X = (w, px) => w + ' ' + px + 'px DMCX, DMCN, "Arial Black", Arial, sans-serif';
 const A = (w, px) => w + ' ' + px + 'px DMCA, DMCN, Arial, sans-serif';
+/* the sponsor credit (Powered by MojoPay, Tickets on MojoLife): shared lockups from assets/sponsor/, the official MojoPay SVG is embedded so the maker works offline */
+const SP_FONT = (px, weight) => A(weight >= 700 ? 700 : 600, px);
+const spImgs = {};
+function loadSponsor() {
+  return new Promise((res) => {
+    const img = new Image();
+    img.onload = () => { spImgs.mojopay = img; res(); };
+    img.onerror = () => res();
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SP.sizedSvg(MOJOPAY_SVG));
+  });
+}
 let fontsP = null;
 function loadFonts() {
   if (fontsP) return fontsP;
-  if (typeof FontFace === 'undefined' || !document.fonts) return (fontsP = Promise.resolve());
-  fontsP = Promise.all(FACES.map((f) => new FontFace(f[0], 'url(data:font/woff2;base64,' + f[2] + ')', { weight: f[1] }).load().then((ff) => { document.fonts.add(ff); }, () => {}))).then(() => {});
+  if (typeof FontFace === 'undefined' || !document.fonts) return (fontsP = loadSponsor());
+  fontsP = Promise.all([loadSponsor()].concat(FACES.map((f) => new FontFace(f[0], 'url(data:font/woff2;base64,' + f[2] + ')', { weight: f[1] }).load().then((ff) => { document.fonts.add(ff); }, () => {})))).then(() => {});
   return fontsP;
 }
 
@@ -158,8 +172,12 @@ function render(canvas, spec) {
   const bg = night ? OB : accent;
   const fg = night ? CR : ink;                         /* text colour */
   const top = STRIP + (spec.rehearsal ? 64 : 0);
-  const footH = tall ? 214 : 176, footTop = H - STRIP - footH;
-  const out = { fits: true, lines: 0, size: 0 };
+  /* the footer is the DMC 2026 lockup row plus the sponsor credit row (min MojoPay tile 16% of the width, 22% on 9:16) */
+  const tileW = Math.max(SP.minTileW(W, tall), Math.round(W * (tall ? 0.23 : 0.17)));
+  const sg = SP.geometry(tileW), lockH = Math.ceil(sg.tileH + sg.labelPx * 1.2 + sg.gapStacked);
+  const footH = (tall ? 214 : 176) + lockH + 26, footTop = H - STRIP - footH;
+  const placements = [];
+  const out = { fits: true, lines: 0, size: 0, placements };
 
   ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
   ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
@@ -167,7 +185,7 @@ function render(canvas, spec) {
   /* hero (Portrait): photo for an official quote, a movement panel otherwise */
   let heroH = 0;
   if (layout === 'portrait') {
-    heroH = tall ? 780 : 520;
+    heroH = tall ? 780 : 410;   /* the 4:5 hero gave up 110px to the sponsor credit row */
     const hy = top;
     ctx.save(); ctx.beginPath(); ctx.rect(0, hy, W, heroH); ctx.clip();
     if (spec.type === 'official' && spec.photo) { cover(ctx, spec.photo, 0, hy, W, heroH, 0.18); }
@@ -256,6 +274,13 @@ function render(canvas, spec) {
   } else if (!tall) {
     ctx.fillStyle = fg; ctx.font = X(800, 24); spaced(ctx, 'MANGH.ORG', W - M, fy + 44, 5, 'right');
   }
+  /* sponsor credit row, always drawn here so no layout can leave it out */
+  const spOpts = { variant: 'stacked', tileW, images: spImgs, font: SP_FONT, labelColour: night ? undefined : (fg === CR ? 'rgba(244,239,230,.8)' : fg === '#FFFFFF' ? 'rgba(255,255,255,.82)' : 'rgba(28,28,28,.78)'), tileEdge: bg === CR ? 'rgba(28,28,28,.55)' : undefined };
+  const sy = H - STRIP - 22 - lockH;
+  const lb = SP.measure(ctx, Object.assign({ kind: 'mojolife' }, spOpts));
+  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M, y: sy }, spOpts)));
+  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojolife', x: W - M - lb.w, y: sy }, spOpts)));
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   kente(ctx, 0, 0, W, STRIP);
   kente(ctx, 0, H - STRIP, W, STRIP);
   return out;
@@ -268,9 +293,9 @@ function captionFor(spec, link) {
   if (spec.type === 'official') {
     const sp = spec.speaker || {};
     const who = sp.name + (sp.handle ? ' (' + (sp.handle.charAt(0) === '@' ? sp.handle : '@' + sp.handle) + ')' : '');
-    return '“' + spec.text + '” — ' + who + (sp.title ? ', ' + sp.title : '') + ', at DMC 2026.\n\n' + tags + '\n' + link;
+    return '“' + spec.text + '” — ' + who + (sp.title ? ', ' + sp.title : '') + ', at DMC 2026.\n\n' + tags + '\nTickets on MojoLife \u00b7 ' + link;
   }
-  return 'My takeaway from DMC 2026' + (s.movement ? ' (' + s.movement + ')' : '') + ': “' + spec.text + '”\n\n' + tags + '\n' + link;
+  return 'My takeaway from DMC 2026' + (s.movement ? ' (' + s.movement + ')' : '') + ': “' + spec.text + '”\n\n' + tags + '\nTickets on MojoLife \u00b7 ' + link;
 }
 
 /* ---- the maker: a full-screen sheet on the phone page ---- */

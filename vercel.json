@@ -126,7 +126,7 @@
       "includeFiles": "lib/studio/{app.html,data.json}"
     },
     "api/studio-render.js": {
-      "includeFiles": "{lib/studio/**,assets/speakers/**,assets/partners26/**,assets/man-logo.png}",
+      "includeFiles": "{lib/studio/**,assets/speakers/**,assets/partners26/**,assets/sponsor/**,assets/man-logo.png}",
       "memory": 1024,
       "maxDuration": 30
     },

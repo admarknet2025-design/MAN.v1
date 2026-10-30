@@ -91,7 +91,7 @@
   }
 
   /* draw a lockup with its top-left corner at (x, y); opts.align 'right' puts the right edge at x instead.
-     opts: { kind, variant, tileW, images:{mojopay,mojolife}, font(px, weight), align }
+     opts: { kind, variant, tileW, images:{mojopay,mojolife}, font(px, weight), align, labelColour, tileEdge }
      returns where everything landed, so callers and tests can check it */
   function draw(ctx, opts) {
     var m = measure(ctx, opts), g = m.g, t = m.tile, stacked = opts.variant === 'stacked';
@@ -101,7 +101,7 @@
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
     ctx.font = labelFont(opts, g);
-    ctx.fillStyle = CFG.LABEL_COLOUR;
+    ctx.fillStyle = opts.labelColour || CFG.LABEL_COLOUR;     /* the hero's muted cream on dark; callers on light or coloured grounds pass a matching ink */
     /* centre the label the way CSS centres its line box: by the font's own ascent and descent */
     var mm = ctx.measureText('H');
     var asc = mm.fontBoundingBoxAscent != null ? mm.fontBoundingBoxAscent : mm.actualBoundingBoxAscent * 1.2;
@@ -118,6 +118,10 @@
 
     ctx.fillStyle = CFG.TILE_COLOUR;
     ctx.fillRect(tileX, tileY, t.w, t.h);
+    if (opts.tileEdge) {                                     /* a hairline round the tile when the ground is as light as the tile itself */
+      ctx.strokeStyle = opts.tileEdge; ctx.lineWidth = Math.max(1, Math.round(g.logoH / 13));
+      ctx.strokeRect(tileX - ctx.lineWidth / 2, tileY - ctx.lineWidth / 2, t.w + ctx.lineWidth, t.h + ctx.lineWidth);
+    }
     var img = opts.images && opts.images[opts.kind], placeholder = !(CFG.LOGOS[opts.kind].file && img);
     if (!placeholder) {
       var lh = t.h - 2 * g.padY, aw = img.width / img.height;
@@ -131,7 +135,7 @@
       if (ctx.setLineDash) ctx.setLineDash([lwid * 4, lwid * 3]);
       ctx.strokeRect(tileX + lwid, tileY + lwid, t.w - 2 * lwid, t.h - 2 * lwid);
       if (ctx.setLineDash) ctx.setLineDash([]);
-      var px = g.labelPx * 0.8;
+      var px = g.labelPx * 0.66;
       ctx.font = opts.font ? opts.font(px, 700) : '700 ' + px + 'px Archivo, sans-serif';
       var maxW = t.w - 2 * g.padX;
       while (tracked(ctx, CFG.PLACEHOLDER_TEXT, 0, 0, px * 0.1, false) > maxW && px > 6) {
@@ -183,7 +187,7 @@
       var lh = t.h - 2 * g.padY, lw = kind === 'mojopay' ? g.logoW : lh * cfg.aspect;
       inner = '<img src="/' + esc(cfg.file) + '" alt="' + esc(cfg.alt) + '" style="display:block;height:' + lh.toFixed(2) + 'px;width:' + lw.toFixed(2) + 'px">';
     } else {
-      inner = '<span data-placeholder="1" style="font:700 ' + (g.labelPx * 0.8).toFixed(2) + 'px ' + ff + ';letter-spacing:.1em;color:#1C1C1C;white-space:nowrap">' + esc(CFG.PLACEHOLDER_TEXT) + '</span>';
+      inner = '<span data-placeholder="1" style="font:700 ' + (g.labelPx * 0.66).toFixed(2) + 'px ' + ff + ';letter-spacing:.1em;color:#1C1C1C;white-space:nowrap">' + esc(CFG.PLACEHOLDER_TEXT) + '</span>';
     }
     var tileStyle = 'display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:' + t.w.toFixed(2) + 'px;height:' + t.h.toFixed(2) +
       'px;background:' + CFG.TILE_COLOUR + ';' + (cfg.file ? '' : 'outline:' + Math.max(1, g.logoH / 13).toFixed(1) + 'px dashed #D95F45;outline-offset:-' + Math.max(1, g.logoH / 13).toFixed(1) + 'px;');

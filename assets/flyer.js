@@ -17,7 +17,6 @@ var TICKET_URL = 'https://tickets.mojo-pay.com/events/digital-marketers-conferen
 /* Logos are served from this site (same origin), so the canvas stays exportable.
    Every logo sits on a cream tile: most marks are drawn for light backgrounds. */
 var LOGO_SRCS = {
-  mojopay:         '/assets/partners26/mojopay-blue.webp',
   fido:            '/assets/partners26/fido.webp',
   mnotify:         '/assets/partners26/mnotify.webp',
   generationghana: '/assets/partners26/generation-ghana.webp',
@@ -35,21 +34,38 @@ var PARTNERS = [
 ];
 
 var logos = {};
+/* Sponsor credit (Powered by MojoPay, Tickets on MojoLife): one shared lockup, assets/sponsor/ */
+var SP = window.DMCSponsor;
+var spImgs = {};
 /* Speaker/host flyers are produced offline by tools/speaker-flyers.js, which sets this before the page loads.
    The public page offers no speaker option. */
 var SPK = window.DMC_SPEAKER_FLYER || null;
 var photo = null;
 var qrData = null;
 
+function loadSponsorLogos(){
+  var L = SP.config.LOGOS;
+  return Promise.all(Object.keys(L).filter(function(k){ return L[k].file; }).map(function(k){
+    return fetch('/' + L[k].file).then(function(r){ return r.text(); }).then(function(t){
+      return new Promise(function(res){
+        var img = new Image();
+        img.onload = function(){ spImgs[k] = img; res(); };
+        img.onerror = function(){ res(); };
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SP.sizedSvg(t));
+      });
+    }).catch(function(){});
+  }));
+}
+
 function loadLogos(){
-  return Promise.all(Object.keys(LOGO_SRCS).map(function(key){
+  return Promise.all([loadSponsorLogos()].concat(Object.keys(LOGO_SRCS).map(function(key){
     return new Promise(function(res){
       var img = new Image();
       img.onload = function(){ logos[key] = img; res(); };
       img.onerror = function(){ res(); }; /* fail silently: placeholder box stays */
       img.src = LOGO_SRCS[key];
     });
-  }));
+  })));
 }
 
 function initQR(){
@@ -155,6 +171,19 @@ function drawManMark(x, y, boxW, boxH){
     cx += ctx.measureText(p[0]).width;
   });
   ctx.restore();
+}
+
+/* "Powered by MojoPay" and "Tickets on MojoLife", right-aligned to rightX. Always drawn; the tile is never under the
+   contract minimum (16% of the flyer's width). Placements are kept on window.DMC_SPONSOR_PLACEMENTS for the checks. */
+function drawSponsorCredit(rightX, y){
+  var tileW = Math.max(SP.minTileW(W, false), Math.round(W * 0.17)), gap = 30, out = [];
+  var base = { variant: 'stacked', tileW: tileW, images: spImgs };
+  var b = SP.measure(ctx, Object.assign({ kind: 'mojolife' }, base));
+  var a = SP.measure(ctx, Object.assign({ kind: 'mojopay' }, base));
+  out.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: rightX - b.w - gap - a.w, y: y }, base)));
+  out.push(SP.draw(ctx, Object.assign({ kind: 'mojolife', x: rightX - b.w, y: y }, base)));
+  ctx.textAlign = 'left';
+  window.DMC_SPONSOR_PLACEMENTS = out;
 }
 
 function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
@@ -283,10 +312,10 @@ function draw(){
   ctx.font = '700 15px "Archivo"';
   ctx.fillStyle = AG;
   ctx.textAlign = 'left';
-  ctx.fillText('SCAN TO REGISTER', lx, qrY + qrSize + 28);
+  ctx.fillText('SCAN FOR TICKETS', lx, qrY + qrSize + 28);
   ctx.font = '500 14px "Archivo"';
   ctx.fillStyle = SC7;
-  ctx.fillText('mangh.org/dmc-2026', lx, qrY + qrSize + 50);
+  ctx.fillText(SP.config.TICKET_LINE, lx, qrY + qrSize + 50);
 
   /* 10 Date & venue */
   var dtY = 965;
@@ -322,16 +351,14 @@ function draw(){
   ctx.fillRect(0, pY, 4, PARTNER_H);
   ctx.fillRect(W - 4, pY, 4, PARTNER_H);
 
-  /* Row A: organiser + presenting partner */
+  /* Row A: organiser, then the contracted sponsor credit (shared lockups, assets/sponsor/) */
   var rowAY = pY + 18;
   ctx.font = '700 14px "Archivo"';
   ctx.fillStyle = SC2;
   ctx.textAlign = 'left';
   ctx.fillText('ORGANIZED BY', lx, rowAY + 12);
-  ctx.fillText('PRESENTING PARTNER', 400, rowAY + 12);
-
   drawManMark(lx, rowAY + 24, 160, 56);
-  drawLogo('mojopay', 'MojoPay', 400, rowAY + 24, 240, 56);
+  drawSponsorCredit(W - lx, rowAY);
 
   var ruleY = pY + 122;
   ctx.strokeStyle = 'rgba(244,239,230,0.06)'; ctx.lineWidth = 1; ctx.setLineDash([]);

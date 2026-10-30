@@ -19,7 +19,15 @@ Operator instructions: [live-operator-guide.md](live-operator-guide.md). This pa
 5. **Build Wall.** "What are you building?" (120 characters), optional contact with an opt-in tick box for the What I Built card. Approved entries scroll on the screen. CSV export.
 6. **Quote cards.** Official quotes (verified by the operator, with speaker name, title, photo) and "My takeaway" cards (the attendee's own words, attributed to them). Three layouts, two sizes, drawn on the phone.
 
-Brand rules enforced in code and by `tools/live-check.js`: Obsidian `#1C1C1C`, Signal Cream `#F4EFE6`, Build Teal `#2A7B74`, Pulse Coral `#D95F45`, Archivo (expanded, heavy), kente-strip dividers. Akan Gold (`#C9A24A`) is a small accent only, as on the DMC Studio flyers (added at the team's request on 26 October; the original brief said none): the fourth kente segment on every strip, the ring round the speaker photo or initials on cards, the opening quote mark on dark card panels, the tag chips on the screen, and the rings on the phone's speaker initials. It never fills a large area (cards are tested to stay under 3%), and the operator panel and the server stay gold-free, like the Studio's own page. Each movement has a fixed accent: Build Yourself teal, Build Your Team coral, Build Your Work cream.
+Brand rules enforced in code and by `tools/live-check.js`: Obsidian `#1C1C1C`, Signal Cream `#F4EFE6`, Build Teal `#2A7B74`, Pulse Coral `#D95F45`, Archivo (expanded, heavy), kente-strip dividers. Akan Gold (`#C9A24A`) is a small accent only, as on the DMC Studio flyers (added at the team's request on 26 October; the original brief said none): the fourth kente segment on every card and phone strip, the ring round the speaker photo or initials on cards, the opening quote mark on dark card panels, and the rings on the phone's speaker initials. **`/live/screen` (the projector) keeps rule D-09: no Akan Gold on the room screens**, enforced by `tools/live-check.js`. Gold never fills a large area (cards are tested to stay under 3%), and the operator panel and the server stay gold-free, like the Studio's own page. Each movement has a fixed accent: Build Yourself teal, Build Your Team coral, Build Your Work cream.
+
+## Sponsor credit (contract Schedule C)
+Every card and the projector carry **Powered by MojoPay** and **Tickets on MojoLife**, drawn by the shared lockup in `assets/sponsor/` (rules, sizes and the MojoLife logo blocker are in [sponsor-credit.md](sponsor-credit.md)).
+
+- **Quote cards** (both sizes, all three layouts): a sponsor row in the footer, drawn inside `render()` so no layout can skip it. The card footer grew by the height of that row; the Portrait layout's photo band gave up the same height on 4:5. The official MojoPay SVG is embedded in `assets/live-cards.js`, so the maker still works offline. Caption ends "Tickets on MojoLife · <tracked link>".
+- **`/live/screen`:** both lockups are fixed in the bottom-left corner of the stage, outside the changing view, so they stay on screen in every mode (holding slide, clouds, finale, Q&A, interview, polls, wall, takeaways, quotes, and any future takeover). The MojoPay tile is 16% of the stage width, about 307 px on a 1080p projector. No gold on this page (rule D-09).
+- **"What I Built" cards:** not built yet (the Build Wall only collects opt-in contacts). **Requirement for whoever builds them:** they must draw the same two lockups through `assets/sponsor/lockup.js` (`SP.draw`), at least 16% of the card width (22% on 9:16), and be added to `tools/sponsor-check.js`.
+- The phone page itself is an app screen, not a generated asset, and has no lockup.
 
 ## Realtime: why polling, not a hosted realtime service
 
@@ -95,6 +103,7 @@ No tracking beyond the existing analytics. Device hashes and everything else exp
 | Command | What it proves |
 |---|---|
 | `node tools/live-check.js` | word filter (false positives and evasions), normalisation, programme data, gold only where allowed, palette |
+| `node tools/sponsor-check.js [dir]` | both sponsor lockups on every DMC 2026 asset (Studio, flyer, cards, link previews, projector page) at or above the contract size, with contact sheets |
 | `node tools/live-cards-check.js [dir]` | 114 card renders (shortest and longest text, long names, no photo, each movement colour, three layouts, both sizes), no text cut, gold under 3% of every card, a contact sheet, phone/server filter parity |
 | `tools/live-dryrun.js` | all six features through the real phone, operator and screen pages, with screenshots |
 | `tools/live-offline-check.js` | first load under 150 KB, offline outbox, card maker offline |
