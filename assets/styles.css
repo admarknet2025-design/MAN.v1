@@ -344,6 +344,10 @@ body.sr-on{padding-bottom:56px}
 .p26c{background:rgba(28,28,28,.04);padding:32px 26px;border-top:2px solid rgba(28,28,28,.08)}
 .p26c.title{border-top-color:var(--go)}.p26c .tier{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.72);margin-bottom:10px}
 .p26c.title .tier{color:var(--go)}.p26c .pn{font-size:24px;font-weight:900;color:var(--ob);margin-bottom:6px}.p26c.title .pn{color:var(--go)}
+.p26-logos .p25-tile{flex-basis:calc((100% - 6px)/4)}
+@media(max-width:700px){.p26-logos .p25-tile{flex-basis:calc((100% - 2px)/2)}}
+.p26-fact{font-size:15px;line-height:1.7;color:rgba(244,239,230,.78);margin:32px 0 0}
+.p26-fact a{color:var(--go);text-decoration:underline;text-underline-offset:3px}
 .closed-note{font-size:14px;line-height:1.6;margin:0 0 28px;max-width:640px;color:rgba(28,28,28,.78)}
 .closed-note a{color:var(--ob);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .p26c .p26-logo{display:block;height:40px;width:auto;max-width:100%;object-fit:contain;object-position:left center;margin-top:14px}
