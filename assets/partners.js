@@ -1,6 +1,6 @@
 /* DMC 2027 partnership interest form (/partners#interest) → Google Form.
-   Same pattern as the community sign-up in assets/app.js: a no-cors POST to the form's formResponse URL with entry.<id>
-   fields, a honeypot, a loading state, and a success / error message. The Google Form does not exist yet, so the
+   Same pattern as the community sign-up in assets/app.js: the entry.<id> fields go to /api/form-submit, which POSTs them
+   to the form's formResponse URL and reports whether Google stored them; plus a honeypot, a loading state, and a success / error message. The Google Form does not exist yet, so the
    submit button stays disabled (with a console warning) until PARTNER_FORM is filled in. */
 (function(){
 'use strict';
@@ -120,12 +120,9 @@ form.addEventListener('submit', function(e){
   btn.disabled = true;
   btn.textContent = 'Sending…';
   /* spam trap: a filled hidden field means a bot; show the usual screen but send nothing */
-  var send = v.fax ? Promise.resolve() : fetch(PARTNER_FORM.url, {
-    method: 'POST',
-    mode: 'no-cors', /* the response is opaque, so only network failures reject */
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: body(v, interests)
-  });
+  /* through /api/form-submit (defined in assets/app.js): resolves only when Google stored the response */
+  var send = v.fax ? Promise.resolve() :
+    (window.MAN_relaySubmit ? window.MAN_relaySubmit(PARTNER_FORM.url, body(v, interests)) : Promise.reject(new Error('relay')));
   send.then(function(){
     showDone(v.name.split(' ')[0]);
   }).catch(function(){
