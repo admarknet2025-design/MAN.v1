@@ -166,14 +166,25 @@ function gfSubmit(url, fields, values){
   var body = Object.keys(fields).map(function(k){
     return encodeURIComponent(fields[k]) + '=' + encodeURIComponent(values[k] || '');
   }).join('&');
-  /* no-cors: the response is opaque, so only network failures reject */
-  return fetch(url, {
+  return relaySubmit(url, body);
+}
+/* POST through /api/form-submit, which makes the Google Form POST server-side and reports Google's real status.
+   (A direct no-cors POST is opaque: a rejected response, HTTP 400, looked the same as a stored one.)
+   Resolves only when Google stored the response; rejects otherwise. Shared with assets/partners.js. */
+function relaySubmit(url, body){
+  var m = /\/forms\/d\/e\/([\w-]+)\/formResponse$/.exec(url);
+  if(!m) return Promise.reject(new Error('form url'));
+  return fetch('/api/form-submit', {
     method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: body
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({form: m[1], body: body})
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(j){
+      if(!r.ok || !j.ok) throw new Error('form-submit ' + r.status + ' ' + (j.error || ''));
+    });
   });
 }
+window.MAN_relaySubmit = relaySubmit;
 function formError(form, msg){
   var el = form.querySelector('.form-err');
   if(!el){
