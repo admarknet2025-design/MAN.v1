@@ -3,7 +3,7 @@
 A team tool for on-brand DMC 2026 social artwork with trackable links. Pick a template, enter the details, and get the
 artwork in every platform size, a caption per platform, and one tracked short link per platform.
 
-- Address: `https://mangh.org/studio`. Not linked anywhere on the site, `noindex`, disallowed in `robots.txt`.
+- Address: `https://mangh.org/studio`. Not linked anywhere on the site, `noindex` (meta tag and `X-Robots-Tag` header). It is deliberately not listed in `robots.txt`, so the path is not advertised.
 - Login: HTTP Basic auth, the same `ADMIN_USER` / `ADMIN_PASSWORD` as `/admin/attribution`. If either variable is missing the
   route answers 503 instead of opening up.
 
@@ -138,3 +138,8 @@ Run it whenever the speaker or programme markup changes (for example when a phot
 - A photo for Simon Alangdee (until then his card uses initials), and the keynote speaker once announced.
 - Larger partner logos: Kasad3's file is 163×129 pixels and looks soft at story size. MojoPay, FIDO and the rest are fine.
 - A decision on the sponsor tier wording for mNotify and Koin Photography (the cards use "Programme Partner" and "Event Photography Partner", copied from the home page).
+
+
+## Participant flyers (Studio mode)
+
+The **Participant flyers** button above the template list opens the client-side Badge and Creative Brief tool (`assets/flyer/flyer-tool.js`, team mode): the public flyer's controls plus role pills (Speaking, Volunteering, Partner, Attending), the session line (Speaking only) and a roster of the site's speakers that fills the text fields. Hosts and panelists use the Speaking chip. Photos are added by hand and are drawn in the browser; nothing is uploaded. The renderer (`assets/flyer/flyer-render.js`) is the same one the public page uses. `#flyers` in the URL opens it directly.

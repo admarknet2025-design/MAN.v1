@@ -25,13 +25,13 @@ Logo protection is structural: only the files named in `config.js` are drawn; th
 | Asset | How |
 |---|---|
 | DMC Studio, every template and size | `frame()` in `lib/studio/render.js` (templates cannot opt out): lockup in the header, ticket line in the footer band; sizes 1080×1350, 1080×1920, 1080×1080, 1200×627, 1600×900 |
-| Make Your Flyer (`/dmc-2026#flyer`) and the speaker flyers | `assets/flyer.js`: lockup in the header beside the title block, ticket line in the footer row after "ORGANIZED BY" |
+| Make Your Flyer (`/dmc-2026#flyer`) and the team flyers (`/studio` → Participant flyers) | `assets/flyer/flyer-render.js` (design handoff round 2): the MojoPay lockup (blue on a white tile, "POWERED BY") sits in the partner band. **The image carries no "Tickets exclusively on MojoLife" line** (the round-2 design has none); the line stays in every caption. Confirm this against the contract before launch |
 | DMC Live quote cards | `tools/live-cards/cards.js` (rebuild with `node tools/build-live-cards.js`): lockup beside the obsidian "BUILT TO SCALE" panel, ticket line in the bottom row |
 | `/live/screen` | fixed bottom-left corner, outside the changing view |
 | Link previews | `tools/og-dmc.js` (draws the whole image; no base artwork) → `assets/og-dmc-2026.png` (dmc-2026 and press pages), `assets/og-home-dmc-2026.png` (home page). `assets/og-image.png` is shared with non-DMC pages and is untouched |
 | Emails | `assets/sponsor/email.js`: `renderEmail({ html, text })` appends the footer (MojoPay logo on the cream tile, the line "Tickets exclusively on MojoLife", the event details) to the HTML and plain-text parts, so a message cannot leave it out. No email is sent by this repo today; whatever sends DMC 2026 email must pass its message through `renderEmail()`. The logo is `assets/sponsor/mojopay-logo-blue-email.png`, a 600 px PNG of the official SVG (mail clients do not draw SVG) |
 | "What I Built" cards | not built; see `docs/live.md` for the requirement |
-| Captions | flyer, speaker-flyer, Studio and Live captions end "Tickets exclusively on MojoLife · mangh.org/dmc-2026…" |
+| Captions | flyer, Studio and Live captions end "Tickets exclusively on MojoLife · mangh.org/dmc-2026…" |
 
 ## MojoLife logo
 Not used. If the team later wants the official MojoLife logo beside the line, it needs the official file from MojoPay and a change to `lockup.js` (a tile at the MojoPay tile's height); until then the text line is the whole MojoLife credit.
