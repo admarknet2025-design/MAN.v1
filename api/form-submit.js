@@ -12,8 +12,8 @@
 
 /* public form id -> what it is (for logs only). Add a form here before pointing a page at it. */
 const FORMS = {
-  '1FAIpQLSeqrp_YIh4-8Hjd5M6rkfoetbzMpURy_eq1PN4q_wkoKypWJQ': 'community sign-up (index.html, assets/app.js)'
-  /* the DMC 2027 partner-interest form is added here when PARTNER_FORM in assets/partners.js is filled in */
+  '1FAIpQLSeqrp_YIh4-8Hjd5M6rkfoetbzMpURy_eq1PN4q_wkoKypWJQ': 'community sign-up (index.html, assets/app.js)',
+  '1FAIpQLSeTARgNGhqSIpnaDbnM1nkFLywGVH9CImomrSNBrZfVC6irVg': 'DMC 2027 partner interest (partners.html, assets/partners.js)'
 };
 
 const MAX_BODY = 16 * 1024;

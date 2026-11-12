@@ -1,29 +1,30 @@
 /* DMC 2027 partnership interest form (/partners#interest) → Google Form.
    Same pattern as the community sign-up in assets/app.js: the entry.<id> fields go to /api/form-submit, which POSTs them
-   to the form's formResponse URL and reports whether Google stored them; plus a honeypot, a loading state, and a success / error message. The Google Form does not exist yet, so the
-   submit button stays disabled (with a console warning) until PARTNER_FORM is filled in. */
+   to the form's formResponse URL and reports whether Google stored them; plus a honeypot, a loading state, and a success / error message. If PARTNER_FORM is ever
+   emptied, the submit button disables itself (with a console warning). */
 (function(){
 'use strict';
 
-/* TODO(Michael): how many working days we promise in the success message. 3 is a placeholder; confirm it. */
+/* working days promised in the success message; keep equal to REPLY_DAYS in the form's Apps Script (confirmed: 3) */
 var PARTNER_REPLY_DAYS = 3;
 
-/* TODO(Michael): fill these in from the Google Form (see the PR description for the exact questions).
-   url    = the form's "formResponse" URL: https://docs.google.com/forms/d/e/<FORM_ID>/formResponse
-   fields = the entry.<id> of each question, from the form's "Get pre-filled link". */
+/* The Google Form "DMC 2027 Partnership Interest" (owned by the M·A·N Google account; responses go to the Sheet
+   "DMC 2027 Partnership Interest (Responses)", which has a Status column). The entry.<id> values come from the live
+   form; if a question is ever deleted and re-created its id changes, so re-read them (form > Get pre-filled link).
+   The form id must also be listed in FORMS in api/form-submit.js. */
 var PARTNER_FORM = {
-  url: 'TODO_FORM_RESPONSE_URL',
+  url: 'https://docs.google.com/forms/d/e/1FAIpQLSeTARgNGhqSIpnaDbnM1nkFLywGVH9CImomrSNBrZfVC6irVg/formResponse',
   fields: {
-    company:   'TODO_ENTRY_ID',  /* Company */
-    name:      'TODO_ENTRY_ID',  /* Contact name */
-    role:      'TODO_ENTRY_ID',  /* Role */
-    email:     'TODO_ENTRY_ID',  /* Email */
-    whatsapp:  'TODO_ENTRY_ID',  /* WhatsApp */
-    interest:  'TODO_ENTRY_ID',  /* Interest (checkboxes: one entry.<id> value per ticked option) */
-    outcome:   'TODO_ENTRY_ID',  /* Outcome */
-    timeline:  'TODO_ENTRY_ID',  /* Timeline */
-    ref:       'TODO_ENTRY_ID',  /* Ref (hidden) */
-    page:      'TODO_ENTRY_ID'   /* Page URL (hidden) */
+    company:   'entry.1341781364', /* Company (required) */
+    name:      'entry.185364778',  /* Contact name (required) */
+    role:      'entry.420210386',  /* Role */
+    email:     'entry.464573096',  /* Email */
+    whatsapp:  'entry.99722791',   /* WhatsApp */
+    interest:  'entry.816365957',  /* Interest (checkboxes: one entry value per ticked option) */
+    outcome:   'entry.1211098734', /* Outcome */
+    timeline:  'entry.39606336',   /* Timeline (dropdown) */
+    ref:       'entry.929923117',  /* Ref (hidden) */
+    page:      'entry.675384087'   /* Page URL (hidden) */
   }
 };
 
