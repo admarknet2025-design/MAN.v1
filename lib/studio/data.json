@@ -134,7 +134,7 @@
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
    "sessionTime": "12:35–13:05",
-   "sponsor": ""
+   "sponsor": "Jobberman"
   },
   {
    "slug": "carrington-amuh",
@@ -476,6 +476,13 @@
    "name": "FIDO",
    "logo": "fido.webp",
    "tier": "Silver Sponsor",
+   "role": "DMC 2026 sponsor"
+  },
+  {
+   "slug": "jobberman",
+   "name": "Jobberman",
+   "logo": "jobberman.webp",
+   "tier": "Cedar Sponsor",
    "role": "DMC 2026 sponsor"
   },
   {

@@ -70,7 +70,7 @@ people.forEach((p) => {
 
 /* Which speakers represent a sponsor or partner (DMC Live holds their official quotes until the operator ticks "Sponsor-approved").
    Matched on the company in the speaker's role; a few spellings are listed by hand. */
-const SPONSOR_ALIASES = { 'mojo payments': 'MojoPay', 'mojopay': 'MojoPay', 'generation ghana': 'Generation Ghana', 'fido': 'FIDO', 'mnotify': 'mNotify',
+const SPONSOR_ALIASES = { 'mojo payments': 'MojoPay', 'mojopay': 'MojoPay', 'generation ghana': 'Generation Ghana', 'fido': 'FIDO', 'jobberman': 'Jobberman', 'jobberman ghana': 'Jobberman', 'mnotify': 'mNotify',
   'kasad3': 'Kasad3', 'tech labari': 'Tech Labari', 'koin photography': 'Koin Photography' };
 people.forEach((p) => {
   const key = (p.company || '').toLowerCase().trim();
@@ -89,6 +89,7 @@ const partners = [
   { slug: 'mojopay',          name: 'MojoPay',          logo: 'mojopay-blue.webp',      tier: 'Gold / Headline Sponsor', role: 'Title sponsor and official ticketing platform' },
   { slug: 'generation-ghana', name: 'Generation Ghana', logo: 'generation-ghana.webp',  tier: 'Silver Sponsor',          role: 'Partner presentation, 12:25' },
   { slug: 'fido',             name: 'FIDO',             logo: 'fido.webp',              tier: 'Silver Sponsor',          role: 'DMC 2026 sponsor' },
+  { slug: 'jobberman',        name: 'Jobberman',        logo: 'jobberman.webp',         tier: 'Cedar Sponsor',           role: 'DMC 2026 sponsor' },
   { slug: 'mnotify',          name: 'mNotify',          logo: 'mnotify.webp',           tier: 'Programme Partner',       role: 'Partner spotlight, 13:45' },
   { slug: 'koin-photography', name: 'Koin Photography', logo: 'mista-koin.webp',        tier: 'Event Photography Partner', role: 'Partner spotlight, 13:55' },
   { slug: 'tech-labari',      name: 'Tech Labari',      logo: 'tech-labari.webp',       tier: 'Media Partner',           role: 'Partner spotlight, 14:30' },

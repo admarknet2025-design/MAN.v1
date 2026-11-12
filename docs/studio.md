@@ -12,7 +12,7 @@ artwork in every platform size, a caption per platform, and one tracked short li
 |---|---|---|
 | Speaker / panelist | Pick from the site's speaker list or the M·A·N team (name, title, company, photo, session and time fill in) or type; role (Speaker, Panelist, Host, Moderator, Emcee); movement | Movement colour (session bar) |
 | I'm attending | Name, title, company, photo, optional "I'm building…" line; the M·A·N team can be picked | Teal |
-| Sponsor / partner | One of the seven partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
+| Sponsor / partner | One of the eight partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
 | Quote card | Quote (260 characters), speaker name, title, company, photo | Movement colour |
 | Countdown | Nothing. "X days to go" is worked out each time an image is rendered (Accra date, event day 21 Nov 2026) | Coral |
 | Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Movement colour |
