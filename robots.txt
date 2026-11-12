@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /studio
 Disallow: /live
 
 # AI search and assistant crawlers are welcome

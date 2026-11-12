@@ -77,6 +77,15 @@ aside .sticky{position:sticky;top:12px}
 .hide{display:none!important}
 .mov{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px;border:1px solid var(--cr)}
 </style>
+<link rel="stylesheet" href="/assets/flyer/flyer-tool.css?v=79399cbc">
+<style>
+.modes{display:flex;gap:8px;max-width:1280px;margin:0 auto;padding:0 20px 14px}
+.modes button{min-height:44px;padding:0 18px;border:1.5px solid var(--line);border-radius:999px;background:transparent;color:var(--cr);font:700 14px/1 'Archivo',system-ui,sans-serif;cursor:pointer}
+.modes button[aria-pressed=true]{background:var(--cr);border-color:var(--cr);color:var(--ob)}
+.modes button:focus-visible{outline:2px solid #C9A24A;outline-offset:2px}
+#flyerPanel{max-width:1280px;margin:0 auto;padding:6px 20px 80px}
+#flyerPanel .lead{color:var(--mut);font-size:14px;margin:0 0 22px;max-width:640px}
+</style>
 </head>
 <body>
 <div class="kente" aria-hidden="true"></div>
@@ -85,8 +94,18 @@ aside .sticky{position:sticky;top:12px}
   <span class="sub">On-brand DMC 2026 artwork, captions and tracked links, in every size.</span>
   <span class="badge">Team only</span>
 </header>
+<div class="modes" role="group" aria-label="Studio tool">
+  <button type="button" id="modeArt" aria-pressed="true">Artwork set</button>
+  <button type="button" id="modeFly" aria-pressed="false">Participant flyers</button>
+</div>
 
-<main>
+<section id="flyerPanel" class="hide" aria-labelledby="h-fly">
+  <h2 id="h-fly" style="margin-bottom:8px">Participant flyers</h2>
+  <p class="lead">Badge and Creative Brief for speakers, panelists, hosts, volunteers and partners. Hosts and panelists use the Speaking role. Photos are added by hand and stay on this device.</p>
+  <div id="flyer-tool"></div>
+</section>
+
+<main id="artMain">
 <div>
   <section class="card" aria-labelledby="h-tpl">
     <h2 id="h-tpl"><span class="n">1</span> Template</h2>
@@ -703,6 +722,24 @@ $('tpl').addEventListener('change', function (e) {
   setPhoto(null, true); renderForm(); say(''); queuePreview();
 });
 renderTemplates(); renderForm(); renderTabs(); paintCrop(); loadLibrary(); renderPreview();
+</script>
+<script src="/assets/flyer/qrcode.js?v=4c79be16"></script>
+<script src="/assets/flyer/flyer-render.js?v=a999c1ef"></script>
+<script src="/assets/flyer/flyer-tool.js?v=84302022"></script>
+<script>
+/* Participant flyers: the client-side Badge and Brief tool, shared with the public page (team mode adds roles and the session line).
+   Nothing here uploads a photo; the roster only fills text fields. */
+(function () {
+  var art = document.getElementById('artMain'), fly = document.getElementById('flyerPanel'), bA = document.getElementById('modeArt'), bF = document.getElementById('modeFly'), mounted = false;
+  function show(f) {
+    art.classList.toggle('hide', f); fly.classList.toggle('hide', !f);
+    bA.setAttribute('aria-pressed', String(!f)); bF.setAttribute('aria-pressed', String(f));
+    if (f && !mounted && window.DMCFlyerTool) { mounted = true; DMCFlyerTool.mount(document.getElementById('flyer-tool'), { mode: 'team', roster: (DATA && DATA.people) || [] }); }
+    try { history.replaceState(null, '', f ? '#flyers' : location.pathname + location.search); } catch (e) {}
+  }
+  bA.addEventListener('click', function () { show(false); }); bF.addEventListener('click', function () { show(true); });
+  if (location.hash === '#flyers') show(true);
+})();
 </script>
 </body>
 </html>

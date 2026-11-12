@@ -17,7 +17,7 @@ def stamp(match):
     return '%s?v=%s' % (path, hashlib.sha1(open(full, 'rb').read()).hexdigest()[:8])
 
 changed = 0
-for page in sorted(glob.glob(os.path.join(ROOT, '*.html'))):
+for page in sorted(glob.glob(os.path.join(ROOT, '*.html')) + [os.path.join(ROOT, 'lib', 'studio', 'app.html')]):
     src = open(page, encoding='utf-8').read()
     out = REF.sub(stamp, src)
     if out != src:

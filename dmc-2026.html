@@ -64,7 +64,8 @@
 <meta name="twitter:description" content="DMC 2026 — Built To Scale. Sat 21 Nov, 10AM–3PM, British Council Accra. Keynotes, panels, a pitching masterclass and breakouts. Tickets GH₵150 on MojoPay.">
 <meta name="twitter:image" content="https://mangh.org/assets/og-dmc-2026.png">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=fa1c91a5">
+<link rel="stylesheet" href="/assets/styles.css?v=63fa18db">
+<link rel="stylesheet" href="/assets/flyer/flyer-tool.css?v=79399cbc">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -254,7 +255,7 @@
    "name": "Can I tell people I'm attending?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Yes. The Make Your Flyer tool lets you upload a photo, add your name and role, and download or share a personal flyer with a ready-made caption."
+    "text": "Yes. The Make Your Flyer tool lets you choose a template, add your name and role (and a photo, if you like), and download or share a personal flyer with a ready-made caption."
    }
   },
   {
@@ -487,7 +488,7 @@
     <details class="faq-i"><summary>Who is speaking?</summary><div class="faq-a"><p>Confirmed so far: Isaac Newton Acquah, Alex Offei Lartey, Ronald Tagoe, Emelia Dede Quist, Kwaku Ofosuhene, Richard Sena Quashie, Simon Alangdee, Florentia Teye, Yvonne Dumor, Elikplim Yaa Ayegbe, Carrington Amuh and Samuel Kwabena Ansong, with Alice Mensah and Enoch “RobotBoy” Appiah Jr. as hosts. The keynote speaker will be announced. <a href="/dmc-2026#speakers">Meet the speakers</a>.</p></div></details>
     <details class="faq-i"><summary>How do I get to the venue?</summary><div class="faq-a"><p>The venue is on Liberia Road, Accra. Uber and Bolt are available across Accra, there is a drop-off point at the main entrance and parking is available nearby. Kotoka International Airport is about 30–45 minutes away. See the <a href="/dmc-2026#travel">travel guide</a>.</p></div></details>
     <details class="faq-i"><summary>How can my company partner with DMC?</summary><div class="faq-a"><p>Partnerships for DMC 2026 are now closed. MojoPay is our Gold title sponsor, Generation Ghana and FIDO are Silver sponsors, and Jobberman is a Cedar sponsor. To partner with DMC 2027, register your interest on the <a href="/partners#interest">partnerships page</a>.</p></div></details>
-    <details class="faq-i"><summary>Can I tell people I'm attending?</summary><div class="faq-a"><p>Yes. The <a href="/dmc-2026#flyer">Make Your Flyer</a> tool lets you upload a photo, add your name and role, and download or share a personal flyer with a ready-made caption.</p></div></details>
+    <details class="faq-i"><summary>Can I tell people I'm attending?</summary><div class="faq-a"><p>Yes. The <a href="/dmc-2026#flyer">Make Your Flyer</a> tool lets you choose a template, add your name and role (and a photo, if you like), and download or share a personal flyer with a ready-made caption.</p></div></details>
     <details class="faq-i"><summary>What was DMC 2025 like?</summary><div class="faq-a"><p>DMC 2025 took place on 28 November 2025 at the Google AI Community Center in Accra, with more than 100 people in the room and 30–38 joining online. Speakers, partners and photos are in the <a href="/dmc-2025">DMC 2025 archive</a>.</p></div></details>
     <details class="faq-i"><summary>Who organises DMC?</summary><div class="faq-a"><p>DMC is organised by the Marketers &amp; Advertisers Network (M·A·N), Ghana's peer-driven community for marketing and advertising professionals. M·A·N also runs free <a href="/sessions">MAN Sessions</a> through the year.</p></div></details>
     </div>
@@ -525,44 +526,9 @@
 <section class="flyer-sec" id="flyer" aria-labelledby="flyer-h">
   <div class="section-head sr">
     <h2 id="flyer-h">Make Your Flyer</h2>
-    <p>Upload your photo, add your name and role. Download a 1080 × 1440 PNG ready for Instagram, WhatsApp and LinkedIn.</p>
+    <p>Choose a Badge or a Creative Brief, add your name and role, and download a PNG for Instagram, WhatsApp and LinkedIn. A photo is optional and never leaves your device.</p>
   </div>
-  <div class="flyer-tool">
-    <div class="flyer-ctrl">
-      <label class="fl-zone" id="fl-zone">
-        <input type="file" id="fl-photo" accept="image/*">
-        <span class="fl-circle"><img id="fl-thumb" alt=""><svg id="fl-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
-        <span class="fl-zt"><strong>Click to upload</strong> or drag a photo here</span>
-        <span class="fl-zs">JPG or PNG · Square crop recommended · stays on your device</span>
-      </label>
-      <p class="fl-msg" id="fl-msg" role="status" aria-live="polite"></p>
-      <div class="fl-field"><label for="fl-name">Your name</label><input id="fl-name" type="text" placeholder="e.g. Abena Mensah" maxlength="30" autocomplete="off"></div>
-      <div class="fl-field"><label for="fl-role">Your role / title</label><input id="fl-role" type="text" placeholder="e.g. Brand Strategist" maxlength="36" autocomplete="off"></div>
-      <button type="button" class="btn btn-f fl-sh" id="fl-share" hidden>Share my flyer ↗</button>
-      <button type="button" class="btn fl-dl" id="fl-dl">Download Flyer ↓</button>
-      <p class="fl-tip">1080 × 1440 · Full-resolution PNG</p>
-      <p class="fl-msg" id="fl-smsg" role="status" aria-live="polite"></p>
-      <div class="fl-cap">
-        <label for="fl-caption">Your caption</label>
-        <textarea id="fl-caption" rows="6">I’ll be at the Digital Marketers’ Conference 2026 — 21 Nov, British Council Accra. #DMC2026 #BuiltToScale. Tickets exclusively on MojoLife · mangh.org/dmc-2026?ref=flyer
-
-Bring a colleague — tag them below!</textarea>
-        <button type="button" class="btn fl-copy" id="fl-copy">Copy caption</button>
-      </div>
-    </div>
-    <div class="flyer-preview">
-      <canvas id="dmc26-flyer" width="1080" height="1440" role="img" aria-label="Live preview of your DMC 2026 flyer"></canvas>
-      <div class="fl-event">
-        <h3>Bring a colleague</h3>
-        <p>Post your flyer, tag the colleague you’re bringing, or just share the event.</p>
-        <div class="fl-links">
-          <a class="btn" id="fl-wa" href="https://wa.me/?text=I%E2%80%99ll%20be%20at%20the%20Digital%20Marketers%E2%80%99%20Conference%202026%20%E2%80%94%2021%20Nov%2C%20British%20Council%20Accra.%20%23DMC2026%20%23BuiltToScale.%20Get%20your%20ticket%3A%20mangh.org%2Fdmc-2026%3Fref%3Dwa%0A%0ABring%20a%20colleague%20%E2%80%94%20tag%20them%20below%21" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <a class="btn" id="fl-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmangh.org%2Fdmc-2026%3Fref%3Dli" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a class="btn" id="fl-x" href="https://twitter.com/intent/tweet?text=I%E2%80%99ll%20be%20at%20the%20Digital%20Marketers%E2%80%99%20Conference%202026%20%E2%80%94%2021%20Nov%2C%20British%20Council%20Accra.%20%23DMC2026%20%23BuiltToScale.%20Get%20your%20ticket%3A%20mangh.org%2Fdmc-2026%3Fref%3Dx%0A%0ABring%20a%20colleague%20%E2%80%94%20tag%20them%20below%21" target="_blank" rel="noopener noreferrer">X</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="flyer-tool" class="flyer-mount"><noscript><p style="color:var(--cr)">The flyer maker needs JavaScript. Turn it on, or reload this page in a browser that has it.</p></noscript></div>
 </section>
 
 <div class="kente"></div>
@@ -602,11 +568,11 @@ Bring a colleague — tag them below!</textarea>
   <div class="fb-bot"><p>© 2026 Marketers & Advertisers Network. DMC 2026 — Built To Scale.</p><div class="fb-lnks"><a href="/privacy">Privacy and Terms</a><a href="/#connect">Connect</a></div></div>
 </footer>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
 <script src="/assets/countdown.js?v=0f11557f" defer></script>
-<script src="/assets/sponsor/config.js?v=dd74c25a" defer></script>
-<script src="/assets/sponsor/lockup.js?v=4e51b04a" defer></script>
-<script src="/assets/flyer.js?v=7fb3bd61" defer></script>
+<script src="/assets/flyer/qrcode.js?v=4c79be16" defer></script>
+<script src="/assets/flyer/flyer-render.js?v=a999c1ef" defer></script>
+<script src="/assets/flyer/flyer-tool.js?v=84302022" defer></script>
+<script>window.addEventListener("DOMContentLoaded",function(){var m=document.getElementById("flyer-tool");if(m&&window.DMCFlyerTool)DMCFlyerTool.mount(m,{mode:"public"});});</script>
 <script src="/assets/analytics.js?v=2410f050" defer></script>
 <script src="/assets/ticket-checkout.js?v=b47e36ee" defer></script>
 <script src="/assets/app.js?v=d631a65a" defer></script>

@@ -129,18 +129,27 @@ async function verify(name, pngBuf, placements, w, h, tall) {
       await pg.close();
     }
 
-    /* 3. the public flyer */
+    /* 3. the public flyer: Badge and Brief at both sizes (one renderer, assets/flyer/flyer-render.js) */
     {
       const pg = await b.newPage({ viewport: { width: 1280, height: 900 } });
       await pg.route(/cdnjs|googletagmanager|google-analytics/, (r) => r.abort());
       await pg.goto(BASE + '/dmc-2026.html', { waitUntil: 'load' });
-      await pg.waitForFunction(() => window.DMC_SPONSOR_PLACEMENTS, null, { timeout: 15000 }).catch(() => {});
-      const r = await pg.evaluate(() => ({ pl: window.DMC_SPONSOR_PLACEMENTS || [], png: document.getElementById('dmc26-flyer').toDataURL('image/png') }));
-      const buf = Buffer.from(r.png.split(',')[1], 'base64');
-      await verify('flyer', buf, r.pl, 1080, 1440, false);
-      addSheet('other', 'flyer', buf);
-      const txt = await pg.evaluate(() => document.getElementById('fl-caption').value);
-      if (!/Tickets exclusively on MojoLife/.test(txt)) fail('flyer caption does not say Tickets exclusively on MojoLife');
+      await pg.waitForFunction(() => window.DMCFlyer && window.DMCFlyerTool, null, { timeout: 15000 });
+      const r = await pg.evaluate(async () => {
+        await DMCFlyer.load();
+        const out = [];
+        for (const template of ['badge', 'brief']) for (const format of ['4:5', '9:16']) {
+          const c = document.createElement('canvas'); DMCFlyer.renderFlyer(c.getContext('2d'), { template, format, level: 'work', name: 'Test Person', role: 'Title' });
+          out.push({ template, format, w: c.width, h: c.height });
+        }
+        return { out, mojopay: !!DMCFlyer.assets.logos.mojopay, man: !!DMCFlyer.assets.logos.man, fonts: DMCFlyer.assets.fontsOk, cap: document.getElementById('fl-caption').value };
+      });
+      checked++;
+      for (const o of r.out) if (o.w !== 1080 || o.h !== (o.format === '9:16' ? 1920 : 1350)) fail('flyer ' + o.template + ' ' + o.format + ' is ' + o.w + 'x' + o.h);
+      if (!r.mojopay) fail('flyer: the MojoPay lockup did not load');
+      if (!r.man) fail('flyer: the M·A·N logo did not load');
+      if (Object.values(r.fonts).some((v) => v !== true)) fail('flyer: a pinned font did not load');
+      if (!/Tickets exclusively on MojoLife/.test(r.cap)) fail('flyer caption does not say Tickets exclusively on MojoLife');
       await pg.close();
       console.log('flyer checked');
     }
