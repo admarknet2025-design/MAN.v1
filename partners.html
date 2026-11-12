@@ -64,7 +64,7 @@
 <meta name="twitter:description" content="DMC 2026 partnerships are closed. DMC 2027 partnership interest is open: register your interest with the Marketers &amp; Advertisers Network.">
 <meta name="twitter:image" content="https://mangh.org/assets/og-image.png">
 <link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=515c4311">
+<link rel="stylesheet" href="/assets/styles.css?v=fa1c91a5">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -175,22 +175,75 @@
   </div>
 </section>
 
-<section class="form-sec" id="interest">
-  <div class="form-inner c">
-    <div class="form-l sr">
-      <span class="sl">Get Started</span>
-      <h2>DMC 2027<br>Partnership <span>Interest</span></h2>
-      <p>DMC 2026 partnerships are closed.</p>
-      <div class="contact-cards">
-        <div class="ccard"><div class="ci">✉</div><div><div class="cl">Email — Sponsorship</div><div class="cv"><a href="mailto:admarknet2025@gmail.com">admarknet2025@gmail.com</a></div></div></div>
-        <div class="ccard"><div class="ci">↗</div><div><div class="cl">Purpose</div><div class="cv">Sponsorship & support partnerships</div></div></div>
-        <div class="ccard"><div class="ci">📅</div><div><div class="cl">Conference Date</div><div class="cv">21 Nov 2026 · British Council, Accra</div></div></div>
-      </div>
-    </div>
-    <div class="form-r sr d1">
-      <h3 class="sf-cta-h">DMC 2026 partnerships are closed</h3>
-      <p class="sf-cta-p">To register your interest in DMC 2027, email the partnerships team.</p>
-      <a class="btn btn-f" href="mailto:admarknet2025@gmail.com">Email the partnerships team →</a>
+<section class="join-sec" id="interest">
+  <div class="join-inner">
+    <span class="sl sr">Register interest</span>
+    <h2 class="sr">DMC 2027<br>partnership interest</h2>
+    <p class="join-sub sr">Tell us about your organisation and what you would like to be involved in.</p>
+
+    <div id="partner-form-wrap">
+      <form class="jform" id="partnerForm" novalidate>
+        <div class="jform-row">
+          <div class="jfield">
+            <label for="p-company">Company / Organisation *</label>
+            <input id="p-company" type="text" name="company" autocomplete="organization" required>
+          </div>
+          <div class="jfield">
+            <label for="p-name">Contact Name *</label>
+            <input id="p-name" type="text" name="name" autocomplete="name" required>
+          </div>
+        </div>
+        <div class="jform-row">
+          <div class="jfield">
+            <label for="p-role">Role / Title</label>
+            <input id="p-role" type="text" name="role" autocomplete="organization-title">
+          </div>
+          <div class="jfield">
+            <label for="p-email">Email Address</label>
+            <input id="p-email" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="jform-row">
+          <div class="jfield">
+            <label for="p-whatsapp">WhatsApp Number</label>
+            <input id="p-whatsapp" type="tel" name="whatsapp" placeholder="+233 XX XXX XXXX" autocomplete="tel" inputmode="tel">
+          </div>
+          <div class="jfield">
+            <label for="p-timeline">Timeline</label>
+            <select id="p-timeline" name="timeline">
+              <option value="" disabled selected>Select one</option>
+              <option value="Now">Now</option>
+              <option value="Before end of year">Before end of year</option>
+              <option value="Q1 2027">Q1 2027</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </div>
+        </div>
+        <p class="jform-note" style="padding-top:0">Give us at least one way to reach you: an email address or a WhatsApp number.</p>
+        <fieldset class="jchecks" id="p-interest">
+          <legend>What are you interested in?</legend>
+          <div class="jchecks-grid">
+          <label class="jcheck" for="pi-1"><input type="checkbox" id="pi-1" name="interest" value="Title or headline partnership"><span>Title or headline partnership</span></label>
+          <label class="jcheck" for="pi-2"><input type="checkbox" id="pi-2" name="interest" value="Session or segment"><span>Session or segment</span></label>
+          <label class="jcheck" for="pi-3"><input type="checkbox" id="pi-3" name="interest" value="Presence or booth"><span>Presence or booth</span></label>
+          <label class="jcheck" for="pi-4"><input type="checkbox" id="pi-4" name="interest" value="Media partner"><span>Media partner</span></label>
+          <label class="jcheck" for="pi-5"><input type="checkbox" id="pi-5" name="interest" value="In-kind"><span>In-kind</span></label>
+          <label class="jcheck" for="pi-6"><input type="checkbox" id="pi-6" name="interest" value="Not sure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+        <div class="jfield">
+          <label for="p-outcome">The outcome you want</label>
+          <textarea id="p-outcome" name="outcome" autocomplete="off" placeholder="What would you like partnering with DMC to achieve for your organisation?"></textarea>
+        </div>
+        <input type="hidden" name="ref" id="p-ref" value="">
+        <input type="hidden" name="page" id="p-page" value="">
+        <div class="hp" aria-hidden="true"><label for="p-fax">Leave this empty<input id="p-fax" name="fax" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <p class="jform-note">We use these details only to follow up about partnerships. <a href="/privacy">Privacy and Terms</a></p>
+        <p class="jform-note" id="p-config-note" hidden>This form is not accepting submissions yet.</p>
+        <div>
+          <button type="submit" class="btn-join" id="partnerBtn">Request the 2027 partnership deck</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -209,6 +262,7 @@
 </div>
 <script src="/assets/analytics.js?v=2410f050" defer></script>
 <script src="/assets/ticket-checkout.js?v=b47e36ee" defer></script>
+<script src="/assets/partners.js?v=6847ec40" defer></script>
 <script src="/assets/app.js?v=d631a65a" defer></script>
 </body>
 </html>
