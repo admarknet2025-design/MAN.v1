@@ -15,8 +15,10 @@ var SC7 = 'rgba(244,239,230,0.70)', SC6 = 'rgba(244,239,230,0.60)', SC4 = 'rgba(
 var TICKET_URL = 'https://tickets.mojo-pay.com/events/digital-marketers-conference-2026';
 
 /* Logos are served from this site (same origin), so the canvas stays exportable.
-   Every logo sits on a cream tile: most marks are drawn for light backgrounds. */
+   Every partner logo sits on a cream tile: most marks are drawn for light backgrounds. The M·A·N logo is the exception:
+   it is white artwork on a transparent background, so it is drawn straight onto the dark band. */
 var LOGO_SRCS = {
+  man:             '/assets/man-logo.png',
   fido:            '/assets/partners26/fido.webp',
   mnotify:         '/assets/partners26/mnotify.webp',
   generationghana: '/assets/partners26/generation-ghana.webp',
@@ -155,8 +157,17 @@ function drawLogo(key, label, x, y, boxW, boxH){
   ctx.drawImage(img, x + (boxW - dw) / 2, y + (boxH - dh) / 2, dw, dh);
 }
 
-/* M·A·N wordmark, as in the site nav (no logo file exists, so it is typeset) */
-function drawManMark(x, y, boxW, boxH){
+/* M·A·N logo (/assets/man-logo.png, the file the site nav and footer use), left-aligned at x and centred on cy. White artwork on a
+   transparent background, so no tile and no recolouring. If the file has not loaded, the M·A·N text is typeset in the slot instead. */
+var MAN_LOGO_H = 52, MAN_LOGO_MAX_W = 200;
+function drawManMark(x, y, boxW, boxH, cy){
+  var img = logos.man;
+  if(img && img.naturalWidth){
+    var scale = Math.min(MAN_LOGO_H / img.naturalHeight, MAN_LOGO_MAX_W / img.naturalWidth);
+    var dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+    ctx.drawImage(img, x, cy - dh / 2, dw, dh);
+    return;
+  }
   ctx.save();
   ctx.font = 'normal 38px "Archivo Black"';
   ctx.textBaseline = 'middle';
@@ -373,8 +384,10 @@ function draw(){
   ctx.fillStyle = SC2;
   ctx.textAlign = 'left';
   ctx.fillText('ORGANIZED BY', lx, rowAY + 12);
-  drawManMark(lx, rowAY + 24, 160, 56);
   var ticketPlacement = drawTicketLine(W - lx, rowAY);
+  /* the logo is centred on the same line as the ticket text beside it (about 6px from the old slot centre) */
+  var manCY = ticketPlacement ? ticketPlacement.y + ticketPlacement.h / 2 : rowAY + 52;
+  drawManMark(lx, manCY - 26, 160, 52, manCY);
   if(mojoPlacement) window.DMC_SPONSOR_PLACEMENTS = [mojoPlacement, ticketPlacement];
 
   var ruleY = pY + 122;
