@@ -39,7 +39,8 @@ grid.split('<div class="spc ').slice(1).forEach((card) => {
 
 /* programme rows */
 const sessions = [];
-const sched = html.slice(html.indexOf('<div class="sched">'), html.indexOf('<p class="prog-note'));
+const schedAt = html.indexOf('<div class="sched">');
+const sched = html.slice(schedAt, html.indexOf('</section>', schedAt));
 sched.split('<div class="srow').slice(1).forEach((row, i) => {
   const t = [...row.matchAll(/<div class="(?:ti|ap)">([^<]+)<\/div>/g)].map((m) => m[1]);
   const title = dec((row.match(/<h3>([\s\S]*?)<\/h3>/) || [])[1] || '');

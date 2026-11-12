@@ -15,7 +15,6 @@ artwork in every platform size, a caption per platform, and one tracked short li
 | Sponsor / partner | One of the seven partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
 | Quote card | Quote (260 characters), speaker name, title, company, photo | Movement colour |
 | Countdown | Nothing. "X days to go" is worked out each time an image is rendered (Accra date, event day 21 Nov 2026) | Coral |
-| Early bird | Price (default GH₵100), last day (default 2026-10-31) and the price afterwards (default GH₵150, shown as "Then GH₵150 from 1 November 2026"; clear it to leave the line out). "N days left" is worked out each time an image is rendered; on the last day it says LAST DAY, and after it the Studio refuses to render. Check the price and date against the ticket page whenever they change | Coral number, gold tag |
 | Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Movement colour |
 
 Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
@@ -75,7 +74,7 @@ combination returns the same code, so regenerating does not create new ones.
 The ticket checkout (`assets/ticket-checkout.js`) already saves `ref` and `utm_*` when the page opens and logs them when
 MojoTickets reports an order started, so a person's click and their checkout starts line up on `ref`, `utm_source`
 (platform) and `utm_campaign` (template). Slugs: speakers and the team use the photo name (`isaac-newton-acquah`), partners their
-partner slug, sessions their programme id (`s04`), attendees a slug of the name, countdown and early bird use their own name.
+partner slug, sessions their programme id (`s04`), attendees a slug of the name, countdown uses its own name.
 
 If the store is not configured the Studio still renders: the images have no QR and the captions carry the plain page link, with a
 warning that those clicks are not tracked.
@@ -136,6 +135,6 @@ Speakers, programme rows, the team and partners come from `lib/studio/data.json`
 Run it whenever the speaker or programme markup changes (for example when a photo is added).
 
 ## Data needed from the team
-- Photos for Simon Alangdee and Ian Hutchful (until then their cards use initials), and the keynote speaker once announced.
+- A photo for Simon Alangdee (until then his card uses initials), and the keynote speaker once announced.
 - Larger partner logos: Kasad3's file is 163×129 pixels and looks soft at story size. MojoPay, FIDO and the rest are fine.
 - A decision on the sponsor tier wording for mNotify and Koin Photography (the cards use "Programme Partner" and "Event Photography Partner", copied from the home page).

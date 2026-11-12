@@ -128,24 +128,24 @@
   {
    "slug": "elikplim-yaa-ayegbe",
    "name": "Elikplim Yaa Ayegbe",
-   "title": "Jobberman",
-   "company": "",
-   "photo": "",
+   "title": "Marketing Communications Specialist",
+   "company": "Jobberman Ghana",
+   "photo": "elikplim-yaa-ayegbe.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
    "sessionTime": "12:35–13:05",
    "sponsor": ""
   },
   {
-   "slug": "ian-hutchful",
-   "name": "Ian Hutchful",
-   "title": "",
-   "company": "",
-   "photo": "",
+   "slug": "carrington-amuh",
+   "name": "Carrington Amuh",
+   "title": "Creative Lead",
+   "company": "FIDO",
+   "photo": "carrington-amuh.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
    "sessionTime": "12:35–13:05",
-   "sponsor": ""
+   "sponsor": "FIDO"
   },
   {
    "slug": "enoch-appiah-jr",
@@ -344,13 +344,13 @@
    "end": "13:05",
    "title": "Build Your Work: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Yvonne Dumor · Elikplim Yaa Ayegbe · Ian Hutchful — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
+   "speakers": "Yvonne Dumor · Elikplim Yaa Ayegbe · Carrington Amuh — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
    "movement": "Build Your Work",
    "format": "Discussion",
    "people": [
     "yvonne-dumor",
     "elikplim-yaa-ayegbe",
-    "ian-hutchful",
+    "carrington-amuh",
     "enoch-appiah-jr"
    ]
   },
