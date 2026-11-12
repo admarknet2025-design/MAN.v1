@@ -13,6 +13,7 @@ module.exports = function handler(req, res) {
   const html = fs.readFileSync(path.join(dir, 'app.html'), 'utf8');
   const data = fs.readFileSync(path.join(dir, 'data.json'), 'utf8').replace(/</g, '\\u003c');
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow');   /* unlisted: the path is not in robots.txt either, so it is not advertised */
   res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; frame-ancestors 'none'");
   return res.status(200).send(html.replace('/*__STUDIO_DATA__*/null', data));
 };

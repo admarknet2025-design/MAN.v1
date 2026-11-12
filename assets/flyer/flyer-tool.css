@@ -1,0 +1,68 @@
+/* DMC 2026 flyer tool (public /dmc-2026#flyer and the team tool in /studio). Mobile-first; the two share these rules.
+   Self-contained: brand colours are declared here, so it works on the public site and inside the Studio's CSP (same-origin only). */
+.fl2{--fl-ink:#1C1C1C;--fl-cream:#F4EFE6;--fl-teal:#2A7B74;--fl-teal-l:#5CC0B5;--fl-coral:#D95F45;--fl-gold:#C9A24A;--fl-line:rgba(244,239,230,.22);--fl-mut:rgba(244,239,230,.72);
+  display:flex;flex-direction:column;gap:28px;color:var(--fl-cream);font-family:'Archivo',system-ui,sans-serif;text-align:left}
+.fl2 *{box-sizing:border-box}
+.fl2-prev{order:-1}
+.fl2-cv{display:flex;justify-content:center}
+.fl2-cv canvas{width:100%;max-width:340px;height:auto;display:block;border-radius:3px;box-shadow:0 16px 48px rgba(0,0,0,.5);background:#0D0D0D}
+.fl2.is-story .fl2-cv canvas{max-width:230px}
+.fl2-ctrl{display:flex;flex-direction:column;gap:18px;min-width:0}
+.fl2-seg{border:0;margin:0;padding:0;min-width:0}
+.fl2-seg legend,.fl2-field label,.fl2-cap label{display:block;padding:0;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--fl-mut);margin-bottom:8px}
+.fl2-seg{display:flex;flex-wrap:wrap;gap:8px}
+.fl2-seg legend{flex:0 0 100%;float:left;width:100%}
+.fl2-seg label{position:relative;flex:1 1 auto;min-width:0}
+.fl2-seg input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.fl2-seg span{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 12px;border:1.5px solid var(--fl-line);border-radius:999px;font-size:14px;font-weight:700;text-align:center;color:var(--fl-cream);transition:background .15s,border-color .15s,color .15s}
+.fl2-seg i{width:10px;height:10px;background:var(--sw);flex:none}
+.fl2-seg input:checked+span{background:var(--fl-cream);border-color:var(--fl-cream);color:var(--fl-ink)}
+.fl2-seg input:focus-visible+span{outline:2px solid var(--fl-gold);outline-offset:2px}
+.fl2-seg input:checked+span i{box-shadow:0 0 0 1.5px var(--fl-ink)}
+.fl2-zone-wrap{display:flex;flex-direction:column;gap:10px}
+.fl2-zone{display:block;cursor:pointer;border:1.5px dashed rgba(92,192,181,.5);border-radius:10px;background:rgba(42,123,116,.07);padding:18px 14px;text-align:center;transition:border-color .2s,background .2s}
+.fl2-zone:hover,.fl2-zone.drag,.fl2-zone:focus-within{border-color:var(--fl-teal-l);background:rgba(42,123,116,.14)}
+.fl2-zone input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.fl2-circle{display:flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:50%;margin:0 auto 10px;overflow:hidden;background:rgba(42,123,116,.1);border:2px solid rgba(92,192,181,.35);color:var(--fl-cream)}
+.fl2-circle svg{opacity:.45}
+.fl2-circle img{display:none;width:100%;height:100%;object-fit:cover}
+.fl2-zt{display:block;font-size:14px;line-height:1.5;color:var(--fl-mut)}
+.fl2-zt strong{color:var(--fl-teal-l);font-weight:700}
+.fl2-zs{display:block;font-size:12px;line-height:1.5;color:var(--fl-mut);margin-top:4px}
+.fl2-photo-btns{display:flex;gap:8px;flex-wrap:wrap}
+.fl2-file{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.fl2-file:focus-visible+*,.fl2-btn:focus-visible{outline:2px solid var(--fl-gold);outline-offset:2px}
+.fl2-field input,.fl2-field select,.fl2-cap textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--fl-line);color:var(--fl-cream);font-family:inherit;font-size:16px;padding:10px 0;outline:none;border-radius:0}
+.fl2-field select{background:#252525;border:1px solid var(--fl-line);padding:10px;border-radius:6px}
+.fl2-field input:focus,.fl2-cap textarea:focus{border-bottom-color:var(--fl-gold)}
+.fl2-field input::placeholder{color:rgba(244,239,230,.42)}
+.fl2-hint{font-size:12px;color:var(--fl-mut);margin:6px 0 0}
+.fl2-cap textarea{border:1px solid var(--fl-line);border-radius:6px;padding:10px;font-size:14px;line-height:1.55;resize:vertical;min-height:140px}
+.fl2-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:1.5px solid var(--fl-cream);border-radius:999px;background:var(--fl-cream);color:var(--fl-ink);font:700 14px/1 'Archivo',system-ui,sans-serif;letter-spacing:.02em;cursor:pointer;text-align:center;text-decoration:none}
+.fl2-btn.ghost{background:transparent;color:var(--fl-cream);border-color:var(--fl-line)}
+.fl2-btn:hover{border-color:var(--fl-gold)}
+.fl2-btn[aria-disabled=true]{opacity:.5}
+.fl2-btn[hidden]{display:none}
+.fl2-actions{display:flex;flex-direction:column;gap:10px}
+.fl2-actions .fl2-btn,.fl2-cap .fl2-btn{width:100%}
+.fl2-cap .fl2-btn{margin-top:10px}
+.fl2-tip{font-size:12px;line-height:1.5;color:var(--fl-mut);margin:-6px 0 0}
+.fl2-msg{min-height:0;margin:0;font-size:13px;line-height:1.5;color:#F08C74}
+.fl2-msg:empty{display:none}
+.fl2 #fl-smsg{color:var(--fl-mut)}
+.fl2-event{max-width:340px;margin-left:auto;margin-right:auto;width:100%}
+.fl2-event h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.fl2-event p{margin:0 0 12px;font-size:13px;line-height:1.55;color:var(--fl-mut)}
+.fl2-links{display:flex;gap:8px;flex-wrap:wrap}
+.fl2-links .fl2-btn{flex:1 1 auto;min-width:96px}
+@media(min-width:620px){.fl2-actions{flex-direction:row}.fl2-actions .fl2-btn{width:auto;flex:1}}
+@media(min-width:900px){
+  .fl2{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"ctrl prev" "ctrl ev";column-gap:64px;row-gap:22px;align-items:start}
+  .fl2-ctrl{grid-area:ctrl}.fl2-event{grid-area:ev}
+  .fl2-prev{order:0;grid-area:prev}
+  .fl2-cv{justify-content:flex-start}
+  .fl2-cv canvas{max-width:440px}
+  .fl2.is-story .fl2-cv canvas{max-width:300px}
+  .fl2-event{margin-left:0;margin-right:0}
+}
+@media(prefers-reduced-motion:reduce){.fl2 *{transition:none!important}}
