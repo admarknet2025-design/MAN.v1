@@ -344,6 +344,7 @@ body.sr-on{padding-bottom:56px}
 .p26c{background:rgba(28,28,28,.04);padding:32px 26px;border-top:2px solid rgba(28,28,28,.08)}
 .p26c.title{border-top-color:var(--go)}.p26c .tier{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.72);margin-bottom:10px}
 .p26c.title .tier{color:var(--go)}.p26c .pn{font-size:24px;font-weight:900;color:var(--ob);margin-bottom:6px}.p26c.title .pn{color:var(--go)}
+.p26c .p26-logo{display:block;height:40px;width:auto;max-width:100%;object-fit:contain;object-position:left center;margin-top:14px}
 .p26c .ps{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,28,.72);margin-bottom:10px}.p26c p{font-size:13px;line-height:1.65;color:rgba(28,28,28,.72)}
 .tiers-sub{padding-top:28px;border-top:1px solid rgba(28,28,28,.1)}
 .tiers-sub h3{font-size:15px;font-weight:800;color:var(--ob);margin-bottom:16px}

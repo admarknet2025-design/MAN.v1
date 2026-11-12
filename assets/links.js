@@ -3,8 +3,8 @@
 'use strict';
 var BASE = 'https://mangh.org';
 var SOC = { ig: 'instagram', fb: 'facebook', tt: 'tiktok', yt: 'youtube', li: 'linkedin', x: 'x', wa: 'whatsapp', tg: 'telegram' };
-var PAR = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin' };
-var PARTNERS = [['MojoPay', 'mojopay'], ['FIDO', 'fido'], ['Generation Ghana', 'gengh'], ['mNotify', 'mnotify'], ['Kasad3', 'kasad3'], ['Tech Labari', 'techlabari'], ['Koin Photography', 'koin']];
+var PAR = { mojopay: 'mojopay', fido: 'fido', gengh: 'generation-ghana', mnotify: 'mnotify', kasad3: 'kasad3', techlabari: 'tech-labari', koin: 'koin', jobberman: 'jobberman' };
+var PARTNERS = [['MojoPay', 'mojopay'], ['FIDO', 'fido'], ['Generation Ghana', 'gengh'], ['mNotify', 'mnotify'], ['Kasad3', 'kasad3'], ['Tech Labari', 'techlabari'], ['Koin Photography', 'koin'], ['Jobberman', 'jobberman']];
 
 function $(id){ return document.getElementById(id); }
 function clean(s){ return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
