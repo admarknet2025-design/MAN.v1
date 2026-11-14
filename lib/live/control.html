@@ -4,24 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#1C1C1C">
+<meta name="theme-color" content="#0D0D0D">
 <title>DMC Live · Control</title>
+<link rel="stylesheet" href="/assets/tools.css?v=5460c468">
 <style>
-@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/archivo-black.woff2) format('woff2')}
-:root{--ob:#1C1C1C;--ob2:#262626;--ob3:#303030;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--ac:#2A7B74;--mut:rgba(244,239,230,.78);--line:rgba(244,239,230,.22)}
+/* DMC Live operator panel, in the flyers' look (assets/tools.css): ink ground, the hero planes behind the header, the pill and
+   BUILT TO SCALE, pinned Archivo, dark panels with gold hairlines. Controls, layout and behaviour are unchanged. */
+:root{--ob2:#1A1A1A;--ob3:#262626;--ac:#2A7B74;--mut:rgba(244,239,230,.78);--line:rgba(244,239,230,.2)}
 *{box-sizing:border-box;margin:0}
-body{background:var(--ob);color:var(--cr);font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:40px}
-h1,h2,h3{font-family:'Archivo Black',system-ui,sans-serif;font-weight:400;line-height:1.1}
+body{background:#0D0D0D;color:var(--cr);font:500 16px/1.4 var(--fB);padding-bottom:40px}
+h1,h2,h3{font-family:var(--fB);font-weight:800;line-height:1.15;letter-spacing:-.005em}
 button,input,select,textarea{font:inherit;color:inherit}
 a{color:var(--cr)}
-.kente{height:10px;background:repeating-linear-gradient(90deg,var(--te) 0 16px,var(--ob) 16px 18px,var(--co) 18px 34px,var(--ob) 34px 36px,var(--cr) 36px 52px,var(--ob) 52px 54px)}
-#bar{position:sticky;top:0;z-index:20;background:var(--ob);border-bottom:2px solid var(--line);padding:8px 12px}
-#bar .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-#bar h1{font-size:18px}
+.kente.dmc-kente{height:12px}
+#bar{position:sticky;top:0;z-index:20;background:#0D0D0D;border-bottom:2px solid rgba(201,162,74,.28);padding:10px 12px;overflow:hidden}
+#bar .dmc-planes{right:0;top:0;width:45%;height:100%}
+#bar .row{position:relative;z-index:1;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#bar .dmc-pill{font-size:11px}
+#bar h1{font-size:19px}
+#bar .mini{font-size:17px}
 .counters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
-.counters span{background:var(--ob2);border:1px solid var(--line);padding:5px 9px;font-weight:700;font-size:14px}
-.counters b{font-family:'Archivo Black',sans-serif;font-weight:400;margin-left:4px}
-.btn{min-height:48px;padding:0 16px;background:var(--te);color:#fff;border:0;font-weight:800;letter-spacing:.04em;cursor:pointer;font-size:15px;text-transform:uppercase}
+.counters span{background:rgba(255,255,255,.06);border:1px solid var(--line);padding:5px 9px;font-weight:700;font-size:14px}
+.counters b{font-family:var(--fD);font-weight:900;margin-left:5px}
+.btn{min-height:48px;padding:0 16px;background:var(--te);color:#fff;border:0;font:800 15px/1 var(--fB);letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
 .btn.cr{background:var(--cr);color:var(--ob)}
 .btn.co{background:var(--co);color:var(--ob)}
 .btn.ghost{background:transparent;border:2px solid var(--cr);color:var(--cr)}
@@ -29,13 +34,13 @@ a{color:var(--cr)}
 .btn.big{min-height:72px;font-size:20px;flex:1}
 .btn.on{outline:4px solid var(--cr);outline-offset:-4px}
 .btn[disabled]{opacity:.4;cursor:not-allowed}
-nav{border-bottom:1px solid var(--line);background:var(--ob)}
-#tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px}
-nav button{flex:0 0 auto;background:var(--ob2);border:2px solid transparent;padding:0 14px;min-height:44px;font-weight:700;cursor:pointer}
-nav button[aria-selected=true]{border-color:var(--cr);background:var(--ob3)}
+nav{border-bottom:1px solid var(--line);background:#0D0D0D}
+#tabs{display:flex;gap:4px;overflow-x:auto;padding:6px 12px 0}
+nav button{flex:0 0 auto;background:transparent;border:0;border-bottom:3px solid transparent;padding:0 14px;min-height:46px;font:700 14px/1 var(--fB);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);cursor:pointer}
+nav button[aria-selected=true]{border-bottom-color:var(--go);color:var(--cr)}
 nav b{background:var(--co);color:var(--ob);border-radius:10px;padding:1px 7px;margin-left:6px;font-size:12px}
 main{max-width:1100px;margin:0 auto;padding:12px}
-.panel{background:var(--ob2);border:1px solid var(--line);padding:14px;margin-bottom:12px}
+.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-top:2px solid rgba(201,162,74,.28);padding:16px;margin-bottom:12px}
 .panel h2{font-size:18px;margin-bottom:10px}
 .panel h3{font-size:15px;margin:12px 0 6px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -45,11 +50,11 @@ input[type=text],select,textarea{width:100%;background:var(--ob);border:2px soli
 textarea{min-height:80px}
 input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--cr);outline-offset:2px}
 .muted{color:var(--mut);font-size:14px}
-.item{border-top:1px solid var(--line);padding:10px 0;display:grid;gap:8px}
+.item{border-top:1px solid rgba(201,162,74,.2);padding:10px 0;display:grid;gap:8px}
 .item .t{font-size:17px;font-weight:600}
 .item .m{font-size:13px;color:var(--mut)}
 .flag{background:var(--co);color:var(--ob);font-weight:800;font-size:12px;padding:2px 6px;margin-right:6px}
-.pill{display:inline-block;background:var(--ob3);padding:2px 8px;font-size:12px;font-weight:700;margin-right:6px;border:1px solid var(--line)}
+.pill{display:inline-block;background:rgba(255,255,255,.08);border-radius:999px;padding:2px 8px;font-size:12px;font-weight:700;margin-right:6px;border:1px solid var(--line)}
 .check{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px;margin:8px 0;color:var(--cr)}
 .check input{width:22px;height:22px;accent-color:var(--te)}
 .now{border-left:10px solid var(--ac);padding-left:12px}
@@ -72,10 +77,12 @@ img.prev{max-width:240px;border:1px solid var(--line)}
 </style>
 </head>
 <body>
-<div class="kente" aria-hidden="true"></div>
+<div class="kente dmc-kente" aria-hidden="true"></div>
 <header id="bar">
+  <div class="dmc-planes" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="fade"></i></div>
   <div class="row">
-    <h1>DMC Live control</h1><span id="rehbadge" class="flag" hidden>REHEARSAL</span>
+    <span class="dmc-pill">DMC 2026 · Accra</span>
+    <h1>DMC Live control</h1><span class="dmc-head mini" aria-hidden="true">Built to <span class="s dmc-foil">Scale</span></span><span id="rehbadge" class="flag" hidden>REHEARSAL</span>
     <div class="counters" id="counters" aria-live="off"></div>
     <button class="btn co" id="hold" type="button">Holding slide</button>
   </div>
