@@ -20,7 +20,7 @@ body{background:#000;color:var(--cr);font:500 1.15rem/1.3 var(--fB);width:100vw;
 #top{position:absolute;left:2.67rem;right:2.67rem;top:1.5rem;display:flex;align-items:center;gap:1.4rem;z-index:2}
 #top .dmc-pill{font-size:.78rem}
 #top .mini{font-size:1.25rem}
-#rehearsal{position:absolute;left:50%;top:0;transform:translateX(-50%);background:var(--co);color:var(--ob);font:800 .9rem/1 var(--fB);letter-spacing:.14em;padding:.45rem 1.2rem;display:none;z-index:9}
+#rehearsal{position:absolute;left:50%;top:-1.5rem;transform:translateX(-50%);background:var(--co);color:var(--ob);font:800 .9rem/1 var(--fB);letter-spacing:.14em;padding:.45rem 1.2rem;display:none;z-index:9}
 #join{position:absolute;right:0;top:.45rem;font:700 1rem/1 var(--fB);letter-spacing:.06em;color:var(--cr72);z-index:2}
 .count{position:absolute;right:0;top:2.1rem;font:700 .95rem/1 var(--fB);letter-spacing:.06em;color:var(--cr60);z-index:2}
 #view{position:absolute;left:0;right:0;top:4.9rem;bottom:9.6rem;padding:0 2.67rem;z-index:1}
@@ -102,8 +102,7 @@ h1.prompt{font:800 2.3rem/1.12 var(--fB);max-width:52rem;margin-top:.7rem}
 <body>
 <div id="stage">
   <div class="dmc-planes drift" id="planes" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="fade"></i></div>
-  <div id="rehearsal">REHEARSAL</div>
-  <header id="top"><span class="dmc-pill">DMC 2026 · Accra</span><span class="dmc-head mini">Built to <span class="s dmc-foil">Scale</span></span><div id="join"></div><div class="count" id="count"></div></header>
+  <header id="top"><div id="rehearsal">REHEARSAL</div><span class="dmc-pill">DMC 2026 · Accra</span><span class="dmc-head mini">Built to <span class="s dmc-foil">Scale</span></span><div id="join"></div><div class="count" id="count"></div></header>
   <main id="view" aria-live="polite" aria-label="DMC Live"></main>
   <footer id="band"></footer>
 </div>
