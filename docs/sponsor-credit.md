@@ -24,7 +24,7 @@ Logo protection is structural: only the files named in `config.js` are drawn; th
 ## Where it is drawn
 | Asset | How |
 |---|---|
-| DMC Studio, every template and size | `frame()` in `lib/studio/render.js` (templates cannot opt out): lockup in the header, ticket line in the footer band; sizes 1080×1350, 1080×1920, 1080×1080, 1200×627, 1600×900 |
+| DMC Studio, every template and size | `lib/studio/render.js`, drawn with the participant-flyer renderer (`assets/flyer/flyer-render.js`): the flyer's band (POWERED BY + the MojoPay logo on a **white** tile, the largest logo, at or above the minimum width; a single-row strip on square and landscape sizes) and the ticket line "Tickets exclusively on MojoLife" in every image (templates cannot opt out); sizes 1080×1350, 1080×1920, 1080×1080, 1200×627, 1600×900. `tools/sponsor-check.js` accepts the white tile for artwork the flyer renderer draws (each placement reports its tile colour) |
 | Make Your Flyer (`/dmc-2026#flyer`) and the team flyers (`/studio` → Participant flyers) | `assets/flyer/flyer-render.js` (design handoff round 2): the MojoPay lockup (blue on a white tile, "POWERED BY") sits in the partner band. **The image carries no "Tickets exclusively on MojoLife" line** (the round-2 design has none); the line stays in every caption. Confirm this against the contract before launch |
 | DMC Live quote cards | `tools/live-cards/cards.js` (rebuild with `node tools/build-live-cards.js`): lockup beside the obsidian "BUILT TO SCALE" panel, ticket line in the bottom row |
 | `/live/screen` | fixed bottom-left corner, outside the changing view |

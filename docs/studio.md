@@ -143,3 +143,19 @@ Run it whenever the speaker or programme markup changes (for example when a phot
 ## Participant flyers (Studio mode)
 
 The **Participant flyers** button above the template list opens the client-side Badge and Creative Brief tool (`assets/flyer/flyer-tool.js`, team mode): the public flyer's controls plus role pills (Speaking, Volunteering, Partner, Attending), the session line (Speaking only) and a roster of the site's speakers that fills the text fields. Hosts and panelists use the Speaking chip. Photos are added by hand and are drawn in the browser; nothing is uploaded. The renderer (`assets/flyer/flyer-render.js`) is the same one the public page uses. `#flyers` in the URL opens it directly.
+
+## Artwork set look (restyle, November 2026)
+The Artwork set is drawn with the participant flyers' renderer (`assets/flyer/flyer-render.js`), loaded on the server by `DMCFlyer.useNode(@napi-rs/canvas)`, so the Studio images and the public flyer share one look and one code path: hero planes, the foil SCALE, the pill and eyebrow, gloss on physical objects only, the kente divider and the flat partner band. Fonts are the same pinned Archivo woff2 files; Noto Sans subsets cover Ghanaian letters Archivo lacks.
+
+| Template | Module |
+|---|---|
+| Speaker / panelist | the Badge (strap, glossy card, SPEAKING chip) with photo, name, title and company; the session time and title stand where the flyer says I'M BUILDING |
+| I'm attending | the public flyer's Badge, the same design (level: myself / my team / my work) |
+| Session card, Quote card | the Brief family: a cream sheet with gold hairline rules and chips, on the planes; the Quote card adds a headshot print |
+| Countdown | the number in expanded 900 Cream, DAYS TO GO in Coral; "1 DAY TO GO", "TODAY" on 21 Nov, and closed (no image, a message) after the event |
+| Sponsor / partner | a flat white logo tile with a tier chip (Gold, Silver, Cedar, or the partner's published tier), name, tier and role. Facts only |
+
+Formats: 4:5 and 9:16 use the flyer's geometry (9:16 keeps its safe zones). Square: planes top-right, smaller headline stack, compact single-row band. LinkedIn link and X: planes on the right 40%, headline left, the band as one thin strip. QR: none on previews, one on Story and TikTok sizes.
+
+Partners come from `assets/partners26/partners.json` (seven, Jobberman included); `node tools/partners-check.js` keeps the website's rows in step. `node tools/studio-check.js [outdir]` renders every template at every size (and long-name cases), checks sizes, text overflow, fonts, the 9:16 safe zones, Jobberman in every band and the countdown edge cases, and writes a contact sheet.
+
