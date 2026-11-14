@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0D0D0D">
 <title>DMC Live · DMC 2026</title>
-<link rel="stylesheet" href="/assets/tools.css?v=1">
+<link rel="stylesheet" href="/assets/tools.css?v=5460c468">
 <style>
 /* DMC Live on attendees' phones, in the flyers' look (assets/tools.css): ink ground, the hero planes behind the header, the pill and
    BUILT TO SCALE with the foil SCALE, dark panels with gold hairlines, chips with the movement colour, the kente tile and the flat
@@ -378,7 +378,7 @@ var makerP = null;
 function loadMaker() {
   if (makerP) return makerP;
   makerP = new Promise(function (res, rej) {
-    var s = document.createElement('script'); s.src = '/assets/live-cards.js?v=6'; s.onload = function () { res(window.DMCCards); }; s.onerror = function () { makerP = null; rej(new Error('load')); };
+    var s = document.createElement('script'); s.src = '/assets/live-cards.js?v=5ebca32b'; s.onload = function () { res(window.DMCCards); }; s.onerror = function () { makerP = null; rej(new Error('load')); };
     document.head.appendChild(s);
   });
   return makerP;
@@ -396,9 +396,9 @@ if (/[?&]prefetch=1/.test(location.search)) loadMaker();
 saveOut(); flush(); tick(); beat();
 }());
 </script>
-<script src="/assets/sponsor/config.js?v=79de35e8"></script>
-<script src="/assets/sponsor/lockup.js?v=c2f4fb7d"></script>
-<script src="/assets/partner-band.js?v=1"></script>
+<script src="/assets/sponsor/config.js?v=dd74c25a"></script>
+<script src="/assets/sponsor/lockup.js?v=4e51b04a"></script>
+<script src="/assets/partner-band.js?v=47aa1c36"></script>
 <script>
 /* the flyers' band at the foot of the page, sized to the phone: POWERED BY MojoPay with the ticket line, ORGANIZED BY M·A·N, the seven partners */
 (function () { var el = document.getElementById('band'); if (!el || !window.DMCBand) return;
