@@ -27,6 +27,17 @@
    "sponsor": ""
   },
   {
+   "slug": "deborah-yomle",
+   "name": "Deborah Yomle",
+   "title": "Storytelling & Creative Strategist",
+   "company": "",
+   "photo": "deborah-yomle.webp",
+   "session": "Welcome & Opening Remarks",
+   "movement": "",
+   "sessionTime": "10:00–10:10",
+   "sponsor": ""
+  },
+  {
    "slug": "isaac-newton-acquah",
    "name": "Isaac Newton Acquah",
    "title": "Co-Founder",
@@ -268,7 +279,9 @@
    "speakers": "Deborah Yomle (Emcee)",
    "movement": "",
    "format": "Welcome",
-   "people": []
+   "people": [
+    "deborah-yomle"
+   ]
   },
   {
    "id": "s03",
