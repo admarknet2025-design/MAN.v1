@@ -179,6 +179,17 @@
    "movement": "",
    "sessionTime": "13:20–13:35",
    "sponsor": ""
+  },
+  {
+   "slug": "venus-tawiah",
+   "name": "Venus Tawiah",
+   "title": "CEO",
+   "company": "The Missing Link",
+   "photo": "venus-tawiah-2026.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
+   "sponsor": ""
   }
  ],
  "team": [
@@ -444,7 +455,9 @@
    "speakers": "A: Building Your Team, Venus Tawiah · B: Building Yourself, Priscilla Osei-Wusu · C: Building Your Work, Amma Odamea Amoako",
    "movement": "",
    "format": "Breakout",
-   "people": []
+   "people": [
+    "venus-tawiah"
+   ]
   },
   {
    "id": "s19",
