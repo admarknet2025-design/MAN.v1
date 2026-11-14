@@ -1,0 +1,14 @@
+{
+  "_note": "The one DMC 2026 partner list. Read by the flyer renderer (assets/flyer/flyer-render.js: the IN PARTNERSHIP WITH row of the flyers and of every DMC Studio artwork), by tools/build-studio-data.js (the Studio's partner picker and Sponsor / partner template), and checked against the website's partner rows by tools/partners-check.js. Order is the band order. Facts only: tier and role are the published ones.",
+  "poweredBy": { "id": "mojopay", "name": "MojoPay", "logo": "mojopay-logo-blue.svg", "siteLogo": "mojopay-blue.webp", "tier": "Gold / Headline Sponsor", "role": "Title sponsor and official ticketing platform" },
+  "organizedBy": { "id": "man", "name": "M·A·N", "logo": "../man-logo.png" },
+  "partners": [
+    { "id": "fido",       "slug": "fido",             "name": "FIDO",             "logo": "fido.webp",             "fit": "contain", "pad": [8, 12], "tier": "Silver Sponsor",            "role": "DMC 2026 sponsor" },
+    { "id": "mnotify",    "slug": "mnotify",          "name": "mNotify",          "logo": "mnotify.webp",          "fit": "contain", "pad": [8, 12], "tier": "Programme Partner",         "role": "Partner spotlight, 13:45" },
+    { "id": "gengh",      "slug": "generation-ghana", "name": "Generation Ghana", "logo": "generation-ghana.webp", "fit": "contain", "pad": [8, 12], "tier": "Silver Sponsor",            "role": "Partner presentation, 12:25" },
+    { "id": "kasad3",     "slug": "kasad3",           "name": "Kasad3",           "logo": "kasad3.webp",           "fit": "contain", "pad": [4, 12], "tier": "Media Partner",             "role": "Partner spotlight, 14:35" },
+    { "id": "techlabari", "slug": "tech-labari",      "name": "Tech Labari",      "logo": "tech-labari.webp",      "fit": "contain", "pad": [8, 12], "tier": "Media Partner",             "role": "Partner spotlight, 14:30" },
+    { "id": "mistakoin",  "slug": "koin-photography", "name": "Mista.Koin",       "logo": "mista-koin.webp",       "fit": "contain", "pad": [8, 12], "tier": "Event Photography Partner", "role": "Partner spotlight, 13:55", "siteName": "Koin Photography" },
+    { "id": "jobberman",  "slug": "jobberman",        "name": "Jobberman",        "logo": "jobberman.webp",        "fit": "contain", "pad": [8, 12], "tier": "Cedar Sponsor",             "role": "DMC 2026 sponsor" }
+  ]
+}

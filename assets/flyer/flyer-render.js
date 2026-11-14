@@ -10,13 +10,19 @@
  * Units are px on a 1080-wide canvas. Text y is the top of the CSS line box; the canvas baseline is
  * y + LH/2 + (A − D)/2 with A and D the font's bounding-box ascent and descent. Type is Archivo only, in four pinned
  * settings that are static woff2 files (assets/flyer/fonts/), so no browser has to support canvas font-stretch.
- * The photo is only ever drawn onto the canvas: nothing in this file touches the network except the site's own assets. */
+ * The photo is only ever drawn onto the canvas: nothing in this file touches the network except the site's own assets.
+ *
+ * One renderer, two runtimes: in the browser it is a <script> (window.DMCFlyer); on the server (DMC Studio) it is required as a
+ * CommonJS module and DMCFlyer.useNode(require('@napi-rs/canvas'), { root }) swaps the loaders (fonts from the same pinned woff2
+ * files, images from disk) and the canvas factory. Every drawing call is the same Canvas 2D code in both, so Studio artwork and the
+ * public flyer share one look. The partner row comes from assets/partners26/partners.json (the one partner list). */
 (function (root) {
 'use strict';
 
 var TICKET_PRICE = 150;                                         /* GH₵, the one constant the Brief's BUDGET row reads */
 var DEFAULT_QR = 'https://mangh.org/dmc-2026?ref=flyer-qr';     /* encoded in the QR; the printed label drops the query */
-var SCRIPT_SRC = (document.currentScript && document.currentScript.src) || '';
+var HAS_DOC = typeof document !== 'undefined';
+var SCRIPT_SRC = (HAS_DOC && document.currentScript && document.currentScript.src) || '';
 var BASE = SCRIPT_SRC ? SCRIPT_SRC.split('?')[0].replace(/[^/]*$/, '') : '/assets/flyer/';
 var SITE = BASE.replace(/flyer\/$/, '');                        /* the site's /assets/ folder */
 
@@ -36,16 +42,16 @@ var GLOSS = {
   standard: { sheen: 0.7,  edge: 0.75, shadow: 0.85 },
   high:     { sheen: 1,    edge: 1,    shadow: 1 }
 };
-/* The partner row: all seven, each switchable. Tile width follows the enabled count (148 for six, 125 for seven). */
-var PARTNERS = [
-  { id: 'fido',       name: 'FIDO',             src: SITE + 'partners26/fido.webp',             fit: 'contain', pad: [8, 12], enabled: true },
-  { id: 'mnotify',    name: 'mNotify',          src: SITE + 'partners26/mnotify.webp',          fit: 'contain', pad: [8, 12], enabled: true },
-  { id: 'gengh',      name: 'Generation Ghana', src: SITE + 'partners26/generation-ghana.webp', fit: 'contain', pad: [8, 12], enabled: true },
-  { id: 'kasad3',     name: 'Kasad3',           src: SITE + 'partners26/kasad3.webp',           fit: 'contain', pad: [4, 12], enabled: true },
-  { id: 'techlabari', name: 'Tech Labari',      src: SITE + 'partners26/tech-labari.webp',      fit: 'contain', pad: [8, 12], enabled: true },
-  { id: 'mistakoin',  name: 'Mista.Koin',       src: SITE + 'partners26/mista-koin.webp',       fit: 'contain', pad: [8, 12], enabled: true },
-  { id: 'jobberman',  name: 'Jobberman',        src: SITE + 'partners26/jobberman.webp',        fit: 'contain', pad: [8, 12], enabled: true }
-];
+/* The partner row: the shared list (assets/partners26/partners.json), each entry switchable. Filled by load(), in place, so
+   DMCFlyer.PARTNERS keeps its identity. Tile width follows the enabled count (148 for six, 125 for seven). */
+var PARTNERS = [];
+function setPartners(json) {
+  PARTNERS.length = 0;
+  ((json && json.partners) || []).forEach(function (p) {
+    PARTNERS.push({ id: p.id, name: p.name, src: SITE + 'partners26/' + p.logo, fit: p.fit || 'contain', pad: p.pad || [8, 12], enabled: p.enabled !== false,
+                    slug: p.slug, tier: p.tier, role: p.role, logo: p.logo, siteName: p.siteName || p.name });
+  });
+}
 var LOGO_SRC = { mojopay: SITE + 'partners26/mojopay-logo-blue.svg', man: SITE + 'man-logo.png' };
 var FONT_FILES = [
   ['DMC Archivo D',    'archivo-d.woff2',      '900', 'normal'],
@@ -60,9 +66,20 @@ var FONT_FILES = [
 var FAM = { D: '"DMC Archivo D"', DI: '"DMC Archivo DI"', B: '"DMC Archivo B", "DMC Archivo Cedi"', BI: '"DMC Archivo BI"' };
 var ASCENT = 0.878, DESCENT = 0.21;                              /* hhea of Archivo; used only if the browser has no fontBoundingBox */
 
+/* ---------- environment (browser defaults; DMCFlyer.useNode replaces them on the server) ---------- */
+var ENV = {
+  makeCanvas: function (w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; },
+  Path2D: root.Path2D, DOMMatrix: root.DOMMatrix,
+  qrcode: function () { return root.qrcode; },
+  loadImage: null, loadFonts: null,
+  loadJSON: function (url) { return root.fetch ? root.fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) : Promise.resolve(null); }
+};
+function ctx2d() { return ENV.makeCanvas(8, 8).getContext('2d'); }
+
 /* ---------- assets ---------- */
 var A = { img: {}, logos: {}, fontsOk: {}, ready: null };
 function loadImage(url) {
+  if (ENV.loadImage) return ENV.loadImage(url);
   return new Promise(function (res) {
     var i = new Image();
     i.onload = function () { res(i); };
@@ -71,7 +88,8 @@ function loadImage(url) {
   });
 }
 function loadFonts() {
-  if (!root.FontFace || !document.fonts) return Promise.resolve();
+  if (ENV.loadFonts) return ENV.loadFonts(FONT_FILES, A.fontsOk);
+  if (!root.FontFace || !HAS_DOC || !document.fonts) return Promise.resolve();
   return Promise.all(FONT_FILES.map(function (f) {
     var ff = new root.FontFace(f[0], 'url(' + BASE + 'fonts/' + f[1] + ')', { weight: f[2], style: f[3] });
     return ff.load().then(function () { document.fonts.add(ff); A.fontsOk[f[1]] = true; }, function () { A.fontsOk[f[1]] = false; });
@@ -83,16 +101,21 @@ function load() {
   var jobs = [loadFonts()];
   Object.keys(imgs).forEach(function (k) { jobs.push(loadImage(BASE + imgs[k]).then(function (i) { A.img[k] = i; })); });
   Object.keys(LOGO_SRC).forEach(function (k) { jobs.push(loadImage(LOGO_SRC[k]).then(function (i) { A.logos[k] = i; })); });
-  PARTNERS.forEach(function (p) { jobs.push(loadImage(p.src).then(function (i) { A.logos[p.id] = i; })); });
-  A.ready = Promise.all(jobs).then(function () { probe(); return A; });
+  jobs.push(ENV.loadJSON(SITE + 'partners26/partners.json').then(function (j) {
+    setPartners(j);
+    return Promise.all(PARTNERS.map(function (p) { return loadImage(p.src).then(function (i) { A.logos[p.id] = i; }); }));
+  }));
+  A.ready = Promise.all(jobs).then(function () { detect(); probe(); return A; });
   return A.ready;
 }
 
 /* ---------- text ---------- */
 var HAS_LS = false;
-try { HAS_LS = 'letterSpacing' in document.createElement('canvas').getContext('2d'); } catch (e) {}
 var HAS_TR = false;              /* ctx.textRendering = 'optimizeLegibility' makes Blink shape across spaces like the DOM does (kerning "Y T") */
-try { HAS_TR = 'textRendering' in document.createElement('canvas').getContext('2d'); } catch (e) {}
+function detect() {
+  try { var c = ctx2d(); HAS_LS = 'letterSpacing' in c; HAS_TR = 'textRendering' in c; } catch (e) { HAS_LS = HAS_TR = false; }
+}
+if (HAS_DOC) detect();
 var NEED_KERN = false;           /* set by the probe in load(): true where the canvas still ignores kerning across a space */
 var forceNoLS = false;           /* QA hook: DMCFlyer._noLetterSpacing(true) exercises the glyph-by-glyph path used where ctx.letterSpacing is missing */
 var _mx = {};
@@ -158,7 +181,7 @@ var LOG = null;
    does not, drawText/measureW add the pair adjustment by hand (the table is in the level-word call). */
 function probe() {
   try {
-    var c = document.createElement('canvas').getContext('2d'); setup(c); c.font = '900 100px ' + FAM.D;
+    var c = ctx2d(); setup(c); c.font = '900 100px ' + FAM.D;
     var j = c.measureText('Y T').width, sum = c.measureText('Y').width + c.measureText(' ').width + c.measureText('T').width;
     NEED_KERN = Math.abs(j - sum) < 0.5 && A.fontsOk['archivo-d.woff2'] === true;
   } catch (e) { NEED_KERN = false; }
@@ -194,7 +217,7 @@ function contain(ctx, img, x, y, w, h, ax, ay) {
 }
 function tilePattern(ctx, img, ox, oy) {
   var p = ctx.createPattern(img, 'repeat');
-  if (p && p.setTransform && root.DOMMatrix) p.setTransform(new root.DOMMatrix().translate(ox, oy));
+  if (p && p.setTransform && ENV.DOMMatrix) p.setTransform(new ENV.DOMMatrix().translate(ox, oy));
   return p;
 }
 /* 135° clear-coat band + hairline streak in box-local coordinates; t = (x + y) / (W + H), as in CSS linear-gradient(135deg) */
@@ -206,7 +229,7 @@ function sheenGrad(ctx, ox, oy, W, H, bw, Hb, peak) {
 
 /* ---------- the hero element: planes g1 and g2, then the fade (g3 and g4 are dropped, PORT-SPEC D1) ---------- */
 function heroGeo(ctx, x, y, w, h) {
-  var P = function (pts) { var p = new Path2D(); pts.forEach(function (q, i) { var X = x + q[0] / 100 * w, Y = y + q[1] / 100 * h; if (i) p.lineTo(X, Y); else p.moveTo(X, Y); }); p.closePath(); return p; };
+  var P = function (pts) { var p = new ENV.Path2D(); pts.forEach(function (q, i) { var X = x + q[0] / 100 * w, Y = y + q[1] / 100 * h; if (i) p.lineTo(X, Y); else p.moveTo(X, Y); }); p.closePath(); return p; };
   ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
   ctx.globalAlpha = 0.85; ctx.fillStyle = TEAL; ctx.fill(P([[35, 0], [100, 0], [100, 55], [10, 0]]));
   ctx.globalAlpha = 0.80; ctx.fillStyle = CORAL; ctx.fill(P([[20, 0], [100, 40], [100, 75], [0, 95]]));
@@ -287,7 +310,7 @@ function normalize(ctx, S) {
 /* ---------- QR (qrcode-generator, ECC M); modules are snapped to whole pixels so there are no seams ---------- */
 function drawQR(ctx, url, x, y, size) {
   var q;
-  try { q = root.qrcode(0, 'M'); q.addData(url); q.make(); } catch (e) { return false; }
+  try { q = ENV.qrcode()(0, 'M'); q.addData(url); q.make(); } catch (e) { return false; }
   var n = q.getModuleCount();
   ctx.fillStyle = OB;
   for (var r = 0; r < n; r++) {
@@ -334,10 +357,12 @@ function band(ctx, f, N) {
   else drawText(ctx, 'M·A·N', mx, my, f.manH, { pin: 'D', size: 38, weight: 900, fill: CREAM, id: 'M·A·N' });
   drawText(ctx, 'IN PARTNERSHIP WITH', 64, f.tilesLabelY, 20, { pin: 'B', size: 20, weight: 700, track: 0.14, fill: SOFT, id: 'IN PARTNERSHIP WITH' });
   var on = PARTNERS.filter(function (p) { return p.enabled; }), n = on.length;
-  if (!n) return;
+  var info = { mojo: { x: 252, y: cy, w: 300, h: rh, colour: '#FFFFFF' }, tiles: on.map(function (p) { return p.id; }) };
+  if (!n) return info;
   var tw = Math.floor((952 - (n - 1) * 12) / n);
   on.forEach(function (p, i) {
     var x = 64 + i * (tw + 12), y = f.tileY, img = A.logos[p.id];
+    if (LOG) LOG.push({ id: 'tile:' + p.id, x: x, y: y, w: tw, h: f.tileH, limit: null, size: f.tileH, tile: true });
     fillRR(ctx, x, y, tw, f.tileH, 6, '#FFFFFF');
     if (img) {
       var px = p.pad[1], py = p.pad[0];
@@ -349,11 +374,46 @@ function band(ctx, f, N) {
       drawText(ctx, p.name, x + tw / 2, y, f.tileH, { pin: 'B', size: size, weight: 700, fill: OB, align: 'center', limit: tw - 16, id: 'tile:' + p.id });
     }
   });
+  return info;
+}
+
+/* One flat row for DMC Studio's square and landscape sizes: POWERED BY + the MojoPay tile (the largest logo), ORGANIZED BY + M·A·N,
+   IN PARTNERSHIP WITH + every enabled partner tile. o: { x, y, w, h, mojoW, labelSize }. Same tiles, labels and spelling as band(). */
+function bandRow(ctx, o) {
+  var x = o.x, y = o.y, w = o.w, h = o.h, ls = o.labelSize || 16, th = Math.round(h * 0.64), ty = y + Math.round((h - th) / 2);
+  var lbl = function (t, lx, top, rowH) { return drawText(ctx, t, lx, top + (rowH - ls) / 2, ls, { pin: 'B', size: ls, weight: 700, track: 0.14, fill: SOFT, id: t }); };
+  ctx.fillStyle = OB; ctx.fillRect(x, y, w, h);
+  var cx = x + (o.padX || 40);
+  cx += lbl('POWERED BY', cx, y, h) + Math.round(ls * 0.9);
+  var mw = o.mojoW, mh = Math.round(mw / 3.4), my = y + Math.round((h - mh) / 2);
+  fillRR(ctx, cx, my, mw, mh, 6, '#FFFFFF');
+  if (A.logos.mojopay) contain(ctx, A.logos.mojopay, cx + mw * 0.1, my + mh * 0.22, mw * 0.8, mh * 0.56);
+  var mojo = { x: cx, y: my, w: mw, h: mh, colour: '#FFFFFF' };
+  cx += mw + Math.round(ls * 1.6);
+  cx += lbl('ORGANIZED BY', cx, y, h) + Math.round(ls * 0.9);
+  var manH = Math.round(th * 0.9), manW = Math.round(manH * 3.07);
+  if (A.logos.man) contain(ctx, A.logos.man, cx, y + (h - manH) / 2, manW, manH, 0, 0.5);
+  cx += manW + Math.round(ls * 1.6);
+  cx += lbl('IN PARTNERSHIP WITH', cx, y, h) + Math.round(ls * 0.9);
+  var on = PARTNERS.filter(function (p) { return p.enabled; }), n = on.length, right = x + w - (o.padX || 40), gap = Math.max(6, Math.round(ls * 0.5));
+  var tw = n ? Math.floor((right - cx - (n - 1) * gap) / n) : 0;
+  on.forEach(function (p, i) {
+    var tx = cx + i * (tw + gap), img = A.logos[p.id];
+    fillRR(ctx, tx, ty, tw, th, 5, '#FFFFFF');
+    var k = th / 58, px = Math.min(p.pad[1] * k, tw * 0.1), py = p.pad[0] * k;
+    if (img) contain(ctx, img, tx + px, ty + py, tw - 2 * px, th - 2 * py);
+    else drawText(ctx, p.name, tx + tw / 2, ty, th, { pin: 'B', size: Math.round(th * 0.3), weight: 700, fill: OB, align: 'center', limit: tw - 8, id: 'tile:' + p.id });
+    if (LOG) LOG.push({ id: 'tile:' + p.id, x: tx, y: ty, w: tw, h: th, limit: null, size: th, tile: true });
+  });
+  return { mojo: mojo, tiles: on.map(function (p) { return p.id; }), tileW: tw };
 }
 
 /* ---------- the Badge ---------- */
-function drawBadge(ctx, N) {
-  var st = N.story, G = N.G, lv = N.lv, W = 1080;
+/* Split so DMC Studio can reuse the object: badgeLayout (geometry), badgeLeft (pill, eyebrow, headline, tiles, QR), badgeObject (strap,
+   card, photo block, hardware, nameplate) and the band. The 4:5 and 9:16 flyers draw exactly what they drew before (the strap is
+   painted after the left column now; the two never overlap). */
+function badgeLayout(ctx, N) {
+  var st = N.story, W = 1080;
   var F = st ? {
     H: 1920, planes: [540, 0, 540, 1356], strap: { x: 672, h: 200, sL: 679, sR: 807, sH: 192, crimpY: 128 },
     pill: { y: 250, h: 56, padX: 24, gap: 12, size: 28 }, eyeY: 334, headY: 420, headSize: 86, tagY: 672, iamY: 812, wordY: 842, wordSize: 52,
@@ -381,22 +441,26 @@ function drawBadge(ctx, N) {
   var bx = F.blockX, bw = F.blockW;
   var pop = !!N.cutout;
 
+  return { F: F, C: C, S: S, f: f, roleW: roleW, nameH: nameH, plateH: plateH, Hb: Hb, blockY: blockY, plateY: plateY, bx: bx, bw: bw, pop: pop, W: W, st: st };
+}
+function drawBadge(ctx, N) {
+  var K = badgeLayout(ctx, N), F = K.F, W = K.W, st = N.story;
   /* ground, planes, fade */
   ctx.fillStyle = INK; ctx.fillRect(0, 0, W, F.H);
   heroGeo(ctx, F.planes[0], F.planes[1], F.planes[2], F.planes[3]);
 
-  /* strap + shading [E] + crimp sheen [S] + stitches */
-  if (A.img.strap) { ctx.fillStyle = tilePattern(ctx, A.img.strap, S.x, 0); ctx.fillRect(S.x, 0, 144, S.h); }
-  ctx.save(); ctx.globalAlpha = G.edge; ctx.beginPath(); ctx.rect(S.x, 0, 144, S.h); ctx.clip();
-  var sg = ctx.createLinearGradient(S.x, 0, S.x + 144, 0);
-  sg.addColorStop(0, black(0.42)); sg.addColorStop(0.22, black(0)); sg.addColorStop(0.42, white(0.12)); sg.addColorStop(0.60, white(0)); sg.addColorStop(0.76, black(0)); sg.addColorStop(1, black(0.46));
-  ctx.fillStyle = sg; ctx.fillRect(S.x, 0, 144, S.h); ctx.restore();
-  ctx.save(); ctx.globalAlpha = G.sheen; var cg = ctx.createLinearGradient(0, S.crimpY, 0, S.crimpY + 72);
-  cg.addColorStop(0, white(0)); cg.addColorStop(1, white(0.18)); ctx.fillStyle = cg; ctx.fillRect(S.x, S.crimpY, 144, 72); ctx.restore();
-  ctx.save(); ctx.strokeStyle = CREAM; ctx.lineWidth = 2; ctx.globalAlpha = 0.55; ctx.setLineDash([6, 4]);
-  [S.sL, S.sR].forEach(function (sx) { ctx.beginPath(); ctx.moveTo(sx + 1, 0); ctx.lineTo(sx + 1, S.sH); ctx.stroke(); });
-  ctx.restore();
-
+  badgeStrap(ctx, N, K);
+  badgeLeft(ctx, N, F);
+  badgeCard(ctx, N, K);
+  var bandInfo = band(ctx, F.band, N);
+  if (st) {
+    drawText(ctx, '#DMC2026 · #BuiltToScale', 64, 1604, 28, { pin: 'B', size: 28, weight: 600, fill: SOFT, id: 'hashtags' });
+    if (A.img.field) { ctx.save(); ctx.beginPath(); ctx.rect(0, 1660, 1080, 260); ctx.clip(); ctx.globalAlpha = 0.6; ctx.fillStyle = tilePattern(ctx, A.img.field, 0, 1440); ctx.fillRect(0, 1660, 1080, 260); ctx.restore(); }
+  }
+  return { plateH: K.plateH, Hb: K.Hb, name: K.f, band: bandInfo };
+}
+function badgeLeft(ctx, N, F) {
+  var st = N.story, lv = N.lv;
   /* left column */
   pill(ctx, 64, F.pill.y, F.pill.h, F.pill.padX, F.pill.gap, F.pill.size);
   var eo = { pin: 'B', size: 20, weight: 700, track: 0.28, fill: 'rgba(244,239,230,.6)' };
@@ -408,8 +472,11 @@ function drawBadge(ctx, N) {
     ctx.save(); tl.forEach(function (ln, i) { drawText(ctx, ln, 64, F.tagY + i * 34, 34, { pin: 'BI', size: 26, weight: 500, fill: 'rgba(244,239,230,.72)', id: 'tagline' + i, limit: 376 }); }); ctx.restore();
   }
   var lw = st ? 376 : 320;
-  drawText(ctx, 'I’M BUILDING', 64, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam' });
-  drawText(ctx, lv.word, 64, F.wordY, F.wordSize, { pin: 'D', size: F.wordSize, weight: 900, fill: lv.text, id: 'levelword', limit: lw, kern: { 'Y ': -0.11 } });
+  if (N.left) leftTitle(ctx, N.left, 64, F, lw, lv);
+  else {
+    drawText(ctx, 'I’M BUILDING', 64, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam' });
+    drawText(ctx, lv.word, 64, F.wordY, F.wordSize, { pin: 'D', size: F.wordSize, weight: 900, fill: lv.text, id: 'levelword', limit: lw, kern: { 'Y ': -0.11 } });
+  }
   [['DATE', 'Sat 21 November 2026'], ['TIME', '10AM – 3PM'], ['VENUE', 'British Council']].forEach(function (t, i) {
     var y = F.tileY[i];
     ctx.fillStyle = 'rgba(255,255,255,.05)'; ctx.fillRect(64, y, F.tileW, 68);
@@ -423,6 +490,34 @@ function drawBadge(ctx, N) {
   drawText(ctx, N.qrLabel, F.urlX, F.urlY, 22, { pin: 'B', size: 22, weight: 600, fill: CREAM, id: 'url', limit: st ? 840 : 220 });
   if (!st) ['#DMC2026', '#BuiltToScale'].forEach(function (t, i) { drawText(ctx, t, 64, 980 + i * 28, 28, { pin: 'B', size: 22, weight: 600, fill: SOFT, id: 'tag' + i }); });
 
+}
+/* a session kicker and title where the flyer says I'M BUILDING + the level word (Studio's Speaker / panelist) */
+function leftTitle(ctx, L, x, F, lw, lv) {
+  drawText(ctx, L.kicker, x, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam', limit: lw });
+  var room = (F.tileY[0] - 14) - (F.wordY - 6), size = 38, lines;
+  for (; size >= 24; size -= 2) { lines = wrap(ctx, L.title, lw, 2, size, 800); if (lines.length * size * 1.08 <= room && lines.every(function (t) { return measureW(ctx, t, 'B', size, 800, 0) <= lw; })) break; }
+  if (size < 24) { size = 24; lines = wrap(ctx, L.title, lw, 2, size, 800); }
+  lines.forEach(function (t, i) { drawText(ctx, t, x, F.wordY - 6 + i * size * 1.08, size * 1.08, { pin: 'B', size: size, weight: 800, fill: '#F4EFE6', id: 'lefttitle' + i, limit: lw }); });
+}
+function badgeObject(ctx, N, K) { badgeStrap(ctx, N, K); badgeCard(ctx, N, K); }
+function badgeStrap(ctx, N, K) {
+  var G = N.G, S = K.S;
+  /* strap + shading [E] + crimp sheen [S] + stitches */
+  if (A.img.strap) { ctx.fillStyle = tilePattern(ctx, A.img.strap, S.x, 0); ctx.fillRect(S.x, 0, 144, S.h); }
+  ctx.save(); ctx.globalAlpha = G.edge; ctx.beginPath(); ctx.rect(S.x, 0, 144, S.h); ctx.clip();
+  var sg = ctx.createLinearGradient(S.x, 0, S.x + 144, 0);
+  sg.addColorStop(0, black(0.42)); sg.addColorStop(0.22, black(0)); sg.addColorStop(0.42, white(0.12)); sg.addColorStop(0.60, white(0)); sg.addColorStop(0.76, black(0)); sg.addColorStop(1, black(0.46));
+  ctx.fillStyle = sg; ctx.fillRect(S.x, 0, 144, S.h); ctx.restore();
+  ctx.save(); ctx.globalAlpha = G.sheen; var cg = ctx.createLinearGradient(0, S.crimpY, 0, S.crimpY + 72);
+  cg.addColorStop(0, white(0)); cg.addColorStop(1, white(0.18)); ctx.fillStyle = cg; ctx.fillRect(S.x, S.crimpY, 144, 72); ctx.restore();
+  ctx.save(); ctx.strokeStyle = CREAM; ctx.lineWidth = 2; ctx.globalAlpha = 0.55; ctx.setLineDash([6, 4]);
+  [S.sL, S.sR].forEach(function (sx) { ctx.beginPath(); ctx.moveTo(sx + 1, 0); ctx.lineTo(sx + 1, S.sH); ctx.stroke(); });
+  ctx.restore();
+
+}
+function badgeCard(ctx, N, K) {
+  var st = N.story, G = N.G, lv = N.lv, F = K.F, C = K.C, f = K.f, roleW = K.roleW, nameH = K.nameH, plateH = K.plateH,
+      Hb = K.Hb, blockY = K.blockY, plateY = K.plateY, bx = K.bx, bw = K.bw, pop = K.pop;
   /* card cast shadow [H], card, cream sheen [S] */
   ctx.save(); ctx.globalAlpha = G.shadow;
   ctx.shadowColor = black(0.58); ctx.shadowBlur = 56; ctx.shadowOffsetY = 32; fillRR(ctx, C.x, C.y, C.w, C.h, 28, CREAM);
@@ -496,14 +591,7 @@ function drawBadge(ctx, N) {
     drawText(ctx, N.session, px + 14, sy, sh, { pin: 'B', size: ssz, weight: 600, fill: OB, id: 'session', limit: F.plate.w - 14 });
   }
 
-  band(ctx, F.band, N);
-  if (st) {
-    drawText(ctx, '#DMC2026 · #BuiltToScale', 64, 1604, 28, { pin: 'B', size: 28, weight: 600, fill: SOFT, id: 'hashtags' });
-    if (A.img.field) { ctx.save(); ctx.beginPath(); ctx.rect(0, 1660, 1080, 260); ctx.clip(); ctx.globalAlpha = 0.6; ctx.fillStyle = tilePattern(ctx, A.img.field, 0, 1440); ctx.fillRect(0, 1660, 1080, 260); ctx.restore(); }
-  }
-  return { plateH: plateH, Hb: Hb, name: f };
 }
-
 
 /* ---------- the Brief ---------- */
 function rot(ctx, cx, cy, deg, fn) { ctx.save(); ctx.translate(cx, cy); ctx.rotate(deg * Math.PI / 180); ctx.translate(-cx, -cy); fn(); ctx.restore(); }
@@ -713,13 +801,48 @@ function renderFlyer(ctx, state, opts) {
   return { log: log, info: info, state: N };
 }
 
+/* ---------- server: DMC Studio runs this same file under Node with @napi-rs/canvas (Skia) ---------- */
+function useNode(napi, opts) {
+  var fs = require('fs'), path = require('path'), ROOT = opts.root;
+  var local = function (url) {
+    var rel = String(url).replace(/^https?:\/\/[^/]+/, '').replace(/^\/+/, '').split('?')[0];
+    var full = path.resolve(ROOT, rel);
+    return full.indexOf(path.resolve(ROOT, 'assets')) === 0 ? full : null;
+  };
+  ENV.makeCanvas = function (w, h) { return napi.createCanvas(w, h); };
+  ENV.Path2D = napi.Path2D; ENV.DOMMatrix = napi.DOMMatrix;
+  var qr = require('qrcode-generator'); ENV.qrcode = function () { return qr; };
+  ENV.loadImage = function (url) {
+    var f = local(url);
+    if (!f || !fs.existsSync(f)) return Promise.resolve(null);
+    return napi.loadImage(fs.readFileSync(f)).catch(function () { return null; });
+  };
+  ENV.loadJSON = function (url) {
+    var f = local(url);
+    try { return Promise.resolve(f ? JSON.parse(fs.readFileSync(f, 'utf8')) : null); } catch (e) { return Promise.resolve(null); }
+  };
+  ENV.loadFonts = function (files, ok) {
+    files.forEach(function (f) {
+      var fp = path.join(ROOT, 'assets', 'flyer', 'fonts', f[1]);
+      try { ok[f[1]] = !!napi.GlobalFonts.registerFromPath(fp, f[0]); } catch (e) { ok[f[1]] = false; }
+    });
+    return Promise.resolve();
+  };
+  A.ready = null; _mx = {};
+  detect();
+  return root.DMCFlyer;
+}
+
 root.DMCFlyer = {
   TICKET_PRICE: TICKET_PRICE, DEFAULT_QR: DEFAULT_QR, GLOSS: GLOSS, LEVELS: LEVELS, CHIPS: CHIPS, PARTNERS: PARTNERS,
-  load: load, renderFlyer: renderFlyer, decodePhoto: decodePhoto, assets: A,
+  load: load, renderFlyer: renderFlyer, decodePhoto: decodePhoto, assets: A, useNode: useNode, normalize: function (S) { return normalize(null, S); },
   _noLetterSpacing: function (v) { forceNoLS = !!v; _mx = {}; },
   _internal: { drawText: drawText, measureW: measureW, fitName: fitName, fitLine: fitLine, wrap: wrap, normalize: normalize, rrPath: rrPath, fillRR: fillRR, cover: cover, contain: contain,
                tilePattern: tilePattern, sheenGrad: sheenGrad, heroGeo: heroGeo, foil: foil, pill: pill, chipTag: chipTag, band: band, drawQR: drawQR, headline: headline,
+               bandRow: bandRow, badgeLayout: badgeLayout, badgeLeft: badgeLeft, badgeObject: badgeObject, badgeStrap: badgeStrap, badgeCard: badgeCard, drawBadge: drawBadge, drawBrief: drawBrief,
+               strokeRR: strokeRR, rot: rot, topLeftArc: topLeftArc, grad135: grad135, vmetrics: vmetrics, setLog: function (v) { LOG = v; },
                C: { CREAM: CREAM, INK: INK, OB: OB, GOLD: GOLD, TEAL: TEAL, CORAL: CORAL, SOFT: SOFT, MUTE: MUTE, DARK2: DARK2 },
                white: white, black: black, logBox: function () { return LOG; } }
 };
-})(typeof window !== 'undefined' ? window : this);
+if (typeof module === 'object' && module.exports) module.exports = root.DMCFlyer;
+})(typeof window !== 'undefined' ? window : {});
