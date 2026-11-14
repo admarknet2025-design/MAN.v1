@@ -32,9 +32,9 @@ const EVENT_END = Math.floor(Date.UTC(2026, 10, 21, 23, 59, 59) / 1000);
 const KEEP = EVENT_END + 30 * 86400;        /* device ids and everything else */
 const KEEP_WALL = EVENT_END + 90 * 86400;   /* Build Wall entries (opt-in contacts for the What I Built cards) */
 
-/* ---- brand: the movements and their fixed accent colours (gold is only a small accent: kente strips, rings, tag chips) ---- */
+/* ---- brand: the levels and their fixed accent colours (gold is only a small accent: kente strips, rings, tag chips) ---- */
 const COLOURS = { ob: '#1C1C1C', cr: '#F4EFE6', te: '#2A7B74', co: '#D95F45' };
-const MOVEMENTS = {
+const LEVELS = {
   'Build Yourself': { cloud: 'yourself', accent: COLOURS.te, ink: '#FFFFFF' },
   'Build Your Team': { cloud: 'team', accent: COLOURS.co, ink: COLOURS.ob },
   'Build Your Work': { cloud: 'work', accent: COLOURS.cr, ink: COLOURS.ob }
@@ -128,7 +128,7 @@ function sessionList(sess) {
 }
 function sessionView(s, handles) {
   if (!s) return null;
-  const m = MOVEMENTS[s.movement] || { accent: COLOURS.te, ink: '#FFFFFF' };
+  const m = LEVELS[s.movement] || { accent: COLOURS.te, ink: '#FFFFFF' };
   return { id: s.id, start: s.start || '', end: s.end || '', title: s.title, format: s.format, movement: s.movement || '', accent: m.accent, ink: m.ink,
     speakers: (s.people || []).map((slug) => personView(slug, handles)).filter(Boolean), note: s.note || '' };
 }
@@ -316,6 +316,6 @@ async function screenState() {
   });
 }
 
-module.exports = { P, K, KEEP, KEEP_WALL, EVENT_END, COLOURS, MOVEMENTS, CLOUDS, FORMATS, LIMITS, DATA, PEOPLE, run, toObj, jp, now, clean, hashDevice, validDevice, rateOk, bump, bumpCfg, readCfgCached,
+module.exports = { P, K, KEEP, KEEP_WALL, EVENT_END, COLOURS, LEVELS, CLOUDS, FORMATS, LIMITS, DATA, PEOPLE, run, toObj, jp, now, clean, hashDevice, validDevice, rateOk, bump, bumpCfg, readCfgCached,
   blocklist, hits, isClean, squash, tokens, normaliseWord, display, personView, sessionList, sessionView, baseSessions, readCfg, cfgSet, questionList, pubQuestion,
   pollView, swingView, officialQuotes, publicState, screenState, sessionsState, store };

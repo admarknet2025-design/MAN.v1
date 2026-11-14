@@ -20,7 +20,7 @@ var TEAM_CAPTION = {
 };
 var LEVELS = [['yourself', 'Myself', '#2A7B74'], ['team', 'My Team', '#C9A24A'], ['work', 'My Work', '#D95F45']];
 var ROLES = [['speaking', 'Speaking'], ['volunteering', 'Volunteering'], ['partner', 'Partner'], ['attending', 'Attending']];
-var MOVEMENT_LEVEL = { 'Build Yourself': 'yourself', 'Build Your Team': 'team', 'Build Your Work': 'work' };
+var LEVEL_KEY = { 'Build Yourself': 'yourself', 'Build Your Team': 'team', 'Build Your Work': 'work' };
 
 function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function track(name, params) { if (root.gtag) root.gtag('event', name, params || {}); }
@@ -142,8 +142,8 @@ function mount(el, opts) {
   if (ros) ros.addEventListener('change', function () {
     var p = roster[+ros.value]; if (!p) return;
     S.name = p.name; S.role = [p.title, p.company].filter(Boolean).join(', ');
-    S.participantRole = 'speaking'; S.level = MOVEMENT_LEVEL[p.movement] || S.level;
-    S.sessionLine = [String(p.session || '').replace(/^Build [^:]+: /, ''), p.sessionTime].filter(Boolean).join(' · ').slice(0, 40);   /* the movement is already the level */
+    S.participantRole = 'speaking'; S.level = LEVEL_KEY[p.movement] || S.level;
+    S.sessionLine = [String(p.session || '').replace(/^Build [^:]+: /, ''), p.sessionTime].filter(Boolean).join(' · ').slice(0, 40);   /* the level chip already names it */
     setField('fl-name', S.name); setField('fl-role', S.role); setField('fl-session', S.sessionLine);
     el.querySelector('input[name=fl-prole][value=speaking]').checked = true;
     el.querySelector('input[name=fl-lvl][value=' + S.level + ']').checked = true;

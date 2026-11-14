@@ -10,14 +10,14 @@ artwork in every platform size, a caption per platform, and one tracked short li
 ## Templates
 | Template | Inputs | Accent |
 |---|---|---|
-| Speaker / panelist | Pick from the site's speaker list or the M·A·N team (name, title, company, photo, session and time fill in) or type; role (Speaker, Panelist, Host, Moderator, Emcee); movement | Movement colour (session bar) |
+| Speaker / panelist | Pick from the site's speaker list or the M·A·N team (name, title, company, photo, session and time fill in) or type; role (Speaker, Panelist, Host, Moderator, Emcee); level | Level colour (session bar) |
 | I'm attending | Name, title, company, photo, optional "I'm building…" line; the M·A·N team can be picked | Teal |
 | Sponsor / partner | One of the eight partners on the site, or a custom name with an uploaded logo. Name, logo, tier, role only; no quotes or claims | Teal |
-| Quote card | Quote (260 characters), speaker name, title, company, photo | Movement colour |
+| Quote card | Quote (260 characters), speaker name, title, company, photo | Level colour |
 | Countdown | Nothing. "X days to go" is worked out each time an image is rendered (Accra date, event day 21 Nov 2026) | Coral |
-| Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Movement colour |
+| Session card | A row of the programme (or custom): title, time, speakers (their site photos appear as a row of faces) | Level colour |
 
-Movement colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
+Level colours: Build Yourself = Teal, Build Your Team = Coral, Build Your Work = Cream. Anything else is Teal. They colour the session bar, session chip and quote rule; the tag chips are gold.
 
 All templates share one frame (header with the website's "BUILT TO SCALE" title block and the Powered by MojoPay lockup beside it, kente divider, date/venue/site footer, partner band with "Organised by" M·A·N, corner triangles) in `lib/studio/render.js`, so they look like a set. The M·A·N logo is not in the header.
 

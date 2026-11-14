@@ -1,7 +1,7 @@
 /* Render tests for the DMC Live quote cards, in a real browser (Playwright + Chromium; nothing else needed, no server).
      node tools/live-cards-check.js [outdir]
    Draws every combination that matters: the shortest and longest text of each type, long names, a missing photo, Twi letters, an emoji,
-   each movement colour, three layouts, both sizes. Fails if any text had to be cut, if gold covers more than 3% of a card (it is an accent only), or if a card is blank.
+   each level colour, three layouts, both sizes. Fails if any text had to be cut, if gold covers more than 3% of a card (it is an accent only), or if a card is blank.
    Writes the cards and a contact sheet (contact-sheet-4x5.png, contact-sheet-9x16.png) to outdir (default: ./live-cards-out). */
 'use strict';
 const fs = require('fs');

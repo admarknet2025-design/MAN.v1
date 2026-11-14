@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Checks the contracted sponsor credit (Powered by MojoPay, and the line "Tickets exclusively on MojoLife") on every DMC 2026 generated asset.
      node tools/sponsor-check.js [outdir] [--strict]
-   Renders every DMC Studio template at every size, the Live quote cards (every layout, both sizes, each movement colour), the public flyer,
+   Renders every DMC Studio template at every size, the Live quote cards (every layout, both sizes, each level colour), the public flyer,
    the link-preview images and the projector page (every view it can be put in), and fails if any of them is missing either lockup,
    draws the MojoPay tile under the contract minimum (assets/sponsor/config.js), draws the ticket line too small, draws any MojoLife logo, or draws a tile
    that does not look like the official one in the pixels (cream tile, the blue wordmark). Writes contact sheets to outdir (default ./sponsor-out).

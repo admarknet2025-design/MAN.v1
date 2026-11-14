@@ -48,7 +48,7 @@ async function controlHeavy(ver, fresh) {
     v: cfg.ver, rehearsal: cfg.rehearsal,
     session: cfg.session, now: live.sessionView(cur, handles), activity: cfg.activity, screen: cfg.screen, prompts: cfg.prompts, takeover: cfg.takeover,
     sessions: list.map((s) => Object.assign(live.sessionView(s, handles), { custom: !!s.custom, hidden: !!s.hidden, badge: s.badge })),
-    clouds: Object.values(CLOUDS), formats: live.FORMATS, movements: Object.keys(live.MOVEMENTS),
+    clouds: Object.values(CLOUDS), formats: live.FORMATS, levels: Object.keys(live.LEVELS),
     people: live.DATA.people.map((p) => ({ slug: p.slug, name: p.name, title: p.title, company: p.company, sponsor: p.sponsor || '', photo: p.photo ? '/assets/speakers/' + p.photo : '', handle: handles[p.slug] || '' })),
     polls: pollsOut,
     questions: questions.map((q) => ({ id: q.id, s: q.s, text: q.text, name: q.name, status: q.status, pinned: !!q.pinned, answered: !!q.answered, flagged: !!q.flagged, votes: q.votes, ts: q.ts })),
@@ -152,7 +152,7 @@ const OPS = {
     const [seq] = await run([['INCR', K('cseq')]]);
     const id = 'c' + seq;
     const list = live.sessionList(sess);
-    const entry = { id, title, format: live.FORMATS.indexOf(b.format) >= 0 ? b.format : 'Other', movement: live.MOVEMENTS[b.movement] ? b.movement : '', start: clean(b.start, 8), end: clean(b.end, 8),
+    const entry = { id, title, format: live.FORMATS.indexOf(b.format) >= 0 ? b.format : 'Other', movement: live.LEVELS[b.movement] ? b.movement : '', start: clean(b.start, 8), end: clean(b.end, 8),
       people: (Array.isArray(b.people) ? b.people : []).filter((s) => live.PEOPLE.has(s)), note: clean(b.note, 120) };
     sess.add = (sess.add || []).concat(entry);
     const order = list.map((s) => s.id);
@@ -169,7 +169,7 @@ const OPS = {
     const patch = {};
     if (b.title !== undefined) patch.title = clean(b.title, 90);
     if (b.format !== undefined && live.FORMATS.indexOf(b.format) >= 0) patch.format = b.format;
-    if (b.movement !== undefined) patch.movement = live.MOVEMENTS[b.movement] ? b.movement : '';
+    if (b.movement !== undefined) patch.movement = live.LEVELS[b.movement] ? b.movement : '';
     if (b.people !== undefined) patch.people = (Array.isArray(b.people) ? b.people : []).filter((s) => live.PEOPLE.has(s));
     if (b.hidden !== undefined) patch.hidden = !!b.hidden;
     sess.over = Object.assign({}, sess.over, { [b.id]: Object.assign({}, (sess.over || {})[b.id], patch) });
