@@ -16,6 +16,28 @@
  ],
  "people": [
   {
+   "slug": "russel-eni",
+   "name": "Russel Eni",
+   "title": "Founder & CEO",
+   "company": "Insel Communications",
+   "photo": "russel-eni.webp",
+   "session": "Keynote",
+   "movement": "",
+   "sessionTime": "10:10–10:25",
+   "sponsor": ""
+  },
+  {
+   "slug": "deborah-yomle",
+   "name": "Deborah Yomle",
+   "title": "Storytelling & Creative Strategist",
+   "company": "",
+   "photo": "deborah-yomle.webp",
+   "session": "Welcome & Opening Remarks",
+   "movement": "",
+   "sessionTime": "10:00–10:10",
+   "sponsor": ""
+  },
+  {
    "slug": "isaac-newton-acquah",
    "name": "Isaac Newton Acquah",
    "title": "Co-Founder",
@@ -23,7 +45,7 @@
    "photo": "isaac-newton-acquah.webp",
    "session": "Build Yourself: Presentation",
    "movement": "Build Yourself",
-   "sessionTime": "10:35–10:45",
+   "sessionTime": "10:25–10:35",
    "sponsor": ""
   },
   {
@@ -34,7 +56,7 @@
    "photo": "alex-offei-lartey.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15",
+   "sessionTime": "10:35–11:05",
    "sponsor": ""
   },
   {
@@ -45,7 +67,7 @@
    "photo": "ronald-tagoe.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15",
+   "sessionTime": "10:35–11:05",
    "sponsor": "mNotify"
   },
   {
@@ -56,8 +78,19 @@
    "photo": "emelia-dede-quist.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
-   "sessionTime": "10:45–11:15",
+   "sessionTime": "10:35–11:05",
    "sponsor": "Generation Ghana"
+  },
+  {
+   "slug": "enoch-w-kabange",
+   "name": "Enoch W. Kabange",
+   "title": "CRM & Digital Marketing Lead",
+   "company": "Points Africa",
+   "photo": "enoch-w-kabange.webp",
+   "session": "Build Yourself: Panel Discussion",
+   "movement": "Build Yourself",
+   "sessionTime": "10:35–11:05",
+   "sponsor": ""
   },
   {
    "slug": "kwaku-ofosuhene",
@@ -67,7 +100,7 @@
    "photo": "kwaku-asare-ofosuhene.webp",
    "session": "Build Your Team: Presentation",
    "movement": "Build Your Team",
-   "sessionTime": "11:30–11:40",
+   "sessionTime": "11:15–11:25",
    "sponsor": "MojoPay"
   },
   {
@@ -78,18 +111,18 @@
    "photo": "richard-sena-quashie.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10",
+   "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
   {
-   "slug": "simon-alangdee",
-   "name": "Simon Alangdee",
+   "slug": "simon-alangde",
+   "name": "Simon Alangde",
    "title": "Wineloya Digital",
    "company": "",
-   "photo": "",
+   "photo": "simon-alangde.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10",
+   "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
   {
@@ -100,7 +133,7 @@
    "photo": "florentia-teye.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10",
+   "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
   {
@@ -111,7 +144,7 @@
    "photo": "alice-mensah.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
-   "sessionTime": "11:40–12:10",
+   "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
   {
@@ -122,7 +155,7 @@
    "photo": "yvonne-dumor.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05",
+   "sessionTime": "12:20–12:50",
    "sponsor": ""
   },
   {
@@ -133,7 +166,7 @@
    "photo": "elikplim-yaa-ayegbe.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05",
+   "sessionTime": "12:20–12:50",
    "sponsor": "Jobberman"
   },
   {
@@ -144,18 +177,29 @@
    "photo": "carrington-amuh.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05",
+   "sessionTime": "12:20–12:50",
    "sponsor": "FIDO"
   },
   {
    "slug": "enoch-appiah-jr",
    "name": "Enoch \"RobotBoy\" Appiah Jr.",
    "title": "Host",
-   "company": "COSM Podcast",
+   "company": "Colours of Social Media Podcast",
    "photo": "enoch-appiah-jr.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
-   "sessionTime": "12:35–13:05",
+   "sessionTime": "12:20–12:50",
+   "sponsor": ""
+  },
+  {
+   "slug": "naomi-boakyewaa-kokuro",
+   "name": "Naomi Boakyewaa Kokuro",
+   "title": "Marketing Lead",
+   "company": "M·A·N",
+   "photo": "maame.webp",
+   "session": "Ice Breaker: Pitch Yourself in 60 Seconds",
+   "movement": "",
+   "sessionTime": "13:10–13:20",
    "sponsor": ""
   },
   {
@@ -166,7 +210,40 @@
    "photo": "samuel-kwabena-ansong.webp",
    "session": "Pitching Yourself: Masterclass",
    "movement": "",
-   "sessionTime": "14:00–14:10",
+   "sessionTime": "13:20–13:35",
+   "sponsor": ""
+  },
+  {
+   "slug": "venus-tawiah",
+   "name": "Venus Tawiah",
+   "title": "CEO",
+   "company": "The Missing Link",
+   "photo": "venus-tawiah-2026.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
+   "sponsor": ""
+  },
+  {
+   "slug": "priscilla-osei-wusu",
+   "name": "Priscilla Osei-Wusu",
+   "title": "Marketing Communications Professional",
+   "company": "Petra Fund Services",
+   "photo": "priscilla-osei-wusu.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
+   "sponsor": ""
+  },
+  {
+   "slug": "amma-odamea-amoako",
+   "name": "Amma Odamea Amoako",
+   "title": "Digital Account Manager",
+   "company": "",
+   "photo": "amma-odamea-amoako.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
    "sponsor": ""
   }
  ],
@@ -217,30 +294,45 @@
  "sessions": [
   {
    "id": "s01",
-   "start": "10:00",
-   "end": "10:15",
-   "title": "Welcome & Opening Remarks",
-   "badge": "Welcome",
-   "speakers": "Emcee",
+   "start": "09:00",
+   "end": "10:00",
+   "title": "Registration & Tag Pick-up",
+   "badge": "Registration",
+   "speakers": "M·A·N team",
    "movement": "",
-   "format": "Welcome",
+   "format": "Registration",
    "people": []
   },
   {
    "id": "s02",
-   "start": "10:15",
-   "end": "10:35",
-   "title": "Build Yourself: Keynote",
-   "badge": "Keynote",
-   "speakers": "Keynote speaker (TBC)",
-   "movement": "Build Yourself",
-   "format": "Keynote",
-   "people": []
+   "start": "10:00",
+   "end": "10:10",
+   "title": "Welcome & Opening Remarks",
+   "badge": "Welcome",
+   "speakers": "Deborah Yomle (Emcee)",
+   "movement": "",
+   "format": "Welcome",
+   "people": [
+    "deborah-yomle"
+   ]
   },
   {
    "id": "s03",
-   "start": "10:35",
-   "end": "10:45",
+   "start": "10:10",
+   "end": "10:25",
+   "title": "Keynote",
+   "badge": "Keynote",
+   "speakers": "Russel Eni",
+   "movement": "",
+   "format": "Keynote",
+   "people": [
+    "russel-eni"
+   ]
+  },
+  {
+   "id": "s04",
+   "start": "10:25",
+   "end": "10:35",
    "title": "Build Yourself: Presentation",
    "badge": "Presentation",
    "speakers": "Isaac Newton Acquah",
@@ -251,24 +343,25 @@
    ]
   },
   {
-   "id": "s04",
-   "start": "10:45",
-   "end": "11:15",
+   "id": "s05",
+   "start": "10:35",
+   "end": "11:05",
    "title": "Build Yourself: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist",
+   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist — moderated by Enoch W. Kabange",
    "movement": "Build Yourself",
    "format": "Discussion",
    "people": [
     "alex-offei-lartey",
     "ronald-tagoe",
-    "emelia-dede-quist"
+    "emelia-dede-quist",
+    "enoch-w-kabange"
    ]
   },
   {
-   "id": "s05",
-   "start": "11:15",
-   "end": "11:30",
+   "id": "s06",
+   "start": "11:05",
+   "end": "11:15",
    "title": "Morning Network Break",
    "badge": "Break",
    "speakers": "",
@@ -277,9 +370,9 @@
    "people": []
   },
   {
-   "id": "s06",
-   "start": "11:30",
-   "end": "11:40",
+   "id": "s07",
+   "start": "11:15",
+   "end": "11:25",
    "title": "Build Your Team: Presentation",
    "badge": "Presentation",
    "speakers": "Kwaku Ofosuhene · MojoPay",
@@ -290,25 +383,25 @@
    ]
   },
   {
-   "id": "s07",
-   "start": "11:40",
-   "end": "12:10",
+   "id": "s08",
+   "start": "11:25",
+   "end": "11:55",
    "title": "Build Your Team: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye — hosted by Alice Mensah",
+   "speakers": "Richard Sena Quashie · Simon Alangde · Florentia Teye — moderated by Alice Mensah",
    "movement": "Build Your Team",
    "format": "Discussion",
    "people": [
     "richard-sena-quashie",
-    "simon-alangdee",
+    "simon-alangde",
     "florentia-teye",
     "alice-mensah"
    ]
   },
   {
-   "id": "s08",
-   "start": "12:10",
-   "end": "12:20",
+   "id": "s09",
+   "start": "11:55",
+   "end": "12:05",
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "MojoPay",
@@ -317,34 +410,34 @@
    "people": []
   },
   {
-   "id": "s09",
-   "start": "12:20",
-   "end": "12:25",
+   "id": "s10",
+   "start": "12:05",
+   "end": "12:10",
    "title": "Ice Breaker",
    "badge": "Ice Breaker",
-   "speakers": "",
+   "speakers": "Emcee",
    "movement": "",
    "format": "Ice Breaker",
    "people": []
   },
   {
-   "id": "s10",
-   "start": "12:25",
-   "end": "12:35",
-   "title": "Build Your Work: Partner Presentation",
-   "badge": "Presentation",
+   "id": "s11",
+   "start": "12:10",
+   "end": "12:20",
+   "title": "Partner Spotlight",
+   "badge": "Partner Spotlight",
    "speakers": "Generation Ghana · Silver Sponsor",
-   "movement": "Build Your Work",
-   "format": "Presentation",
+   "movement": "",
+   "format": "Partner Spotlight",
    "people": []
   },
   {
-   "id": "s11",
-   "start": "12:35",
-   "end": "13:05",
+   "id": "s12",
+   "start": "12:20",
+   "end": "12:50",
    "title": "Build Your Work: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Yvonne Dumor · Elikplim Yaa Ayegbe · Carrington Amuh — hosted by Enoch \"RobotBoy\" Appiah Jr. (COSM Podcast)",
+   "speakers": "Yvonne Dumor · Carrington Amuh · Elikplim Yaa Ayegbe — a COSM Podcast episode, moderated by Enoch \"RobotBoy\" Appiah Jr.",
    "movement": "Build Your Work",
    "format": "Discussion",
    "people": [
@@ -355,20 +448,20 @@
    ]
   },
   {
-   "id": "s12",
-   "start": "13:05",
-   "end": "13:45",
-   "title": "Lunch & Networking",
-   "badge": "Break",
-   "speakers": "",
+   "id": "s13",
+   "start": "12:50",
+   "end": "13:00",
+   "title": "Partner Spotlight",
+   "badge": "Partner Spotlight",
+   "speakers": "FIDO · Silver Sponsor",
    "movement": "",
-   "format": "Break",
+   "format": "Partner Spotlight",
    "people": []
   },
   {
-   "id": "s13",
-   "start": "13:45",
-   "end": "13:55",
+   "id": "s14",
+   "start": "13:00",
+   "end": "13:05",
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "mNotify",
@@ -377,20 +470,33 @@
    "people": []
   },
   {
-   "id": "s14",
-   "start": "13:55",
-   "end": "14:00",
+   "id": "s15",
+   "start": "13:05",
+   "end": "13:10",
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
-   "speakers": "Koin Photography",
+   "speakers": "Jobberman · Silver Sponsor",
    "movement": "",
    "format": "Partner Spotlight",
    "people": []
   },
   {
-   "id": "s15",
-   "start": "14:00",
-   "end": "14:10",
+   "id": "s16",
+   "start": "13:10",
+   "end": "13:20",
+   "title": "Ice Breaker: Pitch Yourself in 60 Seconds",
+   "badge": "Ice Breaker",
+   "speakers": "Naomi Boakyewaa Kokuro",
+   "movement": "",
+   "format": "Ice Breaker",
+   "people": [
+    "naomi-boakyewaa-kokuro"
+   ]
+  },
+  {
+   "id": "s17",
+   "start": "13:20",
+   "end": "13:35",
    "title": "Pitching Yourself: Masterclass",
    "badge": "Masterclass",
    "speakers": "Samuel Kwabena Ansong",
@@ -401,20 +507,24 @@
    ]
   },
   {
-   "id": "s16",
-   "start": "14:10",
-   "end": "14:30",
+   "id": "s18",
+   "start": "13:55",
+   "end": "14:15",
    "title": "Breakout Sessions",
    "badge": "Breakout",
-   "speakers": "A: Building Your Team · B: Building Yourself · C: Building Your Work",
+   "speakers": "A: Building Your Team, Venus Tawiah · B: Building Yourself, Priscilla Osei-Wusu · C: Building Your Work, Amma Odamea Amoako",
    "movement": "",
    "format": "Breakout",
-   "people": []
+   "people": [
+    "venus-tawiah",
+    "priscilla-osei-wusu",
+    "amma-odamea-amoako"
+   ]
   },
   {
-   "id": "s17",
-   "start": "14:30",
-   "end": "14:35",
+   "id": "s19",
+   "start": "14:15",
+   "end": "14:20",
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "Tech Labari · Media Partner",
@@ -423,9 +533,9 @@
    "people": []
   },
   {
-   "id": "s18",
-   "start": "14:35",
-   "end": "14:40",
+   "id": "s20",
+   "start": "14:20",
+   "end": "14:25",
    "title": "Partner Spotlight",
    "badge": "Partner Spotlight",
    "speakers": "Kasad3 · Media Partner",
@@ -434,9 +544,20 @@
    "people": []
   },
   {
-   "id": "s19",
-   "start": "14:40",
-   "end": "14:50",
+   "id": "s21",
+   "start": "14:25",
+   "end": "14:30",
+   "title": "Partner Spotlight",
+   "badge": "Partner Spotlight",
+   "speakers": "Koin Photography",
+   "movement": "",
+   "format": "Partner Spotlight",
+   "people": []
+  },
+  {
+   "id": "s22",
+   "start": "14:30",
+   "end": "14:40",
    "title": "Plenary",
    "badge": "Plenary",
    "speakers": "Emcee",
@@ -445,12 +566,12 @@
    "people": []
   },
   {
-   "id": "s20",
-   "start": "14:50",
-   "end": "15:00",
+   "id": "s23",
+   "start": "14:40",
+   "end": "14:50",
    "title": "Closing",
    "badge": "Closing",
-   "speakers": "Emcee",
+   "speakers": "M·A·N team",
    "movement": "",
    "format": "Closing",
    "people": []
@@ -462,56 +583,56 @@
    "name": "MojoPay",
    "logo": "mojopay-blue.webp",
    "tier": "Gold / Headline Sponsor",
-   "role": "Title sponsor and official ticketing platform"
+   "role": "Title sponsor and official ticketing platform; partner spotlight, 11:55"
   },
   {
    "slug": "fido",
    "name": "FIDO",
    "logo": "fido.webp",
    "tier": "Silver Sponsor",
-   "role": "DMC 2026 sponsor"
+   "role": "Partner spotlight, 12:50"
   },
   {
    "slug": "generation-ghana",
    "name": "Generation Ghana",
    "logo": "generation-ghana.webp",
    "tier": "Silver Sponsor",
-   "role": "Partner presentation, 12:25"
+   "role": "Partner spotlight, 12:10"
   },
   {
    "slug": "jobberman",
    "name": "Jobberman",
    "logo": "jobberman.webp",
-   "tier": "Cedar Sponsor",
-   "role": "DMC 2026 sponsor"
+   "tier": "Silver Sponsor",
+   "role": "Partner spotlight, 13:05"
   },
   {
    "slug": "mnotify",
    "name": "mNotify",
    "logo": "mnotify.webp",
    "tier": "Programme Partner",
-   "role": "Partner spotlight, 13:45"
+   "role": "Partner spotlight, 13:00"
   },
   {
    "slug": "koin-photography",
    "name": "Koin Photography",
    "logo": "mista-koin.webp",
    "tier": "Event Photography Partner",
-   "role": "Partner spotlight, 13:55"
+   "role": "Partner spotlight, 14:25"
   },
   {
    "slug": "kasad3",
    "name": "Kasad3",
    "logo": "kasad3.webp",
    "tier": "Media Partner",
-   "role": "Partner spotlight, 14:35"
+   "role": "Partner spotlight, 14:20"
   },
   {
    "slug": "tech-labari",
    "name": "Tech Labari",
    "logo": "tech-labari.webp",
    "tier": "Media Partner",
-   "role": "Partner spotlight, 14:30"
+   "role": "Partner spotlight, 14:15"
   }
  ]
 }
