@@ -7,9 +7,12 @@
      takeaway   an attendee's own words, attributed to them ("— Ama, at DMC 2026"); the session and speakers appear only as
                 context ("From: ... Discussion with ..."), never as the author of the words
    Three layouts (Bold, Portrait, Night) in two sizes (1080x1350, 1080x1920) that read as one set.
-   Palette: Obsidian, Signal Cream, Build Teal, Pulse Coral, plus a touch of Akan Gold as on the DMC Studio flyers: the fourth kente segment, the ring
-   round the photo or initials, and the opening quote mark on dark panels. Gold is an accent only and never fills a large area
-   (tools/live-cards-check.js fails if it covers more than 3% of any card). */
+   Look (restyle, 14 Nov 2026): the participant flyers' and DMC Studio's. Ink ground with the website hero's planes (g1, g2 and the
+   fade), the "DMC 2026 · ACCRA" pill and BUILT TO SCALE with the gold-foil italic SCALE, the kente tile, a chip for the card type,
+   and the flyers' flat band at the foot: POWERED BY the MojoPay logo on the white tile with "Tickets exclusively on MojoLife",
+   ORGANIZED BY M·A·N, IN PARTNERSHIP WITH the seven partners of assets/partners26/partners.json. Layouts: Bold is the Brief (the
+   words on a cream sheet with gold hairlines), Portrait the photo hero, Night the words on ink. Every image, font and logo is
+   embedded, so a card still draws with no connection. Gold is an accent only (tools/live-cards-check.js: under 3% of any card). */
 import qrcode from 'qrcode-generator';
 import { compile, hits } from '../../lib/live/filter-core.js';
 import BASE_LIST from '../../lib/live/blocklist.txt';
@@ -22,8 +25,22 @@ import F_NM from './fonts/NotoSans-M-subset.woff2';
 import F_SB from './fonts/Archivo-SemiBold.woff2';
 import SP from '../../assets/sponsor/lockup.js';
 import MOJOPAY_SVG from '../../assets/partners26/mojopay-logo-blue.svg';
+import F_DI from '../../assets/flyer/fonts/archivo-di.woff2';
+import KENTE_PNG from '../../assets/flyer/kente-strip-tile.png';
+import MAN_PNG from './logos/man-logo.webp';
+import PARTNERS from '../../assets/partners26/partners.json';
+import L_FIDO from './logos/fido.webp';
+import L_MNOTIFY from './logos/mnotify.webp';
+import L_GENGH from './logos/generation-ghana.webp';
+import L_KASAD3 from './logos/kasad3.webp';
+import L_TECHLABARI from './logos/tech-labari.webp';
+import L_KOIN from './logos/mista-koin.webp';
+import L_JOBBERMAN from './logos/jobberman.webp';
+/* logos of the shared partner list, card-sized copies (tools/live-cards/make-logos.js), embedded by file name (a partner added to the list needs its import here too) */
+const LOGO_FILES = { 'fido.webp': L_FIDO, 'mnotify.webp': L_MNOTIFY, 'generation-ghana.webp': L_GENGH, 'kasad3.webp': L_KASAD3, 'tech-labari.webp': L_TECHLABARI, 'mista-koin.webp': L_KOIN, 'jobberman.webp': L_JOBBERMAN };
 
-const OB = '#1C1C1C', CR = '#F4EFE6', TE = '#2A7B74', CO = '#D95F45', GO = '#C9A24A';
+const OB = '#1C1C1C', CR = '#F4EFE6', TE = '#2A7B74', CO = '#D95F45', GO = '#C9A24A', INK = '#0D0D0D', SOFT = '#B9B4AB', MUTE = '#5A5650';
+const TEXT_AC = { '#2A7B74': '#5C9890', '#D95F45': '#D95F45', '#F4EFE6': '#F4EFE6' };   /* an accent as text on ink (the flyers' lighter teal) */
 const W = 1080, M = 72, STRIP = 44;
 const SIZES = { '4x5': 1350, '9x16': 1920 };
 const LAYOUTS = [{ id: 'bold', name: 'Bold' }, { id: 'portrait', name: 'Portrait' }, { id: 'night', name: 'Night' }];
@@ -32,7 +49,8 @@ const MAX = { official: 220, takeaway: 140 };
 const PICTURES = /(?![\u00A9\u00AE\u2122])\p{Extended_Pictographic}|[\u{1F1E6}-\u{1F1FF}\u{1F3FB}-\u{1F3FF}\u{FE0F}\u{200D}\u{20E3}]/gu;
 
 /* ---- fonts: embedded, so cards look the same with no connection. The letters Twi, Ewe and Hausa need (ɔ ɛ ɖ ʋ ŋ) come from a small Noto subset ---- */
-const FACES = [['DMCA', '600', F_SB], ['DMCX', '900', F_BLACK], ['DMCX', '800', F_XBOLD], ['DMCA', '700', F_BOLD], ['DMCA', '500', F_MED], ['DMCN', '700', F_NB], ['DMCN', '500', F_NM]];
+const FACES = [['DMCA', '600', F_SB], ['DMCX', '900', F_BLACK], ['DMCX', '800', F_XBOLD], ['DMCA', '700', F_BOLD], ['DMCA', '500', F_MED], ['DMCN', '700', F_NB], ['DMCN', '500', F_NM], ['DMCXI', '900', F_DI]];
+const XI = (px) => '900 ' + px + 'px DMCXI, DMCX, "Arial Black", Arial, sans-serif';
 const X = (w, px) => w + ' ' + px + 'px DMCX, DMCN, "Arial Black", Arial, sans-serif';
 const A = (w, px) => w + ' ' + px + 'px DMCA, DMCN, Arial, sans-serif';
 /* the sponsor credit (Powered by MojoPay, Tickets exclusively on MojoLife): shared lockup and ticket line from assets/sponsor/, the official MojoPay SVG is embedded so the maker works offline */
@@ -46,11 +64,18 @@ function loadSponsor() {
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(SP.sizedSvg(MOJOPAY_SVG));
   });
 }
+const bandImgs = { logos: {} };
+function img(src) { return new Promise((res) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; }); }
+function loadBand() {
+  const jobs = [img(KENTE_PNG).then((i) => { bandImgs.kente = i; }), img(MAN_PNG).then((i) => { bandImgs.man = i; })];
+  (PARTNERS.partners || []).forEach((p) => { if (LOGO_FILES[p.logo]) jobs.push(img(LOGO_FILES[p.logo]).then((i) => { bandImgs.logos[p.id] = i; })); });
+  return Promise.all(jobs);
+}
 let fontsP = null;
 function loadFonts() {
   if (fontsP) return fontsP;
-  if (typeof FontFace === 'undefined' || !document.fonts) return (fontsP = loadSponsor());
-  fontsP = Promise.all([loadSponsor()].concat(FACES.map((f) => new FontFace(f[0], 'url(data:font/woff2;base64,' + f[2] + ')', { weight: f[1] }).load().then((ff) => { document.fonts.add(ff); }, () => {})))).then(() => {});
+  if (typeof FontFace === 'undefined' || !document.fonts) return (fontsP = Promise.all([loadSponsor(), loadBand()]));
+  fontsP = Promise.all([loadSponsor(), loadBand()].concat(FACES.map((f) => new FontFace(f[0], 'url(data:font/woff2;base64,' + f[2] + ')', { weight: f[1] }).load().then((ff) => { document.fonts.add(ff); }, () => {})))).then(() => {});
   return fontsP;
 }
 
@@ -122,9 +147,40 @@ function spaced(ctx, text, x, y, gap, align) {
   return total;
 }
 function kente(ctx, x, y, w, h) {
+  const k = bandImgs.kente;
+  if (k) { ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); const s = h / k.height; for (let cx = x; cx < x + w; cx += k.width * s) ctx.drawImage(k, cx, y, k.width * s, h); ctx.restore(); return; }
   ctx.fillStyle = OB; ctx.fillRect(x, y, w, h);
   const cols = [GO, TE, CO, CR]; const bh = Math.round(h * 0.5); const by = y + Math.round((h - bh) / 2);
   for (let i = 0, cx = x + 6; cx < x + w; i++, cx += 60) { ctx.fillStyle = cols[i % 4]; ctx.fillRect(cx, by, Math.min(54, x + w - cx), bh); }
+}
+/* the website hero's planes: g1 (teal) and g2 (coral), then the fade to ink */
+function planes(ctx, x, y, w, h) {
+  const P = (pts) => { ctx.beginPath(); pts.forEach((q, i) => { const X2 = x + q[0] / 100 * w, Y2 = y + q[1] / 100 * h; if (i) ctx.lineTo(X2, Y2); else ctx.moveTo(X2, Y2); }); ctx.closePath(); };
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  ctx.globalAlpha = 0.85; ctx.fillStyle = TE; P([[35, 0], [100, 0], [100, 55], [10, 0]]); ctx.fill();
+  ctx.globalAlpha = 0.80; ctx.fillStyle = CO; P([[20, 0], [100, 40], [100, 75], [0, 95]]); ctx.fill();
+  ctx.globalAlpha = 1;
+  const g = ctx.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, INK); g.addColorStop(0.5, 'rgba(13,13,13,.6)'); g.addColorStop(1, 'rgba(13,13,13,0)');
+  ctx.fillStyle = g; ctx.fillRect(x, y, w, h); ctx.restore();
+}
+function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+function foil(ctx, x, w) { const g = ctx.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, GO); g.addColorStop(0.3, '#F5D87A'); g.addColorStop(0.55, GO); g.addColorStop(0.78, '#9E7520'); g.addColorStop(1, GO); return g; }
+/* the pill: border, gold dot, tracked label */
+function pill(ctx, x, y, h) {
+  ctx.font = A(600, Math.round(h * 0.42)); const tw = spacedW(ctx, 'DMC 2026 · ACCRA', 4), w = h * 0.5 + 12 + 14 + tw + h * 0.5;
+  ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 2; ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
+  ctx.fillStyle = GO; circle(ctx, x + h * 0.5 + 6, y + h / 2, 6); ctx.fill();
+  ctx.fillStyle = 'rgba(244,239,230,.72)'; spaced(ctx, 'DMC 2026 · ACCRA', x + h * 0.5 + 26, y + h / 2 + h * 0.15, 4);
+  return w;
+}
+function spacedW(ctx, text, gap) { let w = 0; for (const c of text) w += ctx.measureText(c).width + gap; return w - gap; }
+/* a black pill with a square in the movement colour and a cream label (the flyers' chip) */
+function chip(ctx, x, y, h, label, sq) {
+  ctx.font = X(800, Math.round(h * 0.4)); const tw = spacedW(ctx, label, 4), w = 18 + 12 + 12 + tw + 22;
+  ctx.fillStyle = OB; rr(ctx, x, y, w, h, h / 2); ctx.fill();
+  ctx.fillStyle = sq; ctx.fillRect(x + 18, y + (h - 12) / 2, 12, 12);
+  ctx.fillStyle = CR; spaced(ctx, label, x + 42, y + h / 2 + h * 0.15, 4);
+  return w;
 }
 function circle(ctx, cx, cy, r) { ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.closePath(); }
 function cover(ctx, img, x, y, w, h, focusY) {
@@ -167,131 +223,155 @@ function render(canvas, spec) {
   const d = describe(spec);
   const tall = H > 1500;
   const layout = spec.layout || 'bold';
-  const accent = spec.accent || TE, ink = spec.ink || '#FFFFFF';
-  const night = layout === 'night';
-  const bg = night ? OB : accent;
-  const fg = night ? CR : ink;                         /* text colour */
-  const top = STRIP + (spec.rehearsal ? 64 : 0);
-  /* the footer is the DMC 2026 lockup row plus the sponsor credit row (min MojoPay tile 16% of the width, 22% on 9:16) */
-  const tileW = Math.max(SP.minTileW(W, tall), Math.round(W * (tall ? 0.23 : 0.17)));
-  const sg = SP.geometry(tileW), lockH = Math.ceil(sg.tileH + sg.labelPx * 1.2 + sg.gapStacked);
-  const footH = (tall ? 214 : 176) + lockH + 26, footTop = H - STRIP - footH;
+  const accent = spec.accent || TE;
+  const acText = TEXT_AC[accent] || CR;
+  const sheet = layout === 'bold';                    /* Bold is the Brief: the words on a cream sheet */
   const placements = [];
   const out = { fits: true, lines: 0, size: 0, placements };
-
   ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  /* hero (Portrait): photo for an official quote, a movement panel otherwise */
+  /* ---- the band at the foot (the flyers'): kente, POWERED BY + MojoPay (white tile) + ticket line, ORGANIZED BY M·A·N, the partners ---- */
+  const tileW = Math.max(SP.minTileW(W, tall), Math.round(W * (tall ? 0.23 : 0.17)));
+  const sg = SP.geometry(tileW), lockH = Math.ceil(sg.tileH + sg.labelPx * 1.2 + sg.gapStacked);
+  const qrRow = tall && spec.qr ? 172 : 0;
+  const tilesH = tall ? 58 : 52, bandH = 22 + lockH + 22 + 20 + 10 + tilesH + (tall ? 40 : 30) + qrRow;
+  const bandTop = H - bandH, kenteY = bandTop - 24;
+
+  /* ---- ground, planes, header ---- */
+  ctx.fillStyle = INK; ctx.fillRect(0, 0, W, H);
+  planes(ctx, W * 0.42, 0, W * 0.58, kenteY);
+  let top = 52;
+  if (spec.rehearsal) {
+    ctx.fillStyle = CO; ctx.fillRect(0, 0, W, 64);
+    ctx.fillStyle = OB; ctx.font = X(900, 28); ctx.textAlign = 'center'; ctx.fillText('REHEARSAL · NOT A REAL ' + (spec.type === 'official' ? 'QUOTE' : 'CARD'), W / 2, 43); ctx.textAlign = 'left';
+    top += 64;
+  }
+  const pw = pill(ctx, M, top, 52);
+  ctx.font = X(900, 30); ctx.fillStyle = CR; const bt = 'BUILT TO '; ctx.fillText(bt, M + pw + 30, top + 37);
+  const bw = ctx.measureText(bt).width; ctx.font = XI(30); const sw = ctx.measureText('SCALE').width;
+  ctx.fillStyle = foil(ctx, M + pw + 30 + bw, sw); ctx.fillText('SCALE', M + pw + 30 + bw, top + 37);
+  top += 52 + 34;
+
+  /* ---- hero (Portrait): the photo for an official quote, a movement panel otherwise ---- */
   let heroH = 0;
   if (layout === 'portrait') {
-    heroH = tall ? 780 : 410;   /* the 4:5 hero gave up 110px to the sponsor credit row */
+    heroH = tall ? 700 : 360;
     const hy = top;
-    ctx.save(); ctx.beginPath(); ctx.rect(0, hy, W, heroH); ctx.clip();
-    if (spec.type === 'official' && spec.photo) { cover(ctx, spec.photo, 0, hy, W, heroH, 0.18); }
+    ctx.save(); ctx.beginPath(); ctx.rect(M, hy, W - 2 * M, heroH); ctx.clip();
+    if (spec.type === 'official' && spec.photo) cover(ctx, spec.photo, M, hy, W - 2 * M, heroH, 0.18);
     else {
-      ctx.fillStyle = OB; ctx.fillRect(0, hy, W, heroH);
-      ctx.fillStyle = spec.type === 'official' ? accent : GO; ctx.font = X(900, 420); ctx.textBaseline = 'top'; ctx.fillText(spec.type === 'official' ? initials(d.avatar).toUpperCase() : '“', M, hy - (spec.type === 'official' ? 20 : 70));
-      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = OB; ctx.fillRect(M, hy, W - 2 * M, heroH);
+      ctx.fillStyle = spec.type === 'official' ? accent : 'rgba(201,162,74,.85)'; ctx.font = X(900, tall ? 420 : 300); ctx.textBaseline = 'top';
+      ctx.fillText(spec.type === 'official' ? initials(d.avatar).toUpperCase() : '“', M + 30, hy - (spec.type === 'official' ? 10 : 50)); ctx.textBaseline = 'alphabetic';
       const mv = spec.session && spec.session.movement ? spec.session.movement.toUpperCase() : 'DMC 2026';
-      const f = fit(ctx, mv, (p) => X(900, p), { w: W - 2 * M, h: tall ? 200 : 150 }, 44, 92, 1.05);
-      ctx.fillStyle = CR; ctx.font = X(900, f.size); f.lines.forEach((ln, i) => ctx.fillText(ln, M, hy + heroH - 56 - (f.lines.length - 1 - i) * f.size * 1.05));
+      const f = fit(ctx, mv, (p) => X(900, p), { w: W - 2 * M - 60, h: tall ? 190 : 130 }, 40, 88, 1.05);
+      ctx.fillStyle = CR; ctx.font = X(900, f.size); f.lines.forEach((ln, i) => ctx.fillText(ln, M + 30, hy + heroH - 40 - (f.lines.length - 1 - i) * f.size * 1.05));
     }
     ctx.restore();
-    kente(ctx, 0, hy + heroH - 10, W, 20);
+    /* print gloss on the photo: a soft 135° sheen and a light top edge */
+    const g = ctx.createLinearGradient(M, hy, M + (W - 2 * M + heroH) / 2, hy + (W - 2 * M + heroH) / 2);
+    g.addColorStop(0.62, 'rgba(255,255,255,0)'); g.addColorStop(0.7, 'rgba(255,255,255,.12)'); g.addColorStop(0.78, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(M, hy, W - 2 * M, heroH); ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.fillRect(M, hy, W - 2 * M, 1);
+    top = hy + heroH + 34;
   }
 
-  /* label */
-  const ly = top + heroH + (layout === 'portrait' ? 62 : 60);
-  kente(ctx, M, ly - 24, 96, 16);
-  ctx.fillStyle = fg; ctx.font = X(800, 26); spaced(ctx, d.label, M + 120, ly - 6, 5);
-  if (spec.rehearsal) {
-    ctx.fillStyle = CO; ctx.fillRect(0, STRIP, W, 64);
-    ctx.fillStyle = OB; ctx.font = X(900, 28); ctx.textAlign = 'center'; ctx.fillText('REHEARSAL · NOT A REAL ' + (spec.type === 'official' ? 'QUOTE' : 'CARD'), W / 2, STRIP + 43); ctx.textAlign = 'left';
+  /* ---- the body: a cream sheet (Bold) or the ink itself (Portrait, Night) ---- */
+  const sx = sheet ? 40 : 0, sy = top - (sheet ? 8 : 0), sW = sheet ? W - 80 : W, sH = kenteY - 36 - sy;
+  if (sheet) {
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.52)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 10; ctx.fillStyle = CR; rr(ctx, sx, sy, sW, sH, 6); ctx.fill(); ctx.restore();
+    ctx.save(); rr(ctx, sx, sy, sW, sH, 6); ctx.clip();
+    const g = ctx.createLinearGradient(sx, sy, sx + (sW + sH) / 2, sy + (sW + sH) / 2);
+    g.addColorStop(0.06, 'rgba(255,255,255,0)'); g.addColorStop(0.22, 'rgba(255,255,255,.14)'); g.addColorStop(0.38, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(sx, sy, sW, sH); ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.fillRect(sx, sy, sW, 1); ctx.restore();
   }
+  const fg = sheet ? OB : CR, sub = sheet ? '#3A3A3A' : 'rgba(244,239,230,.82)';
+  const ix = sheet ? sx + 48 : M, iw = sheet ? sW - 96 : W - 2 * M;
+  /* chip: the card type */
+  const cy0 = sy + (sheet ? 40 : 0);
+  chip(ctx, ix, cy0, 46, d.label, accent);
 
-  /* attribution block, anchored above the footer */
+  /* attribution, anchored at the bottom of the body */
+  const AV = 132, AH = 140;
+  const ay = sy + sH - (sheet ? 36 : 4) - AH;
   const hasAvatar = layout !== 'portrait';
-  const AV = 140, AH = 150;
-  const ay = footTop - 26 - AH;
-  const tx = M + (hasAvatar ? AV + 30 : 0), tw = W - M - tx;
+  const tx = ix + (hasAvatar ? AV + 30 : 0), tw = ix + iw - tx;
   if (hasAvatar) {
-    const cx = M + AV / 2, cy = ay + AH / 2;
-    ctx.fillStyle = OB; circle(ctx, cx, cy, AV / 2 + 11); ctx.fill();          /* gold ring with a thin obsidian edge, so it reads on teal, coral and cream */
-    ctx.fillStyle = GO; circle(ctx, cx, cy, AV / 2 + 7); ctx.fill();
+    const cx = ix + AV / 2, cy = ay + AH / 2;
+    ctx.fillStyle = sheet ? CR : INK; circle(ctx, cx, cy, AV / 2 + 10); ctx.fill();
+    ctx.fillStyle = GO; circle(ctx, cx, cy, AV / 2 + 6); ctx.fill();
     ctx.save(); circle(ctx, cx, cy, AV / 2); ctx.clip();
     if (spec.type === 'official' && spec.photo) cover(ctx, spec.photo, cx - AV / 2, cy - AV / 2, AV, AV, 0.15);
     else {
-      ctx.fillStyle = night ? CR : OB; ctx.fillRect(cx - AV / 2, cy - AV / 2, AV, AV);
-      ctx.fillStyle = night ? OB : CR; ctx.font = X(900, 58); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = OB; ctx.fillRect(cx - AV / 2, cy - AV / 2, AV, AV);
+      ctx.fillStyle = CR; ctx.font = X(900, 54); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(initials(d.avatar).toUpperCase() || '·', cx, cy + 4); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
     }
     ctx.restore();
   }
-  const n1 = oneLine(ctx, d.l1, (p) => X(900, p), tw, 40, 22);
-  ctx.fillStyle = fg; ctx.font = X(900, n1.size); ctx.fillText(n1.text, tx, ay + 42);
-  const n2 = oneLine(ctx, d.l2, (p) => A(700, p), tw, 29, 18);
-  ctx.font = A(700, n2.size); ctx.fillText(n2.text, tx, ay + 42 + 46);
-  const n3 = oneLine(ctx, d.l3, (p) => A(500, p), tw, 27, 18);
-  ctx.globalAlpha = 0.92; ctx.font = A(500, n3.size); ctx.fillText(n3.text, tx, ay + 42 + 46 + 40); ctx.globalAlpha = 1;
+  const n1 = oneLine(ctx, d.l1, (p) => A(700, p), tw, 38, 22);
+  ctx.fillStyle = fg; ctx.font = X(900, Math.min(n1.size, 36)); const n1b = oneLine(ctx, d.l1, (p) => X(900, p), tw, 36, 20); ctx.font = X(900, n1b.size); ctx.fillText(n1b.text, tx, ay + 40);
+  const n2 = oneLine(ctx, d.l2, (p) => A(700, p), tw, 28, 18);
+  ctx.fillStyle = sheet ? TE : acText; ctx.font = A(700, n2.size); ctx.fillText(n2.text, tx, ay + 40 + 44);
+  const n3 = oneLine(ctx, d.l3, (p) => A(500, p), tw, 26, 18);
+  ctx.fillStyle = sub; ctx.font = A(500, n3.size); ctx.fillText(n3.text, tx, ay + 40 + 44 + 38);
+  /* gold hairline above the attribution */
+  ctx.fillStyle = GO; ctx.fillRect(ix, ay - 28, iw, 2);
+  void n1;
 
-  /* divider above the attribution */
-  kente(ctx, M, ay - 30, W - 2 * M, 14);
-
-  /* the words: quote mark, then text fitted to whatever room is left */
-  const qy = ly + 14;
-  const qSize = layout === 'portrait' ? 0 : (tall ? 230 : 190);
-  if (qSize) { ctx.fillStyle = night ? GO : OB; ctx.font = X(900, qSize); ctx.textBaseline = 'top'; ctx.fillText('“', M - 6, qy - qSize * 0.08); ctx.textBaseline = 'alphabetic'; }
-  const barW = night ? 18 : 0;
-  const bx = M + (night ? barW + 34 : 0);
-  const ty = qy + (qSize ? qSize * 0.62 : 24);
-  const box = { w: W - M - bx, h: ay - 30 - 34 - ty };
-  const lim = layout === 'portrait' ? [34, tall ? 84 : 66] : [40, tall ? 104 : 92];
+  /* the words: quote mark (gold), then the text fitted to the room left */
+  const qy = cy0 + 46 + 26;
+  const qSize = layout === 'portrait' ? 0 : (tall ? 200 : 170);
+  if (qSize) { ctx.font = X(900, qSize); ctx.textBaseline = 'top'; const qw = ctx.measureText('“').width; ctx.fillStyle = sheet ? GO : foil(ctx, ix - 6, qw); ctx.fillText('“', ix - 6, qy - qSize * 0.08); ctx.textBaseline = 'alphabetic'; }
+  const barW = layout === 'night' ? 14 : 0;
+  const bx = ix + (barW ? barW + 30 : 0);
+  const ty = qy + (qSize ? qSize * 0.58 : 6);
+  const box = { w: ix + iw - bx, h: ay - 28 - 30 - ty };
+  const lim = layout === 'portrait' ? [32, tall ? 104 : 80] : [36, tall ? 150 : 128];   /* short lines grow to fill the sheet */
   const body = String(spec.text || '');
   const f = fit(ctx, body, (p) => X(800, p), box, lim[0], lim[1], 1.17);
-  ctx.fillStyle = fg; ctx.font = X(800, f.size);
-  const lh = f.size * 1.17;
-  const textH = f.lines.length * lh;
+  ctx.font = X(800, f.size);
+  const lh = f.size * 1.17, textH = f.lines.length * lh;
   const y0 = ty + Math.max(0, Math.min(40, (box.h - textH) / 2 * 0.5));
-  if (night) { ctx.fillStyle = accent; ctx.fillRect(M, y0 - 2, barW, textH + 8); ctx.fillStyle = fg; }
+  if (barW) { ctx.fillStyle = accent; ctx.fillRect(ix, y0 - 2, barW, textH + 8); }
+  ctx.fillStyle = fg;
   f.lines.forEach((ln, i) => ctx.fillText(ln, bx, y0 + f.size * 0.95 + i * lh));
   out.size = f.size; out.lines = f.lines.length; out.fits = !f.cut; out.box = box;
 
-  /* footer: the website hero's title block ("BUILT TO" cream, "SCALE" in gold, on an obsidian panel so it reads on every card colour),
-     "Powered by MojoPay" beside it, the date line, and the small QR on the tall size */
-  ctx.fillStyle = night ? CR : OB; ctx.fillRect(0, footTop, W, 0);
-  const fy = footTop + (tall ? 70 : 62);
-  const pz = tall ? 46 : 42, plh = Math.round(pz * 0.98), pPad = 22;
-  ctx.font = X(900, pz);
-  const pW = Math.ceil(ctx.measureText('BUILT TO').width) + pPad * 2, pTop = fy - 46, pH = Math.round(pPad * 2 + pz * 0.7 + plh);
-  ctx.fillStyle = OB; ctx.fillRect(M, pTop, pW, pH);
-  ctx.fillStyle = CR; ctx.fillText('BUILT TO', M + pPad, pTop + pPad + Math.round(pz * 0.7));
-  const sW = ctx.measureText('SCALE').width, gr = ctx.createLinearGradient(M + pPad, 0, M + pPad + sW, 0);
-  gr.addColorStop(0, GO); gr.addColorStop(0.62, '#F5D87A'); gr.addColorStop(1, '#E6C566');
-  ctx.fillStyle = gr; ctx.fillText('SCALE', M + pPad, pTop + pPad + Math.round(pz * 0.7) + plh);
-  ctx.fillStyle = fg;
-  ctx.globalAlpha = 0.92; ctx.font = A(700, 26); ctx.fillText('DMC 2026 · Sat 21 Nov · British Council, Accra', M, fy + 106); ctx.globalAlpha = 1;
-  if (tall && spec.qr) {
-    const q = qrcode(0, 'M'); q.addData(spec.qr); q.make();
-    const n = q.getModuleCount(); const cell = Math.max(3, Math.floor(150 / (n + 4)));
-    const side = cell * (n + 4);
-    const qx = W - M - side, qyy = footTop + 14;
-    ctx.fillStyle = CR; ctx.fillRect(qx, qyy, side, side);
-    ctx.fillStyle = OB;
-    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) ctx.fillRect(qx + (c + 2) * cell, qyy + (r + 2) * cell, cell, cell);
-  } else if (!tall) {
-    ctx.fillStyle = fg; ctx.font = X(800, 24); spaced(ctx, 'MANGH.ORG', W - M, fy + 44, 5, 'right');
-  }
-  /* sponsor credit, always drawn here so no layout can leave it out: "Powered by MojoPay" in the header block beside the title panel,
-     the line "Tickets exclusively on MojoLife" in the bottom row */
-  const spOpts = { variant: 'stacked', tileW, images: spImgs, font: SP_FONT, labelColour: night ? undefined : (fg === CR ? 'rgba(244,239,230,.8)' : fg === '#FFFFFF' ? 'rgba(255,255,255,.82)' : 'rgba(28,28,28,.78)'), tileEdge: bg === CR ? 'rgba(28,28,28,.55)' : undefined };
-  const sy = H - STRIP - 22 - lockH;
+  /* ---- the band ---- */
+  kente(ctx, 0, kenteY, W, 24);
+  ctx.fillStyle = OB; ctx.fillRect(0, bandTop, W, bandH);
+  const ry = bandTop + 22;
+  const spOpts = { variant: 'stacked', tileW, images: spImgs, font: SP_FONT, tileColour: '#FFFFFF' };
+  const pay = SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M, y: ry }, spOpts));
+  placements.push(pay);
   const lb = SP.measureTicketLine(ctx, { tileW, font: SP_FONT });
-  placements.push(SP.draw(ctx, Object.assign({ kind: 'mojopay', x: M + pW + 40, y: Math.round(pTop + (pH - lockH) / 2) }, spOpts)));
-  placements.push(SP.drawTicketLine(ctx, { x: W - M - lb.w, y: sy, tileW, variant: 'stacked', font: SP_FONT, colour: fg }));
+  const manH = Math.round(sg.tileH * 0.82), manW = bandImgs.man ? Math.round(manH * bandImgs.man.width / bandImgs.man.height) : 0;
+  const orgX = W - M - manW;
+  /* ticket line between the MojoPay tile and the M·A·N block (stacked to two lines if the row is tight) */
+  placements.push(SP.drawTicketLine(ctx, { x: M + pay.w + 34, y: ry, tileW, variant: 'stacked', font: SP_FONT, colour: CR, lines: (M + pay.w + 34 + lb.w + 30 < orgX - 160) ? 1 : 2 }));
+  ctx.font = A(700, Math.round(sg.labelPx)); ctx.fillStyle = 'rgba(244,239,230,.62)'; spaced(ctx, 'ORGANIZED BY', orgX, ry + sg.labelPx * 0.95, Math.round(sg.labelPx * 0.18));
+  if (bandImgs.man) ctx.drawImage(bandImgs.man, orgX, pay.tile.y + (sg.tileH - manH) / 2, manW, manH);
+  /* IN PARTNERSHIP WITH + the tiles */
+  const ly2 = ry + lockH + 22;
+  ctx.font = A(700, 18); ctx.fillStyle = SOFT; spaced(ctx, 'IN PARTNERSHIP WITH', M, ly2 + 15, 3);
+  const list = (PARTNERS.partners || []), n = list.length, gap = 12, tW = n ? Math.floor((W - 2 * M - (n - 1) * gap) / n) : 0, tY = ly2 + 30;
+  list.forEach((p, i) => {
+    const x = M + i * (tW + gap); ctx.fillStyle = '#FFFFFF'; rr(ctx, x, tY, tW, tilesH, 6); ctx.fill();
+    const im = bandImgs.logos[p.id];
+    if (im) { const k = tilesH / 58, px2 = Math.min(p.pad[1] * k, tW * 0.1), py2 = p.pad[0] * k, s2 = Math.min((tW - 2 * px2) / im.width, (tilesH - 2 * py2) / im.height); ctx.drawImage(im, x + (tW - im.width * s2) / 2, tY + (tilesH - im.height * s2) / 2, im.width * s2, im.height * s2); }
+    else { ctx.fillStyle = OB; ctx.font = A(700, 14); ctx.textAlign = 'center'; ctx.fillText(p.name, x + tW / 2, tY + tilesH / 2 + 5); ctx.textAlign = 'left'; }
+  });
+  /* tall: the QR on its own row at the foot of the band, with the link (the caption carries it on the other size) */
+  if (qrRow) {
+    const q = qrcode(0, 'M'); q.addData(spec.qr); q.make();
+    const nq = q.getModuleCount(); const cell = Math.max(3, Math.floor(140 / (nq + 4))), side = cell * (nq + 4);
+    const qx = M, qyy = tY + tilesH + 24;
+    ctx.fillStyle = CR; ctx.fillRect(qx, qyy, side, side); ctx.fillStyle = OB;
+    for (let r = 0; r < nq; r++) for (let c = 0; c < nq; c++) if (q.isDark(r, c)) ctx.fillRect(qx + (c + 2) * cell, qyy + (r + 2) * cell, cell, cell);
+    ctx.font = A(700, 20); ctx.fillStyle = SOFT; spaced(ctx, 'SCAN FOR TICKETS', qx + side + 28, qyy + 46, 3);
+    ctx.font = A(700, 30); ctx.fillStyle = CR; ctx.fillText(String(spec.qr).replace(/^https?:\/\//, ''), qx + side + 28, qyy + 92);
+  }
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-  kente(ctx, 0, 0, W, STRIP);
-  kente(ctx, 0, H - STRIP, W, STRIP);
   return out;
 }
 
