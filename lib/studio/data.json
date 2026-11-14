@@ -71,6 +71,17 @@
    "sponsor": "Generation Ghana"
   },
   {
+   "slug": "enoch-w-kabange",
+   "name": "Enoch W. Kabange",
+   "title": "CRM & Digital Marketing Lead",
+   "company": "Points Africa",
+   "photo": "enoch-w-kabange.webp",
+   "session": "Build Yourself: Panel Discussion",
+   "movement": "Build Yourself",
+   "sessionTime": "10:35–11:05",
+   "sponsor": ""
+  },
+  {
    "slug": "kwaku-ofosuhene",
    "name": "Kwaku Ofosuhene",
    "title": "Chief Commercial Officer",
@@ -291,13 +302,14 @@
    "end": "11:05",
    "title": "Build Yourself: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist — moderated by Enoch K. Weguri",
+   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist — moderated by Enoch W. Kabange",
    "movement": "Build Yourself",
    "format": "Discussion",
    "people": [
     "alex-offei-lartey",
     "ronald-tagoe",
-    "emelia-dede-quist"
+    "emelia-dede-quist",
+    "enoch-w-kabange"
    ]
   },
   {
