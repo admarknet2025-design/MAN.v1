@@ -176,6 +176,16 @@ function drawText(ctx, str, x, top, LH, o) {
   return w;
 }
 var LOG = null;
+/* Motion parameters for one frame of the animated flyer (set only by renderFlyer's opts.motion; null for every still). Fade keys:
+   plate (name, role, session), chip (the role chip), iam (I'M BUILDING + the level word; the Brief's OBJECTIVE). 1 or missing = drawn as
+   in the still, so the last frame of the animation is the still. */
+var MO = null;
+function fade(ctx, key, fn) {
+  var a = MO && MO[key] != null ? MO[key] : 1;
+  if (a >= 1) return fn();
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a; fn(); ctx.restore();
+}
 
 /* Does this canvas kern across a space ("Y T")? Blink's default canvas shaping does not; textRendering fixes it; if a browser still
    does not, drawText/measureW add the pair adjustment by hand (the table is in the level-word call). */
@@ -228,11 +238,20 @@ function sheenGrad(ctx, ox, oy, W, H, bw, Hb, peak) {
 }
 
 /* ---------- the hero element: planes g1 and g2, then the fade (g3 and g4 are dropped, PORT-SPEC D1) ---------- */
+/* The drift (animated flyer only, flyer-motion.js): MO.g1 and MO.g2 in [0, 1] mix each plane towards the far keyframe of the website's
+   dmc-g1 / dmc-g2 drift (assets/styles.css). At 0, or with no motion, the planes are exactly the still's. */
+var G1 = { a: [[35, 0], [100, 0], [100, 55], [10, 0]], b: [[27, 0], [100, 0], [100, 64], [4, 0]], oa: 0.85, ob: 0.70 };
+var G2 = { a: [[20, 0], [100, 40], [100, 75], [0, 95]], b: [[13, 0], [100, 34], [100, 82], [0, 100]], oa: 0.80, ob: 0.90 };
+function plane(g, m) {
+  if (!m) return { pts: g.a, o: g.oa };
+  return { pts: g.a.map(function (q, i) { return [q[0] + (g.b[i][0] - q[0]) * m, q[1] + (g.b[i][1] - q[1]) * m]; }), o: g.oa + (g.ob - g.oa) * m };
+}
 function heroGeo(ctx, x, y, w, h) {
   var P = function (pts) { var p = new ENV.Path2D(); pts.forEach(function (q, i) { var X = x + q[0] / 100 * w, Y = y + q[1] / 100 * h; if (i) p.lineTo(X, Y); else p.moveTo(X, Y); }); p.closePath(); return p; };
+  var p1 = plane(G1, MO && MO.g1), p2 = plane(G2, MO && MO.g2);
   ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
-  ctx.globalAlpha = 0.85; ctx.fillStyle = TEAL; ctx.fill(P([[35, 0], [100, 0], [100, 55], [10, 0]]));
-  ctx.globalAlpha = 0.80; ctx.fillStyle = CORAL; ctx.fill(P([[20, 0], [100, 40], [100, 75], [0, 95]]));
+  ctx.globalAlpha = p1.o; ctx.fillStyle = TEAL; ctx.fill(P(p1.pts));
+  ctx.globalAlpha = p2.o; ctx.fillStyle = CORAL; ctx.fill(P(p2.pts));
   ctx.globalAlpha = 1;
   var g = ctx.createLinearGradient(x, 0, x + w, 0);
   g.addColorStop(0, INK); g.addColorStop(0.5, 'rgba(13,13,13,.6)'); g.addColorStop(1, 'rgba(13,13,13,0)');
@@ -454,13 +473,13 @@ function drawBadge(ctx, N) {
 
   badgeStrap(ctx, N, K);
   badgeLeft(ctx, N, F);
-  badgeCard(ctx, N, K);
+  var geo = badgeCard(ctx, N, K);
   var bandInfo = band(ctx, F.band, N);
   if (st) {
     drawText(ctx, '#DMC2026 · #BuiltToScale', 64, 1604, 28, { pin: 'B', size: 28, weight: 600, fill: SOFT, id: 'hashtags' });
     if (A.img.field) { ctx.save(); ctx.beginPath(); ctx.rect(0, 1660, 1080, 260); ctx.clip(); ctx.globalAlpha = 0.6; ctx.fillStyle = tilePattern(ctx, A.img.field, 0, 1440); ctx.fillRect(0, 1660, 1080, 260); ctx.restore(); }
   }
-  return { plateH: K.plateH, Hb: K.Hb, name: K.f, band: bandInfo };
+  return { plateH: K.plateH, Hb: K.Hb, name: K.f, band: bandInfo, card: geo.card, photo: geo.photo, qr: { x: 64, y: F.qrY, w: 132, h: 132 }, bandTop: F.band.kenteY };
 }
 function badgeLeft(ctx, N, F) {
   var st = N.story, lv = N.lv;
@@ -477,8 +496,10 @@ function badgeLeft(ctx, N, F) {
   var lw = st ? 376 : 320;
   if (N.left) leftTitle(ctx, N.left, 64, F, lw, lv);
   else {
-    drawText(ctx, 'I’M BUILDING', 64, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam' });
-    drawText(ctx, lv.word, 64, F.wordY, F.wordSize, { pin: 'D', size: F.wordSize, weight: 900, fill: lv.text, id: 'levelword', limit: lw, kern: { 'Y ': -0.11 } });
+    fade(ctx, 'iam', function () {
+      drawText(ctx, 'I’M BUILDING', 64, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam' });
+      drawText(ctx, lv.word, 64, F.wordY, F.wordSize, { pin: 'D', size: F.wordSize, weight: 900, fill: lv.text, id: 'levelword', limit: lw, kern: { 'Y ': -0.11 } });
+    });
   }
   [['DATE', 'Sat 21 November 2026'], ['TIME', '10AM – 3PM'], ['VENUE', 'British Council']].forEach(function (t, i) {
     var y = F.tileY[i];
@@ -595,19 +616,21 @@ function badgeCard(ctx, N, K) {
 
   /* nameplate: chip, name, role, session */
   var px = F.plate.x, ny;
-  chipTag(ctx, px, plateY, 40, 14, 18, N.chip, lv.fill);
+  fade(ctx, 'chip', function () { chipTag(ctx, px, plateY, 40, 14, 18, N.chip, lv.fill); });
   ny = plateY + 40 + 16;
-  var nsz = f.size, nLH = nsz * 1.02, nameA = N.rawName ? 1 : 0.32;
-  f.lines.forEach(function (ln, i) { drawText(ctx, ln, px, ny + i * nLH, nLH, { pin: 'B', size: nsz, weight: 800, fill: OB, alpha: nameA, id: 'name' + i, limit: F.plate.w }); });
-  var ry = ny + nameH + 10, rl = wrap(ctx, N.roleShown, roleW, 2, 34, 500);
-  rl.forEach(function (ln, i) { drawText(ctx, ln, px, ry + i * 40, 40, { pin: 'B', size: 34, weight: 500, fill: DARK2, alpha: N.roleEmpty ? 0.45 : 1, id: 'role' + i, limit: roleW }); });
-  if (N.showSession) {
-    var sy = ry + rl.length * 40 + F.sessGap;
-    var ssz = fitLine(ctx, N.session, 28, 24, F.plate.w - 14), sh = ssz * 1.2;
-    ctx.fillStyle = lv.fill; ctx.fillRect(px, sy + (Math.max(22, sh) - 22) / 2, 4, 22);
-    drawText(ctx, N.session, px + 14, sy, sh, { pin: 'B', size: ssz, weight: 600, fill: OB, id: 'session', limit: F.plate.w - 14 });
-  }
-
+  fade(ctx, 'plate', function () {
+    var nsz = f.size, nLH = nsz * 1.02, nameA = N.rawName ? 1 : 0.32;
+    f.lines.forEach(function (ln, i) { drawText(ctx, ln, px, ny + i * nLH, nLH, { pin: 'B', size: nsz, weight: 800, fill: OB, alpha: nameA, id: 'name' + i, limit: F.plate.w }); });
+    var ry = ny + nameH + 10, rl = wrap(ctx, N.roleShown, roleW, 2, 34, 500);
+    rl.forEach(function (ln, i) { drawText(ctx, ln, px, ry + i * 40, 40, { pin: 'B', size: 34, weight: 500, fill: DARK2, alpha: N.roleEmpty ? 0.45 : 1, id: 'role' + i, limit: roleW }); });
+    if (N.showSession) {
+      var sy = ry + rl.length * 40 + F.sessGap;
+      var ssz = fitLine(ctx, N.session, 28, 24, F.plate.w - 14), sh = ssz * 1.2;
+      ctx.fillStyle = lv.fill; ctx.fillRect(px, sy + (Math.max(22, sh) - 22) / 2, 4, 22);
+      drawText(ctx, N.session, px + 14, sy, sh, { pin: 'B', size: ssz, weight: 600, fill: OB, id: 'session', limit: F.plate.w - 14 });
+    }
+  });
+  return { card: { x: C.x, y: C.y, w: C.w, h: C.h, r: 28 }, photo: { x: bx, y: blockY, w: bw, h: Hb } };
 }
 
 /* ---------- the Brief ---------- */
@@ -685,16 +708,20 @@ function drawBrief(ctx, N) {
 
   /* CLIENT */
   lbl2('CLIENT', rows0 + 28);
-  var cy0 = rows0 + 20, chipW = chipTag(ctx, vx, cy0, 36, 12, 16, N.chip, lv.fill);
-  var ny = cy0 + 36 + 14, nsz = f.size, nLH = nsz * 1.02, nameA = N.rawName ? 1 : 0.32;
-  f.lines.forEach(function (ln, i) { drawText(ctx, ln, vx, ny + i * nLH, nLH, { pin: 'B', size: nsz, weight: 800, fill: OB, alpha: nameA, id: 'name' + i, limit: Vw }); });
-  var ry = ny + nameH + 8, rl = wrap(ctx, N.roleShown, Vw, roleLines, 34, 500);
-  rl.forEach(function (ln, i) { drawText(ctx, ln, vx, ry + i * 40, 40, { pin: 'B', size: 34, weight: 500, fill: DARK2, alpha: N.roleEmpty ? 0.45 : 1, id: 'role' + i, limit: Vw }); });
-  if (N.showSession) {
-    var sy = ry + rl.length * 40 + 10, ssz = fitLine(ctx, N.session, 28, 24, Vw - 14), sh = ssz * 1.2;
-    ctx.fillStyle = TEAL; ctx.fillRect(vx, sy + (Math.max(22, sh) - 22) / 2, 4, 22);
-    drawText(ctx, N.session, vx + 14, sy, sh, { pin: 'B', size: ssz, weight: 600, fill: OB, id: 'session', limit: Vw - 14 });
-  }
+  var cy0 = rows0 + 20;
+  fade(ctx, 'chip', function () { chipTag(ctx, vx, cy0, 36, 12, 16, N.chip, lv.fill); });
+  var ny = cy0 + 36 + 14;
+  fade(ctx, 'plate', function () {
+    var nsz = f.size, nLH = nsz * 1.02, nameA = N.rawName ? 1 : 0.32;
+    f.lines.forEach(function (ln, i) { drawText(ctx, ln, vx, ny + i * nLH, nLH, { pin: 'B', size: nsz, weight: 800, fill: OB, alpha: nameA, id: 'name' + i, limit: Vw }); });
+    var ry = ny + nameH + 8, rl = wrap(ctx, N.roleShown, Vw, roleLines, 34, 500);
+    rl.forEach(function (ln, i) { drawText(ctx, ln, vx, ry + i * 40, 40, { pin: 'B', size: 34, weight: 500, fill: DARK2, alpha: N.roleEmpty ? 0.45 : 1, id: 'role' + i, limit: Vw }); });
+    if (N.showSession) {
+      var sy = ry + rl.length * 40 + 10, ssz = fitLine(ctx, N.session, 28, 24, Vw - 14), sh = ssz * 1.2;
+      ctx.fillStyle = TEAL; ctx.fillRect(vx, sy + (Math.max(22, sh) - 22) / 2, 4, 22);
+      drawText(ctx, N.session, vx + 14, sy, sh, { pin: 'B', size: ssz, weight: 600, fill: OB, id: 'session', limit: Vw - 14 });
+    }
+  });
   rule(rows0 + Hc);
 
   var ry0 = rows0 + Hc, mid = function (i) { return ry0 + i * rowH + (rowH - 1) / 2; };   /* 1.5px CSS borders are floored to 1px, so a row's content box is rowH − 1 */
@@ -702,8 +729,10 @@ function drawBrief(ctx, N) {
   /* OBJECTIVE */
   label('OBJECTIVE', mid(0));
   var ow = measureW(ctx, lv.obj, 'B', 26, 700, 0) + 32;
-  ctx.fillStyle = lv.fill; ctx.fillRect(vx, Math.round(mid(0) - 22), ow, 44);
-  drawText(ctx, lv.obj, vx + 16, mid(0) - 13, 26, { pin: 'B', size: 26, weight: 700, fill: lv.ink, id: 'objective' });
+  fade(ctx, 'iam', function () {
+    ctx.fillStyle = lv.fill; ctx.fillRect(vx, Math.round(mid(0) - 22), ow, 44);
+    drawText(ctx, lv.obj, vx + 16, mid(0) - 13, 26, { pin: 'B', size: 26, weight: 700, fill: lv.ink, id: 'objective' });
+  });
   rule(ry0 + rowH);
   /* CHANNEL */
   label('CHANNEL', mid(1));
@@ -766,7 +795,9 @@ function drawBrief(ctx, N) {
     drawText(ctx, '#DMC2026 · #BuiltToScale', 64, 1604, 28, { pin: 'B', size: 28, weight: 600, fill: SOFT, id: 'hashtags' });
     if (A.img.field) { ctx.save(); ctx.beginPath(); ctx.rect(0, 1660, 1080, 260); ctx.clip(); ctx.globalAlpha = 0.6; ctx.fillStyle = tilePattern(ctx, A.img.field, 0, 1440); ctx.fillRect(0, 1660, 1080, 260); ctx.restore(); }
   }
-  return { Hc: Hc, rowH: rowH, name: f, roleLines: roleLines };
+  var sheet = st ? { x: 40, y: 404, w: 1000, h: 932, r: 6 } : { x: 0, y: 196, w: 1080, h: 914, r: 0 };
+  return { Hc: Hc, rowH: rowH, name: f, roleLines: roleLines, card: sheet, qr: { x: x0, y: P.qrY, w: 112, h: 112 },
+           photo: hasPhoto ? { x: right - 8 - 160 - 12, y: rows0 + 20 - 12, w: 184, h: 216 } : null, bandTop: P.band.kenteY };
 }
 
 /* BUILT / TO / SCALE: pins D and D + DI, LH 0.85, tracking −0.02em, SCALE in the foil */
@@ -813,7 +844,9 @@ function renderFlyer(ctx, state, opts) {
   LOG = opts && opts.debug ? [] : null;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.shadowColor = 'rgba(0,0,0,0)'; ctx.shadowBlur = 0; ctx.shadowOffsetX = ctx.shadowOffsetY = 0;
   ctx.clearRect(0, 0, 1080, H);
-  var info = N.tpl === 'brief' ? drawBrief(ctx, N) : drawBadge(ctx, N);
+  MO = (opts && opts.motion) || null;
+  var info;
+  try { info = N.tpl === 'brief' ? drawBrief(ctx, N) : drawBadge(ctx, N); } finally { MO = null; }
   var log = LOG; LOG = null;
   return { log: log, info: info, state: N };
 }

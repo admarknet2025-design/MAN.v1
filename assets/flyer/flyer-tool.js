@@ -1,6 +1,9 @@
 /* DMC 2026 flyer tool: one UI for the public page (/dmc-2026#flyer, attendees only) and the team tool (/studio, behind the team login).
  *
- *   DMCFlyerTool.mount(el, { mode: 'public' | 'team', roster: [ {name, title, company, movement, session, sessionTime} ] })
+ *   DMCFlyerTool.mount(el, { mode: 'public' | 'team', roster: [ {name, title, company, movement, session, sessionTime} ], video: bool })
+ *
+ * video: adds "Download MP4" beside "Download picture" (assets/flyer/flyer-motion.js, which must be loaded). On for the public
+ * attendee tool; off for the team tool until it is switched on there (pass video: true, nothing else changes).
  *
  * Both modes use the same renderer (flyer-render.js). A photo is decoded and drawn on this device only; nothing is uploaded. */
 (function (root) {
@@ -30,7 +33,8 @@ function seg(name, legend, items, checked) {
 function mount(el, opts) {
   opts = opts || {};
   var team = opts.mode === 'team', roster = (team && opts.roster) || [];
-  var R = root.DMCFlyer;
+  var R = root.DMCFlyer, MO = root.DMCFlyerMotion;
+  var video = !!(MO && (opts.video != null ? opts.video : !team));
   var S = { template: 'badge', format: '4:5', level: 'yourself', participantRole: team ? 'speaking' : 'attending', name: '', role: '', sessionLine: '', photo: null, gloss: 'standard' };
   try { var q = new URLSearchParams(location.search).get('gloss'); if (q && R.GLOSS[q]) S.gloss = q; } catch (e) {}   /* QA only: there is no gloss control */
 
@@ -53,8 +57,13 @@ function mount(el, opts) {
       '<div class="fl2-field"><label for="fl-name">Your name</label><input id="fl-name" type="text" placeholder="e.g. Abena Mensah" maxlength="30" autocomplete="off"></div>' +
       '<div class="fl2-field"><label for="fl-role">Your role / title</label><input id="fl-role" type="text" placeholder="e.g. Brand Strategist" maxlength="60" autocomplete="off"></div>' +
       (team ? '<div class="fl2-field" id="fl-sess-wrap" hidden><label for="fl-session">Session line</label><input id="fl-session" type="text" placeholder="e.g. Panel · Build Your Work · 12:35" maxlength="40" autocomplete="off"></div>' : '') +
-      '<div class="fl2-actions"><button type="button" class="fl2-btn" id="fl-dl" aria-disabled="true">Download flyer ↓</button><button type="button" class="fl2-btn ghost" id="fl-share" aria-disabled="true">Share my flyer ↗</button></div>' +
+      (video
+        ? '<div class="fl2-actions fl2-dl2"><button type="button" class="fl2-btn" id="fl-dl" aria-disabled="true">Download picture ↓</button><button type="button" class="fl2-btn" id="fl-mp4" aria-disabled="true" aria-describedby="fl-vtip">Download MP4 ↓</button></div>' +
+          '<div class="fl2-prog" id="fl-prog" hidden><span class="fl2-bar"><i id="fl-bar"></i></span></div>' +
+          '<div class="fl2-actions"><button type="button" class="fl2-btn ghost" id="fl-share" aria-disabled="true">Share my flyer ↗</button></div>'
+        : '<div class="fl2-actions"><button type="button" class="fl2-btn" id="fl-dl" aria-disabled="true">Download flyer ↓</button><button type="button" class="fl2-btn ghost" id="fl-share" aria-disabled="true">Share my flyer ↗</button></div>') +
       '<p class="fl2-tip" id="fl-tip">Add your name to download. The PNG is full resolution (1080 × 1350 or 1080 × 1920).</p>' +
+      (video ? '<p class="fl2-tip" id="fl-vtip"></p>' : '') +
       '<p class="fl2-msg" id="fl-smsg" role="status" aria-live="polite"></p>' +
       '<div class="fl2-cap"><label for="fl-caption">Your caption</label><textarea id="fl-caption" rows="6"></textarea><button type="button" class="fl2-btn ghost" id="fl-copy">Copy caption</button></div>' +
     '</div>' +
@@ -110,7 +119,8 @@ function mount(el, opts) {
   function syncActions() {
     var ok = ready();
     ['fl-dl', 'fl-share'].forEach(function (id) { $(id).setAttribute('aria-disabled', ok ? 'false' : 'true'); });
-    $('fl-tip').textContent = ok ? 'Full-resolution PNG: ' + (S.format === '9:16' ? '1080 × 1920' : '1080 × 1350') + '. Your photo never leaves this device.' : 'Add your name to download. A photo is optional.';
+    $('fl-tip').textContent = ok ? (video ? 'Picture: full-resolution PNG, ' : 'Full-resolution PNG: ') + (S.format === '9:16' ? '1080 × 1920' : '1080 × 1350') + '. Your photo never leaves this device.' : 'Add your name to download. A photo is optional.';
+    if (video) syncVideo();
   }
   function setField(id, v) { var f = $(id); if (f) f.value = v; }
   el.addEventListener('change', function (e) {
@@ -143,7 +153,7 @@ function mount(el, opts) {
 
   /* ---- photo: decoded and drawn on this device, nothing is sent anywhere ---- */
   function setPhoto(bm, file) {
-    if (S.photo && S.photo.close) S.photo.close();
+    if (S.photo && S.photo.close) { if (vBusy) vHeld.push(S.photo); else S.photo.close(); }   /* a recording in progress keeps drawing the old photo */
     S.photo = bm;
     if (thumbUrl) URL.revokeObjectURL(thumbUrl);
     thumbUrl = bm ? URL.createObjectURL(file) : '';
@@ -200,6 +210,53 @@ function mount(el, opts) {
     var done = function () { track('flyer_copy_caption'); snote('Caption copied. Paste it into your post.'); }, fail = function () { snote('Could not copy automatically. Select the caption and copy it.'); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cap.value).then(done, fail);
     else { cap.select(); try { document.execCommand('copy') ? done() : fail(); } catch (e) { fail(); } }
+  });
+
+  /* ---- the animated flyer (MP4): recorded on this device from the same renderer; the picture download is untouched ---- */
+  var vBusy = false, vHeld = [], vSup = video ? MO.support() : null, vFailed = false;
+  function vFileName(ext) { return fileName().replace(/\.png$/, '.' + ext); }
+  function syncVideo() {
+    var b = $('fl-mp4'), tip = $('fl-vtip'); if (!b) return;
+    if (!vSup.ok) {
+      b.textContent = 'MP4 not available in this browser'; b.setAttribute('aria-disabled', 'true');
+      tip.textContent = 'This browser cannot record video. Download the picture, or open this page in Chrome or Safari for the MP4.';
+      return;
+    }
+    if (vBusy) return;
+    b.textContent = vFailed ? 'MP4 failed. Try again ↓' : 'Download MP4 ↓';
+    b.setAttribute('aria-disabled', ready() ? 'false' : 'true');
+    tip.textContent = 'MP4: a 6-second animated version of this flyer, made on this device. Keep this page open while it records.' +
+      (vSup.ext === 'webm' ? ' This browser saves it as a WebM video.' : '');
+  }
+  function progress(p) {
+    var b = $('fl-mp4'), pr = $('fl-prog'), bar = $('fl-bar');
+    if (p == null) { pr.hidden = true; return; }
+    pr.hidden = false; bar.style.width = Math.round(p * 100) + '%';
+    b.textContent = 'Recording MP4… ' + Math.round(p * 100) + '%';
+  }
+  if (video) $('fl-mp4').addEventListener('click', function () {
+    if (!vSup.ok) { snote('This browser cannot record video. The picture download still works.'); return; }
+    if (vBusy) return;
+    if (!ready()) return needName();
+    note(''); snote(''); vBusy = true; vFailed = false;
+    var b = $('fl-mp4'); b.setAttribute('aria-busy', 'true'); progress(0);
+    MO.record(S, { onProgress: progress }).then(function (r) {
+      var url = URL.createObjectURL(r.blob), a = document.createElement('a');
+      a.download = vFileName(r.ext); a.href = url; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      track('flyer_video_download', Object.assign({ container: r.ext, bytes: r.blob.size }, meta()));
+      snote('Your MP4 is downloaded (' + (r.blob.size / 1048576).toFixed(1) + ' MB, 6 seconds).');
+    }, function (err) {
+      vFailed = true;
+      var m = err && err.message;
+      snote(m === 'hidden' ? 'The recording stopped because the page was hidden. Keep this page open and try again.'
+          : 'The MP4 could not be made on this device. Download the picture instead, or try again.');
+      if (root.console) console.error(err);
+    }).then(function () {
+      vBusy = false; b.removeAttribute('aria-busy'); progress(null);
+      vHeld.forEach(function (p) { if (p !== S.photo && p.close) p.close(); }); vHeld = [];
+      syncVideo();
+    });
   });
 
   syncActions();

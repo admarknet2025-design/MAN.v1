@@ -46,6 +46,13 @@
 .fl2-actions{display:flex;flex-direction:column;gap:10px}
 .fl2-actions .fl2-btn,.fl2-cap .fl2-btn{width:100%}
 .fl2-cap .fl2-btn{margin-top:10px}
+.fl2-dl2{flex-direction:row}
+.fl2 .fl2-dl2 .fl2-btn{flex:1 1 0;width:auto;min-width:0;padding:0 10px;line-height:1.2}
+.fl2-btn[aria-busy=true]{cursor:progress}
+.fl2-prog{margin:-4px 0 0}
+.fl2-prog[hidden]{display:none}
+.fl2-bar{display:block;height:4px;border-radius:2px;background:var(--fl-line);overflow:hidden}
+.fl2-bar i{display:block;height:100%;width:0;background:var(--fl-cream)}
 .fl2-tip{font-size:12px;line-height:1.5;color:var(--fl-mut);margin:-6px 0 0}
 .fl2-msg{min-height:0;margin:0;font-size:13px;line-height:1.5;color:#F08C74}
 .fl2-msg:empty{display:none}
