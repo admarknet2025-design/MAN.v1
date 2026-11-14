@@ -91,7 +91,8 @@ async function verify(name, pngBuf, placements, w, h, tall) {
   }
   for (const [page, file] of [['dmc-2026.html', 'og-dmc-2026.png'], ['index.html', 'og-home-dmc-2026.png'], ['press.html', 'og-dmc-2026.png']]) {
     const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
-    if (!html.includes('content="https://mangh.org/assets/' + file + '"')) fail(page + ' does not point its og:image at ' + file);
+    /* a ?v=<hash> is allowed: it makes social networks fetch a changed image instead of their cached copy */
+    if (!new RegExp('content="https://mangh\\.org/assets/' + file.replace('.', '\\.') + '(\\?v=[a-f0-9]+)?"').test(html)) fail(page + ' does not point its og:image at ' + file);
   }
   /* the shared image stays out of this: pages that are not DMC 2026 keep it */
   console.log('link previews: 2 images, 3 pages checked');

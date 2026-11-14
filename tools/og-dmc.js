@@ -1,4 +1,4 @@
-/* Makes the DMC 2026 link-preview images (Open Graph / Twitter, 1200x630), drawn here from scratch with the same header as every other DMC 2026 asset:
+/* Makes the DMC 2026 link-preview images (Open Graph / Twitter, 1200x630) in the flyers' look (see make() below). Earlier header notes:
    "BUILT TO" in cream, "SCALE" in the website's gold gradient, "Powered by MojoPay" (the shared lockup, assets/sponsor/) beside the title block,
    and the line "Tickets exclusively on MojoLife" in the footer row. The M·A·N logo is not in the header; "Organised by M·A·N" is in the footer row.
      node tools/og-dmc.js            writes assets/og-dmc-2026.png (dmc-2026 and press pages) and assets/og-home-dmc-2026.png (the home page)
@@ -33,52 +33,39 @@ function tracked(ctx, text, x, y, spacing) {
   return cx - x - spacing;
 }
 
+/* Restyled 14 Nov 2026: drawn with the participant flyers' renderer (assets/flyer/flyer-render.js on @napi-rs/canvas, via
+   lib/studio/render.js), so the link previews share the flyers' and DMC Studio's look: ink ground, the hero planes on the right,
+   the pill and eyebrow, BUILT TO SCALE with the gold-foil italic SCALE, and the flat partner band (POWERED BY MojoPay on the white
+   tile, ORGANIZED BY M·A·N, the seven partners) with the ticket line above it. */
 async function make(out, opts, dir) {
+  const { FLY } = require('../lib/studio/render.js');
+  await FLY.load();
+  const I = FLY._internal, K = I.C;
   const c = createCanvas(W, H), ctx = c.getContext('2d');
-  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-  ctx.fillStyle = C.ob; ctx.fillRect(0, 0, W, H);
-
-  /* corner triangles (coral behind, teal in front, a thin gold wedge below), the slim gold bar on the left, the kente strip along the bottom */
-  const tri = (col, a, b, cc) => { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(cc[0], cc[1]); ctx.closePath(); ctx.fill(); };
-  tri(C.co, [W, 0], [W, 300], [W - 300, 0]);
-  tri(C.te, [W, 0], [W, 162], [W - 162, 0]);
-  tri(C.go, [W, 300], [W, 348], [W - 48, 300]);
-  ctx.fillStyle = C.go; ctx.fillRect(72, 70, 5, 430);
-  const seg = [[C.go, 18], [C.ob, 2], [C.te, 18], [C.ob, 2], [C.co, 18], [C.ob, 2], [C.cr, 18], [C.ob, 2]];
-  for (let x = 0, i = 0; x < W; x += seg[i % seg.length][1], i++) { ctx.fillStyle = seg[i % seg.length][0]; ctx.fillRect(x, H - 14, Math.min(seg[i % seg.length][1], W - x), 14); }
-
-  /* header: kicker, then the title block with "Powered by MojoPay" beside it */
-  const lx = 113;
-  ctx.fillStyle = 'rgba(244,239,230,.62)'; ctx.font = font(19, 700);
-  tracked(ctx, 'DIGITAL MARKETERS’ CONFERENCE 2026', lx, 104, 4.2);
-  const px = 108, cap = Math.round(px * 0.7), lh = Math.round(px * 0.92), top = 138;
-  ctx.font = px + 'px DMCArchivoXK';
-  const b1 = top + cap, b2 = b1 + lh;
-  const tw = ctx.measureText('BUILT TO').width, sw = ctx.measureText('SCALE').width;
-  ctx.fillStyle = C.cr; ctx.fillText('BUILT TO', lx, b1);
-  const g = ctx.createLinearGradient(lx, 0, lx + sw, 0);
-  g.addColorStop(0, C.go); g.addColorStop(0.62, '#F5D87A'); g.addColorStop(1, '#E6C566');
-  ctx.fillStyle = g; ctx.fillText('SCALE', lx, b2);
-
-  const tileW = Math.max(SP.minTileW(W, false), 204);
-  const imgs = await sponsorImages();
-  const o = { variant: 'stacked', tileW, images: imgs, font };
-  const a = SP.measure(ctx, Object.assign({ kind: 'mojopay' }, o));
-  const gapX = Math.max(40, Math.ceil(SP.clearSpace(tileW) * 1.6));
-  const rx = Math.round(lx + tw + gapX), blockH = b2 - top;
-  ctx.fillStyle = 'rgba(244,239,230,.28)'; ctx.fillRect(rx, top + 6, 2, blockH - 12);
-  const pl = [SP.draw(ctx, Object.assign({ kind: 'mojopay', x: rx + 2 + gapX, y: Math.round(top + (blockH - a.h) / 2) }, o))];
-
-  /* footer row: date and venue, the organiser, the ticket line, the address */
-  ctx.fillStyle = C.cr; ctx.font = '42px DMCArchivoXK'; ctx.fillText('21 NOV 2026', lx, 520);
-  ctx.fillStyle = 'rgba(244,239,230,.85)'; ctx.font = font(22, 700); ctx.fillText('Saturday  ·  10AM–3PM  ·  British Council, Accra', lx, 558);
-  const logo = await loadImage(fs.readFileSync(path.join(ROOT, 'assets', 'man-logo.png')));
-  const ox = 700, lgH = 46, lgW = Math.round(lgH * logo.width / logo.height);
-  ctx.fillStyle = 'rgba(244,239,230,.62)'; ctx.font = font(13, 700); tracked(ctx, 'ORGANISED BY', ox, 503, 2.6);
-  ctx.drawImage(logo, ox, 514, lgW, lgH);
-  pl.push(SP.drawTicketLine(ctx, { x: 1128, y: 480, tileW, variant: 'horizontal', font, align: 'right' }));
-  ctx.fillStyle = 'rgba(244,239,230,.8)'; ctx.font = font(24, 700); ctx.textAlign = 'right'; ctx.fillText('mangh.org/dmc-2026', 1128, 566); ctx.textAlign = 'left';
-
+  const stripH = 92, kenteH = 12, bandY = H - stripH, kenteY = bandY - kenteH;
+  ctx.fillStyle = K.INK; ctx.fillRect(0, 0, W, H);
+  I.heroGeo(ctx, Math.round(W * 0.58), 0, Math.round(W * 0.42), kenteY);
+  const x = 56;
+  I.pill(ctx, x, 40, 42, 18, 9, 20);
+  const T = (str, X, top, LH, o) => I.drawText(ctx, str, X, top, LH, o);
+  const ey = { pin: 'B', size: 14, weight: 700, track: 0.28, fill: 'rgba(244,239,230,.6)' };
+  T('DIGITAL MARKETERS’ CONFERENCE', x, 102, 20, Object.assign({ id: 'eyebrow' }, ey));
+  const hs = 96, LH = hs * 0.85, hy = 134;
+  T('BUILT TO', x, hy, LH, { pin: 'D', size: hs, weight: 900, track: -0.02, fill: K.CREAM, id: 'BUILT TO' });
+  const sw = I.measureW(ctx, 'SCALE', 'DI', hs, 900, -0.02);
+  T('SCALE', x, hy + LH, LH, { pin: 'DI', size: hs, weight: 900, track: -0.02, fill: I.foil(ctx, x, sw + 0.08 * hs), id: 'SCALE' });
+  T('Sat 21 Nov 2026 · 10AM–3PM · British Council, Accra', x, hy + 2 * LH + 26, 28, { pin: 'B', size: 22, weight: 700, fill: K.CREAM, id: 'facts' });
+  T('mangh.org/dmc-2026', x, hy + 2 * LH + 62, 28, { pin: 'B', size: 22, weight: 600, fill: K.SOFT, id: 'url' });
+  /* the date, large on the planes */
+  T('21 NOV', W - 56, 318, 80, { pin: 'D', size: 82, weight: 900, track: -0.02, fill: K.CREAM, align: 'right', id: 'date1' });
+  T('2026', W - 56, 392, 60, { pin: 'D', size: 60, weight: 900, track: -0.02, fill: 'rgba(244,239,230,.82)', align: 'right', id: 'date2' });
+  /* the ticket line (contract) above the band, then the kente and the band */
+  const tl = I.ticketLine(ctx, x, kenteY - 46, 560, Math.max(17, Math.ceil(W * SP.config.MIN_TICKET_TEXT_PCT) / 100 + 1));
+  ctx.fillStyle = '#000'; ctx.save(); ctx.translate(0, kenteY); const k = FLY.assets.img.kente;
+  if (k) { const sc = kenteH / 24; ctx.scale(sc, sc); ctx.fillStyle = I.tilePattern(ctx, k, 0, 0); ctx.fillRect(0, 0, W / sc + 24, 24); }
+  ctx.restore();
+  const b = I.bandRow(ctx, { x: 0, y: bandY, w: W, h: stripH, mojoW: SP.minTileW(W, false) + 4, labelSize: 10, padX: 30 });
+  const pl = [{ kind: 'mojopay', x: b.mojo.x, y: b.mojo.y, w: b.mojo.w, h: b.mojo.h, tile: b.mojo, colour: b.mojo.colour }, tl];
   fs.writeFileSync(path.join(dir || path.join(ROOT, 'assets'), out), c.toBuffer('image/png'));
   return { out, placements: pl, problems: SP.check(pl, W, H, false) };
 }
