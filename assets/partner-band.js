@@ -19,16 +19,17 @@ function mount(el, o) {
   var tileW = o.tileW || (SP ? Math.max(SP.minTileW(W, false), Math.round(W * 0.16)) : 320);
   var lock = SP ? SP.html(tileW, 'horizontal', "'DMC Archivo B','Archivo',sans-serif") + SP.ticketLineHtml(tileW, "'DMC Archivo B','Archivo',sans-serif") : '';
   var g = SP ? SP.geometry(tileW) : { tileH: 64 };
-  var rowH = Math.round(g.tileH), tH = o.tileH || Math.round(rowH * 0.86);
+  var rowH = Math.round(g.tileH), tH = o.tileH || Math.round(rowH * 0.86), cmp = !!o.compact;
   el.classList.add('dmc-band');
+  if (o.labelPx) el.style.setProperty('--bl', o.labelPx + 'px');
   el.innerHTML =
     '<div class="dmc-kente" aria-hidden="true"></div>' +
     '<div style="display:flex;align-items:center;justify-content:space-between;gap:32px;padding:' + (o.rowGap || 16) + 'px ' + padX + 'px 0;flex-wrap:' + (o.compact ? 'wrap' : 'nowrap') + '">' +
-      '<div id="' + esc(o.sponsorId || 'sponsor') + '" style="display:flex;align-items:center;gap:36px" aria-label="Powered by MojoPay. Tickets exclusively on MojoLife.">' + lock + '</div>' +
-      '<div style="display:flex;align-items:center;gap:20px;height:' + rowH + 'px"><span class="bl">Organized by</span><img class="man" src="/assets/man-logo.png" alt="M·A·N, Marketers &amp; Advertisers Network" style="height:' + Math.round(rowH * 0.82) + 'px"></div>' +
+      '<div id="' + esc(o.sponsorId || 'sponsor') + '" style="display:flex;align-items:center;gap:' + (cmp ? '8px 20px;flex-wrap:wrap' : '36px') + '" aria-label="Powered by MojoPay. Tickets exclusively on MojoLife.">' + lock + '</div>' +
+      '<div style="display:flex;align-items:center;gap:' + (cmp ? 12 : 20) + 'px;height:' + rowH + 'px"><span class="bl">Organized by</span><img class="man" src="/assets/man-logo.png" alt="M·A·N, Marketers &amp; Advertisers Network" style="height:' + Math.round(rowH * 0.82) + 'px"></div>' +
     '</div>' +
-    '<div style="display:flex;align-items:center;gap:24px;padding:' + (o.rowGap || 16) + 'px ' + padX + 'px ' + (o.rowGap || 16) + 'px">' +
-      '<span class="bl">In partnership with</span><div class="tiles" data-partners style="height:' + tH + 'px"></div>' +
+    '<div style="display:flex;align-items:center;gap:' + (cmp ? '8px 24px' : '24px') + ';flex-wrap:' + (cmp ? 'wrap' : 'nowrap') + ';padding:' + (o.rowGap || 16) + 'px ' + padX + 'px ' + (o.rowGap || 16) + 'px">' +
+      '<span class="bl">In partnership with</span><div class="tiles" data-partners style="height:' + tH + 'px' + (cmp ? ';flex-basis:100%;gap:6px' : '') + '"></div>' +
     '</div>';
   /* the flyer's white tile for the MojoPay logo (the logo itself is untouched) */
   var t = el.querySelector('.dmc-lockup[data-kind="mojopay"]');
