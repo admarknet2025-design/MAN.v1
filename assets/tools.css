@@ -16,7 +16,7 @@
 
 :root{
   --ink:#0D0D0D;--ob:#1C1C1C;--ob2:#262626;--cr:#F4EFE6;--go:#C9A24A;--te:#2A7B74;--te-text:#5C9890;--co:#D95F45;--soft:#B9B4AB;--mute:#5A5650;--dark2:#3A3A3A;
-  --cr72:rgba(244,239,230,.72);--cr60:rgba(244,239,230,.6);--line:rgba(255,255,255,.12);
+  --cr72:rgba(244,239,230,.72);--cr60:rgba(244,239,230,.6);--line:rgba(255,255,255,.12);--hair:rgba(201,162,74,.28);
   --fD:'DMC Archivo D','Archivo',sans-serif;--fDI:'DMC Archivo DI','Archivo',sans-serif;--fB:'DMC Archivo B','DMC Archivo Cedi','Archivo',system-ui,sans-serif;--fBody:'Archivo',system-ui,sans-serif
 }
 

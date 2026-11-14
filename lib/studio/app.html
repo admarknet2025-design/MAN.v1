@@ -5,22 +5,29 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>DMC Studio — DMC 2026 team artwork</title>
+<link rel="stylesheet" href="/assets/tools.css?v=3ab0dc9e">
 <style>
+/* DMC Studio's page in the flyers' look (assets/tools.css): ink ground, the hero planes behind the header, the pill and BUILT TO
+   SCALE, pinned Archivo, panels with gold hairlines. The participant-flyer panel keeps its own styles (flyer-tool.css). */
 @font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
-:root{--ob:#1C1C1C;--ob2:#252525;--ob3:#303030;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--line:rgba(244,239,230,.18);--mut:rgba(244,239,230,.74);color-scheme:dark}
+:root{--ob:#1C1C1C;--ob2:#161616;--ob3:#262626;--cr:#F4EFE6;--te:#2A7B74;--co:#D95F45;--line:rgba(244,239,230,.18);--mut:rgba(244,239,230,.74);color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--ob);color:var(--cr);font:16px/1.5 'Archivo',system-ui,sans-serif}
-h1,h2,h3{margin:0;font-stretch:125%;font-weight:900;letter-spacing:.01em}
+body{margin:0;background:#0D0D0D;color:var(--cr);font:500 16px/1.5 var(--fB)}
+h1,h2,h3{margin:0;font-family:var(--fB);font-weight:800;letter-spacing:-.005em}
 a{color:var(--cr)}
-.kente{height:12px;background:repeating-linear-gradient(90deg,var(--te) 0 18px,var(--ob) 18px 20px,var(--co) 20px 38px,var(--ob) 38px 40px,var(--cr) 40px 58px,var(--ob) 58px 60px)}
-header.top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 20px 14px;max-width:1280px;margin:0 auto}
+.kente.dmc-kente{height:12px}
+.topwrap{position:relative;overflow:hidden}
+.topwrap .dmc-planes{right:0;top:0;width:50%;height:100%}
+header.top{position:relative;z-index:1;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 20px 16px;max-width:1280px;margin:0 auto}
+header.top .dmc-pill{font-size:11px}
+header.top .dmc-head{font-size:20px}
 header.top h1{font-size:26px}
 header.top .sub{color:var(--mut);font-size:14px}
 header.top .badge{margin-left:auto;border:1px solid var(--line);padding:4px 10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 main{max-width:1280px;margin:0 auto;padding:6px 20px 80px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:28px;align-items:start}
 @media(max-width:980px){main{grid-template-columns:1fr}}
-section.card{background:var(--ob2);border:1px solid var(--line);padding:18px 18px 20px;margin-bottom:18px}
+section.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-top:2px solid var(--hair);padding:18px 18px 20px;margin-bottom:18px}
 section.card>h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:flex;gap:10px;align-items:center}
 section.card>h2 .n{background:var(--te);color:#fff;width:26px;height:26px;display:inline-grid;place-items:center;font-size:13px;letter-spacing:0}
 .tpl{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
@@ -88,12 +95,14 @@ aside .sticky{position:sticky;top:12px}
 </style>
 </head>
 <body>
-<div class="kente" aria-hidden="true"></div>
+<div class="kente dmc-kente" aria-hidden="true"></div>
+<div class="topwrap"><div class="dmc-planes" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="fade"></i></div>
 <header class="top">
+  <span class="dmc-pill">DMC 2026 · Accra</span><span class="dmc-head" aria-hidden="true">Built to <span class="s dmc-foil">Scale</span></span>
   <h1>DMC Studio</h1>
   <span class="sub">On-brand DMC 2026 artwork, captions and tracked links, in every size.</span>
   <span class="badge">Team only</span>
-</header>
+</header></div>
 <div class="modes" role="group" aria-label="Studio tool">
   <button type="button" id="modeArt" aria-pressed="true">Artwork set</button>
   <button type="button" id="modeFly" aria-pressed="false">Participant flyers</button>
