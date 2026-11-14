@@ -83,7 +83,8 @@
   }
 
   /* draw a lockup with its top-left corner at (x, y); opts.align 'right' puts the right edge at x instead.
-     opts: { kind, variant, tileW, images:{mojopay}, font(px, weight), align, labelColour, tileEdge }
+     opts: { kind, variant, tileW, images:{mojopay}, font(px, weight), align, labelColour, tileEdge, tileColour }
+     tileColour: optional; the participant-flyer look uses a white tile (#FFFFFF). Default: CFG.TILE_COLOUR.
      returns where everything landed, so callers and tests can check it */
   function draw(ctx, opts) {
     var m = measure(ctx, opts), g = m.g, t = m.tile, stacked = opts.variant === 'stacked';
@@ -108,7 +109,7 @@
     }
     tracked(ctx, text, labelX, labelBase, g.tracking, true);
 
-    ctx.fillStyle = CFG.TILE_COLOUR;
+    ctx.fillStyle = opts.tileColour || CFG.TILE_COLOUR;
     ctx.fillRect(tileX, tileY, t.w, t.h);
     if (opts.tileEdge) {                                     /* a hairline round the tile when the ground is as light as the tile itself */
       ctx.strokeStyle = opts.tileEdge; ctx.lineWidth = Math.max(1, Math.round(g.logoH / 13));
@@ -122,6 +123,7 @@
       kind: 'mojopay', variant: opts.variant,
       x: x, y: y, w: m.w, h: m.h,
       tile: { x: tileX, y: tileY, w: t.w, h: t.h },
+      colour: opts.tileColour || CFG.TILE_COLOUR,
       clear: g.clear
     };
   }

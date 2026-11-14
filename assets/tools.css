@@ -39,7 +39,7 @@
 .dmc-planes i{position:absolute;inset:0;display:block}
 .dmc-planes .g1{background:var(--te);clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}
 .dmc-planes .g2{background:var(--co);clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.8}
-.dmc-planes .fade{background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.6) 50%,rgba(13,13,13,0) 100%)}
+.dmc-planes .fade{background:linear-gradient(to right,#0D0D0D 0%,rgba(13,13,13,.6) 50%,rgba(13,13,13,0) 100%)}
 .dmc-planes.drift .g1{animation:dmc-g1 22s ease-in-out infinite}
 .dmc-planes.drift .g2{animation:dmc-g2 30s ease-in-out infinite}
 @keyframes dmc-g1{0%,100%{clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}50%{clip-path:polygon(27% 0%,100% 0%,100% 64%,4% 0%);opacity:.70}}
@@ -65,7 +65,7 @@
 
 /* ---- the flat partner band (assets/partner-band.js fills it) ---- */
 .dmc-band{background:var(--ob);color:var(--cr)}
-.dmc-band .bl{font:700 18px/1.2 var(--fB);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+.dmc-band .bl{font:700 var(--bl,18px)/1.2 var(--fB);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
 .dmc-band .tiles{display:flex;gap:12px;flex:1;min-width:0}
 .dmc-band .tile{flex:1 1 0;min-width:0;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .dmc-band .tile img{display:block;max-width:100%;max-height:100%;object-fit:contain}
