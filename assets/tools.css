@@ -1,0 +1,74 @@
+/* DMC tool kit: the website hero and the participant flyers' look, shared by every tool page (DMC Live projector, phone and
+   control; DMC Studio's page; the campaign link builder; the attribution admin). Same tokens and pinned fonts as
+   assets/flyer/flyer-render.js, the hero planes (g1, g2 and the fade) and drift of assets/styles.css, the "DMC 2026 · ACCRA" pill,
+   the eyebrow, the BUILT TO SCALE headline with the gold-foil italic SCALE, the kente divider from the flyer's own tile, the cream
+   Brief sheet with gold hairlines, chips, and the flat partner band (built by assets/partner-band.js from partners26/partners.json).
+   Akan Gold is an accent only: the foil, the pill's dot, hairlines and chip squares; it never fills a large area. */
+
+@font-face{font-family:'DMC Archivo D';font-weight:900;font-display:block;src:url(/assets/flyer/fonts/archivo-d.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo DI';font-weight:900;font-display:block;src:url(/assets/flyer/fonts/archivo-di.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo B';font-weight:500;font-display:block;src:url(/assets/flyer/fonts/archivo-b500.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo B';font-weight:600;font-display:block;src:url(/assets/flyer/fonts/archivo-b600.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo B';font-weight:700;font-display:block;src:url(/assets/flyer/fonts/archivo-b700.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo B';font-weight:800;font-display:block;src:url(/assets/flyer/fonts/archivo-b800.woff2) format('woff2')}
+@font-face{font-family:'DMC Archivo Cedi';font-weight:600;font-display:block;src:url(/assets/flyer/fonts/archivo-cedi600.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-normal.woff2) format('woff2')}
+
+:root{
+  --ink:#0D0D0D;--ob:#1C1C1C;--ob2:#262626;--cr:#F4EFE6;--go:#C9A24A;--te:#2A7B74;--te-text:#5C9890;--co:#D95F45;--soft:#B9B4AB;--mute:#5A5650;--dark2:#3A3A3A;
+  --cr72:rgba(244,239,230,.72);--cr60:rgba(244,239,230,.6);--line:rgba(255,255,255,.12);
+  --fD:'DMC Archivo D','Archivo',sans-serif;--fDI:'DMC Archivo DI','Archivo',sans-serif;--fB:'DMC Archivo B','DMC Archivo Cedi','Archivo',system-ui,sans-serif;--fBody:'Archivo',system-ui,sans-serif
+}
+
+/* ---- display type ---- */
+.dmc-d{font-family:var(--fD);font-weight:900;letter-spacing:-.02em;line-height:.85;text-transform:uppercase}
+.dmc-di{font-family:var(--fDI);font-weight:900;letter-spacing:-.02em}
+.dmc-foil{background:linear-gradient(90deg,var(--go) 0%,#F5D87A 30%,var(--go) 55%,#9E7520 78%,var(--go) 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;padding-right:.08em}
+.dmc-foil.live{animation:dmc-shimmer 3.5s linear infinite}
+@keyframes dmc-shimmer{0%{background-position:250% center}100%{background-position:-250% center}}
+.dmc-head{font-family:var(--fD);font-weight:900;letter-spacing:-.02em;line-height:.85;text-transform:uppercase;color:var(--cr)}
+.dmc-head .s{font-family:var(--fDI)}
+
+/* ---- the pill and the eyebrow ---- */
+.dmc-pill{display:inline-flex;align-items:center;gap:.6em;padding:.55em 1.1em;border:2px solid var(--line);font:600 1em/1 var(--fB);letter-spacing:.16em;text-transform:uppercase;color:var(--cr72);white-space:nowrap}
+.dmc-pill::before{content:'';width:.5em;height:.5em;border-radius:50%;background:var(--go);flex:none}
+.dmc-eyebrow{font:700 1em/1.4 var(--fB);letter-spacing:.28em;text-transform:uppercase;color:var(--cr60)}
+
+/* ---- hero planes: g1 (teal) and g2 (coral) then the fade, as on the website hero and the flyers ---- */
+.dmc-planes{position:absolute;pointer-events:none;overflow:hidden;z-index:0}
+.dmc-planes i{position:absolute;inset:0;display:block}
+.dmc-planes .g1{background:var(--te);clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}
+.dmc-planes .g2{background:var(--co);clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.8}
+.dmc-planes .fade{background:linear-gradient(to right,var(--ink) 0%,rgba(13,13,13,.6) 50%,rgba(13,13,13,0) 100%)}
+.dmc-planes.drift .g1{animation:dmc-g1 22s ease-in-out infinite}
+.dmc-planes.drift .g2{animation:dmc-g2 30s ease-in-out infinite}
+@keyframes dmc-g1{0%,100%{clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}50%{clip-path:polygon(27% 0%,100% 0%,100% 64%,4% 0%);opacity:.70}}
+@keyframes dmc-g2{0%,100%{clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.80}40%{clip-path:polygon(13% 0%,100% 34%,100% 82%,0% 100%);opacity:.90}70%{clip-path:polygon(26% 0%,100% 47%,100% 68%,0% 88%);opacity:.72}}
+
+/* ---- the kente divider: the flyer's tile ---- */
+.dmc-kente{height:24px;background:url(/assets/flyer/kente-strip-tile.png) repeat-x left top;background-size:auto 100%}
+
+/* ---- chips and tags ---- */
+.dmc-chip{display:inline-flex;align-items:center;gap:.55em;background:var(--ob);color:var(--cr);border-radius:999px;padding:.5em 1em .5em .8em;font:700 .85em/1 var(--fB);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.dmc-chip::before{content:'';width:.55em;height:.55em;background:var(--chip,var(--go));flex:none}
+.dmc-chip.on-dark{background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.dmc-label{font:700 .8em/1.3 var(--fB);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+
+/* ---- the Brief sheet: cream paper, gold hairlines, gloss on the object only ---- */
+.dmc-sheet{position:relative;background:var(--cr);color:var(--ob);border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.52)}
+.dmc-sheet::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,0) 6%,rgba(255,255,255,.14) 22%,rgba(255,255,255,0) 38%);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 1px 0 0 rgba(255,255,255,.5)}
+.dmc-sheet .dmc-rule,.dmc-rule{height:0;border-top:1px solid var(--go)}
+.dmc-sheet .dmc-label{color:var(--te)}
+
+/* ---- dark panels (lists, bars) ---- */
+.dmc-panel{background:rgba(255,255,255,.05);border-top:2px solid rgba(201,162,74,.18)}
+
+/* ---- the flat partner band (assets/partner-band.js fills it) ---- */
+.dmc-band{background:var(--ob);color:var(--cr)}
+.dmc-band .bl{font:700 18px/1.2 var(--fB);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+.dmc-band .tiles{display:flex;gap:12px;flex:1;min-width:0}
+.dmc-band .tile{flex:1 1 0;min-width:0;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dmc-band .tile img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.dmc-band .man{display:block;height:100%;width:auto}
+
+@media (prefers-reduced-motion:reduce){.dmc-planes.drift .g1,.dmc-planes.drift .g2,.dmc-foil.live{animation:none}}
