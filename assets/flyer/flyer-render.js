@@ -378,25 +378,28 @@ function band(ctx, f, N) {
 }
 
 /* One flat row for DMC Studio's square and landscape sizes: POWERED BY + the MojoPay tile (the largest logo), ORGANIZED BY + M·A·N,
-   IN PARTNERSHIP WITH + every enabled partner tile. o: { x, y, w, h, mojoW, labelSize }. Same tiles, labels and spelling as band(). */
+   IN PARTNERSHIP WITH + every enabled partner tile. Each label sits above its group so the logos keep the width. Same tiles, labels
+   and spelling as band(). o: { x, y, w, h, mojoW, labelSize, padX }. */
 function bandRow(ctx, o) {
-  var x = o.x, y = o.y, w = o.w, h = o.h, ls = o.labelSize || 16, th = Math.round(h * 0.64), ty = y + Math.round((h - th) / 2);
-  var lbl = function (t, lx, top, rowH) { return drawText(ctx, t, lx, top + (rowH - ls) / 2, ls, { pin: 'B', size: ls, weight: 700, track: 0.14, fill: SOFT, id: t }); };
+  var x = o.x, y = o.y, w = o.w, h = o.h, ls = o.labelSize || 13, padX = o.padX || 40, padY = Math.round(h * 0.13);
+  var lblH = Math.round(ls * 1.25), gapL = Math.round(ls * 0.6), rowY = y + padY + lblH + gapL, rowH = y + h - padY - rowY;
+  var lbl = function (t, lx, maxW) { return drawText(ctx, t, lx, y + padY, lblH, { pin: 'B', size: ls, weight: 700, track: 0.14, fill: SOFT, id: t, limit: maxW }); };
   ctx.fillStyle = OB; ctx.fillRect(x, y, w, h);
-  var cx = x + (o.padX || 40);
-  cx += lbl('POWERED BY', cx, y, h) + Math.round(ls * 0.9);
-  var mw = o.mojoW, mh = Math.round(mw / 3.4), my = y + Math.round((h - mh) / 2);
+  var groupGap = Math.round(w * 0.028), cx = x + padX;
+  /* MojoPay: the tile fills the row height at most; its width is the contract minimum or more */
+  var mw = o.mojoW, mh = Math.min(rowH, Math.round(mw / 3.4)), my = rowY + Math.round((rowH - mh) / 2);
+  lbl('POWERED BY', cx, mw);
   fillRR(ctx, cx, my, mw, mh, 6, '#FFFFFF');
-  if (A.logos.mojopay) contain(ctx, A.logos.mojopay, cx + mw * 0.1, my + mh * 0.22, mw * 0.8, mh * 0.56);
+  if (A.logos.mojopay) contain(ctx, A.logos.mojopay, cx + mw * 0.1, my + mh * 0.2, mw * 0.8, mh * 0.6);
   var mojo = { x: cx, y: my, w: mw, h: mh, colour: '#FFFFFF' };
-  cx += mw + Math.round(ls * 1.6);
-  cx += lbl('ORGANIZED BY', cx, y, h) + Math.round(ls * 0.9);
-  var manH = Math.round(th * 0.9), manW = Math.round(manH * 3.07);
-  if (A.logos.man) contain(ctx, A.logos.man, cx, y + (h - manH) / 2, manW, manH, 0, 0.5);
-  cx += manW + Math.round(ls * 1.6);
-  cx += lbl('IN PARTNERSHIP WITH', cx, y, h) + Math.round(ls * 0.9);
-  var on = PARTNERS.filter(function (p) { return p.enabled; }), n = on.length, right = x + w - (o.padX || 40), gap = Math.max(6, Math.round(ls * 0.5));
-  var tw = n ? Math.floor((right - cx - (n - 1) * gap) / n) : 0;
+  cx += mw + groupGap;
+  var manH = Math.round(rowH * 0.92), manW = Math.max(Math.round(manH * 3.07), Math.ceil(measureW(ctx, 'ORGANIZED BY', 'B', ls, 700, 0.14)));
+  lbl('ORGANIZED BY', cx, manW);
+  if (A.logos.man) contain(ctx, A.logos.man, cx, rowY + (rowH - manH) / 2, Math.round(manH * 3.07), manH, 0, 0.5);
+  cx += manW + groupGap;
+  var right = x + w - padX, on = PARTNERS.filter(function (p) { return p.enabled; }), n = on.length, gap = Math.max(6, Math.round(ls * 0.55));
+  lbl('IN PARTNERSHIP WITH', cx, right - cx);
+  var tw = n ? Math.floor((right - cx - (n - 1) * gap) / n) : 0, th = Math.min(rowH, Math.round(tw * 0.62)), ty = rowY + Math.round((rowH - th) / 2);
   on.forEach(function (p, i) {
     var tx = cx + i * (tw + gap), img = A.logos[p.id];
     fillRR(ctx, tx, ty, tw, th, 5, '#FFFFFF');
@@ -405,7 +408,7 @@ function bandRow(ctx, o) {
     else drawText(ctx, p.name, tx + tw / 2, ty, th, { pin: 'B', size: Math.round(th * 0.3), weight: 700, fill: OB, align: 'center', limit: tw - 8, id: 'tile:' + p.id });
     if (LOG) LOG.push({ id: 'tile:' + p.id, x: tx, y: ty, w: tw, h: th, limit: null, size: th, tile: true });
   });
-  return { mojo: mojo, tiles: on.map(function (p) { return p.id; }), tileW: tw };
+  return { mojo: mojo, tiles: on.map(function (p) { return p.id; }), tileW: tw, tileH: th };
 }
 
 /* ---------- the Badge ---------- */
@@ -484,16 +487,30 @@ function badgeLeft(ctx, N, F) {
     drawText(ctx, t[0], 82, y + 11.5, 15, { pin: 'B', size: 15, weight: 700, track: 0.2, fill: 'rgba(244,239,230,.65)', id: 'tl-' + t[0] });
     drawText(ctx, t[1], 82, y + 32.5, 26, { pin: 'B', size: 24, weight: 800, fill: CREAM, id: 'tv-' + t[0], limit: F.tileW - 36 });
   });
-  fillRR(ctx, 64, F.qrY, 132, 132, 8, CREAM);
-  drawQR(ctx, N.qrUrl, 74, F.qrY + 10, 112);
-  ['SCAN TO', 'REGISTER'].forEach(function (t, i) { drawText(ctx, t, F.scanX, F.scanY + i * 24, 24, { pin: 'B', size: 18, weight: 700, track: 0.14, fill: SOFT, id: 'scan' + i }); });
-  drawText(ctx, N.qrLabel, F.urlX, F.urlY, 22, { pin: 'B', size: 22, weight: 600, fill: CREAM, id: 'url', limit: st ? 840 : 220 });
-  if (!st) ['#DMC2026', '#BuiltToScale'].forEach(function (t, i) { drawText(ctx, t, 64, 980 + i * 28, 28, { pin: 'B', size: 22, weight: 600, fill: SOFT, id: 'tag' + i }); });
+  if (!N.noQR) {
+    fillRR(ctx, 64, F.qrY, 132, 132, 8, CREAM);
+    drawQR(ctx, N.qrUrl, 74, F.qrY + 10, 112);
+    ['SCAN TO', 'REGISTER'].forEach(function (t, i) { drawText(ctx, t, F.scanX, F.scanY + i * 24, 24, { pin: 'B', size: 18, weight: 700, track: 0.14, fill: SOFT, id: 'scan' + i }); });
+    drawText(ctx, N.qrLabel, F.urlX, F.urlY, 22, { pin: 'B', size: 22, weight: 600, fill: CREAM, id: 'url', limit: st ? 840 : 220 });
+    if (!st) ['#DMC2026', '#BuiltToScale'].forEach(function (t, i) { drawText(ctx, t, 64, 980 + i * 28, 28, { pin: 'B', size: 22, weight: 600, fill: SOFT, id: 'tag' + i }); });
+  } else {                                   /* DMC Studio feed sizes and previews carry no QR: the link and tags move up into its place */
+    drawText(ctx, N.qrLabel, 64, F.qrY + 8, 26, { pin: 'B', size: 24, weight: 700, fill: CREAM, id: 'url', limit: st ? 840 : 320 });
+    if (!st) ['#DMC2026', '#BuiltToScale'].forEach(function (t, i) { drawText(ctx, t, 64, F.qrY + 48 + i * 28, 28, { pin: 'B', size: 22, weight: 600, fill: SOFT, id: 'tag' + i }); });
+  }
+  if (N.ticket) N.ticket.placement = ticketLine(ctx, 64, st ? 1302 : 1050, st ? 376 : 320, N.ticket.px);
 
+}
+/* DMC Studio only: the sponsor contract's "Tickets exclusively on MojoLife" (docs/sponsor-credit.md); the flyer image has none */
+function ticketLine(ctx, x, top, maxW, px, fill) {
+  var t = 'Tickets exclusively on MojoLife', size = px;
+  while (size > 12 && measureW(ctx, t, 'B', size, 700, 0) > maxW) size -= 0.5;
+  var w = drawText(ctx, t, x, top, Math.round(size * 1.3), { pin: 'B', size: size, weight: 700, fill: fill || CREAM, id: 'ticketline', limit: maxW });
+  return { kind: 'ticketline', text: t, px: size, x: x, y: top, w: w, h: Math.round(size * 1.3) };
 }
 /* a session kicker and title where the flyer says I'M BUILDING + the level word (Studio's Speaker / panelist) */
 function leftTitle(ctx, L, x, F, lw, lv) {
-  drawText(ctx, L.kicker, x, F.iamY, 28, { pin: 'B', size: 24, weight: 800, track: 0.06, fill: lv.text, id: 'iam', limit: lw });
+  var ks = 24; while (ks > 16 && measureW(ctx, L.kicker, 'B', ks, 800, 0.06) > lw) ks -= 1;
+  drawText(ctx, L.kicker, x, F.iamY + (24 - ks) / 2, 28, { pin: 'B', size: ks, weight: 800, track: 0.06, fill: lv.text, id: 'iam', limit: lw });
   var room = (F.tileY[0] - 14) - (F.wordY - 6), size = 38, lines;
   for (; size >= 24; size -= 2) { lines = wrap(ctx, L.title, lw, 2, size, 800); if (lines.length * size * 1.08 <= room && lines.every(function (t) { return measureW(ctx, t, 'B', size, 800, 0) <= lw; })) break; }
   if (size < 24) { size = 24; lines = wrap(ctx, L.title, lw, 2, size, 800); }
@@ -840,7 +857,7 @@ root.DMCFlyer = {
   _internal: { drawText: drawText, measureW: measureW, fitName: fitName, fitLine: fitLine, wrap: wrap, normalize: normalize, rrPath: rrPath, fillRR: fillRR, cover: cover, contain: contain,
                tilePattern: tilePattern, sheenGrad: sheenGrad, heroGeo: heroGeo, foil: foil, pill: pill, chipTag: chipTag, band: band, drawQR: drawQR, headline: headline,
                bandRow: bandRow, badgeLayout: badgeLayout, badgeLeft: badgeLeft, badgeObject: badgeObject, badgeStrap: badgeStrap, badgeCard: badgeCard, drawBadge: drawBadge, drawBrief: drawBrief,
-               strokeRR: strokeRR, rot: rot, topLeftArc: topLeftArc, grad135: grad135, vmetrics: vmetrics, setLog: function (v) { LOG = v; },
+               strokeRR: strokeRR, rot: rot, ticketLine: ticketLine, topLeftArc: topLeftArc, grad135: grad135, vmetrics: vmetrics, setLog: function (v) { LOG = v; },
                C: { CREAM: CREAM, INK: INK, OB: OB, GOLD: GOLD, TEAL: TEAL, CORAL: CORAL, SOFT: SOFT, MUTE: MUTE, DARK2: DARK2 },
                white: white, black: black, logBox: function () { return LOG; } }
 };
