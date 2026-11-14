@@ -71,14 +71,24 @@ function page(counts, rows, sum, clicks) {
     '</td><td>' + esc(r.ua) + '</td></tr>').join('') || '<tr><td colspan="6" class="empty">Nothing logged yet.</td></tr>';
   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<meta name="robots" content="noindex,nofollow"><title>Checkout attribution — DMC 2026</title><style>' +
-    ':root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#1C1C1C;color:#F4EFE6;font:15px/1.55 Archivo,system-ui,sans-serif;padding:28px 20px 64px}' +
-    'main{max-width:1000px;margin:0 auto}h1{font-size:28px;margin:0 0 6px}h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#F4EFE6;margin:34px 0 10px}' +
-    'p{color:rgba(244,239,230,.78);margin:0 0 12px;max-width:68ch}table{width:100%;border-collapse:collapse;font-size:14px}' +
-    'th,td{text-align:left;padding:9px 10px;border-bottom:1px solid rgba(244,239,230,.16);vertical-align:top}th{color:rgba(244,239,230,.78);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}' +
+        "@font-face{font-family:'DMC D';font-weight:900;src:url(/assets/flyer/fonts/archivo-d.woff2) format('woff2')}@font-face{font-family:'DMC DI';font-weight:900;src:url(/assets/flyer/fonts/archivo-di.woff2) format('woff2')}" +
+    "@font-face{font-family:'DMC B';font-weight:600;src:url(/assets/flyer/fonts/archivo-b600.woff2) format('woff2')}@font-face{font-family:'DMC B';font-weight:700;src:url(/assets/flyer/fonts/archivo-b700.woff2) format('woff2')}@font-face{font-family:'DMC B';font-weight:800;src:url(/assets/flyer/fonts/archivo-b800.woff2) format('woff2')}" +
+    ':root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0D0D0D;color:#F4EFE6;font:600 15px/1.55 "DMC B",Archivo,system-ui,sans-serif;padding:0 20px 64px}' +
+    '.k{height:12px;margin:0 -20px;background:url(/assets/flyer/kente-strip-tile.png) repeat-x left top;background-size:auto 100%}' +
+    'header{position:relative;margin:0 -20px 8px;padding:26px 20px 30px;overflow:hidden}header .in{position:relative;z-index:1;max-width:1000px;margin:0 auto}' +
+    '.pl{position:absolute;right:0;top:0;width:55%;height:100%}.pl i{position:absolute;inset:0}.pl .g1{background:#2A7B74;clip-path:polygon(35% 0%,100% 0%,100% 55%,10% 0%);opacity:.85}' +
+    '.pl .g2{background:#D95F45;clip-path:polygon(20% 0%,100% 40%,100% 75%,0% 95%);opacity:.8}.pl .f{background:linear-gradient(to right,#0D0D0D 0%,rgba(13,13,13,.6) 50%,rgba(13,13,13,0) 100%)}' +
+    '.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:2px solid rgba(255,255,255,.12);font:600 11px/1 "DMC B",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,239,230,.72)}' +
+    '.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:#C9A24A}.bts{font:900 22px/.9 "DMC D",sans-serif;letter-spacing:-.02em;text-transform:uppercase;margin-left:12px}' +
+    '.bts i{font-family:"DMC DI",sans-serif;font-style:normal;background:linear-gradient(90deg,#C9A24A 0%,#F5D87A 30%,#C9A24A 55%,#9E7520 78%,#C9A24A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}' +
+    'main{max-width:1000px;margin:0 auto}h1{font:800 34px/1.1 "DMC B",sans-serif;margin:18px 0 0}h2{font:700 14px/1.3 "DMC B",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#F4EFE6;margin:34px 0 10px;padding-top:14px;border-top:2px solid rgba(201,162,74,.28)}' +
+    'p{color:rgba(244,239,230,.78);margin:0 0 12px;max-width:68ch}table{width:100%;border-collapse:collapse;font-size:14px;background:rgba(255,255,255,.03)}' +
+    'th,td{text-align:left;padding:9px 10px;border-bottom:1px solid rgba(244,239,230,.12);vertical-align:top}th{color:rgba(244,239,230,.78);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}' +
     'td.n{text-align:right;font-variant-numeric:tabular-nums}.empty{color:rgba(244,239,230,.62)}code{font:13px ui-monospace,Menlo,monospace;word-break:break-all}' +
-    '.wrap{overflow-x:auto}.btn{display:inline-block;background:#2A7B74;color:#fff;text-decoration:none;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px;padding:13px 20px;border-radius:3px;margin-top:8px}' +
+    '.wrap{overflow-x:auto}.btn{display:inline-block;background:#2A7B74;color:#fff;text-decoration:none;font:800 13px/1 "DMC B",sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:14px 20px;margin-top:8px}' +
     '.btn:focus-visible{outline:2px solid #F4EFE6;outline-offset:2px}.note{border-left:3px solid #D95F45;padding:6px 0 6px 14px}' +
-    '</style></head><body><main><h1>Checkout attribution</h1>' +
+    '</style></head><body><div class="k" aria-hidden="true"></div><header><div class="pl" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="f"></i></div>' +
+    '<div class="in"><span class="pill">DMC 2026 · Accra</span><span class="bts" aria-hidden="true">Built to <i>Scale</i></span><h1>Checkout attribution</h1></div></header><main>' +
     '<p class="note"><b>Checkout started, not paid.</b> Each row is an order that MojoTickets created from a mangh.org checkout. Match the reference against MojoPay’s paid-orders export to find real sales.</p>' +
     '<p>' + counts.total + ' checkout' + (counts.total === 1 ? '' : 's') + ' started.</p>' +
     '<a class="btn" href="/admin/attribution.csv">Download checkouts CSV</a> <a class="btn" href="/admin/attribution-summary.csv">Download summary CSV</a>' +
