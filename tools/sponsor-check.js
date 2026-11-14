@@ -223,7 +223,11 @@ async function verify(name, pngBuf, placements, w, h, tall) {
             if (tk.x < pay.x + pay.w) fail(tag + ': the ticket line overlaps the MojoPay lockup');
             if (!pay.blue) fail(tag + ': the MojoPay logo is not drawn');
           }
-          if (m.gold) fail(tag + ': Akan Gold on the projector page (rule D-09)');
+          /* D-09 retired (14 Nov 2026): gold is allowed as an accent on the projector, never a large area */
+          { const shot = await loadImage(await pg.screenshot()), gc = createCanvas(shot.width, shot.height), gx = gc.getContext('2d'); gx.drawImage(shot, 0, 0);
+            const d = gx.getImageData(0, 0, shot.width, shot.height).data; let n = 0;
+            for (let i = 0; i < d.length; i += 4) if (Math.abs(d[i] - 201) < 30 && Math.abs(d[i + 1] - 162) < 30 && Math.abs(d[i + 2] - 74) < 36) n++;
+            const share = n / (shot.width * shot.height); if (share > 0.03) fail(tag + ': gold covers ' + (share * 100).toFixed(2) + '% of the projector (an accent only, under 3%)'); }
           if (vp[0] === 1920) { addSheet('other', 'screen ' + name, await pg.screenshot()); }
           await pg.close();
         }
