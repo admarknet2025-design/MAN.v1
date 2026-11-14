@@ -54,7 +54,7 @@ const CASES = {
     { fields: {}, tag: 'empty' }
   ],
   session: [
-    { fields: { title: 'Build Your Team: Panel Discussion', time: '11:40–12:10', movement: 'Build Your Team', speakers: 'Richard Sena Quashie · Simon Alangdee · Florentia Teye' } },
+    { fields: { title: 'Build Your Team: Panel Discussion', time: '11:40–12:10', movement: 'Build Your Team', speakers: 'Richard Sena Quashie · Simon Alangde · Florentia Teye' } },
     { fields: { title: 'Build Yourself: Positioning, Pricing and Personal Brand for Marketing Professionals in a Market That Rewards Visibility', time: '10:35–10:45', movement: 'Build Yourself', speakers: 'Isaac Newton Acquah · Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist · ' + LONG + ' · Kwaku Ofosuhene' }, tag: 'long' }
   ],
   sponsor: [

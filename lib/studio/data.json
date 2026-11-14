@@ -115,11 +115,11 @@
    "sponsor": ""
   },
   {
-   "slug": "simon-alangdee",
-   "name": "Simon Alangdee",
+   "slug": "simon-alangde",
+   "name": "Simon Alangde",
    "title": "Wineloya Digital",
    "company": "",
-   "photo": "simon-alangdee.webp",
+   "photo": "simon-alangde.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
    "sessionTime": "11:25–11:55",
@@ -388,12 +388,12 @@
    "end": "11:55",
    "title": "Build Your Team: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Richard Sena Quashie · Simon Alangdee · Florentia Teye — moderated by Alice Mensah",
+   "speakers": "Richard Sena Quashie · Simon Alangde · Florentia Teye — moderated by Alice Mensah",
    "movement": "Build Your Team",
    "format": "Discussion",
    "people": [
     "richard-sena-quashie",
-    "simon-alangdee",
+    "simon-alangde",
     "florentia-teye",
     "alice-mensah"
    ]
