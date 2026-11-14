@@ -465,18 +465,18 @@
    "role": "Title sponsor and official ticketing platform"
   },
   {
-   "slug": "generation-ghana",
-   "name": "Generation Ghana",
-   "logo": "generation-ghana.webp",
-   "tier": "Silver Sponsor",
-   "role": "Partner presentation, 12:25"
-  },
-  {
    "slug": "fido",
    "name": "FIDO",
    "logo": "fido.webp",
    "tier": "Silver Sponsor",
    "role": "DMC 2026 sponsor"
+  },
+  {
+   "slug": "generation-ghana",
+   "name": "Generation Ghana",
+   "logo": "generation-ghana.webp",
+   "tier": "Silver Sponsor",
+   "role": "Partner presentation, 12:25"
   },
   {
    "slug": "jobberman",
@@ -500,18 +500,18 @@
    "role": "Partner spotlight, 13:55"
   },
   {
-   "slug": "tech-labari",
-   "name": "Tech Labari",
-   "logo": "tech-labari.webp",
-   "tier": "Media Partner",
-   "role": "Partner spotlight, 14:30"
-  },
-  {
    "slug": "kasad3",
    "name": "Kasad3",
    "logo": "kasad3.webp",
    "tier": "Media Partner",
    "role": "Partner spotlight, 14:35"
+  },
+  {
+   "slug": "tech-labari",
+   "name": "Tech Labari",
+   "logo": "tech-labari.webp",
+   "tier": "Media Partner",
+   "role": "Partner spotlight, 14:30"
   }
  ]
 }
