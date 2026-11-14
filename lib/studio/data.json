@@ -212,6 +212,28 @@
    "movement": "",
    "sessionTime": "13:55–14:15",
    "sponsor": ""
+  },
+  {
+   "slug": "priscilla-osei-wusu",
+   "name": "Priscilla Osei-Wusu",
+   "title": "Marketing Communications Professional",
+   "company": "Petra Fund Services",
+   "photo": "priscilla-osei-wusu.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
+   "sponsor": ""
+  },
+  {
+   "slug": "amma-odamea-amoako",
+   "name": "Amma Odamea Amoako",
+   "title": "Digital Account Manager",
+   "company": "",
+   "photo": "amma-odamea-amoako.webp",
+   "session": "Breakout Sessions",
+   "movement": "",
+   "sessionTime": "13:55–14:15",
+   "sponsor": ""
   }
  ],
  "team": [
@@ -481,7 +503,9 @@
    "movement": "",
    "format": "Breakout",
    "people": [
-    "venus-tawiah"
+    "venus-tawiah",
+    "priscilla-osei-wusu",
+    "amma-odamea-amoako"
    ]
   },
   {
