@@ -192,6 +192,17 @@
    "sponsor": ""
   },
   {
+   "slug": "naomi-boakyewaa-kokuro",
+   "name": "Naomi Boakyewaa Kokuro",
+   "title": "Marketing Lead",
+   "company": "M·A·N",
+   "photo": "maame.webp",
+   "session": "Ice Breaker: Pitch Yourself in 60 Seconds",
+   "movement": "",
+   "sessionTime": "13:10–13:20",
+   "sponsor": ""
+  },
+  {
    "slug": "samuel-kwabena-ansong",
    "name": "Samuel Kwabena Ansong",
    "title": "Marketing Manager",
@@ -478,7 +489,9 @@
    "speakers": "Naomi Boakyewaa Kokuro",
    "movement": "",
    "format": "Ice Breaker",
-   "people": []
+   "people": [
+    "naomi-boakyewaa-kokuro"
+   ]
   },
   {
    "id": "s17",
