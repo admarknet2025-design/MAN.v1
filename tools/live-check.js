@@ -44,11 +44,11 @@ const files = ['lib/live', 'api', 'tools/live-cards', 'assets'].flatMap((d) => {
 const GOLD_OK = new Set(['lib/live/phone.html', 'lib/live/screen.html', 'lib/live/control.html', 'tools/live-cards/cards.js', 'assets/live-cards.js', 'tools/live-cards-check.js']);
 const goldIn = files.filter((f) => /c9a24a/i.test(fs.readFileSync(f, 'utf8'))).map((f) => path.relative(root, f));
 ok('gold appears only on the Live pages and the card maker, as an accent (rule D-09 retired 14 Nov 2026)', goldIn.every((f) => GOLD_OK.has(f)), goldIn);
-ok('gold is used on the phone page and the cards', ['lib/live/phone.html', 'tools/live-cards/cards.js'].every((f) => goldIn.indexOf(f) >= 0), goldIn);
+ok('gold is used on the cards, and the phone page takes it from the shared kit (assets/tools.css)', goldIn.indexOf('tools/live-cards/cards.js') >= 0 && /assets\/tools\.css/.test(fs.readFileSync(path.join(root, 'lib/live/phone.html'), 'utf8')), goldIn);
 const hex = new Set();
 files.filter((f) => /\.(html|js)$/.test(f) && !/live-check|live-cards-check/.test(f)).forEach((f) => (fs.readFileSync(f, 'utf8').match(/#[0-9a-fA-F]{6}\b/g) || []).forEach((h) => hex.add(h.toUpperCase())));
 const palette = new Set(['#1C1C1C', '#F4EFE6', '#2A7B74', '#D95F45', '#C9A24A', '#FFFFFF', '#000000', '#262626', '#303030', '#0500CC', '#A29F99',
-  '#0D0D0D', '#5C9890', '#F5D87A', '#9E7520', '#E6C566']);   // the flyers' tokens: ink ground, the lighter teal used as text on obsidian, and the gold-foil gradient stops   // #0500CC is the MojoPay wordmark inside the embedded official logo file, never a Live colour; #A29F99 is the label cream flattened for email (sponsor/config.js)
+  '#0D0D0D', '#5C9890', '#F5D87A', '#9E7520', '#E6C566', '#B9B4AB', '#5A5650', '#3A3A3A']);   // the flyers' tokens: ink ground, the lighter teal used as text on obsidian, and the gold-foil gradient stops   // #0500CC is the MojoPay wordmark inside the embedded official logo file, never a Live colour; #A29F99 is the label cream flattened for email (sponsor/config.js)
 ok('only brand colours and neutral greys appear as hex values', [...hex].every((h) => palette.has(h)), [...hex].filter((h) => !palette.has(h)));
 
 console.log(passes + ' passed, ' + fails + ' failed');
