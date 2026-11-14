@@ -27,6 +27,6 @@ module.exports = async function handler(req, res) {
     return res.status(200).send(png);
   } catch (e) {
     console.error('studio render error', e && e.message);
-    return res.status(/unknown|bad/.test(String(e && e.message)) ? 400 : 500).json({ error: String((e && e.message) || 'render failed') });
+    return res.status(/unknown|bad|unavailable/.test(String(e && e.message)) ? 400 : 500).json({ error: String((e && e.message) || 'render failed') });
   }
 };

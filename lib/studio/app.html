@@ -184,7 +184,7 @@ var $ = function (id) { return document.getElementById(id); };
 /* ------------------------------------------------------------------ config */
 var TEMPLATES = [
   { id: 'speaker',   name: 'Speaker / panelist', desc: 'Photo, name, title, company, session', photo: true },
-  { id: 'attending', name: 'I’m attending',      desc: 'The public flyer, with an optional “I’m building…” line', photo: true },
+  { id: 'attending', name: 'I’m attending',      desc: 'The public flyer’s Badge: “I’m building” myself, my team or my work', photo: true },
   { id: 'sponsor',   name: 'Sponsor / partner',  desc: 'Logo, tier and role. Facts only.', photo: false },
   { id: 'quote',     name: 'Quote card',         desc: 'A quote with the speaker’s name and photo', photo: true },
   { id: 'countdown', name: 'Countdown',          desc: 'X days to go, counted from today', photo: false },
@@ -270,7 +270,7 @@ function renderForm() {
     h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
   } else if (t === 'attending') {
     h += person + '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>';
-    h += field('company', 'Company', 'text', { max: 70 }) + field('building', 'I’m building… (optional)', 'text', { max: 110, hint: 'Finishes the line “I’m building”, for example “a content studio for Ghanaian SMEs”.' });
+    h += field('company', 'Company', 'text', { max: 70 }) + field('level', 'I’m building', 'select', { options: [['yourself', 'Myself'], ['team', 'My team'], ['work', 'My work']], hint: 'The same three choices as the public flyer.' });
   } else if (t === 'sponsor') {
     h += '<div class="f"><label for="partner">Partner</label><select id="partner"><option value="">Someone else (type the details)</option>' + DATA.partners.map(function (p) {
       return '<option value="' + p.slug + '"' + (S.f.partner === p.slug ? ' selected' : '') + '>' + esc(p.name) + '</option>'; }).join('') + '</select></div>';
@@ -714,7 +714,10 @@ $('libDel').addEventListener('click', function () {
 /* ------------------------------------------------------------------ boot */
 function renderTemplates() {
   $('tpl').innerHTML = TEMPLATES.map(function (t) {
-    return '<label><input type="radio" name="tpl" value="' + t.id + '"' + (S.template === t.id ? ' checked' : '') + '><span class="t">' + esc(t.name) + '</span><span class="d">' + esc(t.desc) + '</span></label>';
+    /* the countdown stops after the event instead of drawing a negative number */
+    var off = t.id === 'countdown' && daysToGo() < 0;
+    return '<label' + (off ? ' style="opacity:.55;cursor:not-allowed" title="DMC 2026 took place on 21 November 2026, so the countdown is closed."' : '') + '><input type="radio" name="tpl" value="' + t.id + '"' + (S.template === t.id ? ' checked' : '') + (off ? ' disabled' : '') +
+      '><span class="t">' + esc(t.name) + '</span><span class="d">' + esc(off ? 'Closed: DMC 2026 took place on 21 November 2026.' : t.desc) + '</span></label>';
   }).join('');
 }
 $('tpl').addEventListener('change', function (e) {
@@ -724,7 +727,7 @@ $('tpl').addEventListener('change', function (e) {
 renderTemplates(); renderForm(); renderTabs(); paintCrop(); loadLibrary(); renderPreview();
 </script>
 <script src="/assets/flyer/qrcode.js?v=4c79be16"></script>
-<script src="/assets/flyer/flyer-render.js?v=a999c1ef"></script>
+<script src="/assets/flyer/flyer-render.js?v=839603a9"></script>
 <script src="/assets/flyer/flyer-tool.js?v=84302022"></script>
 <script>
 /* Participant flyers: the client-side Badge and Brief tool, shared with the public page (team mode adds roles and the session line).

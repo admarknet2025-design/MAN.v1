@@ -26,7 +26,7 @@ const fail = (msg) => { bad++; console.log('FAIL ' + msg); };
 const sheets = {};   /* sheet name -> [{ label, buf }] */
 const addSheet = (name, label, buf) => { (sheets[name] = sheets[name] || []).push({ label, buf }); };
 
-/* does a placement look right: the MojoPay tile is cream with the blue wordmark; the ticket line is real text on a flat ground */
+/* does a placement look right: the MojoPay tile is cream (or the flyer renderer's white) with the blue wordmark; the ticket line is real text on a flat ground */
 function looksRight(img, p) {
   const c = createCanvas(img.width, img.height), x = c.getContext('2d');
   x.drawImage(img, 0, 0);
@@ -39,10 +39,13 @@ function looksRight(img, p) {
   }
   const t = p.tile, X0 = Math.round(t.x), Y0 = Math.round(t.y), Wd = Math.round(t.w), Ht = Math.round(t.h);
   const d = x.getImageData(X0, Y0, Wd, Ht).data;
+  /* the tile is Signal Cream (lockup.js) or, on artwork drawn by the participant-flyer renderer (flyers and DMC Studio), white:
+     the renderer reports which in p.colour */
+  const tc = /^#?f{6}$/i.test(String(p.colour || '')) ? [0xFF, 0xFF, 0xFF] : [0xF4, 0xEF, 0xE6];
   let cream = 0, blue = 0, n = Wd * Ht;
   for (let i = 0; i < d.length; i += 4) {
     const r = d[i], g = d[i + 1], b = d[i + 2];
-    if (Math.abs(r - 0xF4) < 10 && Math.abs(g - 0xEF) < 10 && Math.abs(b - 0xE6) < 10) cream++;
+    if (Math.abs(r - tc[0]) < 10 && Math.abs(g - tc[1]) < 10 && Math.abs(b - tc[2]) < 10) cream++;
     else if (b > 140 && r < 80 && g < 80) blue++;
   }
   return cream / n > 0.5 && blue / n > 0.04;
