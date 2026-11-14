@@ -276,7 +276,7 @@ function renderForm() {
     h += '<div class="f"><label for="sessSel">Session</label><select id="sessSel"><option value="">Custom session (type below)</option>' + DATA.sessions.filter(function (s) { return s.speakers && !/^Emcee$|TBC/.test(s.speakers); }).map(function (s) {
       return '<option value="' + s.id + '">' + esc(s.start + ' ' + s.title) + '</option>'; }).join('') + '</select></div>';
     h += '<div class="grid2">' + field('session', 'Session title', 'text', { max: 90 }) + field('time', 'Time', 'text', { max: 24, hint: 'e.g. 10:45–11:15' }) + '</div>';
-    h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
+    h += field('movement', 'Level (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.levels) });
   } else if (t === 'attending') {
     h += person + '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>';
     h += field('company', 'Company', 'text', { max: 70 }) + field('level', 'I’m building', 'select', { options: [['yourself', 'Myself'], ['team', 'My team'], ['work', 'My work']], hint: 'The same three choices as the public flyer.' });
@@ -289,13 +289,13 @@ function renderForm() {
   } else if (t === 'quote') {
     h += field('quote', 'Quote', 'textarea', { max: 260 }) + '<div class="cnt" id="qcnt"></div>' + person;
     h += '<div class="grid2">' + field('name', 'Name', 'text', { max: 60 }) + field('title', 'Title', 'text', { max: 90 }) + '</div>' + field('company', 'Company', 'text', { max: 70 });
-    h += field('movement', 'Movement (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) });
+    h += field('movement', 'Level (sets the accent colour)', 'select', { options: [['', 'None (teal)']].concat(DATA.levels) });
   } else if (t === 'countdown') {
     h += '<p class="note">The number is worked out when each image is rendered: <b id="dtg"></b>.</p>';
   } else if (t === 'session') {
     h += '<div class="f"><label for="sessSel">Session</label><select id="sessSel"><option value="">Custom session (type below)</option>' + DATA.sessions.map(function (s) {
       return '<option value="' + s.id + '"' + (S.f.sessionId === s.id ? ' selected' : '') + '>' + esc(s.start + ' ' + s.title) + '</option>'; }).join('') + '</select></div>';
-    h += field('title', 'Session title', 'text', { max: 120 }) + '<div class="grid2">' + field('time', 'Time', 'text', { max: 24 }) + field('movement', 'Movement', 'select', { options: [['', 'None (teal)']].concat(DATA.movements) }) + '</div>';
+    h += field('title', 'Session title', 'text', { max: 120 }) + '<div class="grid2">' + field('time', 'Time', 'text', { max: 24 }) + field('movement', 'Level', 'select', { options: [['', 'None (teal)']].concat(DATA.levels) }) + '</div>';
     h += field('speakers', 'Speakers (separate with ·)', 'text', { max: 160 });
   }
   $('form').innerHTML = h;
@@ -737,7 +737,7 @@ renderTemplates(); renderForm(); renderTabs(); paintCrop(); loadLibrary(); rende
 </script>
 <script src="/assets/flyer/qrcode.js?v=4c79be16"></script>
 <script src="/assets/flyer/flyer-render.js?v=22492f7e"></script>
-<script src="/assets/flyer/flyer-tool.js?v=c31e88ef"></script>
+<script src="/assets/flyer/flyer-tool.js?v=5debbbd0"></script>
 <script>
 /* Participant flyers: the client-side Badge and Brief tool, shared with the public page (team mode adds roles and the session line).
    Nothing here uploads a photo; the roster only fills text fields. */

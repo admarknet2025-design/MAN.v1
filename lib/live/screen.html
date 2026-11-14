@@ -198,7 +198,7 @@ function drawCloud(wrap, words, accent) {
     var e = els[p.w];
     if (!e) { e = els[p.w] = h('span', { class: 'w new', text: p.w }); wrap.appendChild(e); e.style.left = p.x + 'px'; e.style.top = p.y + 'px'; e.style.fontSize = p.size + 'px'; }
     e.style.left = p.x + 'px'; e.style.top = p.y + 'px'; e.style.fontSize = p.size + 'px';
-    /* the three most-sent words in the movement colour, the rest in cream, quieter as they get rarer */
+    /* the three most-sent words in the level colour, the rest in cream, quieter as they get rarer */
     e.style.color = p.rank < 3 ? (TEXT_AC[accent] || '#F4EFE6') : '#F4EFE6';
     e.style.opacity = p.rank < 3 ? 1 : (0.62 + 0.38 * p.t).toFixed(2);
   });

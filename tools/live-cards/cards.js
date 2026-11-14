@@ -174,7 +174,7 @@ function pill(ctx, x, y, h) {
   return w;
 }
 function spacedW(ctx, text, gap) { let w = 0; for (const c of text) w += ctx.measureText(c).width + gap; return w - gap; }
-/* a black pill with a square in the movement colour and a cream label (the flyers' chip) */
+/* a black pill with a square in the level colour and a cream label (the flyers' chip) */
 function chip(ctx, x, y, h, label, sq) {
   ctx.font = X(800, Math.round(h * 0.4)); const tw = spacedW(ctx, label, 4), w = 18 + 12 + 12 + tw + 22;
   ctx.fillStyle = OB; rr(ctx, x, y, w, h, h / 2); ctx.fill();
@@ -252,7 +252,7 @@ function render(canvas, spec) {
   ctx.fillStyle = foil(ctx, M + pw + 30 + bw, sw); ctx.fillText('SCALE', M + pw + 30 + bw, top + 37);
   top += 52 + 34;
 
-  /* ---- hero (Portrait): the photo for an official quote, a movement panel otherwise ---- */
+  /* ---- hero (Portrait): the photo for an official quote, a level panel otherwise ---- */
   let heroH = 0;
   if (layout === 'portrait') {
     heroH = tall ? 700 : 360;

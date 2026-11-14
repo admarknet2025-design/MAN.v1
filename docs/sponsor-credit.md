@@ -37,7 +37,7 @@ Logo protection is structural: only the files named in `config.js` are drawn; th
 Not used. If the team later wants the official MojoLife logo beside the line, it needs the official file from MojoPay and a change to `lockup.js` (a tile at the MojoPay tile's height); until then the text line is the whole MojoLife credit.
 
 ## Test
-`node tools/sponsor-check.js [outdir]` renders every Studio template at every size, the Live cards (every layout, both sizes, each movement colour), the flyer, the link previews and the projector page (several views at two sizes); it fails if a lockup is missing, a MojoPay tile is under the minimum, the MojoLife tile height differs, the ticket line is missing or too small, any MojoLife logo is drawn, a tile does not look like the official one in the pixels, an email lacks the MojoPay logo or "Tickets exclusively on MojoLife" (HTML and text parts), or Akan Gold appears on the projector page. It writes contact sheets to `outdir`.
+`node tools/sponsor-check.js [outdir]` renders every Studio template at every size, the Live cards (every layout, both sizes, each level colour), the flyer, the link previews and the projector page (several views at two sizes); it fails if a lockup is missing, a MojoPay tile is under the minimum, the MojoLife tile height differs, the ticket line is missing or too small, any MojoLife logo is drawn, a tile does not look like the official one in the pixels, an email lacks the MojoPay logo or "Tickets exclusively on MojoLife" (HTML and text parts), or Akan Gold appears on the projector page. It writes contact sheets to `outdir`.
 
 ## Gold
 Gold is allowed on web, social and phone assets (flyer, Studio, Live phone and cards). `/live/screen` keeps rule D-09: no Akan Gold on the room screens.

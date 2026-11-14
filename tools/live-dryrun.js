@@ -40,7 +40,7 @@ const edge = async () => (await fetch(B + '/api/live-state?bust=' + Math.random(
   ok('phone shows current session', (await phone.textContent('#now')).includes('Build Yourself: Panel'));
   ok('phone shows next session', (await phone.textContent('#next')).startsWith('Next:'));
 
-  /* 2. word clouds: three movements, 250-ish words from many devices, filter, cap, plurals */
+  /* 2. word clouds: three levels, 250-ish words from many devices, filter, cap, plurals */
   await api({ op: 'activity.set', type: 'cloud', id: 'yourself' }); await sleep(2800);
   await shot(phone, '03-phone-cloud');
   await phone.fill('#wd', 'Fear'); await phone.click('text=Add my word'); await sleep(300);
