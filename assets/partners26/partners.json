@@ -9,6 +9,6 @@
     { "id": "kasad3",     "slug": "kasad3",           "name": "Kasad3",           "logo": "kasad3.webp",           "fit": "contain", "pad": [4, 12], "tier": "Media Partner",             "role": "Partner spotlight, 14:35" },
     { "id": "techlabari", "slug": "tech-labari",      "name": "Tech Labari",      "logo": "tech-labari.webp",      "fit": "contain", "pad": [8, 12], "tier": "Media Partner",             "role": "Partner spotlight, 14:30" },
     { "id": "mistakoin",  "slug": "koin-photography", "name": "Mista.Koin",       "logo": "mista-koin.webp",       "fit": "contain", "pad": [8, 12], "tier": "Event Photography Partner", "role": "Partner spotlight, 13:55", "siteName": "Koin Photography" },
-    { "id": "jobberman",  "slug": "jobberman",        "name": "Jobberman",        "logo": "jobberman.webp",        "fit": "contain", "pad": [8, 12], "tier": "Cedar Sponsor",             "role": "DMC 2026 sponsor" }
+    { "id": "jobberman",  "slug": "jobberman",        "name": "Jobberman",        "logo": "jobberman.webp",        "fit": "contain", "pad": [8, 12], "tier": "Silver Sponsor",             "role": "DMC 2026 sponsor" }
   ]
 }
