@@ -32,9 +32,9 @@
    "title": "Storytelling & Creative Strategist",
    "company": "",
    "photo": "deborah-yomle.webp",
-   "session": "Welcome & Opening Remarks",
+   "session": "Ice Breaker",
    "movement": "",
-   "sessionTime": "10:00–10:10",
+   "sessionTime": "12:05–12:10",
    "sponsor": ""
   },
   {
@@ -197,9 +197,9 @@
    "title": "Marketing Lead",
    "company": "M·A·N",
    "photo": "maame.webp",
-   "session": "Ice Breaker: Pitch Yourself in 60 Seconds",
+   "session": "Welcome & Opening Remarks",
    "movement": "",
-   "sessionTime": "13:10–13:20",
+   "sessionTime": "10:00–10:10",
    "sponsor": ""
   },
   {
@@ -309,11 +309,11 @@
    "end": "10:10",
    "title": "Welcome & Opening Remarks",
    "badge": "Welcome",
-   "speakers": "Deborah Yomle (Emcee)",
+   "speakers": "Naomi Boakyewaa Kokuro",
    "movement": "",
    "format": "Welcome",
    "people": [
-    "deborah-yomle"
+    "naomi-boakyewaa-kokuro"
    ]
   },
   {
@@ -415,10 +415,12 @@
    "end": "12:10",
    "title": "Ice Breaker",
    "badge": "Ice Breaker",
-   "speakers": "Emcee",
+   "speakers": "Deborah Yomle (Emcee)",
    "movement": "",
    "format": "Ice Breaker",
-   "people": []
+   "people": [
+    "deborah-yomle"
+   ]
   },
   {
    "id": "s11",
