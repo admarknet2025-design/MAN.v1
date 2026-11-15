@@ -15,8 +15,9 @@
    URL. MojoTickets does not store them, so when checkout starts (the embed posts `mojotickets:checkout:complete`) we log
    the order reference together with the saved ref to /api/attribution. That event means "checkout started", not "paid".
 
-   MojoTickets' popup widget (embed.js, data-mode="popup") is NOT wired in: its script URL and data-event value are not
-   confirmed, and nothing here guesses them. See docs/ticket-checkout.md. */
+   This is MojoTickets' documented "modal" mode with our own styling. Their embed.js widget is not used. Verified 15 Nov 2026: the
+   event only exists on tickets.mojo-pay.com (not on the docs host), that host allows framing, and when framed the embed page posts
+   the message below and then sends the TOP window to the payment page. See docs/ticket-checkout.md. */
 (function(){
 'use strict';
 

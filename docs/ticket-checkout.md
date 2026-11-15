@@ -8,7 +8,7 @@ automatically.
 ## What a click does
 | Visitor | Result |
 |---|---|
-| Normal browser | Modal over the page with the **embed** checkout: `https://tickets.mojo-pay.com/embed/events/digital-marketers-conference-2026?ref=…`. The page stays open behind it. |
+| Normal browser | Modal over the page with the **embed** checkout: `https://tickets.mojo-pay.com/embed/events/digital-marketers-conference-2026?ref=…`. The page is dimmed behind it until the buyer pays. |
 | In-app browser (Instagram, Facebook, TikTok, WhatsApp, Snapchat, Line) or no `<dialog>` support | The embed URL opens in a new tab. If the browser blocks the new tab, the modal shows a plain "Open checkout in a new tab →" link and `ticket_popup_blocked` is logged. |
 | JavaScript off, or ctrl/cmd/middle/shift-click | The ordinary ticket page, in the normal way. |
 
@@ -17,12 +17,34 @@ Always visible in the modal: **"Having trouble? Open checkout in a new tab →"*
 
 Do **not** iframe `/events/...` (MojoTickets only allows its own origin there). Only the `/embed/events/...` URL is framed.
 The iframe has `allow="payment"` and **no `sandbox`**: MoMo payment redirects the **top** window to MojoPay, and a sandbox
-would block that. So on a MoMo payment the mangh.org page itself is replaced by the MojoPay payment page.
+would block that. The embed page redirects the **top** window to the payment page as soon as the order is created (see below), so the mangh.org page itself is replaced by the payment page for every buyer, not only MoMo.
 
-## Popup mode (`embed.js`) is not wired in
-MojoTickets also offers a widget script (`data-event`, `data-mode="modal"|"popup"`). Its exact script URL and `data-event`
-value are not confirmed, and nothing in this repo guesses them. Popup mode would keep mangh.org open during MoMo payment,
-so it is the better experience once MojoPay gives us the two values. Until then the modal iframe above is the primary path.
+## What the official docs say, checked against the live hosts (15 November 2026)
+Docs: https://mojotickets.adfocusgh.com/api (embed, authentication, quick start, webhooks, errors, checkout). Findings:
+
+- **Which host sells our event.** `digital-marketers-conference-2026` exists on **`tickets.mojo-pay.com`**
+  (`/api/v1/embed/events/digital-marketers-conference-2026` returns the event: 21 Nov 2026 10:00, British Council). On the docs host
+  `mojotickets.adfocusgh.com` the same request returns **404 "Event not found"**. So the docs host is a different deployment; do **not**
+  swap our URLs for it. Its `embed.js` is byte-for-byte identical to `tickets.mojo-pay.com/embed.js`.
+- **Embed widget.** `<script src="https://tickets.mojo-pay.com/embed.js" data-event="digital-marketers-conference-2026" async>` would work
+  on our host. `data-mode="popup"` (default) opens the checkout in a `window.open` popup; `data-mode="modal"` frames
+  `/embed/events/{slug}`, which needs the server to allow framing. `tickets.mojo-pay.com` does (`frame-ancestors *`, no
+  `X-Frame-Options`); `mojotickets.adfocusgh.com` does not (`X-Frame-Options: SAMEORIGIN`). Our own `<dialog>` is the documented
+  "modal" mode with our styling, our fallback links and our referral logging. It is not replaced by the widget.
+- **What the embed page does when framed** (read from its published script): on "Pay" it creates the order, posts
+  `{ type: 'mojotickets:checkout:complete', reference }` to the parent with target `*`, **then sets `window.top.location` to the
+  payment page**. So in the modal, **every** buyer leaves mangh.org for payment straight after the order is created, not only MoMo
+  buyers. The "You're almost in" line is rarely visible for that reason. When the checkout is opened as a top-level page or popup,
+  there is no parent, so no message is posted.
+- **Partner API, tokens and webhooks** (`/api/v1/partner`, `mt_live_…`, `order.paid` with `X-MojoTickets-Signature`) are for server-side
+  sales and fulfilment. This site uses none of them and holds no token. If the site ever acts on a payment (for example emails a
+  flyer link), add a webhook endpoint that verifies the HMAC-SHA256 of the raw body, is idempotent on `order.reference`, and answers
+  2xx quickly; do not treat a buyer returning to the site as proof of payment. Whether orders from the hosted embed also fire
+  `order.paid` for our organisation is for MojoPay to confirm.
+- **Rate limits** in the docs (checkout 10 requests a minute per IP) are for the Partner API. Ask MojoPay whether the embed checkout
+  has a similar per-IP limit, because attendees buying at the venue share one network.
+
+Run `node tools/ticket-check.js` before the event: it checks the hosts above are still as described.
 
 ## Referral capture
 `ref` and `utm_source|medium|campaign|content|term` (values limited to letters, numbers and `_ . ~ - %`, 80 characters) are saved
