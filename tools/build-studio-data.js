@@ -16,6 +16,7 @@ const LEVELS = ['Build Yourself', 'Build Your Team', 'Build Your Work'];
 const levelOf = (s) => LEVELS.find((m) => s.indexOf(m) >= 0) || '';
 
 /* speakers: each .spc card in the speakers grid */
+const NOT_SPEAKER = /^(Moderator|Host|Emcee|Breakout|Welcome)\b/i;
 const grid = html.slice(html.indexOf('<div class="sp-grid">'), html.indexOf('<p class="sp-note'));
 const people = [];
 grid.split('<div class="spc ').slice(1).forEach((card) => {
@@ -31,10 +32,11 @@ grid.split('<div class="spc ').slice(1).forEach((card) => {
     const i = first.indexOf(', ');
     if (i > 0) { title = first.slice(0, i); company = first.slice(i + 2); } else title = first;
   } else if (/^Host · /.test(cat)) { title = 'Host'; company = cat.replace(/^Host · /, ''); }
-  people.push({
-    slug: slugify(n).replace(/-?robotboy-?/, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''),
-    name: n, title, company, photo, session: cat, movement: levelOf(cat)
-  });
+  const slug = slugify(n).replace(/-?robotboy-?/, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  /* speakers and panelists get their own profile page (/speakers/<slug>, built by tools/build-speaker-pages.js);
+     moderators, hosts, the emcee, the welcome and the breakout leads don't yet (Michael, 15 Nov 2026) */
+  const page = NOT_SPEAKER.test(cat) ? '' : '/speakers/' + slug;
+  people.push({ slug, name: n, title, company, photo, session: cat, movement: levelOf(cat), page });
 });
 
 /* programme rows */

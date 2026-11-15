@@ -1,11 +1,12 @@
 /* GET /t/<code> (rewritten to this function in vercel.json): the tracked short link behind every DMC Studio artwork.
    Logs the click (code, time, device class) to the attribution store, then 302-redirects to the DMC 2026 page with the
-   referral and UTM parameters that the ticket checkout already captures:
+   referral and UTM parameters that the ticket checkout already captures (a Speaker artwork goes to /speakers/<slug> instead):
      /dmc-2026?ref=<slug>&utm_source=<platform>&utm_medium=social&utm_campaign=<template>
    Link-preview crawlers (WhatsApp, Facebook, LinkedIn and so on) fetch the same URL; they are redirected but not counted. */
 'use strict';
 
 const store = require('./_store');
+const DATA = require('../lib/studio/data.json');
 
 const CODE = /^[a-z0-9]{4,12}$/;
 const BOT = /bot|crawler|spider|facebookexternalhit|whatsapp|slackbot|linkedinbot|twitterbot|telegram|discord|skypeuripreview|embedly|preview|curl|wget|python-requests|headless/i;
@@ -29,7 +30,9 @@ module.exports = async function handler(req, res) {
       if (link) {
         const q = 'ref=' + encodeURIComponent(link.slug) + '&utm_source=' + encodeURIComponent(link.platform) +
           '&utm_medium=social&utm_campaign=' + encodeURIComponent(link.template);
-        target = '/dmc-2026?' + q;
+        /* a Speaker artwork's link opens that speaker's own page when they have one (speakers and panelists) */
+        const person = link.template === 'speaker' && (DATA.people || []).find((x) => x.slug === link.slug && x.page);
+        target = (person ? person.page : '/dmc-2026') + '?' + q;
         const ua = uaClass(req.headers['user-agent']);
         if (ua !== 'bot') {
           /* never hold the visitor up for the log: give the store a short window, then redirect regardless */
