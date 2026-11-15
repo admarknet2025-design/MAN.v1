@@ -87,7 +87,7 @@ sessions.forEach((r) => {
 
 /* partners: from the one shared list (assets/partners26/partners.json), headline sponsor first, then by tier */
 const PJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets', 'partners26', 'partners.json'), 'utf8'));
-const RANK = (t) => (/gold|headline/i.test(t) ? 0 : /silver/i.test(t) ? 1 : /cedar/i.test(t) ? 2 : /programme/i.test(t) ? 3 : /photo/i.test(t) ? 4 : 5);
+const RANK = (t) => (/gold|headline/i.test(t) ? 0 : /silver/i.test(t) ? 1 : /bronze|cedar/i.test(t) ? 2 : /programme/i.test(t) ? 3 : /photo/i.test(t) ? 4 : 5);
 const partners = [{ slug: PJ.poweredBy.id, name: PJ.poweredBy.name, logo: PJ.poweredBy.siteLogo, tier: PJ.poweredBy.tier, role: PJ.poweredBy.role }]
   .concat(PJ.partners.map((p, i) => ({ i, slug: p.slug, name: p.siteName || p.name, logo: p.logo, tier: p.tier, role: p.role }))
     .sort((x, y) => RANK(x.tier) - RANK(y.tier) || x.i - y.i).map(({ i, ...p }) => p));
