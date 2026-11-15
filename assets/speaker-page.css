@@ -13,6 +13,7 @@
 .spk-sess.lv-yourself{border-left-color:var(--te)}
 .spk-sess.lv-team{border-left-color:var(--go)}
 .spk-sess.lv-work{border-left-color:var(--co)}
+.spk-sess.lv-keynote{border-left-color:var(--go)} /* Akan Gold #C9A24A: accent rule only, never text on cream */
 .spk-lvl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.72)}
 .spk-st{font-size:18px;font-weight:800;color:var(--cr);letter-spacing:-.01em}
 .spk-sw{font-size:13px;font-weight:600;color:rgba(244,239,230,.72)}

@@ -71,7 +71,7 @@ function sessionLine(s) {
 
 function page(s, others, ogFile, ogVer) {
   const sl = sessionLine(s);
-  const lvl = LEVEL[s.movement] || '';
+  const lvl = LEVEL[s.movement] || (s.row.badge === 'Keynote' ? 'keynote' : ''); /* the keynote sits outside the levels: Akan Gold */
   const titleTxt = s.name + ' · ' + s.kind + ' · DMC 2026';
   const who = [s.title, s.company].filter(Boolean).join(', ');
   const desc = s.name + (who ? ' (' + who + ')' : '') + ' speaks at DMC 2026 — Built To Scale: ' + sl.title + ', ' + sl.time +
