@@ -68,6 +68,7 @@ combination returns the same code, so regenerating does not create new ones.
 `/t/<code>` (`api/t.js`):
 1. logs the click (code, time, device class `mobile`, `desktop` or `in-app`; no IP address or personal data) to the store;
 2. answers `302` to `/dmc-2026?ref=<slug>&utm_source=<platform>&utm_medium=social&utm_campaign=<template>`;
+   a **Speaker** artwork for someone with a profile page goes to `/speakers/<slug>?…` instead (same parameters);
 3. link-preview crawlers (WhatsApp, Facebook, LinkedIn, X, Slack, Telegram and so on) are redirected but **not counted**.
    An unknown code goes to `/dmc-2026`.
 
@@ -158,4 +159,16 @@ The Artwork set is drawn with the participant flyers' renderer (`assets/flyer/fl
 Formats: 4:5 and 9:16 use the flyer's geometry (9:16 keeps its safe zones). Square: planes top-right, smaller headline stack, compact single-row band. LinkedIn link and X: planes on the right 40%, headline left, the band as one thin strip. QR: none on previews, one on Story and TikTok sizes.
 
 Partners come from `assets/partners26/partners.json` (seven, Jobberman included); `node tools/partners-check.js` keeps the website's rows in step. `node tools/studio-check.js [outdir]` renders every template at every size (and long-name cases), checks sizes, text overflow, fonts, the 9:16 safe zones, Jobberman in every band and the countdown edge cases, and writes a contact sheet.
+
+## Speaker profile pages
+Each speaker and panelist has a page at `mangh.org/speakers/<slug>` (for example `mangh.org/speakers/russel-eni`) to link from
+social posts and bios. Moderators, hosts, the emcee, the welcome and the breakout leads don't have one yet; to add a group,
+change `NOT_SPEAKER` in `tools/build-studio-data.js`.
+
+The pages, their link previews (`assets/speakers/og/<slug>.jpg`, the Speaker artwork at LinkedIn size), the "Speaker profile"
+links on the `/dmc-2026` cards and the sitemap entries are all generated from the speaker cards and the programme. After
+changing either, run:
+
+    node tools/build-studio-data.js && node tools/build-speaker-pages.js && python3 tools/stamp-assets.py
+    node tools/speaker-pages-check.js
 

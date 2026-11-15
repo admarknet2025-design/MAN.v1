@@ -23,6 +23,7 @@
    "photo": "russel-eni.webp",
    "session": "Keynote",
    "movement": "",
+   "page": "/speakers/russel-eni",
    "sessionTime": "10:10–10:25",
    "sponsor": ""
   },
@@ -34,6 +35,7 @@
    "photo": "deborah-yomle.webp",
    "session": "Ice Breaker",
    "movement": "",
+   "page": "",
    "sessionTime": "12:05–12:10",
    "sponsor": ""
   },
@@ -45,6 +47,7 @@
    "photo": "isaac-newton-acquah.webp",
    "session": "Build Yourself: Presentation",
    "movement": "Build Yourself",
+   "page": "/speakers/isaac-newton-acquah",
    "sessionTime": "10:25–10:35",
    "sponsor": ""
   },
@@ -56,6 +59,7 @@
    "photo": "alex-offei-lartey.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
+   "page": "/speakers/alex-offei-lartey",
    "sessionTime": "10:35–11:05",
    "sponsor": ""
   },
@@ -67,6 +71,7 @@
    "photo": "ronald-tagoe.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
+   "page": "/speakers/ronald-tagoe",
    "sessionTime": "10:35–11:05",
    "sponsor": "mNotify"
   },
@@ -78,6 +83,7 @@
    "photo": "emelia-dede-quist.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
+   "page": "/speakers/emelia-dede-quist",
    "sessionTime": "10:35–11:05",
    "sponsor": "Generation Ghana"
   },
@@ -89,6 +95,7 @@
    "photo": "enoch-w-kabange.webp",
    "session": "Build Yourself: Panel Discussion",
    "movement": "Build Yourself",
+   "page": "",
    "sessionTime": "10:35–11:05",
    "sponsor": ""
   },
@@ -100,6 +107,7 @@
    "photo": "kwaku-asare-ofosuhene.webp",
    "session": "Build Your Team: Presentation",
    "movement": "Build Your Team",
+   "page": "/speakers/kwaku-ofosuhene",
    "sessionTime": "11:15–11:25",
    "sponsor": "MojoPay"
   },
@@ -111,6 +119,7 @@
    "photo": "richard-sena-quashie.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
+   "page": "/speakers/richard-sena-quashie",
    "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
@@ -122,6 +131,7 @@
    "photo": "simon-alangde.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
+   "page": "/speakers/simon-alangde",
    "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
@@ -133,6 +143,7 @@
    "photo": "florentia-teye.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
+   "page": "/speakers/florentia-teye",
    "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
@@ -144,6 +155,7 @@
    "photo": "alice-mensah.webp",
    "session": "Build Your Team: Panel Discussion",
    "movement": "Build Your Team",
+   "page": "",
    "sessionTime": "11:25–11:55",
    "sponsor": ""
   },
@@ -155,6 +167,7 @@
    "photo": "yvonne-dumor.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
+   "page": "/speakers/yvonne-dumor",
    "sessionTime": "12:20–12:50",
    "sponsor": ""
   },
@@ -166,6 +179,7 @@
    "photo": "elikplim-yaa-ayegbe.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
+   "page": "/speakers/elikplim-yaa-ayegbe",
    "sessionTime": "12:20–12:50",
    "sponsor": "Jobberman"
   },
@@ -177,6 +191,7 @@
    "photo": "carrington-amuh.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
+   "page": "/speakers/carrington-amuh",
    "sessionTime": "12:20–12:50",
    "sponsor": "FIDO"
   },
@@ -188,6 +203,7 @@
    "photo": "enoch-appiah-jr.webp",
    "session": "Build Your Work: Panel Discussion",
    "movement": "Build Your Work",
+   "page": "",
    "sessionTime": "12:20–12:50",
    "sponsor": ""
   },
@@ -199,6 +215,7 @@
    "photo": "maame.webp",
    "session": "Welcome & Opening Remarks",
    "movement": "",
+   "page": "",
    "sessionTime": "10:00–10:10",
    "sponsor": ""
   },
@@ -210,6 +227,7 @@
    "photo": "samuel-kwabena-ansong.webp",
    "session": "Pitching Yourself: Masterclass",
    "movement": "",
+   "page": "/speakers/samuel-kwabena-ansong",
    "sessionTime": "13:20–13:35",
    "sponsor": ""
   },
@@ -221,6 +239,7 @@
    "photo": "venus-tawiah-2026.webp",
    "session": "Breakout Sessions",
    "movement": "",
+   "page": "",
    "sessionTime": "13:55–14:15",
    "sponsor": ""
   },
@@ -232,6 +251,7 @@
    "photo": "priscilla-osei-wusu.webp",
    "session": "Breakout Sessions",
    "movement": "",
+   "page": "",
    "sessionTime": "13:55–14:15",
    "sponsor": ""
   },
@@ -243,6 +263,7 @@
    "photo": "amma-odamea-amoako.webp",
    "session": "Breakout Sessions",
    "movement": "",
+   "page": "",
    "sessionTime": "13:55–14:15",
    "sponsor": ""
   }

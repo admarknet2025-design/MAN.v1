@@ -145,6 +145,9 @@
     }
   ],
   "functions": {
+    "api/t.js": {
+      "includeFiles": "lib/studio/data.json"
+    },
     "api/studio.js": {
       "includeFiles": "lib/studio/{app.html,data.json}"
     },

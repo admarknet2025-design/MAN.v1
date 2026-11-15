@@ -1009,3 +1009,6 @@ a.nav-brand{text-decoration:none}
 .section-head > p{color:rgba(28,28,28,.72)!important}
 .tn-si .tbadge,.tn-br .tbadge{color:#0d0d0d!important}
 @media(max-width:400px){.btn{white-space:normal;max-width:100%}}
+/* speaker cards on /dmc-2026: link to the speaker's own page (/speakers/<slug>) */
+.spc .sp-page{display:inline-block;margin-top:12px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cr);text-decoration:none;border-bottom:1px solid var(--go);padding-bottom:2px}
+.spc .sp-page:hover,.spc .sp-page:focus-visible{color:var(--go)}
