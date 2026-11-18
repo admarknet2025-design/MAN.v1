@@ -80,6 +80,11 @@
   ],
   "redirects": [
     {
+      "source": "/speakers/richard-sena-quashie",
+      "destination": "/speakers/sena-quashie",
+      "statusCode": 301
+    },
+    {
       "source": "/sponsor",
       "destination": "/partners#interest",
       "statusCode": 301
