@@ -64,10 +64,13 @@ idx.split('<div class="tc ').slice(1).forEach((card) => {
 
 /* each person's session = the programme row that names them (the Enoch row only mentions him as host) */
 people.forEach((p) => {
+  const emcee = /^Emcee\b/i.test(p.session);   /* p.session still holds the card's label here */
   const row = sessions.find((s) => s.speakers.indexOf(p.name) >= 0);
   p.session = row ? row.title : p.session.replace(/^Host · .*/, '');
   p.movement = row ? row.movement : '';
   p.sessionTime = row ? row.start + '–' + row.end : '';
+  /* the emcee works the whole day, so she is not tied to one slot (Michael, 18 Nov 2026) */
+  if (emcee) { p.session = ''; p.sessionTime = ''; p.movement = ''; }
 });
 
 /* Which speakers represent a sponsor or partner (DMC Live holds their official quotes until the operator ticks "Sponsor-approved").
