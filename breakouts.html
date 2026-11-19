@@ -38,16 +38,11 @@ body{background:#0D0D0D;color:var(--cr)}
 .bk h1{font-size:clamp(30px,6.4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--cr);margin:0 0 14px}
 .bk-when{font-size:15px;font-weight:700;line-height:1.5;color:var(--go);margin:0 0 14px}
 .bk-lead{font-size:16px;line-height:1.6;color:rgba(244,239,230,.82);margin:0 0 28px;max-width:560px}
-.bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:0 0 36px}
+.bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:0 0 8px}
 .bk-grid .spc .spn{font-size:18px;line-height:1.2;margin-bottom:6px}
 .bk-grid .spc .sp-role{margin:0;font-size:13px}
 .bk-grid .spc .spc-cat{font-size:11px}
-.bk-form{margin:0 0 14px}
-.bk-form h2{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin:0 0 12px}
-.bk-frame{display:block;width:100%;height:1340px;border:0;background:#fff;border-radius:4px}
-.bk-help{font-size:14px;line-height:1.5;margin:14px 0 0}
-.bk-help a{color:var(--cr);text-decoration:underline;text-underline-offset:3px}
-.bk-help a:focus-visible,.bk-foot a:focus-visible{outline:2px solid var(--go);outline-offset:3px}
+.bk-foot a:focus-visible,.bk-foot a:focus-visible{outline:2px solid var(--go);outline-offset:3px}
 .bk-foot{max-width:980px;margin:0 auto;padding:28px 32px calc(36px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
 .bk-foot .h26-ey{margin:0}
 .bk-foot .by{display:flex;align-items:center;gap:12px}
@@ -56,12 +51,11 @@ body{background:#0D0D0D;color:var(--cr)}
   .tool-top .in{padding:22px 16px 0}
   .bk{padding:28px 16px 16px}
   .bk-foot{padding:24px 16px calc(32px + env(safe-area-inset-bottom))}
-  .bk-grid{grid-template-columns:1fr;margin-bottom:28px}
+  .bk-grid{grid-template-columns:1fr;margin-bottom:4px}
   /* phone: a compact row per session (photo, letter, title, leader), so the form is not pushed far down */
   .bk-grid .spc{display:grid;grid-template-columns:92px 1fr;align-items:stretch}
   .bk-grid .spc .sp-photo{aspect-ratio:auto;min-height:118px}
   .bk-grid .spc .sp-info{padding:14px 16px;align-self:center}
-  .bk-frame{height:1800px}
 }
 </style>
 </head>
@@ -80,16 +74,58 @@ body{background:#0D0D0D;color:var(--cr)}
     <div class="spc"><div class="sp-photo"><img src="/assets/speakers/priscilla-osei-wusu.webp" alt="Priscilla Osei-Wusu" width="853" height="1137" decoding="async"></div><div class="sp-info"><div class="spc-cat">Session B</div><div class="spn">Building Yourself</div><div class="sp-role">with Priscilla Osei-Wusu</div></div></div>
     <div class="spc"><div class="sp-photo"><img src="/assets/speakers/amma-odamea-amoako.webp" alt="Amma Odamea Amoako" width="900" height="1200" decoding="async"></div><div class="sp-info"><div class="spc-cat">Session C</div><div class="spn">Building Your Work</div><div class="sp-role">with Amma Odamea Amoako</div></div></div>
   </div>
-
-  <div class="bk-form" role="group" aria-labelledby="bk-form-h">
-    <h2 id="bk-form-h">Your choice</h2>
-    <iframe class="bk-frame" title="DMC 2026: choose your breakout session (form)" src="https://docs.google.com/forms/d/e/1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q/viewform?embedded=true" loading="eager" referrerpolicy="no-referrer">Loading…</iframe>
-    <p class="bk-help"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q/viewform" target="_blank" rel="noopener noreferrer">Having trouble? Open the form in a new tab</a></p>
-  </div>
 </main>
+<section class="join-sec" id="choose">
+  <div class="join-inner">
+    <span class="sl">Your choice</span>
+    <h2>Pick your<br>session</h2>
+    <p class="join-sub">Please answer by Thursday 19 November, 8:00 PM.</p>
+
+    <div id="breakout-form-wrap">
+      <form class="jform" id="breakoutForm" novalidate>
+        <div class="jform-row">
+          <div class="jfield">
+            <label for="b-name">Full Name *</label>
+            <input id="b-name" type="text" name="name" autocomplete="name" required>
+          </div>
+          <div class="jfield">
+            <label for="b-contact">Phone or Email Used For Your Ticket *</label>
+            <input id="b-contact" type="text" name="contact" autocomplete="off" required>
+            <p class="jform-note" style="padding-top:0">So we can match your answer to your ticket.</p>
+          </div>
+        </div>
+        <fieldset class="jchecks" id="b-session">
+          <legend>Which breakout session will you join? *</legend>
+          <div class="jchecks-grid" style="grid-template-columns:1fr">
+          <label class="jcheck" for="bs-1"><input type="radio" id="bs-1" name="session" value="Session A: Building Your Team, with Venus Tawiah" required><span>Session A: Building Your Team, with Venus Tawiah</span></label>
+          <label class="jcheck" for="bs-2"><input type="radio" id="bs-2" name="session" value="Session B: Building Yourself, with Priscilla Osei-Wusu"><span>Session B: Building Yourself, with Priscilla Osei-Wusu</span></label>
+          <label class="jcheck" for="bs-3"><input type="radio" id="bs-3" name="session" value="Session C: Building Your Work, with Amma Odamea Amoako"><span>Session C: Building Your Work, with Amma Odamea Amoako</span></label>
+          </div>
+        </fieldset>
+        <div class="jform-row">
+          <div class="jfield">
+            <label for="b-company">Company / Organisation</label>
+            <input id="b-company" type="text" name="company" autocomplete="organization">
+            <p class="jform-note" style="padding-top:0">Optional. We will print it on your name tag if you tell us.</p>
+          </div>
+          <div class="jfield">
+            <label for="b-role">Job Title / Role</label>
+            <input id="b-role" type="text" name="role" autocomplete="organization-title">
+          </div>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="b-fax">Leave this empty<input id="b-fax" name="fax" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <div>
+          <button type="submit" class="btn-join" id="breakoutBtn">Confirm my session</button>
+        </div>
+        <p class="jform-note"><a href="https://docs.google.com/forms/d/e/1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q/viewform" target="_blank" rel="noopener noreferrer">Having trouble? Open the form in a new tab</a></p>
+      </form>
+    </div>
+  </div>
+</section>
 <footer class="bk-foot">
   <p class="h26-ey sp-credit"><span>Powered by</span><a href="https://mojo-pay.com" target="_blank" rel="noopener sponsored"><img src="/assets/partners26/mojopay-logo-blue.svg" alt="MojoPay" width="1145" height="193"></a></p>
   <p class="h26-ey by"><span>Organized by</span><a href="/" aria-label="M·A·N (Marketers &amp; Advertisers Network)"><img src="/assets/man-logo.png" width="164" height="48" alt="M·A·N"></a></p>
 </footer>
+<script src="/assets/breakouts.js?v=620143ee" defer></script>
 </body>
 </html>
