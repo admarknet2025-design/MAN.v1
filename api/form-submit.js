@@ -1,4 +1,4 @@
-/* POST /api/form-submit: relays the site's Google Form submissions (community sign-up, DMC 2027 partner interest).
+/* POST /api/form-submit: relays the site's Google Form submissions (community sign-up, DMC 2027 partner interest, DMC 2026 breakout choice).
 
    Why a relay: a browser can only POST to docs.google.com in `no-cors` mode, whose response is opaque, so the page
    cannot tell a stored response (HTTP 200) from a rejected one (HTTP 400, e.g. a dropdown value that is not one of the
@@ -13,7 +13,8 @@
 /* public form id -> what it is (for logs only). Add a form here before pointing a page at it. */
 const FORMS = {
   '1FAIpQLSeqrp_YIh4-8Hjd5M6rkfoetbzMpURy_eq1PN4q_wkoKypWJQ': 'community sign-up (index.html, assets/app.js)',
-  '1FAIpQLSeTARgNGhqSIpnaDbnM1nkFLywGVH9CImomrSNBrZfVC6irVg': 'DMC 2027 partner interest (partners.html, assets/partners.js)'
+  '1FAIpQLSeTARgNGhqSIpnaDbnM1nkFLywGVH9CImomrSNBrZfVC6irVg': 'DMC 2027 partner interest (partners.html, assets/partners.js)',
+  '1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q': 'DMC 2026 breakout choice (breakouts.html, assets/breakouts.js)'
 };
 
 const MAX_BODY = 16 * 1024;
