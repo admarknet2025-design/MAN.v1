@@ -39,7 +39,7 @@ ok((dmc.match(/class="sp-page"/g) || []).length === sp.length, 'profile links on
 
 /* /t/<code> for a Speaker artwork goes to the speaker's page; other templates still go to /dmc-2026 */
 const storeP = require.resolve(path.join(ROOT, 'api/_store'));
-const links = { aaaa1: { slug: sp[0].slug, template: 'speaker', platform: 'instagram' }, aaaa2: { slug: 'deborah-yomle', template: 'speaker', platform: 'x' }, aaaa3: { slug: sp[0].slug, template: 'quote', platform: 'x' } };
+const links = { aaaa1: { slug: sp[0].slug, template: 'speaker', platform: 'instagram' }, aaaa2: { slug: 'deborah-narh', template: 'speaker', platform: 'x' }, aaaa3: { slug: sp[0].slug, template: 'quote', platform: 'x' } };
 require.cache[storeP] = { id: storeP, filename: storeP, loaded: true, exports: { configured: () => true, getLink: async (c) => links[c], logClick: async () => {} } };
 const t = require(path.join(ROOT, 'api/t.js'));
 (async () => {
