@@ -70,7 +70,7 @@ people.forEach((p) => {
   p.movement = row ? row.movement : '';
   p.sessionTime = row ? row.start + '–' + row.end : '';
   /* the emcee works the whole day, so she is not tied to one slot (Michael, 18 Nov 2026) */
-  if (emcee) { p.session = ''; p.sessionTime = ''; p.movement = ''; }
+  if (emcee) { p.session = ''; p.sessionTime = ''; p.movement = ''; p.role = 'Emcee'; }   /* Studio picks the Emcee role for her flyer */
 });
 
 /* Which speakers represent a sponsor or partner (DMC Live holds their official quotes until the operator ticks "Sponsor-approved").

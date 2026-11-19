@@ -392,7 +392,7 @@ function applyPerson(key) {
     var p = list.filter(function (x) { return x.slug === key.slice(5); })[0];
     if (!p) return Promise.resolve();
     var o = { name: p.name, title: p.title, company: p.company };
-    if (S.template === 'speaker' && p.session !== undefined) { o.session = p.session; o.time = p.sessionTime; o.movement = p.movement; o.role = p.company === 'COSM Podcast' ? 'Host' : (/Panel/.test(p.session) ? 'Panelist' : 'Speaker'); }
+    if (S.template === 'speaker' && p.session !== undefined) { o.session = p.session; o.time = p.sessionTime; o.movement = p.movement; o.role = p.role ? p.role : p.company === 'COSM Podcast' ? 'Host' : (/Panel/.test(p.session) ? 'Panelist' : 'Speaker'); }
     if (S.template === 'quote' && p.movement !== undefined) o.movement = p.movement;
     setFields(o);
     var sm = !p.session ? null : DATA.sessions.filter(function (x) { return x.title === p.session && (x.start + '–' + x.end) === p.sessionTime; })[0];
