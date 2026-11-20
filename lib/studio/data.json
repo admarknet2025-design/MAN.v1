@@ -89,8 +89,8 @@
    "sponsor": "Generation Ghana"
   },
   {
-   "slug": "enoch-k-weguri",
-   "name": "Enoch K. Weguri",
+   "slug": "enoch-w-kabange",
+   "name": "Enoch W. Kabange",
    "title": "CRM & Digital Marketing Lead",
    "company": "Points Africa",
    "photo": "enoch-w-kabange.webp",
@@ -223,8 +223,8 @@
   {
    "slug": "samuel-kwabena-ansong",
    "name": "Samuel Kwabena Ansong",
-   "title": "Marketing Manager",
-   "company": "HR Certification Centre",
+   "title": "",
+   "company": "",
    "photo": "samuel-kwabena-ansong.webp",
    "session": "Pitching Yourself: Masterclass",
    "movement": "",
@@ -370,14 +370,14 @@
    "end": "11:05",
    "title": "Build Yourself: Panel Discussion",
    "badge": "Panel",
-   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist — moderated by Enoch K. Weguri",
+   "speakers": "Alex Offei Lartey · Ronald Tagoe · Emelia Dede Quist — moderated by Enoch W. Kabange",
    "movement": "Build Yourself",
    "format": "Discussion",
    "people": [
     "alex-offei-lartey",
     "ronald-tagoe",
     "emelia-dede-quist",
-    "enoch-k-weguri"
+    "enoch-w-kabange"
    ]
   },
   {
