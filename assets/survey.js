@@ -3,7 +3,7 @@
    URL and reports whether Google stored them. Plus a honeypot, a loading state and a success / error message.
    The form id must be listed in FORMS in api/form-submit.js.
    The questions in dmc-2026-survey.html mirror the Google Form one to one. Option values must match the form's options
-   exactly (including "Definately"), or Google rejects the response. If a question is edited, deleted or re-created in the
+   exactly, or Google rejects the response. If a question is edited, deleted or re-created in the
    form, re-read the entry ids and options (the form's FB_PUBLIC_LOAD_DATA_) and update both files.
    The page keeps nothing: no storage, no cookies. */
 (function(){
