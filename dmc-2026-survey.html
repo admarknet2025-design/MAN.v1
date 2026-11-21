@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DMC 2026: post-event survey</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Thank you for being part of DMC 2026. Two minutes, please. Your answers help us make DMC 2027 bigger and better.">
+<meta name="theme-color" content="#1C1C1C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Marketers &amp; Advertisers Network">
+<meta property="og:locale" content="en_GH">
+<meta property="og:title" content="DMC 2026: post-event survey">
+<meta property="og:description" content="Two minutes, please. Your answers help us make DMC 2027 bigger and better.">
+<meta property="og:url" content="https://mangh.org/dmc-2026-survey">
+<meta property="og:image" content="https://mangh.org/assets/og-dmc-2026.png?v=9e252553">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DMC 2026: post-event survey">
+<meta name="twitter:description" content="Two minutes, please. Your answers help us make DMC 2027 bigger and better.">
+<meta name="twitter:image" content="https://mangh.org/assets/og-dmc-2026.png?v=9e252553">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v=9e4699bc">
+<link rel="stylesheet" href="/assets/tools.css?v=3ab0dc9e">
+<style>
+/* Same frame as /breakouts. The questions mirror the Google Form "DMC 2026 survey" one to one (wording, order, options, required). */
+body{background:#0D0D0D;color:var(--cr)}
+.tool-top{position:relative;overflow:hidden}
+.tool-top .dmc-planes{right:0;top:0;width:55%;height:100%}
+.tool-top .in{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:28px 32px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tool-top .dmc-pill{font-size:11px}.tool-top .dmc-head{font-size:22px}
+.bk{max-width:980px;margin:0 auto;padding:40px 32px 32px}
+.bk .sl{margin-bottom:14px}
+.bk h1{font-size:clamp(30px,6.4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--cr);margin:0 0 14px}
+.bk-lead{font-size:16px;line-height:1.6;color:rgba(244,239,230,.82);margin:0;max-width:560px}
+.sv .jform{gap:30px}
+.sv .q{border:0;padding:0;margin:0;min-width:0}
+.sv .q > legend,.sv .q-label{display:block;padding:0;margin:0 0 12px;font-size:16px;font-weight:700;line-height:1.4;color:var(--ob);letter-spacing:0;text-transform:none}
+.sv .req{color:#b3361f;margin-left:3px}
+.sv .opt{font-weight:500;color:rgba(28,28,28,.6)}
+/* 1-5 / 1-10 scales */
+.scale{display:flex;flex-wrap:wrap;gap:6px}
+.scale label{position:relative;flex:1 1 0;min-width:40px;cursor:pointer}
+.scale input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.scale span{display:flex;align-items:center;justify-content:center;height:46px;background:#fff;border:1px solid rgba(28,28,28,.14);font-size:15px;font-weight:700;color:var(--ob)}
+.scale input:checked + span{background:var(--te);border-color:var(--te);color:#fff}
+.scale input:focus-visible + span{outline:2px solid var(--te);outline-offset:2px}
+.scale-ends{display:flex;justify-content:space-between;gap:12px;margin-top:6px;font-size:12px;color:rgba(28,28,28,.68)}
+/* rating grids: one row per item, choices as chips */
+.grid-row{background:#fff;border:1px solid rgba(28,28,28,.1);padding:14px 14px 12px;margin:0 0 8px;min-width:0}
+.grid-row legend{float:left;width:100%;padding:0;margin:0 0 10px;font-size:14px;font-weight:700;color:var(--ob)}
+.chips{clear:both;display:flex;flex-wrap:wrap;gap:6px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:inline-block;padding:8px 12px;border:1px solid rgba(28,28,28,.16);font-size:13px;color:var(--ob);background:#fff}
+.chips input:checked + span{background:var(--te);border-color:var(--te);color:#fff}
+.chips input:focus-visible + span{outline:2px solid var(--te);outline-offset:2px}
+.sv .jchecks-grid{grid-template-columns:1fr 1fr}
+.other-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(28,28,28,.12);padding:8px 14px}
+.other-row input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--te);flex:none}
+.other-row input[type=text]{flex:1;min-width:0;border:0;border-bottom:1px solid rgba(28,28,28,.2);padding:6px 2px;font:inherit;font-size:14px;color:var(--ob);background:transparent;outline:none}
+.other-row input[type=text]:focus{border-bottom-color:var(--te)}
+.q-err{display:none;font-size:13px;font-weight:600;color:#b3361f;margin:8px 0 0}
+.q.bad .q-err{display:block}
+.q.bad > legend,.q.bad .q-label{color:#b3361f}
+.bk-foot{max-width:980px;margin:0 auto;padding:28px 32px calc(36px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
+.bk-foot .h26-ey{margin:0}
+.bk-foot .by{display:flex;align-items:center;gap:12px}
+.bk-foot .by img{display:block;height:34px;width:auto}
+@media(max-width:700px){
+  .tool-top .in{padding:22px 16px 0}
+  .bk{padding:28px 16px 20px}
+  .bk-foot{padding:24px 16px calc(32px + env(safe-area-inset-bottom))}
+  .sv.join-sec{padding:48px 16px}
+  .sv .jchecks-grid{grid-template-columns:1fr}
+  .scale.ten{display:grid;grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="dmc-kente" aria-hidden="true" style="height:12px"></div>
+<header class="tool-top"><div class="dmc-planes" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="fade"></i></div>
+  <div class="in"><span class="dmc-pill">DMC 2026 · Accra</span><span class="dmc-head" aria-hidden="true">Built to <span class="s dmc-foil">Scale</span></span></div></header>
+<main class="bk" id="main">
+  <span class="sl">Digital Marketers’ Conference 2026</span>
+  <h1>Post-event survey</h1>
+  <p class="bk-lead">Thank you for being part of DMC 2026, the Digital Marketers’ Conference. Two minutes, please. Your answers help us make DMC 2027 bigger and better.</p>
+</main>
+<section class="join-sec sv" id="survey">
+  <div class="join-inner">
+    <span class="sl">Your feedback</span>
+    <h2>Tell us how<br>it went</h2>
+    <p class="join-sub">Questions marked <span style="color:#b3361f;font-weight:700">*</span> are required.</p>
+
+    <div id="survey-form-wrap">
+      <form class="jform" id="surveyForm" novalidate>
+
+        <fieldset class="q" data-req="radio" data-name="overall">
+          <legend>Overall, how would you rate Digital Marketers' Conference 2026?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="scale">
+            <label><input type="radio" name="overall" value="1" aria-label="1, Poor"><span>1</span></label>
+            <label><input type="radio" name="overall" value="2"><span>2</span></label>
+            <label><input type="radio" name="overall" value="3"><span>3</span></label>
+            <label><input type="radio" name="overall" value="4"><span>4</span></label>
+            <label><input type="radio" name="overall" value="5" aria-label="5, Excellent"><span>5</span></label>
+          </div>
+          <div class="scale-ends" aria-hidden="true"><span>Poor</span><span>Excellent</span></div>
+          <p class="q-err">Choose a rating.</p>
+        </fieldset>
+
+        <fieldset class="q" data-req="radio" data-name="recommend">
+          <legend>How likely are you to recommend DMC to a friend or colleague?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="scale ten">
+            <label><input type="radio" name="recommend" value="1" aria-label="1, Not at all likely"><span>1</span></label>
+            <label><input type="radio" name="recommend" value="2"><span>2</span></label>
+            <label><input type="radio" name="recommend" value="3"><span>3</span></label>
+            <label><input type="radio" name="recommend" value="4"><span>4</span></label>
+            <label><input type="radio" name="recommend" value="5"><span>5</span></label>
+            <label><input type="radio" name="recommend" value="6"><span>6</span></label>
+            <label><input type="radio" name="recommend" value="7"><span>7</span></label>
+            <label><input type="radio" name="recommend" value="8"><span>8</span></label>
+            <label><input type="radio" name="recommend" value="9"><span>9</span></label>
+            <label><input type="radio" name="recommend" value="10" aria-label="10, Extremely likely"><span>10</span></label>
+          </div>
+          <div class="scale-ends" aria-hidden="true"><span>Not at all Likely</span><span>Extremely Likely</span></div>
+          <p class="q-err">Choose a number.</p>
+        </fieldset>
+
+        <div class="q" data-req="grid" data-name="sessions" role="group" aria-labelledby="q3">
+          <p class="q-label" id="q3">How would you rate each session?<span class="req" aria-hidden="true">*</span></p>
+          <div data-grid="sessions" data-cols="Poor|Fair|Good|Very Good|Excellent|Didn't Attend">
+            <fieldset class="grid-row" data-row="s_keynote"><legend>Keynote: Russel Eni</legend></fieldset>
+            <fieldset class="grid-row" data-row="s_yourself"><legend>Build Yourself: presentation and panel</legend></fieldset>
+            <fieldset class="grid-row" data-row="s_team"><legend>Build Your Team: presentation and panel</legend></fieldset>
+            <fieldset class="grid-row" data-row="s_work"><legend>Build Your Work: panel (COSM live)</legend></fieldset>
+            <fieldset class="grid-row" data-row="s_pitch"><legend>Pitching Yourself: ice breaker and masterclass</legend></fieldset>
+            <fieldset class="grid-row" data-row="s_breakout"><legend>Breakout session</legend></fieldset>
+          </div>
+          <p class="q-err">Rate every session (choose “Didn't Attend” if you missed one).</p>
+        </div>
+
+        <div class="q jfield" data-req="text" data-name="takeaway">
+          <label class="q-label" for="sv-takeaway">What’s the one most valuable thing you’re taking away from the day?<span class="req" aria-hidden="true">*</span></label>
+          <textarea id="sv-takeaway" name="takeaway" rows="3"></textarea>
+          <p class="q-err">Please answer this question.</p>
+        </div>
+
+        <div class="q" data-req="grid" data-name="experience" role="group" aria-labelledby="q5">
+          <p class="q-label" id="q5">How would you rate the following?<span class="req" aria-hidden="true">*</span></p>
+          <div data-grid="experience" data-cols="Poor|Fair|Good|Very Good|Excellent">
+            <fieldset class="grid-row" data-row="e_venue"><legend>Venue (British Council)</legend></fieldset>
+            <fieldset class="grid-row" data-row="e_timing"><legend>Timing and pace of the day</legend></fieldset>
+            <fieldset class="grid-row" data-row="e_registration"><legend>Registration and check-in</legend></fieldset>
+            <fieldset class="grid-row" data-row="e_ticketing"><legend>Ticketing and payment (MojoLife)</legend></fieldset>
+            <fieldset class="grid-row" data-row="e_networking"><legend>Networking opportunities</legend></fieldset>
+          </div>
+          <p class="q-err">Rate every row.</p>
+        </div>
+
+        <fieldset class="q jchecks" data-req="radio" data-name="value">
+          <legend>How would you rate the value for your GH₵ 150 ticket?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="radio" name="value" value="Excellent Value"><span>Excellent Value</span></label>
+            <label class="jcheck"><input type="radio" name="value" value="Good Value"><span>Good Value</span></label>
+            <label class="jcheck"><input type="radio" name="value" value="Fair Value"><span>Fair Value</span></label>
+            <label class="jcheck"><input type="radio" name="value" value="Poor Value"><span>Poor Value</span></label>
+          </div>
+          <p class="q-err">Choose one.</p>
+        </fieldset>
+
+        <fieldset class="q jchecks" data-name="partners">
+          <legend>Which of our partners do you remember from the day?</legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="checkbox" name="partners" value="MojoPay"><span>MojoPay</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="FIDO"><span>FIDO</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="Generation Ghana"><span>Generation Ghana</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="Jobberman"><span>Jobberman</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="mNotify"><span>mNotify</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="Tech Labari"><span>Tech Labari</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="Kasad3"><span>Kasad3</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="Koin Photography"><span>Koin Photography</span></label>
+            <label class="jcheck"><input type="checkbox" name="partners" value="None of these"><span>None of these</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="q jchecks" data-req="check" data-name="topics">
+          <legend>What topics would you like at DMC 2027?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="checkbox" name="topics" value="AI in Marketing"><span>AI in Marketing</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Performance Marketing and Media Buying"><span>Performance Marketing and Media Buying</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Content and Social Media"><span>Content and Social Media</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Personal Branding and Career Growth"><span>Personal Branding and Career Growth</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Leadership and Building Teams"><span>Leadership and Building Teams</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Data and Analytics"><span>Data and Analytics</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Creative &amp; Design"><span>Creative &amp; Design</span></label>
+            <label class="jcheck"><input type="checkbox" name="topics" value="Marketing in Fintech &amp; Payments"><span>Marketing in Fintech &amp; Payments</span></label>
+          </div>
+          <div class="other-row" style="margin-top:8px"><input type="checkbox" name="topics_other_on" id="topics-other-on" aria-label="Other topic"><label for="topics-other-on" style="font-size:14px;color:var(--ob)">Other:</label><input type="text" name="topics_other" id="topics-other" aria-label="Other topic, please describe" maxlength="300"></div>
+          <p class="q-err">Choose at least one topic (or fill in Other).</p>
+        </fieldset>
+
+        <fieldset class="q jchecks" data-req="radio" data-name="attend">
+          <legend>How likely are you to attend DMC 2027?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="radio" name="attend" value="Definately"><span>Definately</span></label>
+            <label class="jcheck"><input type="radio" name="attend" value="Probably"><span>Probably</span></label>
+            <label class="jcheck"><input type="radio" name="attend" value="Not Sure Yet"><span>Not Sure Yet</span></label>
+            <label class="jcheck"><input type="radio" name="attend" value="Unlikely"><span>Unlikely</span></label>
+          </div>
+          <p class="q-err">Choose one.</p>
+        </fieldset>
+
+        <div class="q jfield" data-name="improve">
+          <label class="q-label" for="sv-improve">What’s one thing we should improve for next year?</label>
+          <textarea id="sv-improve" name="improve" rows="3"></textarea>
+        </div>
+
+        <fieldset class="q jchecks" data-name="sponsors">
+          <legend>What would you like to see more of from sponsors and partners at DMC?</legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Product demos"><span>Product demos</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Hands-on workshops"><span>Hands-on workshops</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Job and internship opportunities"><span>Job and internship opportunities</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Giveaways"><span>Giveaways</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Networking sessions"><span>Networking sessions</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Mentorship"><span>Mentorship</span></label>
+            <label class="jcheck"><input type="checkbox" name="sponsors" value="Discounts and offers"><span>Discounts and offers</span></label>
+          </div>
+          <div class="other-row" style="margin-top:8px"><input type="checkbox" name="sponsors_other_on" id="sponsors-other-on" aria-label="Other"><label for="sponsors-other-on" style="font-size:14px;color:var(--ob)">Other:</label><input type="text" name="sponsors_other" id="sponsors-other" aria-label="Other, please describe" maxlength="300"></div>
+        </fieldset>
+
+        <fieldset class="q jchecks" data-req="radio" data-name="workshops">
+          <legend>Would you be interested in MAN workshops or bootcamps?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="radio" name="workshops" value="Yes"><span>Yes</span></label>
+            <label class="jcheck"><input type="radio" name="workshops" value="No"><span>No</span></label>
+          </div>
+          <p class="q-err">Choose one.</p>
+        </fieldset>
+
+        <div class="jform-row">
+          <div class="q jfield" data-name="name">
+            <label class="q-label" for="sv-name">Your name <span class="opt">(optional)</span></label>
+            <input id="sv-name" type="text" name="name" autocomplete="name" maxlength="200">
+          </div>
+          <div class="q jfield" data-req="email" data-name="email">
+            <label class="q-label" for="sv-email">Your email <span class="opt">(optional)</span></label>
+            <input id="sv-email" type="email" name="email" autocomplete="email" maxlength="200">
+            <p class="q-err">Please enter a valid email, or leave this blank.</p>
+          </div>
+        </div>
+
+        <fieldset class="q jchecks" data-name="quote">
+          <legend>Quoting your feedback</legend>
+          <div class="jchecks-grid" style="grid-template-columns:1fr">
+            <label class="jcheck"><input type="checkbox" name="quote" value="You may quote my feedback."><span>You may quote my feedback.</span></label>
+          </div>
+        </fieldset>
+
+        <div class="hp" aria-hidden="true"><label for="sv-fax">Leave this empty<input id="sv-fax" name="fax" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <div>
+          <button type="submit" class="btn-join" id="surveyBtn">Send my feedback</button>
+        </div>
+        <p class="jform-note"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc9W9k-Ok1aW-0fdTT3Pvnyxi8bzf25zyyIa2o0y9aKeHDbdQ/viewform" target="_blank" rel="noopener noreferrer">Having trouble? Open the survey in a new tab</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+<footer class="bk-foot">
+  <p class="h26-ey sp-credit"><span>Powered by</span><a href="https://mojo-pay.com" target="_blank" rel="noopener sponsored"><img src="/assets/partners26/mojopay-logo-blue.svg" alt="MojoPay" width="1145" height="193"></a></p>
+  <p class="h26-ey by"><span>Organized by</span><a href="/" aria-label="M·A·N (Marketers &amp; Advertisers Network)"><img src="/assets/man-logo.png" width="164" height="48" alt="M·A·N"></a></p>
+</footer>
+<script src="/assets/survey.js?v=b756b955" defer></script>
+</body>
+</html>

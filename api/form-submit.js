@@ -1,4 +1,4 @@
-/* POST /api/form-submit: relays the site's Google Form submissions (community sign-up, DMC 2027 partner interest, DMC 2026 breakout choice).
+/* POST /api/form-submit: relays the site's Google Form submissions (community sign-up, DMC 2027 partner interest, DMC 2026 breakout choice, DMC 2026 post-event survey).
 
    Why a relay: a browser can only POST to docs.google.com in `no-cors` mode, whose response is opaque, so the page
    cannot tell a stored response (HTTP 200) from a rejected one (HTTP 400, e.g. a dropdown value that is not one of the
@@ -14,11 +14,12 @@
 const FORMS = {
   '1FAIpQLSeqrp_YIh4-8Hjd5M6rkfoetbzMpURy_eq1PN4q_wkoKypWJQ': 'community sign-up (index.html, assets/app.js)',
   '1FAIpQLSeTARgNGhqSIpnaDbnM1nkFLywGVH9CImomrSNBrZfVC6irVg': 'DMC 2027 partner interest (partners.html, assets/partners.js)',
-  '1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q': 'DMC 2026 breakout choice (breakouts.html, assets/breakouts.js)'
+  '1FAIpQLSe4jbGTpQMYBdIOwCc1dQ-ZxfUG02sPNsdjK68KtUVhe8Mv5Q': 'DMC 2026 breakout choice (breakouts.html, assets/breakouts.js)',
+  '1FAIpQLSc9W9k-Ok1aW-0fdTT3Pvnyxi8bzf25zyyIa2o0y9aKeHDbdQ': 'DMC 2026 post-event survey (dmc-2026-survey.html, assets/survey.js)'
 };
 
 const MAX_BODY = 16 * 1024;
-const FIELD = /^entry\.\d+$/;
+const FIELD = /^entry\.\d+(\.other_option_response)?$/; /* plus the text of an "Other" choice */
 
 function readJson(req) {
   if (req.body && typeof req.body === 'object') return Promise.resolve(req.body);
