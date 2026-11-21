@@ -1,7 +1,7 @@
 /* GET /live, /live/screen, /live/control (rewritten to this function in vercel.json) — the three DMC Live pages.
      /live          attendee phone view: public, no login, noindex
      /live/screen   projector view: public (the operator opens it on the venue laptop), unlinked, noindex
-     /live/control  operator panel: team login (ADMIN_USER / ADMIN_PASSWORD), never cached
+     /live/control  operator panel: admin login only (ADMIN_USER / ADMIN_PASSWORD; the studio login is refused), never cached
    The pages are static HTML in lib/live/; they read their data from /api/live-state and /api/live-submit. */
 'use strict';
 

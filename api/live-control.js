@@ -1,4 +1,4 @@
-/* /api/live-control — the DMC Live operator panel's API (team login: ADMIN_USER / ADMIN_PASSWORD, shared with /admin and /studio).
+/* /api/live-control — the DMC Live operator panel's API (admin login only: ADMIN_USER / ADMIN_PASSWORD; the studio login is refused).
      GET  ?view=state          everything the panel shows (sessions, activity, queues, quotes, counters)
      GET  ?view=tki&id=t12     the small preview image of one takeaway card (kept out of the state so it stays light)
      GET  ?export=all|wall|questions|words|polls|takeaways|quotes|analytics    CSV

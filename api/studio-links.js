@@ -11,7 +11,7 @@ const TEMPLATES = ['speaker', 'attending', 'sponsor', 'quote', 'countdown', 'ses
 const SLUG = /^[a-z0-9][a-z0-9-]{0,59}$/;
 
 module.exports = async function handler(req, res) {
-  if (!requireAuth(req, res, 'DMC Studio')) return;
+  if (!requireAuth(req, res, 'DMC Studio', { allowStudio: true })) return;
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'POST only' }); }
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   const slug = String(b.slug || '').toLowerCase();

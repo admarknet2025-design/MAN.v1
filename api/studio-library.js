@@ -13,7 +13,7 @@ const ID = /^[a-z0-9]{6,20}$/;
 const clean = (s, n) => String(s == null ? '' : s).replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 
 module.exports = async function handler(req, res) {
-  if (!requireAuth(req, res, 'DMC Studio')) return;
+  if (!requireAuth(req, res, 'DMC Studio', { allowStudio: true })) return;
   if (!store.configured()) return res.status(503).json({ error: 'The library store is not configured (KV_REST_API_URL / KV_REST_API_TOKEN).' });
   try {
     if (req.method === 'GET') {
