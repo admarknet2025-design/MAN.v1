@@ -90,11 +90,6 @@
       "statusCode": 301
     },
     {
-      "source": "/dmc-2027",
-      "destination": "https://docs.google.com/forms/d/e/1FAIpQLSdwGwi4UH8toxKSgX9K8QiHpFXXtlose5o5URz2eLw8_bxtJQ/viewform",
-      "statusCode": 302
-    },
-    {
       "source": "/docs/:path*",
       "destination": "/",
       "permanent": false

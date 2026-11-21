@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DMC 2027: register your interest</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Register your interest in DMC 2027 and you will hear from the Marketers &amp; Advertisers Network first when the details are ready.">
+<meta name="theme-color" content="#1C1C1C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Marketers &amp; Advertisers Network">
+<meta property="og:locale" content="en_GH">
+<meta property="og:title" content="DMC 2027: register your interest">
+<meta property="og:description" content="Register your interest and hear from us first when the details are ready.">
+<meta property="og:url" content="https://mangh.org/dmc-2027">
+<meta property="og:image" content="https://mangh.org/assets/og-dmc-2026.png?v=9e252553">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DMC 2027: register your interest">
+<meta name="twitter:description" content="Register your interest and hear from us first when the details are ready.">
+<meta name="twitter:image" content="https://mangh.org/assets/og-dmc-2026.png?v=9e252553">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="preload" href="/assets/fonts/archivo-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css?v=9e4699bc">
+<link rel="stylesheet" href="/assets/tools.css?v=3ab0dc9e">
+<style>
+/* Same frame as /dmc-2026-survey. The questions mirror the Google Form "DMC 2027: be first to know" one to one (wording, order, options, required). */
+body{background:#0D0D0D;color:var(--cr)}
+.tool-top{position:relative;overflow:hidden}
+.tool-top .dmc-planes{right:0;top:0;width:55%;height:100%}
+.tool-top .in{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:28px 32px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tool-top .dmc-pill{font-size:11px}.tool-top .dmc-head{font-size:22px}
+.bk{max-width:980px;margin:0 auto;padding:40px 32px 32px}
+.bk .sl{margin-bottom:14px}
+.bk h1{font-size:clamp(30px,6.4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--cr);margin:0 0 14px}
+.bk-lead{font-size:16px;line-height:1.6;color:rgba(244,239,230,.82);margin:0;max-width:560px}
+.sv .jform{gap:30px}
+.sv .q{border:0;padding:0;margin:0;min-width:0}
+.sv .q > legend,.sv .q-label{display:block;padding:0;margin:0 0 12px;font-size:16px;font-weight:700;line-height:1.4;color:var(--ob);letter-spacing:0;text-transform:none}
+.sv .req{color:#b3361f;margin-left:3px}
+.sv .opt{font-weight:500;color:rgba(28,28,28,.6)}
+/* 1-5 / 1-10 scales */
+.scale{display:flex;flex-wrap:wrap;gap:6px}
+.scale label{position:relative;flex:1 1 0;min-width:40px;cursor:pointer}
+.scale input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.scale span{display:flex;align-items:center;justify-content:center;height:46px;background:#fff;border:1px solid rgba(28,28,28,.14);font-size:15px;font-weight:700;color:var(--ob)}
+.scale input:checked + span{background:var(--te);border-color:var(--te);color:#fff}
+.scale input:focus-visible + span{outline:2px solid var(--te);outline-offset:2px}
+.scale-ends{display:flex;justify-content:space-between;gap:12px;margin-top:6px;font-size:12px;color:rgba(28,28,28,.68)}
+/* rating grids: one row per item, choices as chips */
+.grid-row{background:#fff;border:1px solid rgba(28,28,28,.1);padding:14px 14px 12px;margin:0 0 8px;min-width:0}
+.grid-row legend{float:left;width:100%;padding:0;margin:0 0 10px;font-size:14px;font-weight:700;color:var(--ob)}
+.chips{clear:both;display:flex;flex-wrap:wrap;gap:6px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:inline-block;padding:8px 12px;border:1px solid rgba(28,28,28,.16);font-size:13px;color:var(--ob);background:#fff}
+.chips input:checked + span{background:var(--te);border-color:var(--te);color:#fff}
+.chips input:focus-visible + span{outline:2px solid var(--te);outline-offset:2px}
+.sv .jchecks-grid{grid-template-columns:1fr 1fr}
+.other-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(28,28,28,.12);padding:8px 14px}
+.other-row input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--te);flex:none}
+.other-row input[type=text]{flex:1;min-width:0;border:0;border-bottom:1px solid rgba(28,28,28,.2);padding:6px 2px;font:inherit;font-size:14px;color:var(--ob);background:transparent;outline:none}
+.other-row input[type=text]:focus{border-bottom-color:var(--te)}
+.q-err{display:none;font-size:13px;font-weight:600;color:#b3361f;margin:8px 0 0}
+.q.bad .q-err{display:block}
+.q.bad > legend,.q.bad .q-label{color:#b3361f}
+.bk-foot{max-width:980px;margin:0 auto;padding:28px 32px calc(36px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
+.bk-foot .h26-ey{margin:0}
+.bk-foot .by{display:flex;align-items:center;gap:12px}
+.bk-foot .by img{display:block;height:34px;width:auto}
+@media(max-width:700px){
+  .tool-top .in{padding:22px 16px 0}
+  .bk{padding:28px 16px 20px}
+  .bk-foot{padding:24px 16px calc(32px + env(safe-area-inset-bottom))}
+  .sv.join-sec{padding:48px 16px}
+  .sv .jchecks-grid{grid-template-columns:1fr}
+  .scale.ten{display:grid;grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="dmc-kente" aria-hidden="true" style="height:12px"></div>
+<header class="tool-top"><div class="dmc-planes" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="fade"></i></div>
+  <div class="in"><span class="dmc-pill">DMC 2027</span><span class="dmc-head" aria-hidden="true">Bigger. <span class="s dmc-foil">Bolder.</span> Better.</span></div></header>
+<main class="bk" id="main">
+  <span class="sl">Digital Marketers’ Conference 2027</span>
+  <h1>Register your interest</h1>
+  <p class="bk-lead">DMC 2027 is coming back bigger, bolder and better. Leave your details and you will be the first to hear when the details are ready.</p>
+</main>
+<section class="join-sec sv" id="interest">
+  <div class="join-inner">
+    <span class="sl">Be first to know</span>
+    <h2>Tell us how you’d<br>like to be part of it</h2>
+    <p class="join-sub">Questions marked <span style="color:#b3361f;font-weight:700">*</span> are required.</p>
+
+    <div id="interest-form-wrap">
+      <form class="jform" id="interestForm" novalidate>
+
+        <div class="jform-row">
+          <div class="q jfield" data-req="text" data-name="name">
+            <label class="q-label" for="in-name">Full name<span class="req" aria-hidden="true">*</span></label>
+            <input id="in-name" type="text" name="name" autocomplete="name" maxlength="200">
+            <p class="q-err">Please enter your name.</p>
+          </div>
+          <div class="q jfield" data-req="emailreq" data-name="email">
+            <label class="q-label" for="in-email">Email address<span class="req" aria-hidden="true">*</span></label>
+            <input id="in-email" type="email" name="email" autocomplete="email" maxlength="200">
+            <p class="q-err">Please enter a valid email address.</p>
+          </div>
+        </div>
+
+        <div class="jform-row">
+          <div class="q jfield" data-name="phone">
+            <label class="q-label" for="in-phone">Phone or WhatsApp number <span class="opt">(optional)</span></label>
+            <input id="in-phone" type="tel" name="phone" autocomplete="tel" maxlength="60">
+          </div>
+          <div class="q jfield" data-name="company">
+            <label class="q-label" for="in-company">Company or organisation <span class="opt">(optional)</span></label>
+            <input id="in-company" type="text" name="company" autocomplete="organization" maxlength="200">
+          </div>
+        </div>
+
+        <div class="q jfield" data-name="role">
+          <label class="q-label" for="in-role">Role or job title <span class="opt">(optional)</span></label>
+          <input id="in-role" type="text" name="role" autocomplete="organization-title" maxlength="200">
+        </div>
+
+        <fieldset class="q jchecks" data-req="radio" data-name="was2026">
+          <legend>Were you at DMC 2026?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="radio" name="was2026" value="Yes"><span>Yes</span></label>
+            <label class="jcheck"><input type="radio" name="was2026" value="No"><span>No</span></label>
+          </div>
+          <p class="q-err">Choose one.</p>
+        </fieldset>
+
+        <fieldset class="q jchecks" data-req="check" data-name="part">
+          <legend>How would you like to be part of DMC 2027?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="jchecks-grid">
+            <label class="jcheck"><input type="checkbox" name="part" value="Attend"><span>Attend</span></label>
+            <label class="jcheck"><input type="checkbox" name="part" value="Speak"><span>Speak</span></label>
+            <label class="jcheck"><input type="checkbox" name="part" value="Sponsor or partner"><span>Sponsor or partner</span></label>
+            <label class="jcheck"><input type="checkbox" name="part" value="Volunteer"><span>Volunteer</span></label>
+          </div>
+          <p class="q-err">Choose at least one.</p>
+        </fieldset>
+
+        <div class="q jfield" data-name="wish">
+          <label class="q-label" for="in-wish">Anything you would like to see at DMC 2027? <span class="opt">(optional)</span></label>
+          <textarea id="in-wish" name="wish" rows="3"></textarea>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label for="in-fax">Leave this empty<input id="in-fax" name="fax" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <div>
+          <button type="submit" class="btn-join" id="interestBtn">Register my interest</button>
+        </div>
+        <p class="jform-note"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdwGwi4UH8toxKSgX9K8QiHpFXXtlose5o5URz2eLw8_bxtJQ/viewform" target="_blank" rel="noopener noreferrer">Having trouble? Open the form in a new tab</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+<footer class="bk-foot">
+  <p class="h26-ey by"><span>Organized by</span><a href="/" aria-label="M·A·N (Marketers &amp; Advertisers Network)"><img src="/assets/man-logo.png" width="164" height="48" alt="M·A·N"></a></p>
+</footer>
+<script src="/assets/dmc-2027.js?v=f9db8d64" defer></script>
+</body>
+</html>
