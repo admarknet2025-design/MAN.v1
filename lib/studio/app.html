@@ -717,7 +717,10 @@ function loadLibrary() {
 $('libSel').addEventListener('change', function () { if (this.value) applyPerson('lib:' + this.value).then(queuePreview); });
 $('libDel').addEventListener('click', function () {
   var id = $('libSel').value; if (!id || !confirm('Remove this person from the library?')) return;
-  fetch('/api/studio-library?id=' + encodeURIComponent(id), { method: 'DELETE' }).then(loadLibrary);
+  fetch('/api/studio-library?id=' + encodeURIComponent(id), { method: 'DELETE' }).then(function (r) {
+    if (r.status === 403) alert('Only the admin login can remove people from the library.');
+    return loadLibrary();
+  });
 });
 
 /* ------------------------------------------------------------------ boot */

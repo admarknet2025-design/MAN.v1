@@ -7,7 +7,7 @@ const path = require('path');
 const { requireAuth } = require('./_auth');
 
 module.exports = function handler(req, res) {
-  if (!requireAuth(req, res, 'DMC Studio')) return;
+  if (!requireAuth(req, res, 'DMC Studio', { allowStudio: true })) return;
   if (req.method !== 'GET' && req.method !== 'HEAD') { res.setHeader('Allow', 'GET, HEAD'); return res.status(405).send('GET only'); }
   const dir = path.join(__dirname, '..', 'lib', 'studio');
   const html = fs.readFileSync(path.join(dir, 'app.html'), 'utf8');

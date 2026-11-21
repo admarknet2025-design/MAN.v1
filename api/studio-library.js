@@ -3,17 +3,17 @@
      GET  ?                 list of saved people (no photos)
      GET  ?id=<id>          one person including the cropped photo (data URL)
      POST { name, title, company, photo, permission: true }   save
-     DELETE ?id=<id>        remove */
+     DELETE ?id=<id>        remove (admin login only: the studio login gets 403) */
 'use strict';
 
 const store = require('./_store');
-const { requireAuth } = require('./_auth');
+const { requireAuth, authorised } = require('./_auth');
 
 const ID = /^[a-z0-9]{6,20}$/;
 const clean = (s, n) => String(s == null ? '' : s).replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 
 module.exports = async function handler(req, res) {
-  if (!requireAuth(req, res, 'DMC Studio')) return;
+  if (!requireAuth(req, res, 'DMC Studio', { allowStudio: true })) return;
   if (!store.configured()) return res.status(503).json({ error: 'The library store is not configured (KV_REST_API_URL / KV_REST_API_TOKEN).' });
   try {
     if (req.method === 'GET') {
@@ -36,6 +36,8 @@ module.exports = async function handler(req, res) {
       return res.status(201).json({ id });
     }
     if (req.method === 'DELETE') {
+      /* deleting is for the admin login only; authorised() without options checks ADMIN_USER / ADMIN_PASSWORD alone */
+      if (!authorised(req)) return res.status(403).json({ error: 'Only the admin login can remove people from the library.' });
       const id = req.query && req.query.id;
       if (!ID.test(id || '')) return res.status(400).json({ error: 'bad id' });
       await store.libDelete(id);
